@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-import { Switch } from "@patternfly/react-core";
+import { Flex, Switch } from "@patternfly/react-core";
 
 export const ThemeSwitcher: React.FunctionComponent = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
@@ -54,18 +54,20 @@ export const ThemeSwitcher: React.FunctionComponent = () => {
           zIndex: 1000,
         }}
       >
-        <Switch
-          id="theme-switcher"
-          label="Dark Theme"
-          isChecked={isDarkTheme}
-          onChange={handleThemeToggle}
-        />
-        <Switch
-          id="no-glass-switcher"
-          label="No glass"
-          isChecked={isNoGlassTheme}
-          onChange={handleNoGlassToggle}
-        />
+        <Flex>
+          <Switch
+            id="theme-switcher"
+            label="Dark theme"
+            isChecked={isDarkTheme}
+            onChange={handleThemeToggle}
+          />
+          <Switch
+            id="no-glass-switcher"
+            label="No glass"
+            isChecked={isNoGlassTheme}
+            onChange={handleNoGlassToggle}
+          />
+        </Flex>
       </div>
     </Fragment>
   );
