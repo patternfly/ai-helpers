@@ -191,5 +191,9 @@ body {
   background-image: url(../assets/Wallpaper-dark.png);
 }
 
+:where(.pf-v6-theme-dark.pf-background-red) body {
+  background-image: url(../assets/rh-wallpaper-dark.png);
+}
+
 :root {
 }
