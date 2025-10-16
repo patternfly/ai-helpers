@@ -26,6 +26,8 @@ import imgAvatar from "../assets/avatarImg.svg?url";
 
 import { CompassIntegrations } from "./CompassIntegrations";
 import { CompassAutomations } from "./CompassAutomations";
+import { CompassDashboard } from "./CompassDashboard";
+import { CompassContent } from "./CompassContent";
 import { BrandLogo } from "./BrandLogo";
 
 const aiExperienceIcon = (
@@ -127,11 +129,7 @@ export const Compass: React.FunctionComponent = () => {
             component={TabsComponent.nav}
             aria-label="Tabs in the nav element example"
           >
-            <Tab
-              eventKey={0}
-              title={<TabTitleText>Dashboard</TabTitleText>}
-              isDisabled
-            />
+            <Tab eventKey={0} title={<TabTitleText>Dashboard</TabTitleText>} />
             <Tab
               eventKey={1}
               title={<TabTitleText>Builder</TabTitleText>}
@@ -215,11 +213,22 @@ export const Compass: React.FunctionComponent = () => {
         </ActionList>
       </div>
       <div id="pf-compass__main" className="compass__main">
-        {activeSection === 4 && activeSubsection === 1 ? (
-          <CompassIntegrations />
-        ) : (
-          <CompassAutomations />
-        )}
+        {(() => {
+          switch (activeSection) {
+            case 0:
+              return <CompassDashboard />;
+            case 2:
+              return <CompassAutomations />;
+            case 4:
+              if (activeSubsection === 1) {
+                return <CompassIntegrations />;
+              } else {
+                return <CompassContent />;
+              }
+            default:
+              return <CompassDashboard />;
+          }
+        })()}
       </div>
       <div id="pf-compass__east" className="compass__panel--end">
         <ActionList className="pf-m-vertical">
