@@ -14,7 +14,6 @@ import {
   SearchInput,
   ToggleGroup,
   ToggleGroupItem,
-  Gallery,
   MenuToggle,
   MenuToggleElement,
   Dropdown,
@@ -32,7 +31,6 @@ import { ActionsColumn } from "@patternfly/react-table";
 
 import { DataViewTable } from "@patternfly/react-data-view/dist/dynamic/DataViewTable";
 import { DataViewToolbar } from "@patternfly/react-data-view/dist/dynamic/DataViewToolbar";
-import { DataViewFilters } from "@patternfly/react-data-view/dist/dynamic/DataViewFilters";
 import { DataViewTextFilter } from "@patternfly/react-data-view/dist/dynamic/DataViewTextFilter";
 import ThIcon from "@patternfly/react-icons/dist/esm/icons/th-icon";
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";

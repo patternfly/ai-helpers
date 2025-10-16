@@ -4,14 +4,17 @@ import { Flex, Switch } from "@patternfly/react-core";
 export const ThemeSwitcher: React.FunctionComponent = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const [isNoGlassTheme, setNoGlassTheme] = useState(true);
+  const [isRedBackground, setIsRedBackground] = useState(false);
 
   useEffect(() => {
     // Check if dark theme is already applied
     const htmlElement = document.documentElement;
     const hasDarkClass = htmlElement.classList.contains("pf-v6-theme-dark");
     const hasNoGlass = htmlElement.classList.contains("no-glass");
+    const hasRedClass = htmlElement.classList.contains("pf-background-red");
     setIsDarkTheme(hasDarkClass);
     setNoGlassTheme(hasNoGlass);
+    setIsRedBackground(hasRedClass);
   }, []);
 
   const handleThemeToggle = (
@@ -44,6 +47,21 @@ export const ThemeSwitcher: React.FunctionComponent = () => {
     setNoGlassTheme(checked);
   };
 
+  const handleRedToggle = (
+    _evt: React.FormEvent<HTMLInputElement>,
+    checked: boolean
+  ) => {
+    const htmlElement = document.documentElement;
+
+    if (checked) {
+      htmlElement.classList.add("pf-background-red");
+    } else {
+      htmlElement.classList.remove("pf-background-red");
+    }
+
+    setIsRedBackground(checked);
+  };
+
   return (
     <Fragment>
       <div
@@ -54,7 +72,7 @@ export const ThemeSwitcher: React.FunctionComponent = () => {
           zIndex: 1000,
         }}
       >
-        <Flex>
+        <Flex gap={{ default: "gapSm" }}>
           <Switch
             id="theme-switcher"
             label="Dark theme"
@@ -63,9 +81,15 @@ export const ThemeSwitcher: React.FunctionComponent = () => {
           />
           <Switch
             id="no-glass-switcher"
-            label="No glass"
-            isChecked={isNoGlassTheme}
-            onChange={handleNoGlassToggle}
+            label="Glass"
+            isChecked={!isNoGlassTheme}
+            onChange={(evt, checked) => handleNoGlassToggle(evt, !checked)}
+          />
+          <Switch
+            id="red-toggle"
+            label="Red"
+            isChecked={isRedBackground}
+            onChange={handleRedToggle}
           />
         </Flex>
       </div>
