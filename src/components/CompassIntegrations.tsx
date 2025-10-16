@@ -4,7 +4,7 @@ import {
   PageSection,
   Card,
   CardBody,
-  CardTitle,
+  Content,
   CardHeader,
   Button,
   Toolbar,
@@ -22,6 +22,11 @@ import {
   Flex,
   FlexItem,
   Title,
+  DescriptionList,
+  DescriptionListGroup,
+  DescriptionListTerm,
+  DescriptionListDescription,
+  Label,
 } from "@patternfly/react-core";
 import { ActionsColumn } from "@patternfly/react-table";
 
@@ -41,7 +46,8 @@ export const CompassIntegrations: React.FunctionComponent = () => {
       name: "Ansible Automation Platform",
       description:
         "Ansible Automation Platform is an entrprise framework for building and operating IT automation at scale.",
-      status: "Connected",
+      status: "success",
+      statusText: "Connected",
       type: "MCP Server",
       url: "ansible.example.com",
     },
@@ -50,7 +56,8 @@ export const CompassIntegrations: React.FunctionComponent = () => {
       name: "Github",
       description:
         "Github is a code hosting platform for version control and collaboration. ",
-      status: "Disconnected",
+      status: "danger",
+      statusText: "Disconnected",
       type: "Version Control",
       url: "github.example.com",
     },
@@ -59,7 +66,8 @@ export const CompassIntegrations: React.FunctionComponent = () => {
       name: "Kubernetes Cluster",
       description:
         "A Kubernetes cluster is a set of node machines for running containerized applications.",
-      status: "Connected",
+      status: "warning",
+      statusText: "Invalid Fields",
       type: "MCP Server",
       url: "k8s.example.com",
     },
@@ -125,40 +133,73 @@ export const CompassIntegrations: React.FunctionComponent = () => {
           </ToggleGroup>
         </ToolbarContent>
       </Toolbar>
-      <Gallery hasGutter aria-label="Selectable card container">
+      <Flex flexWrap={{ default: "nowrap" }}>
         {integrations.map((product) => (
-          <Card
-            isCompact
-            key={product.name}
-            id={product.name.replace(/ /g, "-")}
-          >
-            <CardHeader
-              actions={{
-                actions: (
-                  <>
-                    <Dropdown
-                      isOpen={false}
-                      onOpenChange={() => {}}
-                      toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
-                        <MenuToggle
-                          ref={toggleRef}
-                          aria-label={`${product.name} actions`}
-                          variant="plain"
-                          icon={<EllipsisVIcon />}
-                        />
-                      )}
-                      popperProps={{ position: "right" }}
-                    />
-                  </>
-                ),
-              }}
+          <FlexItem key={product.name} grow={{ default: "grow" }}>
+            <Card
+              isCompact
+              isFullHeight
+              key={product.name}
+              id={product.name.replace(/ /g, "-")}
             >
-              <CardTitle>{product.name}</CardTitle>
-            </CardHeader>
-            <CardBody>{product.description}</CardBody>
-          </Card>
+              <CardHeader
+                actions={{
+                  actions: (
+                    <>
+                      <Dropdown
+                        isOpen={false}
+                        onOpenChange={() => {}}
+                        toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
+                          <MenuToggle
+                            ref={toggleRef}
+                            aria-label={`${product.name} actions`}
+                            variant="plain"
+                            icon={<EllipsisVIcon />}
+                          />
+                        )}
+                        popperProps={{ position: "right" }}
+                      />
+                    </>
+                  ),
+                }}
+              >
+                <Content component="h4">{product.name}</Content>
+                <Content component="small">{product.type}</Content>
+              </CardHeader>
+              <CardBody isFilled>{product.description}</CardBody>
+              <CardBody>
+                <DescriptionList aria-label="Details">
+                  <DescriptionListGroup>
+                    <DescriptionListTerm>Status</DescriptionListTerm>
+                    <DescriptionListDescription>
+                      <Label
+                        status={
+                          product.status as
+                            | "success"
+                            | "danger"
+                            | "warning"
+                            | "info"
+                            | "custom"
+                            | undefined
+                        }
+                        isCompact
+                      >
+                        {product.statusText}
+                      </Label>
+                    </DescriptionListDescription>
+                  </DescriptionListGroup>
+                  <DescriptionListGroup>
+                    <DescriptionListTerm>Url</DescriptionListTerm>
+                    <DescriptionListDescription>
+                      <a>{product.url}</a>
+                    </DescriptionListDescription>
+                  </DescriptionListGroup>
+                </DescriptionList>
+              </CardBody>
+            </Card>
+          </FlexItem>
         ))}
-      </Gallery>
+      </Flex>
     </>
   );
   const dataViewIntegration = (
@@ -223,6 +264,9 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                   <ToolbarGroup>
                     <ToolbarItem>
                       <Button variant="primary">Add integration</Button>
+                    </ToolbarItem>
+                    <ToolbarItem>
+                      <Button variant="secondary">Test integration</Button>
                     </ToolbarItem>
                   </ToolbarGroup>
                   <ToolbarGroup>
