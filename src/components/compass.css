@@ -11,8 +11,8 @@
   --compass--glass--opacity: 20%;
   --compass--message-bar--min-width: 300px;
   --compass--message-bar--max-width: 600px;
-  /* --compass--glass--bg--blend--light: lighten;
-  --compass--glass--bg--blend--dark: darken; */
+  --compass--input--backdrop-filter: saturate(0.5);
+  --compass--input--backdrop-filter--dark: brightness(0.5);
 
   padding: var(--compass--padding);
   display: grid;
@@ -53,7 +53,10 @@
   grid-area: panel-start;
   padding: var(--pf-t--global--spacer--sm);
   border-radius: var(--pf-t--global--border--radius--pill);
+}
 
+.compass__panel--start,
+.compass__panel--end {
   .pf-v6-c-button.pf-m-plain {
     --pf-v6-c-button--FontSize: var(--pf-t--global--icon--size--font--lg);
   }
@@ -75,6 +78,10 @@
   grid-area: footer;
   display: flex;
   justify-content: center;
+}
+
+.compass__sparkle .pf-v6-c-button__icon {
+  translate: 0.07rem 0.1rem;
 }
 
 .pf-v6-c-tabs {
@@ -126,7 +133,11 @@
   background: color-mix(in srgb, var(--compass--glass--bgcolor) var(--compass--glass--opacity), transparent);
   backdrop-filter: var(--compass--glass--background-filter);
   border: 1px solid var(--compass--glass--border);
-  /* background-blend-mode: light-dark(var(--compass--glass--bg--blend--light), var(--compass--glass--bg--blend--dark)); */
+  backdrop-filter: var(--compass--input--backdrop-filter);
+}
+
+.pf-v6-c-card {
+  border: revert;
 }
 
 .pf-v6-c-tabs {
@@ -171,6 +182,15 @@
   max-width: var(--compass--message-bar--max-width);
 }
 
+.pf-v6-c-text-input-group {
+  --pf-v6-c-text-input-group--BackgroundColor: var(--pf-t--global--background--color--primary--default);
+}
+
+.pf-v6-c-text-input-group,
+.pf-chatbot__message-bar {
+  backdrop-filter: var(--compass--input--backdrop-filter);
+}
+
 :where(a) {
   text-underline-offset: var(--pf-t--global--spacer--xs);
   text-decoration-style: dashed;
@@ -204,7 +224,12 @@ body {
   }
 }
 
+:where(.pf-v6-theme-dark) .compass {
+  --compass--input--backdrop-filter: var(--compass--input--backdrop-filter--dark);
+}
+
 :root {
+  --pf-t--global--background--color--control--default: red;
 }
 
 /*
