@@ -14,6 +14,7 @@ import {
   Avatar,
   DropdownList,
   MenuToggleElement,
+  Flex,
 } from "@patternfly/react-core";
 import { MessageBar } from "@patternfly/chatbot";
 import PlayIcon from "@patternfly/react-icons/dist/esm/icons/play-icon";
@@ -72,9 +73,10 @@ export const Compass: React.FunctionComponent = () => {
           ref={toggleRef}
           onClick={onDropdownToggle}
           isExpanded={isDropdownOpen}
-          icon={<Avatar src={imgAvatar} alt="" size="sm" />}
+          variant="plain"
         >
           Ned Username
+          <Avatar src={imgAvatar} alt="" size="md" />
         </MenuToggle>
       )}
     >

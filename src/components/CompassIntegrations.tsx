@@ -67,7 +67,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
       description:
         "A Kubernetes cluster is a set of node machines for running containerized applications.",
       status: "warning",
-      statusText: "Invalid Fields",
+      statusText: "Invalid fields",
       type: "MCP Server",
       url: "k8s.example.com",
     },
@@ -91,16 +91,65 @@ export const CompassIntegrations: React.FunctionComponent = () => {
     },
   ];
 
-  const rows = integrations.map(({ name, type }) => [
-    name,
-    type,
-    {
-      cell: <ActionsColumn items={rowActions} />,
-      props: { isActionCell: true },
-    },
-  ]);
+  const rows = integrations.map(
+    ({ name, type, status, statusText }, index) => ({
+      id: name,
+      row: [
+        {
+          id: "select",
+          row: name,
+          cell: undefined,
+          props: {
+            select: {
+              index,
+              rowIndex: index,
+              onSelect: () => {},
+              isSelected: false,
+            },
+          },
+        },
+        name,
+        type,
+        {
+          cell: (
+            <Label
+              status={
+                status as
+                  | "success"
+                  | "danger"
+                  | "warning"
+                  | "info"
+                  | "custom"
+                  | undefined
+              }
+              isCompact
+            >
+              {statusText}
+            </Label>
+          ),
+        },
+        {
+          cell: <ActionsColumn items={rowActions} />,
+          props: { isActionCell: true },
+        },
+      ],
+    })
+  );
 
-  const columns = ["Name", "Type"];
+  const columns = [
+    {
+      cell: undefined,
+      props: {
+        select: {
+          onSelect: () => {},
+          isSelected: false,
+        },
+      },
+    },
+    "Name",
+    "Type",
+    "Status",
+  ];
 
   const cardIntegration = (
     <>
@@ -108,7 +157,10 @@ export const CompassIntegrations: React.FunctionComponent = () => {
         <ToolbarContent>
           <ToolbarGroup>
             <ToolbarItem>
-              <SearchInput aria-label="Integrations example search input" />
+              <SearchInput
+                aria-label="Integrations example search input"
+                placeholder="Filter by name"
+              />
             </ToolbarItem>
           </ToolbarGroup>
           <ToggleGroup>
@@ -131,6 +183,17 @@ export const CompassIntegrations: React.FunctionComponent = () => {
               }}
             ></ToggleGroupItem>
           </ToggleGroup>
+          <ToolbarItem variant="pagination" align={{ default: "alignEnd" }}>
+            <Pagination
+              itemCount={523}
+              perPage={20}
+              page={1}
+              onSetPage={() => {}}
+              widgetId="pagination-options-card-view"
+              onPerPageSelect={() => {}}
+              isCompact
+            />
+          </ToolbarItem>
         </ToolbarContent>
       </Toolbar>
       <Flex flexWrap={{ default: "nowrap" }}>
@@ -207,18 +270,11 @@ export const CompassIntegrations: React.FunctionComponent = () => {
       <DataViewToolbar
         clearAllFilters={() => {}}
         filters={
-          <DataViewFilters onChange={() => {}} values={{}}>
-            <DataViewTextFilter
-              filterId="name"
-              title="Name"
-              placeholder="Filter by name"
-            />
-            <DataViewTextFilter
-              filterId="branch"
-              title="Branch"
-              placeholder="Filter by branch"
-            />
-          </DataViewFilters>
+          <DataViewTextFilter
+            filterId="name"
+            title="Name"
+            placeholder="Filter by name"
+          />
         }
         actions={
           <ToggleGroup>
