@@ -187,6 +187,10 @@ body {
   background-size: cover;
 }
 
+:where(.pf-background-red) body {
+  background-image: url(../assets/rh-wallpaper-light.png);
+}
+
 :where(.pf-v6-theme-dark) body {
   background-image: url(../assets/Wallpaper-dark.png);
 }
