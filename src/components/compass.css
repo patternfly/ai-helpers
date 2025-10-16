@@ -6,8 +6,8 @@
   --compass--nav--row-gap: var(--pf-t--global--spacer--md);
   --compass--main--row-gap: var(--pf-t--global--spacer--md);
   --compass--glass--background-filter: blur(40px);
-  --compass--glass--border: var(--pf-t--color--gray--70);
-  --compass--glass--color: #000;
+  --compass--glass--border: var(--pf-t--global--border--color--alt);
+  --compass--glass--bgcolor: var(--pf-t--global--background--color--primary--default);
   --compass--glass--opacity: 50%;
   --compass--message-bar--min-width: 300px;
   --compass--message-bar--max-width: 600px;
@@ -118,7 +118,7 @@
 .compass__panel--start,
 .compass__panel--end,
 .pf-v6-c-tabs {
-  background: color-mix(in srgb, var(--compass--glass--color) var(--compass--glass--opacity), transparent);
+  background: color-mix(in srgb, var(--compass--glass--bgcolor) var(--compass--glass--opacity), transparent);
   backdrop-filter: var(--compass--glass--background-filter);
   border: 1px solid var(--compass--glass--border);
 }
@@ -168,12 +168,33 @@
   max-width: var(--compass--message-bar--max-width);
 }
 
+:where(a) {
+  text-underline-offset: var(--pf-t--global--spacer--xs);
+  text-decoration-style: dashed;
+  text-decoration-color: var(--pf-t--global--border--color--default);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 body {
-  background-image: url(https://i.imgur.com/km6oyPo.jpeg);
+  background-image: url(../assets/Wallpaper-light.png);
   background-size: cover;
 }
 
+:where(.pf-v6-theme-dark) body {
+  background-image: url(../assets/Wallpaper-dark.png);
+}
+
 :root {
-  /* changes default border color */
-  --pf-t--global--border--color--default: var(--pf-t--color--gray--70);
 }
