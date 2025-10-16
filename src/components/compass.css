@@ -39,6 +39,10 @@
 
 .compass__user {
   justify-self: end;
+
+  .pf-v6-c-menu-toggle {
+    margin-block-start: calc(var(--pf-v6-c-menu-toggle--PaddingBlockStart) * -1);
+  }
 }
 
 .compass__nav {
@@ -180,6 +184,23 @@
   width: 100%;
   min-width: var(--compass--message-bar--min-width);
   max-width: var(--compass--message-bar--max-width);
+  padding-inline-start: 0px;
+  padding-inline-end: 0px;
+  border: var(--pf-t--global--border--width--strong) solid transparent;
+  border-radius: var(--pf-t--global--border--radius--pill);
+  background-image: linear-gradient(transparent, transparent),
+    linear-gradient(to right, #f56e6e 0%, #876fd4 65%, #5e40be 100%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: var(--pf-t--global--border--width--strong);
+    background-color: var(--pf-t--global--background--color--primary--default);
+    border-radius: inherit;
+    z-index: -1;
+  }
 }
 
 .pf-v6-c-text-input-group {
