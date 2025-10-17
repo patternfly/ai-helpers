@@ -28,6 +28,7 @@ import { CompassIntegrations } from "./CompassIntegrations";
 import { CompassAutomations } from "./CompassAutomations";
 import { CompassDashboard } from "./CompassDashboard";
 import { CompassContent } from "./CompassContent";
+import { CompassTestPage } from "./CompassTestContent/CompassTestPage";
 import { BrandLogo } from "./BrandLogo";
 
 const aiExperienceIcon = (
@@ -174,11 +175,7 @@ export const Compass: React.FunctionComponent = () => {
                 />
               </Tabs>
             </Tab>
-            <Tab
-              eventKey={5}
-              title={<TabTitleText>Support</TabTitleText>}
-              isDisabled
-            />
+            <Tab eventKey={5} title={<TabTitleText>Test Page</TabTitleText>} />
           </Tabs>
         </div>
         <div id="user-menu" className="compass__user">
@@ -225,6 +222,8 @@ export const Compass: React.FunctionComponent = () => {
               } else {
                 return <CompassContent />;
               }
+            case 5:
+              return <CompassTestPage />;
             default:
               return <CompassDashboard />;
           }
@@ -247,7 +246,7 @@ export const Compass: React.FunctionComponent = () => {
         <MessageBar
           className="ai-border"
           isCompact
-          onSendMessage={() => { }}
+          onSendMessage={() => {}}
           hasAttachButton={false}
         />
       </div>
