@@ -26,9 +26,6 @@ import { AnimationsOverview } from "./DashboardContent/AnimationsOverview";
 export const CompassDashboard: React.FunctionComponent = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isContentDrawerOpen, setIsContentDrawerOpen] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState<
-    "top" | "bottom" | "middle"
-  >("top");
   const bodyRef = useRef<HTMLDivElement>(null);
 
   const onDrawerToggle = () => {
@@ -39,22 +36,19 @@ export const CompassDashboard: React.FunctionComponent = () => {
     setIsContentDrawerOpen(!isContentDrawerOpen);
   };
 
+  // Remove if we decide to not use the feathered opacity scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      console.log("scroll detected");
-
       const bodyElement = bodyRef.current;
       if (!bodyElement) return;
 
       const scrollTop = bodyElement.scrollTop;
       const scrollHeight = bodyElement.scrollHeight;
       const clientHeight = bodyElement.clientHeight;
-
-      console.log("Scroll values:", { scrollTop, scrollHeight, clientHeight });
+      console.log("scrolling", scrollTop);
 
       // Check if at the top (within 20px threshold)
       if (scrollTop <= 20) {
-        setScrollPosition("top");
         bodyElement.style.setProperty(
           "--compass__scroll-top",
           scrollTop.toString()
@@ -62,15 +56,13 @@ export const CompassDashboard: React.FunctionComponent = () => {
       }
       // Check if at the bottom (within 20px threshold)
       else if (scrollTop + clientHeight >= scrollHeight - 20) {
-        setScrollPosition("bottom");
         bodyElement.style.setProperty(
           "--compass__scroll-bottom",
           (scrollHeight - (scrollTop + clientHeight)).toString()
         );
-      }
-      // Otherwise in the middle
-      else {
-        setScrollPosition("middle");
+      } else {
+        bodyElement.style.setProperty("--compass__scroll-bottom", "20");
+        bodyElement.style.setProperty("--compass__scroll-top", "20");
       }
     };
 
@@ -137,13 +129,7 @@ export const CompassDashboard: React.FunctionComponent = () => {
         <DrawerContent panelContent={drawerContent}>
           <Page
             id="pf-compass-center"
-            className={`pf-m-no-sidebar pf-m-plain ${
-              scrollPosition === "top"
-                ? "compass__scroll-top"
-                : scrollPosition === "bottom"
-                ? "compass__scroll-bottom"
-                : ""
-            }`}
+            className="pf-m-no-sidebar pf-m-plain"
             isContentFilled
           >
             <div className="compass__toolbar">

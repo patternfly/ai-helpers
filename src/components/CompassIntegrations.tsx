@@ -65,15 +65,11 @@ const rhServerStackIcon = (
 
 export const CompassIntegrations: React.FunctionComponent = () => {
   const [activeDisplay, setActiveDisplay] = useState("grid");
-  const [scrollPosition, setScrollPosition] = useState<
-    "top" | "bottom" | "middle"
-  >("top");
   const bodyRef = useRef<HTMLDivElement>(null);
 
+  // Remove if we decide to not use the feathered opacity scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      console.log("scroll detected");
-
       const bodyElement = bodyRef.current;
       if (!bodyElement) return;
 
@@ -81,11 +77,8 @@ export const CompassIntegrations: React.FunctionComponent = () => {
       const scrollHeight = bodyElement.scrollHeight;
       const clientHeight = bodyElement.clientHeight;
 
-      console.log("Scroll values:", { scrollTop, scrollHeight, clientHeight });
-
       // Check if at the top (within 20px threshold)
       if (scrollTop <= 20) {
-        setScrollPosition("top");
         bodyElement.style.setProperty(
           "--compass__scroll-top",
           scrollTop.toString()
@@ -93,15 +86,10 @@ export const CompassIntegrations: React.FunctionComponent = () => {
       }
       // Check if at the bottom (within 20px threshold)
       else if (scrollTop + clientHeight >= scrollHeight - 20) {
-        setScrollPosition("bottom");
         bodyElement.style.setProperty(
           "--compass__scroll-bottom",
           (scrollHeight - (scrollTop + clientHeight)).toString()
         );
-      }
-      // Otherwise in the middle
-      else {
-        setScrollPosition("middle");
       }
     };
 
@@ -824,13 +812,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
     <Fragment>
       <Page
         id="pf-compass-center"
-        className={`pf-m-no-sidebar pf-m-plain ${
-          scrollPosition === "top"
-            ? "compass__scroll-top"
-            : scrollPosition === "bottom"
-            ? "compass__scroll-bottom"
-            : ""
-        }`}
+        className="pf-m-no-sidebar pf-m-plain"
         isContentFilled
       >
         <div className="compass__toolbar">
