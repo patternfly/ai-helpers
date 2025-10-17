@@ -771,24 +771,28 @@ export const CompassIntegrations: React.FunctionComponent = () => {
         className="pf-m-no-sidebar pf-m-plain"
         isContentFilled
       >
-        <PageSection>
+        <div className="compass__toolbar">
+          <PageSection>
+            {(() => {
+              if (activeDisplay === "add") {
+                return addIntegrationHeader;
+              } else {
+                return integrationHeader;
+              }
+            })()}
+          </PageSection>
+        </div>
+        <div className="compass__body">
           {(() => {
             if (activeDisplay === "add") {
-              return addIntegrationHeader;
+              return <PageGroup>{addIntegration}</PageGroup>;
+            } else if (activeDisplay === "list") {
+              return <PageSection>{dataViewIntegration}</PageSection>;
             } else {
-              return integrationHeader;
+              return <PageSection>{cardIntegration}</PageSection>;
             }
           })()}
-        </PageSection>
-        {(() => {
-          if (activeDisplay === "add") {
-            return <PageGroup>{addIntegration}</PageGroup>;
-          } else if (activeDisplay === "list") {
-            return <PageSection>{dataViewIntegration}</PageSection>;
-          } else {
-            return <PageSection>{cardIntegration}</PageSection>;
-          }
-        })()}
+        </div>
       </Page>
     </Fragment>
   );

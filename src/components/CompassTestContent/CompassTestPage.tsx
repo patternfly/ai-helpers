@@ -15,14 +15,18 @@ export const CompassTestPage: React.FunctionComponent = () => {
         className="pf-m-no-sidebar pf-m-plain"
         isContentFilled
       >
-        <PageSection>
-          <Flex alignItems={{ default: "alignItemsCenter" }}>
-            <FlexItem grow={{ default: "grow" }}>
-              <Title headingLevel="h1">Title</Title>
-            </FlexItem>
-          </Flex>
-        </PageSection>
-        <PageSection>Content section</PageSection>
+        <div className="compass__toolbar">
+          <PageSection>
+            <Flex alignItems={{ default: "alignItemsCenter" }}>
+              <FlexItem grow={{ default: "grow" }}>
+                <Title headingLevel="h1">Title</Title>
+              </FlexItem>
+            </Flex>
+          </PageSection>
+        </div>
+        <div className="compass__body">
+          <PageSection>Content section</PageSection>
+        </div>
       </Page>
     </Fragment>
   );

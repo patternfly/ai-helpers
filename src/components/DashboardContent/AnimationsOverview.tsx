@@ -264,83 +264,79 @@ export const AnimationsOverview: FunctionComponent = ({}) => {
 
   return (
     <Fragment>
-      <PageSection aria-label="Detail status events" className="pf-m-plain">
-        <Grid hasGutter>
-          <GridItem span={12}>
-            <MultiContentCard
-              className="glass"
-              isExpandable={true}
-              withDividers
-              cards={cards}
-              toggleText="What's new in OpenShift?"
-            />
+      <Grid hasGutter>
+        <GridItem span={12}>
+          <MultiContentCard
+            className="glass"
+            isExpandable={true}
+            withDividers
+            cards={cards}
+            toggleText="What's new in OpenShift?"
+          />
+        </GridItem>
+        <GridItem span={12} sm={12} md={6} lg={4} xl={3} rowSpan={4}>
+          <Card isFullHeight className="glass">
+            <CardTitle>
+              <Title headingLevel="h4" size="xl">
+                Cluster Details
+              </Title>
+            </CardTitle>
+            <CardBody>
+              <DescriptionList>
+                <DescriptionListGroup>
+                  <DescriptionListTerm>Cluster API Address</DescriptionListTerm>
+                  <DescriptionListDescription>
+                    <a href="#">https://api1.devcluster.openshift.com</a>
+                  </DescriptionListDescription>
+                </DescriptionListGroup>
+                <DescriptionListGroup>
+                  <DescriptionListTerm>Cluster ID</DescriptionListTerm>
+                  <DescriptionListDescription>
+                    63b97ac1-b850-41d9-8820-239becde9e86
+                  </DescriptionListDescription>
+                </DescriptionListGroup>
+                <DescriptionListGroup>
+                  <DescriptionListTerm>Provide</DescriptionListTerm>
+                  <DescriptionListDescription>AWS</DescriptionListDescription>
+                </DescriptionListGroup>
+                <DescriptionListGroup>
+                  <DescriptionListTerm>OpenShift Version</DescriptionListTerm>
+                  <DescriptionListDescription>
+                    4.5.0.ci-2020-06-16-015028
+                  </DescriptionListDescription>
+                </DescriptionListGroup>
+                <DescriptionListGroup>
+                  <DescriptionListTerm>Update Channel</DescriptionListTerm>
+                  <DescriptionListDescription>
+                    stable-4.5
+                  </DescriptionListDescription>
+                </DescriptionListGroup>
+              </DescriptionList>
+            </CardBody>
+            <Divider />
+            <CardFooter>
+              <a href="#">View Settings</a>
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem span={12} sm={12} md={6} lg={4} xl={3} rowSpan={2}>
+          <AnimationsOverviewClusterInventory />
+        </GridItem>
+        <GridItem span={12} sm={12} md={6} lg={4} xl={3} rowSpan={2}>
+          <AnimationsOverviewStorage />
+        </GridItem>
+        <GridItem span={12} sm={12} md={12} lg={8} xl={3} rowSpan={2}>
+          <AnimationsOverviewMemoryUtilization />
+        </GridItem>
+        <GridItem span={12} sm={12} md={12} lg={12} xl={3} rowSpan={2}>
+          <AnimationsOverviewNetworkActivity />
+        </GridItem>
+        {recentActivityCard && (
+          <GridItem span={12} sm={12} md={12} lg={8} xl={6} rowSpan={2}>
+            {recentActivityCard}
           </GridItem>
-          <GridItem span={12} sm={12} md={6} lg={4} xl={3} rowSpan={4}>
-            <Card isFullHeight className="glass">
-              <CardTitle>
-                <Title headingLevel="h4" size="xl">
-                  Cluster Details
-                </Title>
-              </CardTitle>
-              <CardBody>
-                <DescriptionList>
-                  <DescriptionListGroup>
-                    <DescriptionListTerm>
-                      Cluster API Address
-                    </DescriptionListTerm>
-                    <DescriptionListDescription>
-                      <a href="#">https://api1.devcluster.openshift.com</a>
-                    </DescriptionListDescription>
-                  </DescriptionListGroup>
-                  <DescriptionListGroup>
-                    <DescriptionListTerm>Cluster ID</DescriptionListTerm>
-                    <DescriptionListDescription>
-                      63b97ac1-b850-41d9-8820-239becde9e86
-                    </DescriptionListDescription>
-                  </DescriptionListGroup>
-                  <DescriptionListGroup>
-                    <DescriptionListTerm>Provide</DescriptionListTerm>
-                    <DescriptionListDescription>AWS</DescriptionListDescription>
-                  </DescriptionListGroup>
-                  <DescriptionListGroup>
-                    <DescriptionListTerm>OpenShift Version</DescriptionListTerm>
-                    <DescriptionListDescription>
-                      4.5.0.ci-2020-06-16-015028
-                    </DescriptionListDescription>
-                  </DescriptionListGroup>
-                  <DescriptionListGroup>
-                    <DescriptionListTerm>Update Channel</DescriptionListTerm>
-                    <DescriptionListDescription>
-                      stable-4.5
-                    </DescriptionListDescription>
-                  </DescriptionListGroup>
-                </DescriptionList>
-              </CardBody>
-              <Divider />
-              <CardFooter>
-                <a href="#">View Settings</a>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem span={12} sm={12} md={6} lg={4} xl={3} rowSpan={2}>
-            <AnimationsOverviewClusterInventory />
-          </GridItem>
-          <GridItem span={12} sm={12} md={6} lg={4} xl={3} rowSpan={2}>
-            <AnimationsOverviewStorage />
-          </GridItem>
-          <GridItem span={12} sm={12} md={12} lg={8} xl={3} rowSpan={2}>
-            <AnimationsOverviewMemoryUtilization />
-          </GridItem>
-          <GridItem span={12} sm={12} md={12} lg={12} xl={3} rowSpan={2}>
-            <AnimationsOverviewNetworkActivity />
-          </GridItem>
-          {recentActivityCard && (
-            <GridItem span={12} sm={12} md={12} lg={8} xl={6} rowSpan={2}>
-              {recentActivityCard}
-            </GridItem>
-          )}
-        </Grid>
-      </PageSection>
+        )}
+      </Grid>
     </Fragment>
   );
 };
