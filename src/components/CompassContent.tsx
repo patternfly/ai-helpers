@@ -11,7 +11,6 @@ import {
   // ToolbarItem,
   // Button,
 } from "@patternfly/react-core";
-// import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 
 export const CompassContent: React.FunctionComponent = () => {
   return (

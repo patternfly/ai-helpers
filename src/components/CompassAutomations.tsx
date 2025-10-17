@@ -12,6 +12,7 @@ import {
   Button,
 } from "@patternfly/react-core";
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
+import { CompassAutomationTopology } from '../automationTopology/CompassAutomationTopology.tsx';
 
 export const CompassAutomations: React.FunctionComponent = () => {
   return (
@@ -40,7 +41,9 @@ export const CompassAutomations: React.FunctionComponent = () => {
             </FlexItem>
           </Flex>
         </PageSection>
-        <PageSection>Content section</PageSection>
+        <PageSection isFilled hasBodyWrapper={false}>
+          <CompassAutomationTopology />
+        </PageSection>
       </Page>
     </Fragment>
   );
