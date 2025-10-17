@@ -38,6 +38,7 @@ import {
   Gallery,
   PageGroup,
   Icon,
+  Badge,
 } from "@patternfly/react-core";
 import { ActionsColumn } from "@patternfly/react-table";
 import { DataViewTable } from "@patternfly/react-data-view/dist/dynamic/DataViewTable";
@@ -672,6 +673,27 @@ export const CompassIntegrations: React.FunctionComponent = () => {
         </Form>
       </PageSection>
       <PageSection>
+        <Flex alignItems={{ default: "alignItemsCenter" }}>
+          <FlexItem grow={{ default: "grow" }}>
+            <Title headingLevel="h2">
+              Enable tools <Badge>161</Badge>
+            </Title>
+          </FlexItem>
+          <FlexItem>
+            <Toolbar hasNoPadding>
+              <ToolbarContent>
+                <ToolbarGroup>
+                  <ToolbarItem>
+                    <SearchInput
+                      aria-label="Integrations example search input"
+                      placeholder="Search tools"
+                    />
+                  </ToolbarItem>
+                </ToolbarGroup>
+              </ToolbarContent>
+            </Toolbar>
+          </FlexItem>
+        </Flex>
         <SwitchToolTable />
         <div className="compasss__footer">161 tools selected</div>
       </PageSection>
