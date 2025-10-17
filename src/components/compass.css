@@ -93,7 +93,7 @@
     rgba(0, 0, 0, calc(1 - var(--compass__scroll-top) / 20)),
     black var(--compass--feather--length),
     black calc(100% - var(--compass--feather--length)),
-    rgba(0, 0, 0, calc(1 - var(--compass__scroll-top) / 20))
+    rgba(0, 0, 0, calc(1 - var(--compass__scroll-bottom) / 20))
   );
   backdrop-filter: blur(8px);
 
