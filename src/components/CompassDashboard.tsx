@@ -171,7 +171,7 @@ export const CompassDashboard: React.FunctionComponent = () => {
             </div>
             <Drawer isExpanded={isContentDrawerOpen}>
               <DrawerContent panelContent={contentDrawerContent}>
-                <div ref={bodyRef} className="compass__body">
+                <div ref={bodyRef} className="compass__body pf-m-plain dashboard">
                   <PageSection
                     aria-label="Detail status events"
                     className="pf-m-plain"

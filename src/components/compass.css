@@ -100,6 +100,10 @@
   > *:last-child {
     flex-grow: 1;
   }
+
+  &.dashboard {
+    scrollbar-width: none;
+  }
 }
 
 .compass__panel--end {
@@ -157,14 +161,27 @@
   }
 }
 
+.pf-v6-c-page__main-group {
+  flex: 1 0 0;
+  flex-direction: row;
+  gap: var(--compass--main--row-gap);
+  min-height: 0;
+
+  > * {
+    flex: 1 0 0;
+  }
+}
+
 .glass,
 .pf-chatbot__message-bar,
 .pf-v6-c-tabs,
-.pf-v6-c-page__main-section:not(.pf-m-plain),
+/* .pf-v6-c-page__main-section:not(.pf-m-plain), */
 .compass__nav--primary,
 .compass__nav--secondary,
 .compass__panel--start,
 .compass__panel--end,
+.compass__toolbar,
+.compass__body:not(.pf-m-plain),
 .pf-v6-c-drawer.pf-m-inline.pf-m-floating .pf-v6-c-drawer__panel {
   /* disable defaults */
   --pf-v6-c-card--BackgroundColor: transparent;
@@ -173,6 +190,7 @@
   border: 1px solid var(--compass--glass--border);
   box-shadow: var(--pf-t--global--box-shadow--md);
   position: relative;
+  border-radius: var(--pf-t--global--border--radius--large);
 
   &::after {
     content: "";
@@ -185,6 +203,10 @@
     pointer-events: none;
     border-radius: inherit;
   }
+}
+
+.pf-v6-c-page__main-section.pf-m-overflow-scroll {
+  max-height: 100%;
 }
 
 .pf-v6-c-page__main-section.pf-m-plain {
