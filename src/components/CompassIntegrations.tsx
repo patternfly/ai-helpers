@@ -96,7 +96,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
         setScrollPosition("bottom");
         bodyElement.style.setProperty(
           "--compass__scroll-bottom",
-          scrollTop.toString()
+          (scrollHeight - (scrollTop + clientHeight)).toString()
         );
       }
       // Otherwise in the middle
