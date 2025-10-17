@@ -15,15 +15,23 @@ import {
   DrawerCloseButton,
   Content,
   DrawerPanelBody,
+  Drawer,
+  DrawerContent,
+  DrawerContentBody,
+  DrawerPanelContent,
 } from "@patternfly/react-core";
-import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 import BarsIcon from "@patternfly/react-icons/dist/esm/icons/bars-icon";
 
 export const CompassDashboard: React.FunctionComponent = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isContentDrawerOpen, setIsContentDrawerOpen] = useState(false);
 
   const onDrawerToggle = () => {
     setIsDrawerOpen(!isDrawerOpen);
+  };
+
+  const onContentDrawerToggle = () => {
+    setIsContentDrawerOpen(!isContentDrawerOpen);
   };
 
   const drawerContent = (
@@ -44,6 +52,26 @@ export const CompassDashboard: React.FunctionComponent = () => {
         </Content>
       </DrawerPanelBody>
     </>
+  );
+
+  const contentDrawerContent = (
+    <DrawerPanelContent>
+      <DrawerHead>
+        <span>Content Details</span>
+        <DrawerActions>
+          <DrawerCloseButton onClick={onContentDrawerToggle} />
+        </DrawerActions>
+      </DrawerHead>
+      <DrawerPanelBody>
+        <Content component="h3">Content Information</Content>
+        <Content component="p">
+          This drawer contains detailed information about the dashboard content.
+        </Content>
+        <Content component="p">
+          You can add filters, settings, or other content controls here.
+        </Content>
+      </DrawerPanelBody>
+    </DrawerPanelContent>
   );
 
   return (
@@ -75,17 +103,40 @@ export const CompassDashboard: React.FunctionComponent = () => {
                       </Button>
                     </ToolbarItem>
                   </ToolbarGroup>
-                  <ToolbarGroup>
-                    <ToolbarItem>
-                      <Button icon={<EllipsisVIcon />} variant="plain" />
-                    </ToolbarItem>
-                  </ToolbarGroup>
                 </ToolbarContent>
               </Toolbar>
             </FlexItem>
           </Flex>
         </PageSection>
-        <PageSection>Content section</PageSection>
+        <Drawer isExpanded={isContentDrawerOpen}>
+          <DrawerContent panelContent={contentDrawerContent}>
+            <DrawerContentBody>
+              <PageSection>
+                <Flex alignItems={{ default: "alignItemsCenter" }}>
+                  <FlexItem grow={{ default: "grow" }}>
+                    <Content component="h2">Dashboard Content</Content>
+                  </FlexItem>
+                  <FlexItem>
+                    <Button
+                      icon={<BarsIcon />}
+                      variant="secondary"
+                      onClick={onContentDrawerToggle}
+                      aria-label="Toggle content drawer"
+                    >
+                      Content Details
+                    </Button>
+                  </FlexItem>
+                </Flex>
+                <div style={{ marginTop: "1rem" }}>
+                  <Content component="p">
+                    This is the main dashboard content area. You can add charts,
+                    metrics, tables, or any other dashboard components here.
+                  </Content>
+                </div>
+              </PageSection>
+            </DrawerContentBody>
+          </DrawerContent>
+        </Drawer>
       </Page>
     </Fragment>
   );
