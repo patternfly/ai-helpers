@@ -15,6 +15,7 @@
   --compass--glass--backdrop-filter--dark: blur(75px);
   --compass--message-bar--min-width: 300px;
   --compass--message-bar--max-width: 600px;
+  --compass--feather--length: 20px;
 
   padding: var(--compass--padding);
   display: grid;
@@ -44,18 +45,6 @@
 
   .pf-v6-c-menu-toggle {
     margin-block-start: calc(var(--pf-v6-c-menu-toggle--PaddingBlockStart) * -1);
-  }
-}
-
-.compass__body {
-  flex: 1 0 0;
-  min-height: 0;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-
-  > *:last-child {
-    flex-grow: 1;
   }
 }
 
@@ -91,6 +80,34 @@
   grid-area: main;
   align-self: stretch;
   min-height: 0;
+}
+
+.compass__body {
+  flex: 1 0 0;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--pf-t--global--border--radius--large);
+  mask: linear-gradient(
+    var(--compass--feather--scroll-top, transparent),
+    black var(--compass--feather--length),
+    black calc(100% - var(--compass--feather--length)),
+    var(--compass--feather--scroll-bottom, transparent)
+  );
+  backdrop-filter: blur(8px);
+
+  > *:last-child {
+    flex-grow: 1;
+  }
+}
+
+.compass__scroll-top {
+  --compass--feather--scroll-top: black;
+}
+
+.compass__scroll-bottom {
+  --compass--feather--scroll-bottom: black;
 }
 
 .compass__panel--end {
@@ -261,37 +278,6 @@
 .compass__main {
   > .pf-v6-c-drawer {
     flex-grow: 1;
-  }
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    left: 1rem;
-    right: 2rem;
-    height: 50px;
-    /* background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent);
-    backdrop-filter: blur(5px); */
-    /* filter: blur(10px), screen;
-    mask: linear-gradient(black, black, transparent);
-    backdrop-filter: blur(8px); */
-    /* border-radius: var(--pf-t--global--border--radius--large); */
-    z-index: 1;
-    border-radius: 0;
-  }
-
-  &::before {
-    top: 0;
-    /* border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px; */
-  }
-
-  &::after {
-    bottom: 0;
-    mask: linear-gradient(0deg, black, black, transparent);
-
-    /* border-top-left-radius: 0px;
-    border-top-right-radius: 0px; */
   }
 }
 
