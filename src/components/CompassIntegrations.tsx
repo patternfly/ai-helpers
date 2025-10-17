@@ -40,10 +40,11 @@ import {
   Icon,
 } from "@patternfly/react-core";
 import { ActionsColumn } from "@patternfly/react-table";
-
 import { DataViewTable } from "@patternfly/react-data-view/dist/dynamic/DataViewTable";
 import { DataViewToolbar } from "@patternfly/react-data-view/dist/dynamic/DataViewToolbar";
 import { DataViewTextFilter } from "@patternfly/react-data-view/dist/dynamic/DataViewTextFilter";
+import { SwitchToolTable } from "./IntegrationsContent/SwitchToolTable.tsx";
+
 import ThIcon from "@patternfly/react-icons/dist/esm/icons/th-icon";
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 import ListIcon from "@patternfly/react-icons/dist/esm/icons/list-icon";
@@ -670,7 +671,9 @@ export const CompassIntegrations: React.FunctionComponent = () => {
           </ActionGroup>
         </Form>
       </PageSection>
-      <PageSection></PageSection>
+      <PageSection>
+        <SwitchToolTable />
+      </PageSection>
     </>
   );
 

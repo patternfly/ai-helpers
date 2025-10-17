@@ -17,7 +17,15 @@ import {
   GridItem,
   PageSection,
   Title,
+  Flex,
+  Dropdown,
+  MenuToggle,
+  MenuToggleElement,
+  ProgressStepper,
+  ProgressStep,
+  Spinner,
 } from "@patternfly/react-core";
+import { Table, Thead, Tr, Th, Tbody, Td } from "@patternfly/react-table";
 import ArrowRightIcon from "@patternfly/react-icons/dist/esm/icons/arrow-right-icon";
 import TimesIcon from "@patternfly/react-icons/dist/esm/icons/times-icon";
 import MultiContentCard from "@patternfly/react-component-groups/dist/dynamic/MultiContentCard";
@@ -26,14 +34,152 @@ import AnimationsOverviewNetworkActivity from "./AnimationsOverviewNetworkActivi
 import AnimationsOverviewStorage from "./AnimationsOverviewStorage.tsx";
 import AnimationsOverviewMemoryUtilization from "./AnimationsOverviewMemoryUtilization.tsx";
 import openshiftLogo from "../../assets/Summit-collage-deploying-openshift-product-icon-RH.png";
+import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
+import PortIcon from "@patternfly/react-icons/dist/esm/icons/port-icon";
+import CheckCircleIcon from "@patternfly/react-icons/dist/esm/icons/check-circle-icon";
+import ResourcesFullIcon from "@patternfly/react-icons/dist/esm/icons/resources-full-icon";
+import ExclamationCircleIcon from "@patternfly/react-icons/dist/esm/icons/exclamation-circle-icon";
+import ExclamationTriangleIcon from "@patternfly/react-icons/dist/esm/icons/exclamation-triangle-icon";
 
-interface AnimationsOverviewProps {
-  recentActivityCard?: React.ReactNode;
-}
+const activityData = [
+  {
+    id: 1,
+    name: "my-pod-name",
+    project: "project-test",
+    progress: ["success", "success", "success"],
+  },
+  {
+    id: 2,
+    name: "my-pod-name",
+    project: "project-test",
+    progress: ["success", "pending", "default"],
+  },
+  {
+    id: 3,
+    name: "my-pod-name",
+    project: "project-test",
+    progress: ["success", "success", "danger"],
+  },
+  {
+    id: 4,
+    name: "my-pod-name",
+    project: "project-test",
+    progress: ["success", "warning", "pending"],
+  },
+];
 
-export const AnimationsOverview: FunctionComponent<AnimationsOverviewProps> = ({
-  recentActivityCard,
-}) => {
+const iconMap = {
+  success: <CheckCircleIcon />,
+  info: <ResourcesFullIcon />,
+  pending: <Spinner isInline />,
+  danger: <ExclamationCircleIcon />,
+  warning: <ExclamationTriangleIcon />,
+};
+
+const recentActivityCard = (
+  <Card component="div">
+    <CardHeader
+      actions={{
+        actions: (
+          <Dropdown
+            isOpen={false} // Use a unique index for the header kebab
+            onSelect={() => {}}
+            onOpenChange={() => {}}
+            toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
+              <MenuToggle
+                ref={toggleRef}
+                variant="plain"
+                onClick={() => {}}
+                isExpanded={false}
+              >
+                <EllipsisVIcon />
+              </MenuToggle>
+            )}
+            popperProps={{ position: "right" }}
+          ></Dropdown>
+        ),
+        hasNoOffset: false,
+        className: "",
+      }}
+    >
+      <CardTitle>
+        <Flex alignItems={{ default: "alignItemsCenter" }}>
+          <PortIcon />
+          <span>Recent activity</span>
+        </Flex>
+      </CardTitle>
+    </CardHeader>
+    <CardBody>
+      <Table aria-label="Recent activity table" variant="compact">
+        <Thead>
+          <Tr>
+            <Th width={30}>Name</Th>
+            <Th width={30}>Project</Th>
+            <Th width={30}>Progress</Th>
+            <Th width={10} />
+          </Tr>
+        </Thead>
+        <Tbody>
+          {activityData.map((activity, rowIndex) => (
+            <Tr key={activity.id}>
+              <Td>
+                <Button variant="link" isInline component="a" href="#">
+                  {activity.name}
+                </Button>
+              </Td>
+              <Td>
+                <Button variant="link" isInline component="a" href="#">
+                  {activity.project}
+                </Button>
+              </Td>
+              <Td>
+                <ProgressStepper isCompact>
+                  {activity.progress.map((stepVariant, stepIndex) => (
+                    <ProgressStep
+                      id={`progress-step-${rowIndex}-${stepVariant}-${stepIndex}`}
+                      key={stepIndex}
+                      variant={
+                        stepVariant as
+                          | "default"
+                          | "success"
+                          | "pending"
+                          | "danger"
+                          | "warning"
+                          | "info"
+                      }
+                      icon={iconMap[stepVariant as keyof typeof iconMap]}
+                      aria-label={`Step ${stepIndex + 1} is ${stepVariant}`}
+                    />
+                  ))}
+                </ProgressStepper>
+              </Td>
+              <Td isActionCell>
+                <Dropdown
+                  isOpen={false}
+                  onSelect={() => {}}
+                  onOpenChange={() => {}}
+                  toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
+                    <MenuToggle
+                      ref={toggleRef}
+                      variant="plain"
+                      onClick={() => {}}
+                      isExpanded={false}
+                    >
+                      <EllipsisVIcon />
+                    </MenuToggle>
+                  )}
+                  popperProps={{ position: "right" }}
+                ></Dropdown>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </CardBody>
+  </Card>
+);
+
+export const AnimationsOverview: FunctionComponent = ({}) => {
   const [displayMultiContentCard, setDisplayMultiContentCard] = useState(true);
 
   const handleCloseMultiContentCard = () => {
@@ -124,25 +270,23 @@ export const AnimationsOverview: FunctionComponent<AnimationsOverviewProps> = ({
 
   return (
     <Fragment>
-      {displayMultiContentCard && (
-        <PageSection id="overview">
-          <MultiContentCard
-            isExpandable={true}
-            withDividers
-            cards={cards}
-            toggleText="What's new in OpenShift?"
-            actions={
-              <Button
-                icon={<TimesIcon />}
-                variant="plain"
-                onClick={handleCloseMultiContentCard}
-              />
-            }
-          />
-        </PageSection>
-      )}
       <PageSection aria-label="Detail status events">
         <Grid hasGutter>
+          <GridItem span={12}>
+            <MultiContentCard
+              isExpandable={true}
+              withDividers
+              cards={cards}
+              toggleText="What's new in OpenShift?"
+              actions={
+                <Button
+                  icon={<TimesIcon />}
+                  variant="plain"
+                  onClick={handleCloseMultiContentCard}
+                />
+              }
+            />
+          </GridItem>
           <GridItem span={12} sm={12} md={6} lg={4} xl={3} rowSpan={4}>
             <Card isFullHeight>
               <CardTitle>

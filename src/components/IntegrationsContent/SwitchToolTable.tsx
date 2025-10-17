@@ -1,17 +1,36 @@
 import { useState } from "react";
-import { Content } from "@patternfly/react-core";
+import { Content, Switch } from "@patternfly/react-core";
 import { Table, Thead, Tr, Th, Tbody, Td } from "@patternfly/react-table";
 
 export const SwitchToolTable: React.FunctionComponent = () => {
-  // In this example, selected rows are tracked by the repo names from each row. This could be any unique identifier.
-  // This is to prevent state from being based on row order index in case we later add sorting.
-  const [selectedRepoName, setSelectedRepoName] = useState("");
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [isAllSelected, setIsAllSelected] = useState(false);
+
+  const handleRowToggle = (rowIndex: number, checked: boolean) => {
+    if (checked) {
+      setSelectedRows((prev) => [...prev, rowIndex]);
+    } else {
+      setSelectedRows((prev) => prev.filter((row) => row !== rowIndex));
+    }
+  };
 
   return (
     <Table aria-label="Clickable table">
       <Thead>
         <Tr>
-          <Th></Th>
+          <Th>
+            <Switch
+              id={`row-toggle-all`}
+              label=""
+              isChecked={isAllSelected}
+              onChange={(_event, checked) => {
+                setIsAllSelected(checked);
+                setSelectedRows(
+                  checked ? Array.from({ length: 30 }, (_, i) => i) : []
+                );
+              }}
+            />
+          </Th>
           <Th>Name</Th>
         </Tr>
       </Thead>
@@ -19,17 +38,23 @@ export const SwitchToolTable: React.FunctionComponent = () => {
         {(() => {
           const rows = [];
           for (let i = 0; i < 30; i++) {
-            const repoName = `Repository ${i + 1}`;
             rows.push(
               <Tr
-                key={repoName}
-                onRowClick={() => setSelectedRepoName(repoName)}
+                key={i}
+                // onRowClick={() => setSelectedRepoName(repoName)}
                 isSelectable
                 isClickable
-                isRowSelected={selectedRepoName === repoName}
+                isRowSelected={isAllSelected || selectedRows.includes(i)}
               >
-                <Td dataLabel="Name">{repoName}</Td>
-                <Td dataLabel="Branches">
+                <Td dataLabel="Name">
+                  <Switch
+                    id={`row-toggle-${i}`}
+                    label=""
+                    isChecked={isAllSelected || selectedRows.includes(i)}
+                    onChange={(_event, checked) => handleRowToggle(i, checked)}
+                  />
+                </Td>
+                <Td dataLabel="Name">
                   <Content component="p">Tool name</Content>
                   <Content component="small">Tool description</Content>
                 </Td>
