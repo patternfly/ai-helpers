@@ -642,7 +642,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
               </Popover>
             }
           >
-            <MenuToggle>Resource type</MenuToggle>
+            <MenuToggle isFullWidth>Resource type</MenuToggle>
           </FormGroup>
           <ActionGroup>
             <Button
