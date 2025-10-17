@@ -47,6 +47,18 @@
   }
 }
 
+.compass__body {
+  flex: 1 0 0;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+
+  > *:last-child {
+    flex-grow: 1;
+  }
+}
+
 .compass__nav {
   justify-self: stretch;
   display: flex;
@@ -123,10 +135,6 @@
 
   .pf-v6-c-page__main-section {
     border-radius: var(--pf-t--global--border--radius--large);
-
-    &:last-child {
-      flex-grow: 1;
-    }
   }
 
   .pf-v6-c-page__main {
@@ -253,6 +261,37 @@
 .compass__main {
   > .pf-v6-c-drawer {
     flex-grow: 1;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    right: 2rem;
+    height: 50px;
+    /* background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent);
+    backdrop-filter: blur(5px); */
+    /* filter: blur(10px), screen;
+    mask: linear-gradient(black, black, transparent);
+    backdrop-filter: blur(8px); */
+    /* border-radius: var(--pf-t--global--border--radius--large); */
+    z-index: 1;
+    border-radius: 0;
+  }
+
+  &::before {
+    top: 0;
+    /* border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px; */
+  }
+
+  &::after {
+    bottom: 0;
+    mask: linear-gradient(0deg, black, black, transparent);
+
+    /* border-top-left-radius: 0px;
+    border-top-right-radius: 0px; */
   }
 }
 
