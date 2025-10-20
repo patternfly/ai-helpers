@@ -23,6 +23,7 @@ const CustomRectangle: FunctionComponent<CustomRectangleProps> = ({
   bottomLeftRadius = DEFAULT_RADIUS,
   dndDropRef
 }) => {
+  // @ts-ignore
   useAnchor(RectAnchor);
 
   const path = `M ${topLeftRadius - (topLeftRadius - DEFAULT_RADIUS)},${0} ` +
