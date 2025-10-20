@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Card,
   CardHeader,
   CardTitle,
   CardBody,
@@ -10,6 +9,7 @@ import {
   MenuToggle,
   Flex,
 } from "@patternfly/react-core";
+import { GlassCard } from "../lib/GlassCard";
 
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 import NetworkIcon from "@patternfly/react-icons/dist/esm/icons/network-icon";
@@ -64,7 +64,7 @@ export const NetworkActivityCard: React.FunctionComponent = () => {
     // To match the dark theme, we wrap the card in a div with a dark background.
     // The `isPlain` and `isFlat` props on the Card remove its default styling.
     <div>
-      <Card component="div" isFullHeight className="glass">
+      <GlassCard component="div" isFullHeight>
         <CardHeader
           actions={{
             actions: (
@@ -125,7 +125,7 @@ export const NetworkActivityCard: React.FunctionComponent = () => {
             </ChartGroup>
           </Chart>
         </CardBody>
-      </Card>
+      </GlassCard>
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Card,
   CardTitle,
   CardBody,
   CardFooter,
@@ -13,6 +12,7 @@ import {
   DropdownList,
   FlexItem,
 } from "@patternfly/react-core";
+import { GlassCard } from "../lib/GlassCard";
 import {
   ChartDonutThreshold,
   ChartDonutUtilization,
@@ -44,7 +44,7 @@ export const MemoryUtilizationCard: React.FunctionComponent = () => {
   );
 
   return (
-    <Card component="div" isFullHeight className="glass">
+    <GlassCard component="div" isFullHeight>
       <CardHeader
         actions={{
           actions: (
@@ -149,7 +149,7 @@ export const MemoryUtilizationCard: React.FunctionComponent = () => {
           Cluster details page
         </Button>
       </CardFooter>
-    </Card>
+    </GlassCard>
   );
 };
 MemoryUtilizationCard.displayName = "MemoryUtilizationCard";

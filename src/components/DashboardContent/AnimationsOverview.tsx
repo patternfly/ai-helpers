@@ -32,6 +32,7 @@ import AnimationsOverviewNetworkActivity from "./AnimationsOverviewNetworkActivi
 import AnimationsOverviewStorage from "./AnimationsOverviewStorage.tsx";
 import AnimationsOverviewMemoryUtilization from "./AnimationsOverviewMemoryUtilization.tsx";
 import openshiftLogo from "../../assets/Summit-collage-deploying-openshift-product-icon-RH.png";
+import { GlassCard } from "../lib/GlassCard";
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 import PortIcon from "@patternfly/react-icons/dist/esm/icons/port-icon";
 import CheckCircleIcon from "@patternfly/react-icons/dist/esm/icons/check-circle-icon";
@@ -75,7 +76,7 @@ const iconMap = {
 };
 
 const recentActivityCard = (
-  <Card component="div" className="glass">
+  <GlassCard component="div">
     <CardHeader
       actions={{
         actions: (
@@ -174,7 +175,7 @@ const recentActivityCard = (
         </Tbody>
       </Table>
     </CardBody>
-  </Card>
+  </GlassCard>
 );
 
 export const AnimationsOverview: FunctionComponent = ({}) => {
@@ -273,7 +274,7 @@ export const AnimationsOverview: FunctionComponent = ({}) => {
           />
         </GridItem>
         <GridItem span={12} sm={12} md={6} lg={4} xl={3} rowSpan={4}>
-          <Card isFullHeight className="glass">
+          <GlassCard isFullHeight>
             <CardTitle>
               <Title headingLevel="h4" size="xl">
                 Cluster Details
@@ -315,7 +316,7 @@ export const AnimationsOverview: FunctionComponent = ({}) => {
             <CardFooter>
               <a href="#">View Settings</a>
             </CardFooter>
-          </Card>
+          </GlassCard>
         </GridItem>
         <GridItem span={12} sm={12} md={6} lg={4} xl={3} rowSpan={2}>
           <AnimationsOverviewClusterInventory />

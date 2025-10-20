@@ -1,6 +1,5 @@
 import { useState, Fragment, useRef, useEffect } from "react";
 import {
-  Page,
   PageSection,
   Card,
   CardBody,
@@ -36,7 +35,6 @@ import {
   FormHelperText,
   HelperText,
   Gallery,
-  PageGroup,
   Icon,
   Badge,
 } from "@patternfly/react-core";
@@ -50,6 +48,10 @@ import ThIcon from "@patternfly/react-icons/dist/esm/icons/th-icon";
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 import ListIcon from "@patternfly/react-icons/dist/esm/icons/list-icon";
 import { rhServerStackIcon } from "./lib/assets/rhServerStackIcon";
+import { Glass } from "./lib/Glass";
+import { CompassFooter } from "./lib/CompassFooter";
+import { CompassPage } from "./lib/CompassPage";
+import { CompassPageBody } from "./lib/CompassPageBody";
 
 export const CompassIntegrations: React.FunctionComponent = () => {
   const [activeDisplay, setActiveDisplay] = useState("grid");
@@ -463,9 +465,10 @@ export const CompassIntegrations: React.FunctionComponent = () => {
   const nameHelpRef = useRef<HTMLDivElement>(null);
   const serverHelpRef = useRef<HTMLDivElement>(null);
   const serverTypeHelpRef = useRef<HTMLDivElement>(null);
+  // refactor into a GlassPanels component? Prop is an array of reactnode that are PageSection content and internal component provides the Glass and PageSection with hasOverflowScroll
   const addIntegration = (
     <>
-      <div className="glass">
+      <Glass>
         <PageSection hasOverflowScroll>
           <Content component="h2">Configure integration</Content>
           <Form>
@@ -705,8 +708,8 @@ export const CompassIntegrations: React.FunctionComponent = () => {
             </ActionGroup>
           </Form>
         </PageSection>
-      </div>
-      <div className="glass">
+      </Glass>
+      <Glass>
         <PageSection hasOverflowScroll>
           <Flex alignItems={{ default: "alignItemsCenter" }}>
             <FlexItem grow={{ default: "grow" }}>
@@ -730,12 +733,13 @@ export const CompassIntegrations: React.FunctionComponent = () => {
             </FlexItem>
           </Flex>
           <SwitchToolTable />
-          <div className="compasss__footer">161 tools selected</div>
+          <CompassFooter>161 tools selected</CompassFooter>
         </PageSection>
-      </div>
+      </Glass>
     </>
   );
 
+  // refactor into BasicCompassHeader component? Prop for the Title component and Toolbar Content children
   const integrationHeader = (
     <Flex alignItems={{ default: "alignItemsCenter" }}>
       <FlexItem grow={{ default: "grow" }}>
@@ -802,46 +806,35 @@ export const CompassIntegrations: React.FunctionComponent = () => {
 
   return (
     <Fragment>
-      <Page
-        id="pf-compass-center"
-        className="pf-m-no-sidebar pf-m-plain"
-        isContentFilled
-      >
-        <div className="compass__toolbar">
-          <PageSection>
-            {(() => {
-              if (activeDisplay === "add") {
-                return addIntegrationHeader;
-              } else {
-                return integrationHeader;
-              }
-            })()}
-          </PageSection>
-        </div>
-        {(() => {
+      <CompassPage
+        toolbar={(() => {
           if (activeDisplay === "add") {
-            return (
-              <div ref={bodyRef} className="compass__body pf-m-plain">
-                <PageGroup>{addIntegration}</PageGroup>
-              </div>
-            );
-          } else if (activeDisplay === "list") {
-            return (
-              <div ref={bodyRef} className="compass__body">
-                <PageSection hasOverflowScroll>
-                  {dataViewIntegration}
-                </PageSection>
-              </div>
-            );
+            return addIntegrationHeader;
           } else {
-            return (
-              <div ref={bodyRef} className="compass__body">
-                <PageSection hasOverflowScroll>{cardIntegration}</PageSection>
-              </div>
-            );
+            return integrationHeader;
           }
         })()}
-      </Page>
+        body={
+          <CompassPageBody
+            ref={bodyRef}
+            isPlain={activeDisplay === "add"}
+            isGroup={activeDisplay === "add"}
+            pageSectionProps={
+              activeDisplay === "add" ? {} : { hasOverflowScroll: true }
+            }
+          >
+            {(() => {
+              if (activeDisplay === "add") {
+                return addIntegration;
+              } else if (activeDisplay === "list") {
+                return dataViewIntegration;
+              } else {
+                return cardIntegration;
+              }
+            })()}
+          </CompassPageBody>
+        }
+      />
     </Fragment>
   );
 };

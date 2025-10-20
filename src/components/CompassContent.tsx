@@ -1,7 +1,5 @@
 import { Fragment } from "react";
 import {
-  Page,
-  PageSection,
   Flex,
   FlexItem,
   Title,
@@ -11,28 +9,22 @@ import {
   // ToolbarItem,
   // Button,
 } from "@patternfly/react-core";
+import { CompassPage } from "./lib/CompassPage";
+import { CompassPageBody } from "./lib/CompassPageBody";
 
 export const CompassContent: React.FunctionComponent = () => {
   return (
     <Fragment>
-      <Page
-        id="pf-compass-center"
-        className="pf-m-no-sidebar pf-m-plain"
-        isContentFilled
-      >
-        <div className="compass__toolbar">
-          <PageSection>
-            <Flex alignItems={{ default: "alignItemsCenter" }}>
-              <FlexItem grow={{ default: "grow" }}>
-                <Title headingLevel="h1">Title</Title>
-              </FlexItem>
-            </Flex>
-          </PageSection>
-        </div>
-        <div className="compass__body">
-          <PageSection>Content section</PageSection>
-        </div>
-      </Page>
+      <CompassPage
+        toolbar={
+          <Flex alignItems={{ default: "alignItemsCenter" }}>
+            <FlexItem grow={{ default: "grow" }}>
+              <Title headingLevel="h1">Title</Title>
+            </FlexItem>
+          </Flex>
+        }
+        body={<CompassPageBody>Content section</CompassPageBody>}
+      />
     </Fragment>
   );
 };

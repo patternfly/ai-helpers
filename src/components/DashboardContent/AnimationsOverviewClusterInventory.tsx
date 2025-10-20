@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Card,
   CardHeader,
   CardTitle,
   CardBody,
@@ -14,6 +13,7 @@ import {
   Button,
   Icon,
 } from "@patternfly/react-core";
+import { GlassCard } from "../lib/GlassCard";
 
 import ListIcon from "@patternfly/react-icons/dist/esm/icons/list-icon";
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
@@ -56,7 +56,7 @@ export const ClusterInventoryCard: React.FunctionComponent = () => {
   return (
     // To match the dark theme in your screenshot, we wrap the card in a div with a dark background.
     // The `isPlain` and `isFlat` props on the Card remove its default background and shadow so it blends in.
-    <Card component="div" isFullHeight className="glass">
+    <GlassCard component="div" isFullHeight>
       <CardHeader
         // We use a Flex layout in the header to position the title and actions
         actions={{
@@ -115,7 +115,7 @@ export const ClusterInventoryCard: React.FunctionComponent = () => {
           Cluster details page
         </Button>
       </CardFooter>
-    </Card>
+    </GlassCard>
   );
 };
 ClusterInventoryCard.displayName = "ClusterInventoryCard";
