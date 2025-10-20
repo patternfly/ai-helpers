@@ -24,7 +24,7 @@ import {
   CopyIcon,
   EllipsisVIcon, TrashIcon
 } from '@patternfly/react-icons';
-import AnsibleIcon from '../images/AnsibleIcon.ts';
+import AnsibleLogo from '../images/AnsibleLogo.png';
 
 type Props = {
   nodeData: AnsibleObjectType;
@@ -85,9 +85,7 @@ const PlatformNodeContent: FunctionComponent<Props> = ({ nodeData, expanded, set
           flexWrap={{ default: 'nowrap' }}
         >
           <FlexItem>
-            <Content component="h3">
-              <AnsibleIcon />
-            </Content>
+            <img loading="lazy" src={AnsibleLogo} alt="Ansible Platform" width="28px" height="28px" />
           </FlexItem>
           <FlexItem>
             <span onClick={(e) => e.stopPropagation() }>

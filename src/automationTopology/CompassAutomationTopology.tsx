@@ -1,4 +1,5 @@
 import { FunctionComponent, useEffect, useState } from 'react';
+import { Flex, FlexItem } from '@patternfly/react-core';
 import {
   defaultElementFactory,
   GRAPH_AREA_SELECTED_EVENT,
@@ -15,10 +16,10 @@ import {
 } from '@patternfly/react-topology';
 import DemoControlBar from './ControlBar';
 import { useDemoCompassModel } from './useDemoCompassModel';
-import OptionsContextBar from './OptionsViewBar';
 import compassComponentFactory from './components/compassComponentFactory.tsx';
 import compassLayoutFactory from './compassLayoutFactory';
 import { AnsibleObjectType, AnsibleSubTypes, AnsibleTypes } from './type.ts';
+import OptionsViewBar from './OptionsViewBar';
 
 const demoAnsibleObjects: AnsibleObjectType[] = [
   {
@@ -129,12 +130,18 @@ const TopologyViewComponent: FunctionComponent = observer(() => {
   }, [selectedIds, controller]);
 
   return (
-    <TopologyView
-      controlBar={<DemoControlBar />}
-      contextToolbar={<OptionsContextBar />}
-    >
-      <VisualizationSurface state={{ selectedIds }} />
-    </TopologyView>
+    <Flex direction={{ default: 'column' }} spacer={{ default: "spacerSm" }} style={{ height: '100%' }}>
+      <FlexItem>
+        <OptionsViewBar />
+      </FlexItem>
+      <FlexItem flex={{ default: 'flex_1' }}>
+        <TopologyView
+          controlBar={<DemoControlBar />}
+        >
+          <VisualizationSurface state={{ selectedIds }} />
+        </TopologyView>
+      </FlexItem>
+    </Flex>
   );
 });
 

@@ -25,7 +25,7 @@ import {
   EllipsisVIcon,
   TrashIcon
 } from '@patternfly/react-icons';
-import AnsibleIcon from '../images/AnsibleIcon.ts';
+import AgentIcon from '../images/AgentIcon.ts';
 
 type Props = {
   nodeData: AnsibleObjectType;
@@ -87,7 +87,17 @@ const AgentNodeContent: FunctionComponent<Props> = ({ nodeData, expanded, setExp
         >
           <FlexItem flex={{ default: 'flex_1' }}>
               <Content component="h3" >
-                <AnsibleIcon style={{ marginTop: 3, marginRight: 'var(--pf-t--global--spacer--xs)'}}/>
+                <span
+                  style={{
+                    backgroundColor: 'var(--pf-t--global--color--nonstatus--purple--default)',
+                    borderRadius: 3,
+                    marginTop: 3,
+                    marginRight: 'var(--pf-t--global--spacer--xs)',
+                    padding: '0 var(--pf-t--global--spacer--xs)'
+                  }}
+                >
+                  <AgentIcon style={{ fill: 'var(--pf-t--color--black)'}}/>
+                </span>
                 {nodeData.type}
               </Content>
           </FlexItem>

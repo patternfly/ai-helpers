@@ -21,7 +21,6 @@ const AgentNodeInner: FunctionComponent<AgentNodeInnerProps> = observer(
     const { subType } = element.getData();
     const [expanded, setExpanded] = useState<boolean>(false);
 
-    console.log(`======= Agetn Node =========`);
     return (
       <CompassNode
         element={element}
