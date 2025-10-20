@@ -28,12 +28,13 @@ import { CompassAutomations } from "./CompassAutomations";
 import { CompassDashboard } from "./CompassDashboard";
 import { CompassContent } from "./CompassContent";
 import { CompassTestPage } from "./CompassTestContent/CompassTestPage";
-import { BrandLogo } from "./BrandLogo";
 
 import { Compass } from "./lib/Compass";
 import { CompassNavSection } from "./lib/CompassNavSection";
 import { VerticalActionList } from "./lib/VerticalActionList";
-import { aiExperienceIcon } from "./lib/assets/aiExperienceIcon";
+import { CompassAIButton } from "./lib/CompassAIButton";
+import { RHAiExperienceIcon } from "./lib/assets/RHAiExperienceIcon";
+import { RHAutomationsLogo } from "./lib/assets/RHAutomationsLogo";
 
 export const CompassApp: React.FunctionComponent = () => {
   const [activeSection, setActiveSection] = useState(4);
@@ -105,7 +106,7 @@ export const CompassApp: React.FunctionComponent = () => {
     </Dropdown>
   );
 
-  const logoContent = <BrandLogo />;
+  const logoContent = <RHAutomationsLogo />;
 
   const navContent = (
     <Tabs
@@ -173,11 +174,7 @@ export const CompassApp: React.FunctionComponent = () => {
         </ActionListItem>
       </ActionListGroup>
       <ActionListItem>
-        <Button
-          className="compass__sparkle ai-border"
-          variant="plain"
-          icon={aiExperienceIcon}
-        ></Button>
+        <CompassAIButton icon={<RHAiExperienceIcon />} />
       </ActionListItem>
       <ActionListGroup>
         <ActionListItem>

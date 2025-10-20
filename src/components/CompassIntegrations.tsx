@@ -47,7 +47,7 @@ import { SwitchToolTable } from "./IntegrationsContent/SwitchToolTable.tsx";
 import ThIcon from "@patternfly/react-icons/dist/esm/icons/th-icon";
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 import ListIcon from "@patternfly/react-icons/dist/esm/icons/list-icon";
-import { rhServerStackIcon } from "./lib/assets/rhServerStackIcon";
+import { RHServerStackIcon } from "./lib/assets/RHServerStackIcon";
 import { Glass } from "./lib/Glass";
 import { CompassFooter } from "./lib/CompassFooter";
 import { CompassPage } from "./lib/CompassPage";
@@ -505,7 +505,9 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                       gap={{ default: "gapSm" }}
                       justifyContent={{ default: "justifyContentCenter" }}
                     >
-                      <Icon size="xl">{rhServerStackIcon}</Icon>
+                      <Icon size="xl">
+                        <RHServerStackIcon />
+                      </Icon>
                     </Flex>
                   </CardHeader>
                   <CardBody>
@@ -532,7 +534,9 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                       gap={{ default: "gapSm" }}
                       justifyContent={{ default: "justifyContentCenter" }}
                     >
-                      <Icon size="xl">{rhServerStackIcon}</Icon>
+                      <Icon size="xl">
+                        <RHServerStackIcon />
+                      </Icon>
                     </Flex>
                   </CardHeader>
                   <CardBody>
@@ -559,7 +563,9 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                       gap={{ default: "gapSm" }}
                       justifyContent={{ default: "justifyContentCenter" }}
                     >
-                      <Icon size="xl">{rhServerStackIcon}</Icon>
+                      <Icon size="xl">
+                        <RHServerStackIcon />
+                      </Icon>
                     </Flex>
                   </CardHeader>
                   <CardBody>
@@ -591,7 +597,9 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                       gap={{ default: "gapSm" }}
                       justifyContent={{ default: "justifyContentCenter" }}
                     >
-                      <Icon size="xl">{rhServerStackIcon}</Icon>
+                      <Icon size="xl">
+                        <RHServerStackIcon />
+                      </Icon>
                     </Flex>
                   </CardHeader>
                   <CardBody>

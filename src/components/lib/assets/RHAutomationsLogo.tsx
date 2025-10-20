@@ -1,4 +1,6 @@
-export const BrandLogo: React.FunctionComponent = () => {
+import React from "react";
+
+export const RHAutomationsLogo: React.FunctionComponent = () => {
   return (
     <div id="brand-logo">
       <svg
