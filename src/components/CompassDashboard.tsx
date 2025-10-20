@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import {
   Button,
   ActionListItem,
@@ -65,7 +65,11 @@ export const CompassDashboard: React.FunctionComponent = () => {
         hero={
           <Content>
             <h1>Automation that does more</h1>
-            <p>Red Hat Ansible Automation Platform offers more capabilities, accessibility, and flexibility, so you can bring the power of automation to the teams, tasks, and environments that need it. </p>
+            <p>
+              Red Hat Ansible Automation Platform offers more capabilities,
+              accessibility, and flexibility, so you can bring the power of
+              automation to the teams, tasks, and environments that need it. 
+            </p>
             <ActionList>
               <ActionListItem>
                 <Button variant="primary">Upgrade today</Button>
