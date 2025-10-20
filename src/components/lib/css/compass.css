@@ -357,7 +357,7 @@
   &,
   &:focus,
   &:focus-within {
-    animation: pulse 2s infinite;
+    animation: pulse 2s infinite ease-in-out;
     box-shadow: -2px -2px var(--thinking--spread) oklch(43.2% 0.232 292.759),
       2px 2px var(--thinking--spread) oklch(50% 0.134 242.749),
       -2px 2px var(--thinking--spread) oklch(45.9% 0.187 3.815),
