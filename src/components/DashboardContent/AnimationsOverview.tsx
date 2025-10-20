@@ -1,13 +1,10 @@
 import { Fragment, FunctionComponent } from "react";
 import {
   Button,
-  Content,
-  Card,
   CardHeader,
   CardBody,
   CardFooter,
   CardTitle,
-  ContentVariants,
   DescriptionList,
   DescriptionListDescription,
   DescriptionListGroup,
@@ -25,13 +22,10 @@ import {
   Spinner,
 } from "@patternfly/react-core";
 import { Table, Thead, Tr, Th, Tbody, Td } from "@patternfly/react-table";
-import ArrowRightIcon from "@patternfly/react-icons/dist/esm/icons/arrow-right-icon";
-import MultiContentCard from "@patternfly/react-component-groups/dist/dynamic/MultiContentCard";
 import AnimationsOverviewClusterInventory from "./AnimationsOverviewClusterInventory.tsx";
 import AnimationsOverviewNetworkActivity from "./AnimationsOverviewNetworkActivity.tsx";
 import AnimationsOverviewStorage from "./AnimationsOverviewStorage.tsx";
 import AnimationsOverviewMemoryUtilization from "./AnimationsOverviewMemoryUtilization.tsx";
-import openshiftLogo from "../../assets/Summit-collage-deploying-openshift-product-icon-RH.png";
 import { GlassCard } from "../lib/GlassCard";
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 import PortIcon from "@patternfly/react-icons/dist/esm/icons/port-icon";
@@ -82,13 +76,13 @@ const recentActivityCard = (
         actions: (
           <Dropdown
             isOpen={false} // Use a unique index for the header kebab
-            onSelect={() => { }}
-            onOpenChange={() => { }}
+            onSelect={() => {}}
+            onOpenChange={() => {}}
             toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
               <MenuToggle
                 ref={toggleRef}
                 variant="plain"
-                onClick={() => { }}
+                onClick={() => {}}
                 isExpanded={false}
               >
                 <EllipsisVIcon />
@@ -139,12 +133,12 @@ const recentActivityCard = (
                       key={stepIndex}
                       variant={
                         stepVariant as
-                        | "default"
-                        | "success"
-                        | "pending"
-                        | "danger"
-                        | "warning"
-                        | "info"
+                          | "default"
+                          | "success"
+                          | "pending"
+                          | "danger"
+                          | "warning"
+                          | "info"
                       }
                       icon={iconMap[stepVariant as keyof typeof iconMap]}
                       aria-label={`Step ${stepIndex + 1} is ${stepVariant}`}
@@ -155,13 +149,13 @@ const recentActivityCard = (
               <Td isActionCell>
                 <Dropdown
                   isOpen={false}
-                  onSelect={() => { }}
-                  onOpenChange={() => { }}
+                  onSelect={() => {}}
+                  onOpenChange={() => {}}
                   toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
                     <MenuToggle
                       ref={toggleRef}
                       variant="plain"
-                      onClick={() => { }}
+                      onClick={() => {}}
                       isExpanded={false}
                     >
                       <EllipsisVIcon />
@@ -178,89 +172,7 @@ const recentActivityCard = (
   </GlassCard>
 );
 
-export const AnimationsOverview: FunctionComponent = ({ }) => {
-  const cards = [
-    // Card 1: Performance
-    <Card isFullHeight isPlain key="card-1">
-      <CardHeader>
-        <Content component={ContentVariants.h3}>Animations</Content>
-      </CardHeader>
-      <CardBody>
-        <Content component={ContentVariants.p} className="pf-v6-u-mb-sm">
-          Our new animations bring more clarity and expression to your screen.
-          They let you interact with your data in a new way, with engaging data
-          visualizations that are even easier to understand and use.
-        </Content>
-      </CardBody>
-      <CardFooter>
-        <Button
-          variant="link"
-          icon={<ArrowRightIcon />}
-          iconPosition="end"
-          isInline
-        >
-          <a href="https://www.patternfly.org/design-foundations/motion">
-            They're everywhere
-          </a>
-        </Button>
-      </CardFooter>
-    </Card>,
-    // Card 2: Stability
-    <Card isFullHeight isPlain key="card-2">
-      <CardHeader>
-        <Content component={ContentVariants.h3}>Network security</Content>
-      </CardHeader>
-      <CardBody>
-        <Content component={ContentVariants.p} className="pf-v6-u-mb-sm">
-          Network security is a critical part of any organization's security
-          posture.
-        </Content>
-      </CardBody>
-      <CardFooter>
-        <Button
-          variant="link"
-          icon={<ArrowRightIcon />}
-          iconPosition="end"
-          isInline
-        >
-          Security updates
-        </Button>
-      </CardFooter>
-    </Card>,
-    // Card 3: Availability
-    <Card isFullHeight isPlain key="card-3">
-      <CardHeader>
-        <Content component={ContentVariants.h3}>Cluster alerting</Content>
-      </CardHeader>
-      <CardBody>
-        <Content component={ContentVariants.p} className="pf-v6-u-mb-sm">
-          Cluster alerting is a critical part of any organization's security
-          posture.
-        </Content>
-      </CardBody>
-      <CardFooter>
-        <Button
-          variant="link"
-          icon={<ArrowRightIcon />}
-          iconPosition="end"
-          isInline
-        >
-          View logs
-        </Button>
-      </CardFooter>
-    </Card>,
-    // Card 4: Image
-    <Card isFullHeight isPlain key="card-4">
-      <CardBody>
-        <img
-          src={openshiftLogo}
-          alt="OpenShift Logo"
-          style={{ width: "200px", height: "200px" }}
-        />
-      </CardBody>
-    </Card>,
-  ];
-
+export const AnimationsOverview: FunctionComponent = ({}) => {
   return (
     <Fragment>
       <Grid hasGutter>

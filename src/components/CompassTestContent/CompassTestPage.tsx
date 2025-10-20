@@ -15,14 +15,14 @@ import {
   Toolbar,
   ToolbarContent,
   ToolbarGroup,
-  ToolbarItem
+  ToolbarItem,
 } from "@patternfly/react-core";
 import BarsIcon from "@patternfly/react-icons/dist/esm/icons/bars-icon";
 import { CompassPage } from "../lib/CompassPage";
 import { CompassPageBody } from "../lib/CompassPageBody";
+import { TestReactFlow } from "./TestReactFlow";
 
 export const CompassTestPage: React.FunctionComponent = () => {
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isContentDrawerOpen, setIsContentDrawerOpen] = useState(false);
 
@@ -117,12 +117,15 @@ export const CompassTestPage: React.FunctionComponent = () => {
             body={
               <Drawer isExpanded={isContentDrawerOpen}>
                 <DrawerContent panelContent={contentDrawerContent}>
-                  <CompassPageBody>Content section</CompassPageBody>
+                  <CompassPageBody pageSectionProps={{ hasBodyWrapper: false }}>
+                    <TestReactFlow />
+                  </CompassPageBody>
                 </DrawerContent>
-              </Drawer>}
+              </Drawer>
+            }
           />
         </DrawerContent>
       </Drawer>
-    </Fragment >
+    </Fragment>
   );
 };
