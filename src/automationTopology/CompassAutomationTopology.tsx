@@ -7,6 +7,7 @@ import {
   observer,
   SELECTION_EVENT,
   SelectionEventListener,
+  TopologySideBar,
   TopologyView,
   useEventListener,
   useVisualizationController,
@@ -20,6 +21,8 @@ import compassComponentFactory from './components/compassComponentFactory.tsx';
 import compassLayoutFactory from './compassLayoutFactory';
 import { AnsibleObjectType, AnsibleSubTypes, AnsibleTypes } from './type.ts';
 import OptionsViewBar from './OptionsViewBar';
+
+import './css/compass-topology-components.css';
 
 const demoAnsibleObjects: AnsibleObjectType[] = [
   {
@@ -129,17 +132,22 @@ const TopologyViewComponent: FunctionComponent = observer(() => {
     };
   }, [selectedIds, controller]);
 
+  const topologySideBar = (
+    <TopologySideBar show={!!selectedIds?.length} onClose={() => setSelectedIds([])}>
+      <div style={{ marginTop: 27, marginLeft: 20 }}>{selectedIds?.[0]}</div>
+    </TopologySideBar>
+  );
+
   return (
     <Flex direction={{ default: 'column' }} spacer={{ default: "spacerSm" }} style={{ height: '100%' }}>
       <FlexItem>
         <OptionsViewBar />
       </FlexItem>
-      <FlexItem flex={{ default: 'flex_1' }}>
-        <TopologyView
-          controlBar={<DemoControlBar />}
-        >
+      <FlexItem flex={{ default: 'flex_1' }} className="compass__automation-topology--view">
+        <TopologyView controlBar={<DemoControlBar />}>
           <VisualizationSurface state={{ selectedIds }} />
         </TopologyView>
+        {topologySideBar}
       </FlexItem>
     </Flex>
   );

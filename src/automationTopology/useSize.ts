@@ -19,7 +19,7 @@ export const useSize = (dependencies: any[] = EMPTY): [Size | undefined, (node: 
         if (!sizeRef.current || sizeRef.current.width !== bb.width || sizeRef.current.height !== bb.height) {
           setSize({ width: bb.width, height: bb.height });
         }
-      }, 100);
+      }, 1);
     }
     // dynamic dependencies
     // eslint-disable-next-line react-hooks/exhaustive-deps

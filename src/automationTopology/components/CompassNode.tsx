@@ -11,16 +11,12 @@ import {
 } from '@patternfly/react-topology';
 import { css } from '@patternfly/react-styles';
 import styles from '@patternfly/react-topology/src/css/topology-components';
-import { useSize } from '../useSize.ts';
-import { CheckIcon } from '@patternfly/react-icons';
 import CustomRectangle from '../shapes/CustomRectangle.tsx';
+import AiConfiguredLabel from './AiConfiguredLabel.tsx';
 
 interface CompassNodeProps {
-  /** The graph node element to represent */
   element: GraphElement;
-  /** Flag if the element selected. Part of WithSelectionProps */
   selected?: boolean;
-  /** Function to call when the element should become selected (or deselected). Part of WithSelectionProps */
   onSelect?: OnSelect;
   topRightRadius?: number;
   topLeftRadius?: number;
@@ -49,7 +45,6 @@ const CompassNodeInner: FunctionComponent<CompassNodeInnerProps> = observer(
     const [nodeScale, setNodeScale] = useState<number>(1);
     const detailsLevel = element.getGraph().getDetailsLevel();
     const [contentHeight, setContentHeight] = useState<number>();
-    const [configuredLabelSize, configuredLabelRef] = useSize();
    const scaleNode = hovered && detailsLevel === ScaleDetailsLevel.low;
     const groupClassName = css(
       styles.topologyNode,
@@ -129,51 +124,6 @@ const CompassNodeInner: FunctionComponent<CompassNodeInnerProps> = observer(
       }
     };
 
-    const renderAiConfigured = () => {
-      if (!element.getData().aiConfigured) {
-        return null;
-      }
-      const { width } = element.getDimensions();
-      const labelWidth = configuredLabelSize?.width ?? 0;
-      const labelHeight = configuredLabelSize?.height ?? 0;
-      const iconSize = 14;
-      const padding = 4;
-      const fullLabelWidth = labelWidth + padding * 6;
-      const fullLabelHeight = labelHeight + padding * 2;
-      const labelPositionX = width - fullLabelWidth;
-      const labelPositionY = 0 - fullLabelHeight - padding * 2;
-
-      const backgroundClassName = css(styles.topologyNodeBackground, selected && 'pf-m-selected');
-
-      return (
-        <g transform={`translate(${labelPositionX}, ${labelPositionY})`}>
-          <rect
-            className={backgroundClassName}
-            x={0}
-            y={0}
-            rx={15}
-            ry={15}
-            width={fullLabelWidth}
-            height={fullLabelHeight}
-          />
-          <g ref={configuredLabelRef} className={css(styles.topologyNodeLabel)}>
-            <foreignObject
-              className={css(styles.topologyNodeLabelIcon)}
-              x={iconSize / 2 + padding}
-              y={padding / 2 + 2}
-              width={iconSize}
-              height={iconSize}
-            >
-              <CheckIcon style={{ fill: 'var(--pf-topology__node--m-success--Background--Fill)' }} />
-            </foreignObject>
-            <text x={iconSize + padding * 4} y={18}>
-              AI Configured
-            </text>
-          </g>
-        </g>
-      );
-    };
-
     const onContextMenu = () => {
 
     };
@@ -196,7 +146,7 @@ const CompassNodeInner: FunctionComponent<CompassNodeInnerProps> = observer(
               bottomLeftRadius={bottomLeftRadius}
               bottomRightRadius={bottomRightRadius}
             />
-            {renderAiConfigured()}
+            <AiConfiguredLabel element={element} />
             <g>
               <foreignObject
                 width={element.getDimensions().width}
@@ -214,7 +164,7 @@ const CompassNodeInner: FunctionComponent<CompassNodeInnerProps> = observer(
   }
 );
 
-const CompassNode: React.FunctionComponent<CompassNodeProps> = ({
+const CompassNode: FunctionComponent<CompassNodeProps> = ({
   element,
   ...rest
 }: CompassNodeProps) => {
