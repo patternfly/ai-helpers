@@ -1,3 +1,10 @@
+@property --thinking--spread {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: false;
+}
+
+/* compass layout */
 .compass {
   --compass--padding: var(--pf-t--global--spacer--xl);
   --compass--max-width: 1710px;
@@ -16,6 +23,7 @@
   --compass--message-bar--min-width: 300px;
   --compass--message-bar--max-width: 600px;
   --compass--feather--length: 20px;
+  --thinking--spread: 0px;
 
   padding: var(--compass--padding);
   display: grid;
@@ -117,6 +125,82 @@
   justify-content: center;
 }
 
+.glass,
+.pf-chatbot__message-bar,
+.pf-v6-c-tabs,
+/* .pf-v6-c-page__main-section:not(.pf-m-plain), */
+.compass__nav--primary,
+.compass__nav--secondary,
+.compass__panel--start,
+.compass__panel--end,
+.compass__toolbar,
+.compass__body:not(.pf-m-plain),
+.pf-v6-c-drawer.pf-m-inline.pf-m-floating .pf-v6-c-drawer__panel {
+  /* disable defaults */
+  --pf-v6-c-card--BackgroundColor: transparent;
+  --pf-v6-c-card--BorderWidth: 0;
+
+  border: 1px solid var(--compass--glass--border);
+  box-shadow: var(--pf-t--global--box-shadow--md);
+  position: relative;
+  border-radius: var(--pf-t--global--border--radius--large);
+
+  &::after {
+    content: "";
+    inset: 0;
+    position: absolute;
+    background: color-mix(in srgb, var(--compass--glass--bgcolor) var(--compass--glass--opacity), transparent);
+    mix-blend-mode: var(--compass--glass--blend-mode);
+    backdrop-filter: var(--compass--glass--backdrop-filter);
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+}
+
+.pf-v6-c-tabs,
+.compass__message-bar,
+.compass__nav--primary,
+.compass__nav--secondary,
+.compass__panel--start,
+.compass__panel--end {
+  border-radius: var(--pf-t--global--border--radius--pill);
+}
+
+.ai-border {
+  position: relative;
+}
+
+.ai-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: var(--pf-t--global--border--width--extra-strong) solid transparent;
+  border-radius: inherit;
+  background: linear-gradient(to right, #f56e6e 0%, #876fd4 65%, #5e40be 100%) border-box;
+  mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+:where(:root.no-glass) .compass {
+  --compass--glass--background-filter: revert;
+  --compass--glass--opacity: 100%;
+  --compass--glass--border: var(--pf-t--global--border--color--default);
+  --compass--glass--blend-mode: none;
+  --compass--glass--blend-mode--dark: none;
+
+  .pf-v6-c-tabs.pf-m-subtab {
+    --compass--glass--bgcolor: var(--pf-t--global--background--color--secondary--default);
+  }
+}
+
+:where(.pf-v6-theme-dark) .compass {
+  --compass--glass--blend-mode: var(--compass--glass--blend-mode--dark);
+  --compass--glass--backdrop-filter: var(--compass--glass--backdrop-filter--dark);
+}
+
+/* component overrides */
 .pf-v6-c-tabs {
   --pf-v6-c-tabs__link--FontSize: var(--pf-t--global--font--size--body--default);
 }
@@ -172,54 +256,12 @@
   }
 }
 
-.glass,
-.pf-chatbot__message-bar,
-.pf-v6-c-tabs,
-/* .pf-v6-c-page__main-section:not(.pf-m-plain), */
-.compass__nav--primary,
-.compass__nav--secondary,
-.compass__panel--start,
-.compass__panel--end,
-.compass__toolbar,
-.compass__body:not(.pf-m-plain),
-.pf-v6-c-drawer.pf-m-inline.pf-m-floating .pf-v6-c-drawer__panel {
-  /* disable defaults */
-  --pf-v6-c-card--BackgroundColor: transparent;
-  --pf-v6-c-card--BorderWidth: 0;
-
-  border: 1px solid var(--compass--glass--border);
-  box-shadow: var(--pf-t--global--box-shadow--md);
-  position: relative;
-  border-radius: var(--pf-t--global--border--radius--large);
-
-  &::after {
-    content: "";
-    inset: 0;
-    position: absolute;
-    background: color-mix(in srgb, var(--compass--glass--bgcolor) var(--compass--glass--opacity), transparent);
-    mix-blend-mode: var(--compass--glass--blend-mode);
-    backdrop-filter: var(--compass--glass--backdrop-filter);
-    z-index: -1;
-    pointer-events: none;
-    border-radius: inherit;
-  }
-}
-
 .pf-v6-c-page__main-section.pf-m-overflow-scroll {
   max-height: 100%;
 }
 
 .pf-v6-c-page__main-section.pf-m-plain {
   padding: 0;
-}
-
-.pf-v6-c-tabs,
-.compass__message-bar,
-.compass__nav--primary,
-.compass__nav--secondary,
-.compass__panel--start,
-.compass__panel--end {
-  border-radius: var(--pf-t--global--border--radius--pill);
 }
 
 .pf-v6-c-card {
@@ -271,13 +313,42 @@
   min-width: var(--compass--message-bar--min-width);
   max-width: var(--compass--message-bar--max-width);
   padding-inline-start: 0px;
-  padding-inline-end: 0px;
+  padding-inline-end: 0.8em;
   background: transparent;
   border: 0;
 
   &:hover,
   &:focus-within {
     box-shadow: var(--pf-t--global--box-shadow--md);
+  }
+
+  .pf-chatbot__button--send.pf-m-compact {
+    width: auto;
+    height: auto;
+    padding: var(--pf-v6-c-button--m-small--PaddingBlockStart) var(--pf-v6-c-button--m-small--PaddingInlineEnd)
+      var(--pf-v6-c-button--m-small--PaddingBlockEnd) var(--pf-v6-c-button--m-small--PaddingInlineStart);
+
+    .pf-v6-c-button__icon {
+      min-width: 1lh;
+    }
+  }
+}
+
+.thinking {
+  &,
+  &:focus,
+  &:focus-within {
+    animation: pulse 2s infinite;
+    box-shadow: -2px -2px var(--thinking--spread) oklch(43.2% 0.232 292.759),
+      2px 2px var(--thinking--spread) oklch(50% 0.134 242.749),
+      -2px 2px var(--thinking--spread) oklch(45.9% 0.187 3.815),
+      2px -2px var(--thinking--spread) oklch(45.9% 0.187 3.815);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    --thinking--spread: 15px;
   }
 }
 
@@ -293,22 +364,6 @@
   > .pf-v6-c-drawer {
     flex-grow: 1;
   }
-}
-
-.ai-border {
-  position: relative;
-}
-
-.ai-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border: var(--pf-t--global--border--width--extra-strong) solid transparent;
-  border-radius: inherit;
-  background: linear-gradient(to right, #f56e6e 0%, #876fd4 65%, #5e40be 100%) border-box;
-  mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
 }
 
 .pf-v6-c-text-input-group {
@@ -337,25 +392,3 @@ body {
 :where(.pf-v6-theme-dark.pf-background-red) body {
   background-image: url(../assets/rh-wallpaper-dark.png);
 }
-
-:where(:root.no-glass) .compass {
-  --compass--glass--background-filter: revert;
-  --compass--glass--opacity: 100%;
-  --compass--glass--border: var(--pf-t--global--border--color--default);
-  --compass--glass--blend-mode: none;
-  --compass--glass--blend-mode--dark: none;
-
-  .pf-v6-c-tabs.pf-m-subtab {
-    --compass--glass--bgcolor: var(--pf-t--global--background--color--secondary--default);
-  }
-}
-
-:where(.pf-v6-theme-dark) .compass {
-  --compass--glass--blend-mode: var(--compass--glass--blend-mode--dark);
-  --compass--glass--backdrop-filter: var(--compass--glass--backdrop-filter--dark);
-}
-
-/*
-input gradient
-#F56E6E 0% > #876FD4 65% > #5E40BE 100%
-*/
