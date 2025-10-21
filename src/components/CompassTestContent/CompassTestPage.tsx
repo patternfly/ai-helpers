@@ -21,17 +21,17 @@ import BarsIcon from "@patternfly/react-icons/dist/esm/icons/bars-icon";
 import { CompassPage } from "../lib/CompassPage";
 import { CompassPageBody } from "../lib/CompassPageBody";
 import { TestReactFlow } from "./TestReactFlow";
+import {
+  ContentDrawerProvider,
+  useContentDrawer,
+} from "./ContentDrawerContext";
 
-export const CompassTestPage: React.FunctionComponent = () => {
+const CompassTestPageContent: React.FunctionComponent = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isContentDrawerOpen, setIsContentDrawerOpen] = useState(false);
+  const { isContentDrawerOpen, toggleContentDrawer } = useContentDrawer();
 
   const onDrawerToggle = () => {
     setIsDrawerOpen(!isDrawerOpen);
-  };
-
-  const onContentDrawerToggle = () => {
-    setIsContentDrawerOpen(!isContentDrawerOpen);
   };
 
   const drawerContent = (
@@ -59,7 +59,7 @@ export const CompassTestPage: React.FunctionComponent = () => {
       <DrawerHead>
         <span>Content Details</span>
         <DrawerActions>
-          <DrawerCloseButton onClick={onContentDrawerToggle} />
+          <DrawerCloseButton onClick={toggleContentDrawer} />
         </DrawerActions>
       </DrawerHead>
       <DrawerPanelBody>
@@ -102,7 +102,7 @@ export const CompassTestPage: React.FunctionComponent = () => {
                           <Button
                             icon={<BarsIcon />}
                             variant="secondary"
-                            onClick={onContentDrawerToggle}
+                            onClick={toggleContentDrawer}
                             aria-label="Toggle content drawer"
                           >
                             Content Details
@@ -127,5 +127,13 @@ export const CompassTestPage: React.FunctionComponent = () => {
         </DrawerContent>
       </Drawer>
     </Fragment>
+  );
+};
+
+export const CompassTestPage: React.FunctionComponent = () => {
+  return (
+    <ContentDrawerProvider>
+      <CompassTestPageContent />
+    </ContentDrawerProvider>
   );
 };

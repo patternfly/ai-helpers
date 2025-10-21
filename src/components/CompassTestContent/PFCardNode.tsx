@@ -14,6 +14,7 @@ import {
   Badge,
   Button,
 } from "@patternfly/react-core";
+import { useContentDrawer } from "./ContentDrawerContext";
 
 interface PFCardNodeData {
   title: string;
@@ -35,6 +36,8 @@ const PFCardNode = memo(
     data: PFCardNodeData;
     isConnectable: boolean;
   }) => {
+    const { openContentDrawer } = useContentDrawer();
+
     return (
       <>
         <Handle
@@ -86,7 +89,12 @@ const PFCardNode = memo(
                 <CardFooter>
                   <Button
                     variant="link"
-                    onClick={data.onAction}
+                    onClick={() => {
+                      // Call the original action if provided
+                      data.onAction?.();
+                      // Also open the content drawer
+                      openContentDrawer();
+                    }}
                     style={{ padding: 0 }}
                   >
                     {data.actionText}
