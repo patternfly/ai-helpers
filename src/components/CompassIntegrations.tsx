@@ -47,7 +47,7 @@ import { SwitchToolTable } from "./IntegrationsContent/SwitchToolTable.tsx";
 import ThIcon from "@patternfly/react-icons/dist/esm/icons/th-icon";
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 import ListIcon from "@patternfly/react-icons/dist/esm/icons/list-icon";
-import { RHServerStackIcon } from "./lib/assets/rhServerStackIcon.tsx";
+import { RHServerStackIcon } from "./lib/assets/RHServerStackIcon";
 import { Glass } from "./lib/Glass";
 import { CompassFooter } from "./lib/CompassFooter";
 import { CompassPage } from "./lib/CompassPage";
@@ -263,7 +263,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
             select: {
               index,
               rowIndex: index,
-              onSelect: () => { },
+              onSelect: () => {},
               isSelected: false,
             },
           },
@@ -275,12 +275,12 @@ export const CompassIntegrations: React.FunctionComponent = () => {
             <Label
               status={
                 status as
-                | "success"
-                | "danger"
-                | "warning"
-                | "info"
-                | "custom"
-                | undefined
+                  | "success"
+                  | "danger"
+                  | "warning"
+                  | "info"
+                  | "custom"
+                  | undefined
               }
               isCompact
               variant="outline"
@@ -302,7 +302,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
       cell: undefined,
       props: {
         select: {
-          onSelect: () => { },
+          onSelect: () => {},
           isSelected: false,
         },
       },
@@ -347,9 +347,9 @@ export const CompassIntegrations: React.FunctionComponent = () => {
               itemCount={523}
               perPage={20}
               page={1}
-              onSetPage={() => { }}
+              onSetPage={() => {}}
               widgetId="pagination-options-card-view"
-              onPerPageSelect={() => { }}
+              onPerPageSelect={() => {}}
               isCompact
             />
           </ToolbarItem>
@@ -369,7 +369,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                   <>
                     <Dropdown
                       isOpen={false}
-                      onOpenChange={() => { }}
+                      onOpenChange={() => {}}
                       toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
                         <MenuToggle
                           ref={toggleRef}
@@ -396,12 +396,12 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                     <Label
                       status={
                         product.status as
-                        | "success"
-                        | "danger"
-                        | "warning"
-                        | "info"
-                        | "custom"
-                        | undefined
+                          | "success"
+                          | "danger"
+                          | "warning"
+                          | "info"
+                          | "custom"
+                          | undefined
                       }
                       isCompact
                       variant="outline"
@@ -427,7 +427,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
   const dataViewIntegration = (
     <>
       <DataViewToolbar
-        clearAllFilters={() => { }}
+        clearAllFilters={() => {}}
         filters={
           <DataViewTextFilter
             filterId="name"
@@ -497,7 +497,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                       selectableActionAriaLabelledby: "tile-example-1",
                       name: "id1",
                       variant: "single",
-                      onChange: () => { },
+                      onChange: () => {},
                       isHidden: true,
                     }}
                   >
@@ -526,7 +526,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                       selectableActionAriaLabelledby: "tile-example-2",
                       name: "id2",
                       variant: "single",
-                      onChange: () => { },
+                      onChange: () => {},
                       isHidden: true,
                     }}
                   >
@@ -555,7 +555,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                       selectableActionAriaLabelledby: "tile-example-3",
                       name: "id3",
                       variant: "single",
-                      onChange: () => { },
+                      onChange: () => {},
                       isHidden: true,
                     }}
                   >
@@ -589,7 +589,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                       selectableActionAriaLabelledby: "tile-example-4",
                       name: "id4",
                       variant: "single",
-                      onChange: () => { },
+                      onChange: () => {},
                       isHidden: true,
                     }}
                   >
@@ -636,7 +636,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                 id="form-name"
                 name="form-name"
                 value="Pineapple"
-                onChange={() => { }}
+                onChange={() => {}}
               />
             </FormGroup>
             <FormGroup
@@ -662,7 +662,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
                 id="form-server"
                 name="form-server"
                 value="https://example.com"
-                onChange={() => { }}
+                onChange={() => {}}
               />
               <FormHelperText>
                 <HelperText>
