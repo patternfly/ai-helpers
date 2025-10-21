@@ -8,6 +8,7 @@ interface CompassProps {
   center?: React.ReactNode;
 }
 
+// TODO: add expanded to each section
 export const Compass: React.FunctionComponent<CompassProps> = ({
   north,
   east,
