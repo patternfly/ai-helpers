@@ -1,60 +1,200 @@
-/* defaults
 .react-flow {
-  --xy-edge-stroke-default: #b1b1b7;
-  --xy-edge-stroke-width-default: 1;
-  --xy-edge-stroke-selected-default: #555;
-  --xy-connectionline-stroke-default: #b1b1b7;
-  --xy-connectionline-stroke-width-default: 1;
-  --xy-attribution-background-color-default: rgba(255, 255, 255, 0.5);
-  --xy-minimap-background-color-default: #fff;
-  --xy-background-pattern-dots-color-default: #91919a;
-  --xy-background-pattern-line-color-default: #eee;
-  --xy-background-pattern-cross-color-default: #e2e2e2;
-  --xy-node-color-default: inherit;
-  --xy-node-border-default: 1px solid #1a192b;
-  --xy-node-background-color-default: #fff;
-  --xy-node-group-background-color-default: rgba(240, 240, 240, 0.25);
-  --xy-node-boxshadow-hover-default: 0 1px 4px 1px rgba(0, 0, 0, 0.08);
-  --xy-node-boxshadow-selected-default: 0 0 0 0.5px #1a192b;
-  --xy-handle-background-color-default: #1a192b;
-  --xy-handle-border-color-default: #fff;
-  --xy-selection-background-color-default: rgba(0, 89, 220, 0.08);
-  --xy-selection-border-default: 1px dotted rgba(0, 89, 220, 0.8);
-  --xy-controls-button-background-color-default: #fefefe;
-  --xy-controls-button-background-color-hover-default: #f4f4f4;
-  --xy-controls-button-color-default: inherit;
-  --xy-controls-button-color-hover-default: inherit;
-  --xy-controls-button-border-color-default: #eee;
-  --xy-controls-box-shadow-default: 0 0 2px 1px rgba(0, 0, 0, 0.08);
-  --xy-resize-background-color-default: #3367d9;
-} */
-
-.react-flow {
+  --xy-node-border-radius-default: var(--pf-t--global--border--radius--medium);
   --xy-edge-stroke-default: var(--pf-t--global--border--color--default);
-  --xy-edge-stroke-width-default: var(--pf-t--global--border--width--default);
+  --xy-edge-stroke-width-default: var(--pf-t--global--border--width--regular);
   --xy-edge-stroke-selected-default: var(--pf-t--global--border--color--clicked);
   --xy-connectionline-stroke-default: var(--pf-t--global--border--color--default);
-  --xy-connectionline-stroke-width-default: var(--pf-t--global--border--width--default);
-  --xy-attribution-background-color-default: rgba(255, 255, 255, 0.5);
-  --xy-minimap-background-color-default: #fff;
+  --xy-connectionline-stroke-width-default: var(--pf-t--global--border--width--regular);
+  --xy-attribution-background-color-default: transparent;
+  --xy-minimap-background-color-default: var(--pf-t--global--background--color--primary--default);
   --xy-background-pattern-dots-color-default: var(--pf-t--global--background--color--secondary--default);
   --xy-background-pattern-line-color-default: yellow;
   --xy-background-pattern-cross-color-default: green;
-  --xy-node-color-default: var(--pf-t--global--text--color--default);
-  --xy-node-border-default: var(--pf-t--global--border--width--default) solid var(--pf-t--global--border--color--default);
+  --xy-node-color-default: var(--pf-t--global--text--color--regular);
+  --xy-node-border-default: var(--pf-t--global--border--width--regular) solid
+    var(--pf-t--global--border--color--default);
   --xy-node-background-color-default: var(--pf-t--global--background--color--primary--default);
   --xy-node-group-background-color-default: rgba(240, 240, 240, 0.25);
-  --xy-node-boxshadow-hover-default: var(--pf-t--global--box-shadow--md--default);
-  --xy-node-boxshadow-selected-default: var(--pf-t--global--box-shadow--sm--default);
+  --xy-node-boxshadow-hover-default: var(--pf-t--global--box-shadow--sm);
+  --xy-node-boxshadow-selected-default: var(--pf-t--global--box-shadow--md);
   --xy-handle-background-color-default: var(--pf-t--global--color--brand--default);
   --xy-handle-border-color-default: var(--pf-t--global--border--color--alt);
   --xy-selection-background-color-default: rgba(0, 89, 220, 0.08);
   --xy-selection-border-default: 1px dotted rgba(0, 89, 220, 0.8);
-  --xy-controls-button-background-color-default: #fefefe;
+  --xy-controls-button-background-color-default: red;
   --xy-controls-button-background-color-hover-default: #f4f4f4;
   --xy-controls-button-color-default: inherit;
   --xy-controls-button-color-hover-default: inherit;
   --xy-controls-button-border-color-default: #eee;
   --xy-controls-box-shadow-default: 0 0 2px 1px rgba(0, 0, 0, 0.08);
   --xy-resize-background-color-default: #3367d9;
+  --xy-edge-label-background-color-default: #ffffff;
+  --xy-minimap-mask-background-color-default: rgba(240, 240, 240, 0.6);
+  --xy-theme-selected: #f57dbd;
+  --xy-theme-hover: #c5c5c5;
+  --xy-theme-edge-hover: black;
+  --xy-theme-color-focus: #e8e8e8;
+  --xy-node-boxshadow-default: 0px 3.54px 4.55px 0px #00000005, 0px 3.54px 4.55px 0px #0000000d,
+    0px 0.51px 1.01px 0px #0000001a;
+  --xy-edge-label-color-default: #505050;
+  --xy-minimap-mask-stroke-color-default: transparent;
+  --xy-minimap-mask-stroke-width-default: 1;
+  --xy-minimap-node-background-color-default: #e2e2e2;
+  --xy-minimap-node-stroke-color-default: transparent;
+  --xy-minimap-node-stroke-width-default: 2;
+  --xy-background-color-default: transparent;
+}
+
+/* The outermost container */
+.react-flow {
+}
+
+/* The inner container */
+.react-flow__renderer {
+}
+
+/* Zoom and pan plane */
+.react-flow__zoompane {
+}
+
+/* Selection pane */
+.react-flow__selectionpane {
+}
+
+/* User selection */
+.react-flow__selection {
+}
+
+/* The element containing all edges in the flow */
+.react-flow__edges {
+}
+
+/* Applied to each Edge in the flow */
+.react-flow__edge {
+}
+
+/* Added to an Edge when selected */
+.react-flow__edge.selected {
+}
+
+/* Added to an Edge when its animated prop is true */
+.react-flow__edge.animated {
+}
+
+/* Added to an Edge while it gets updated via onReconnect */
+.react-flow__edge.updating {
+}
+
+/* The SVG <path /> element of an Edge */
+.react-flow__edge-path {
+}
+
+/* The SVG <text /> element of an Edge label */
+.react-flow__edge-text {
+}
+
+/* The SVG <text /> element behind an Edge label */
+.react-flow__edge-textbg {
+}
+
+/* Applied to the current connection line */
+.react-flow__connection {
+}
+
+/* The SVG <path /> of a connection line */
+.react-flow__connection-path {
+}
+
+/* The element containing all nodes in the flow */
+.react-flow__nodes {
+}
+
+/* Applied to each Node in the flow */
+.react-flow__node {
+}
+
+/* Added to a Node when hovered. */
+.react-flow__node:not(.react-flow__node-pfCard):hover {
+  border: var(--pf-t--global--border--width--regular) solid var(--pf-t--global--border--color--brand--hover);
+}
+
+.react-flow__node:hover {
+  .pf-v6-c-card {
+    --pf-v6-c-card--BorderColor: var(--pf-t--global--border--color--brand--clicked);
+  }
+}
+
+/* Added to a Node when selected. */
+.react-flow__node:not(.react-flow__node-pfCard).selected {
+  border: var(--pf-t--global--border--width--regular) solid var(--pf-t--global--border--color--brand--clicked);
+}
+
+.react-flow__node.selected {
+  .pf-v6-c-card {
+    --pf-v6-c-card--BorderColor: var(--pf-t--global--border--color--brand--hover);
+  }
+}
+
+/* Added when Node type is "default" */
+.react-flow__node-default {
+}
+
+/* Added when Node type is "input" */
+.react-flow__node-input {
+}
+
+/* Added when Node type is "output" */
+.react-flow__node-output {
+}
+
+/* Nodes selection */
+.react-flow__nodesselection {
+}
+
+/* Nodes selection rect */
+.react-flow__nodesselection-rect {
+}
+
+/* Applied to each <Handle /> component */
+.react-flow__handle {
+}
+
+/* Applied when a handle’s Position is set to "top" */
+.react-flow__handle-top {
+}
+
+/* Applied when a handle’s Position is set to "right" */
+.react-flow__handle-right {
+}
+
+/* Applied when a handle’s Position is set to "bottom" */
+.react-flow__handle-bottom {
+}
+
+/* Applied when a handle’s Position is set to "left" */
+.react-flow__handle-left {
+}
+
+/* Added to a Handle when a connection line is above a handle. */
+.connectingfrom {
+}
+
+/* Added to a Handle when a connection line is above a handle. */
+.connectingto {
+}
+
+/* Added to a Handle when a connection line is above and the connection is valid */
+.valid {
+}
+
+/* Applied to the <Background /> component */
+.react-flow__background {
+}
+
+/* Applied to the <MiniMap /> component */
+.react-flow__minimap {
+}
+
+/* Applied to the <Controls /> component */
+.react-flow__controls {
 }

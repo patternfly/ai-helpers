@@ -51,13 +51,18 @@ const initialNodes = [
       actionText: "Monitor",
       onAction: () => console.log("Monitor clicked"),
     },
-    position: { x: 300, y: 300 },
+    position: { x: 700, y: 50 },
   },
   {
     id: "2",
     type: "input",
     data: { label: "Start Node" },
     position: { x: 0, y: 50 },
+  },
+  {
+    id: '3',
+    position: { x: 0, y: 150 },
+    data: { label: 'plain node' }
   },
 ];
 

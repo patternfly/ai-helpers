@@ -23,7 +23,9 @@
   --compass--message-bar--min-width: 300px;
   --compass--message-bar--max-width: 600px;
   --compass--feather--length: 20px;
+  --compass__hero--bgimage: url("../images/hero-bg.png")
   --thinking--spread: 0px;
+  --thinking--spread--pulse: 15px;
 
   padding: var(--compass--padding);
   display: grid;
@@ -53,7 +55,7 @@
   border: var(--pf-t--global--border--width--regular) solid var(--pf-t--global--border--color--alt);
   display: flex;
   padding: 32px 0 32px 72px;
-  background-image: url("../assets/hero-bg.png"), linear-gradient(289deg, #000 0%, #1b0d33 50%, #3d2785 100%);
+  background-image: var(--compass__hero--bgimage), linear-gradient(289deg, #000 0%, #1b0d33 50%, #3d2785 100%);
   background-position: right center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -310,10 +312,6 @@
   }
 }
 
-.pf-v6-c-tabs__link {
-  outline-offset: -4px;
-}
-
 .pf-v6-c-button {
   --pf-v6-c-button--m-plain--BorderRadius: var(--pf-t--global--border--radius--pill);
 }
@@ -367,7 +365,7 @@
 
 @keyframes pulse {
   50% {
-    --thinking--spread: 15px;
+    --thinking--spread: var(--thinking--spread--pulse);
   }
 }
 
