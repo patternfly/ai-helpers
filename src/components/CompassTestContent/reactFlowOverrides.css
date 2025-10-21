@@ -7,7 +7,7 @@
   --xy-connectionline-stroke-width-default: var(--pf-t--global--border--width--regular);
   --xy-attribution-background-color-default: transparent;
   --xy-minimap-background-color-default: var(--pf-t--global--background--color--primary--default);
-  --xy-background-pattern-dots-color-default: var(--pf-t--global--text--color--regular);
+  --xy-background-pattern-dots-color-default: var(--pf-t--global--border--color--disabled);
   --xy-background-pattern-line-color-default: yellow;
   --xy-background-pattern-cross-color-default: green;
   --xy-node-color-default: var(--pf-t--global--text--color--regular);
