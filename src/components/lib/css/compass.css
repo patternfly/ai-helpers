@@ -220,10 +220,6 @@
   --compass--glass--border: var(--pf-t--global--border--color--default);
   --compass--glass--blend-mode: none;
   --compass--glass--blend-mode--dark: none;
-
-  .pf-v6-c-tabs.pf-m-subtab {
-    --compass--glass--bgcolor: var(--pf-t--global--background--color--secondary--default);
-  }
 }
 
 :where(.pf-v6-theme-dark) .compass {
