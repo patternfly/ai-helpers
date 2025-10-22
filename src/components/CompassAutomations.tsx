@@ -11,13 +11,33 @@ import {
 } from "@patternfly/react-core";
 import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 import { CompassAutomationTopology } from "../automationTopology/CompassAutomationTopology.tsx";
-import { CompassPage } from "./lib/CompassPage";
-import { CompassPageBody } from "./lib/CompassPageBody";
+import { CompassMainHeader } from "./lib/CompassMainHeader.tsx";
+import { CompassContent } from "./lib/CompassContent.tsx";
+import { CompassSection } from "./lib/CompassSection.tsx";
 
 export const CompassAutomations: React.FunctionComponent = () => {
   return (
     <Fragment>
-      <CompassPage
+      <CompassMainHeader
+        title={<Title headingLevel="h1">Automations</Title>}
+        toolbar={
+          <Toolbar hasNoPadding>
+            <ToolbarContent>
+              <ToolbarGroup>
+                <ToolbarItem>
+                  <Button icon={<EllipsisVIcon />} variant="plain" />
+                </ToolbarItem>
+              </ToolbarGroup>
+            </ToolbarContent>
+          </Toolbar>
+        }
+      />
+      <CompassContent>
+        <CompassSection>
+          <CompassAutomationTopology />
+        </CompassSection>
+      </CompassContent>
+      {/* <CompassPage
         toolbar={
           <Flex alignItems={{ default: "alignItemsCenter" }}>
             <FlexItem grow={{ default: "grow" }}>
@@ -44,7 +64,7 @@ export const CompassAutomations: React.FunctionComponent = () => {
             <CompassAutomationTopology />
           </CompassPageBody>
         }
-      />
+      /> */}
     </Fragment>
   );
 };

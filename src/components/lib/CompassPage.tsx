@@ -1,7 +1,6 @@
 import React from "react";
 import { Page, PageSection, PageProps } from "@patternfly/react-core";
 import { CompassHero } from "./CompassHero";
-import { CompassHeroBody } from "./CompassHeroBody";
 
 interface CompassPageProps extends Omit<PageProps, "className" | "ref"> {
   hero?: React.ReactNode;
@@ -26,13 +25,7 @@ export const CompassPage: React.FunctionComponent<CompassPageProps> = ({
       className={combinedClassName}
       isContentFilled
     >
-      {hero && (
-        <CompassHero>
-          <CompassHeroBody>
-            {hero}
-          </CompassHeroBody>
-        </CompassHero>
-      )}
+      {hero && <CompassHero>{hero}</CompassHero>}
       {toolbar && (
         <div className="compass__toolbar">
           <PageSection>{toolbar}</PageSection>

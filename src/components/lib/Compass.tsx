@@ -1,48 +1,48 @@
 import React from "react";
+import { Drawer, DrawerContent, DrawerProps } from "@patternfly/react-core";
 
 interface CompassProps {
-  north?: React.ReactNode;
-  east?: React.ReactNode;
-  south?: React.ReactNode;
-  west?: React.ReactNode;
-  center?: React.ReactNode;
+  header?: React.ReactNode;
+  panelStart?: React.ReactNode;
+  main?: React.ReactNode;
+  panelEnd?: React.ReactNode;
+  footer?: React.ReactNode;
+  drawerProps?: DrawerProps;
+  drawerContent?: React.ReactNode;
 }
 
 // TODO: add expanded to each section
 export const Compass: React.FunctionComponent<CompassProps> = ({
-  north,
-  east,
-  south,
-  west,
-  center,
+  header,
+  panelStart,
+  main,
+  panelEnd,
+  footer,
+  drawerContent,
+  drawerProps,
+  ...props
 }) => {
-  return (
-    <div id="pf-compass" className="compass">
-      {north && (
-        <div id="pf-compass__north" className="compass__header">
-          {north}
-        </div>
-      )}
-      {west && (
-        <div id="pf-compass__west" className="compass__panel--start">
-          {west}
-        </div>
-      )}
-      {center && (
-        <div id="pf-compass__main" className="compass__main">
-          {center}
-        </div>
-      )}
-      {east && (
-        <div id="pf-compass__east" className="compass__panel--end">
-          {east}
-        </div>
-      )}
-      {south && (
-        <div id="pf-compass__south" className="compass__footer">
-          {south}
-        </div>
-      )}
+  const hasDrawer = drawerContent !== undefined;
+
+  const compassContent = (
+    <div className="pf-v6-c-compass" {...props}>
+      <div className="pf-v6-c-compass__header">{header}</div>
+      <div className="pf-v6-c-compass__panel pf-m-start">{panelStart}</div>
+      <div className="pf-v6-c-compass__main">{main}</div>
+      <div className="pf-v6-c-compass__panel pf-m-end">{panelEnd}</div>
+      <div className="pf-v6-c-compass__footer">{footer}</div>
     </div>
   );
+
+  if (hasDrawer) {
+    return (
+      <Drawer {...drawerProps}>
+        <DrawerContent panelContent={drawerContent}>
+          {compassContent}
+        </DrawerContent>
+      </Drawer>
+    );
+  }
+
+  return compassContent;
 };

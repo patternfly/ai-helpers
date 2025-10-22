@@ -6,8 +6,9 @@ import {
   ActionList,
 } from "@patternfly/react-core";
 import { AnimationsOverview } from "./DashboardContent/AnimationsOverview";
-import { CompassPage } from "./lib/CompassPage";
-import { CompassPageBody } from "./lib/CompassPageBody";
+import { CompassHero } from "./lib/CompassHero";
+import { CompassContent } from "./lib/CompassContent";
+import { CompassSection } from "./lib/CompassSection";
 
 export const CompassDashboard: React.FunctionComponent = () => {
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -61,25 +62,30 @@ export const CompassDashboard: React.FunctionComponent = () => {
 
   return (
     <Fragment>
-      <CompassPage
-        hero={
-          <Content>
-            <h1>Automation that does more</h1>
-            <p>
-              Red Hat Ansible Automation Platform offers more capabilities,
-              accessibility, and flexibility, so you can bring the power of
-              automation to the teams, tasks, and environments that need it. 
-            </p>
-            <ActionList>
-              <ActionListItem>
-                <Button variant="primary">Upgrade today</Button>
-              </ActionListItem>
-              <ActionListItem>
-                <Button variant="secondary">Talk to a Red Hatter</Button>
-              </ActionListItem>
-            </ActionList>
-          </Content>
-        }
+      <CompassHero>
+        <Content>
+          <h1>Automation that does more</h1>
+          <p>
+            Red Hat Ansible Automation Platform offers more capabilities,
+            accessibility, and flexibility, so you can bring the power of
+            automation to the teams, tasks, and environments that need it. 
+          </p>
+          <ActionList>
+            <ActionListItem>
+              <Button variant="primary">Upgrade today</Button>
+            </ActionListItem>
+            <ActionListItem>
+              <Button variant="secondary">Talk to a Red Hatter</Button>
+            </ActionListItem>
+          </ActionList>
+        </Content>
+      </CompassHero>
+      <CompassContent>
+        <CompassSection>
+          <AnimationsOverview />
+        </CompassSection>
+      </CompassContent>
+      {/* <CompassPage
         body={
           <CompassPageBody
             ref={bodyRef}
@@ -93,7 +99,7 @@ export const CompassDashboard: React.FunctionComponent = () => {
             <AnimationsOverview />
           </CompassPageBody>
         }
-      />
+      /> */}
     </Fragment>
   );
 };

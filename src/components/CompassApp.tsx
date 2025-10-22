@@ -26,12 +26,12 @@ import imgAvatar from "../assets/avatar.jpg";
 import { CompassIntegrations } from "./CompassIntegrations";
 import { CompassAutomations } from "./CompassAutomations";
 import { CompassDashboard } from "./CompassDashboard";
-import { CompassContent } from "./CompassContent";
+import { CompassContentPage } from "./CompassContentPage";
 import { CompassTestPage } from "./CompassTestContent/CompassTestPage";
 
 import { Compass } from "./lib/Compass";
-import { CompassNavSection } from "./lib/CompassNavSection";
 import { VerticalActionList } from "./lib/VerticalActionList";
+import { CompassHeader } from "./lib/CompassHeader";
 import { CompassAIButton } from "./lib/CompassAIButton";
 import { RHAiExperienceIcon } from "./lib/assets/RHAiExperienceIcon";
 import { RHAutomationsLogo } from "./lib/assets/RHAutomationsLogo";
@@ -113,6 +113,31 @@ export const CompassApp: React.FunctionComponent = () => {
 
   const logoContent = <RHAutomationsLogo />;
 
+  const subTabs = (
+    <Tabs
+      activeKey={activeSubsection}
+      isSubtab
+      onSelect={handleSubsectionClick}
+    >
+      <Tab
+        eventKey={0}
+        title={<TabTitleText>Overview</TabTitleText>}
+        isDisabled
+      />
+      <Tab eventKey={1} title={<TabTitleText>Integrations</TabTitleText>} />
+      <Tab
+        eventKey={2}
+        title={<TabTitleText>Credentials</TabTitleText>}
+        isDisabled
+      />
+      <Tab
+        eventKey={3}
+        title={<TabTitleText>Settings</TabTitleText>}
+        isDisabled
+      />
+    </Tabs>
+  );
+
   const navContent = (
     <Tabs
       activeKey={activeSection}
@@ -133,39 +158,14 @@ export const CompassApp: React.FunctionComponent = () => {
         isDisabled
       />
       <Tab eventKey={4} title={<TabTitleText>Configuration</TabTitleText>}>
-        <Tabs
-          activeKey={activeSubsection}
-          isSubtab
-          onSelect={handleSubsectionClick}
-        >
-          <Tab
-            eventKey={0}
-            title={<TabTitleText>Overview</TabTitleText>}
-            isDisabled
-          />
-          <Tab eventKey={1} title={<TabTitleText>Integrations</TabTitleText>} />
-          <Tab
-            eventKey={2}
-            title={<TabTitleText>Credentials</TabTitleText>}
-            isDisabled
-          />
-          <Tab
-            eventKey={3}
-            title={<TabTitleText>Settings</TabTitleText>}
-            isDisabled
-          />
-        </Tabs>
+        <div className="pf-u-glass">{subTabs}</div>
       </Tab>
       <Tab eventKey={5} title={<TabTitleText>Test Page</TabTitleText>} />
     </Tabs>
   );
 
   const northContent = (
-    <CompassNavSection
-      logo={logoContent}
-      nav={navContent}
-      user={userDropdown}
-    />
+    <CompassHeader logo={logoContent} nav={navContent} profile={userDropdown} />
   );
 
   const westContent = (
@@ -208,7 +208,7 @@ export const CompassApp: React.FunctionComponent = () => {
         if (activeSubsection === 1) {
           return <CompassIntegrations />;
         } else {
-          return <CompassContent />;
+          return <CompassContentPage />;
         }
       case 5:
         return <CompassTestPage />;
@@ -243,11 +243,11 @@ export const CompassApp: React.FunctionComponent = () => {
 
   return (
     <Compass
-      north={northContent}
-      west={westContent}
-      center={centerContent}
-      east={eastContent}
-      south={showSouthSection ? southContent : undefined}
+      header={northContent}
+      panelStart={westContent}
+      main={centerContent}
+      panelEnd={eastContent}
+      footer={showSouthSection ? southContent : undefined}
     />
   );
 };

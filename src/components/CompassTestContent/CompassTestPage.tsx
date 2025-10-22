@@ -18,13 +18,14 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 import BarsIcon from "@patternfly/react-icons/dist/esm/icons/bars-icon";
-import { CompassPage } from "../lib/CompassPage";
-import { CompassPageBody } from "../lib/CompassPageBody";
 import { TestReactFlow } from "./TestReactFlow";
 import {
   ContentDrawerProvider,
   useContentDrawer,
 } from "./ContentDrawerContext";
+import { CompassContent } from "../lib/CompassContent";
+import { CompassMainHeader } from "../lib/CompassMainHeader";
+import { CompassSection } from "../lib/CompassSection";
 
 const CompassTestPageContent: React.FunctionComponent = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -78,7 +79,47 @@ const CompassTestPageContent: React.FunctionComponent = () => {
     <Fragment>
       <Drawer isExpanded={isDrawerOpen}>
         <DrawerContent panelContent={drawerContent}>
-          <CompassPage
+          <CompassMainHeader
+            title={<Title headingLevel="h1">Title</Title>}
+            toolbar={
+              <Toolbar hasNoPadding>
+                <ToolbarContent>
+                  <ToolbarGroup>
+                    <ToolbarItem>
+                      <Button
+                        icon={<BarsIcon />}
+                        variant="plain"
+                        onClick={onDrawerToggle}
+                        aria-label="Toggle drawer"
+                      >
+                        Details
+                      </Button>
+                    </ToolbarItem>
+                    <ToolbarItem>
+                      <Button
+                        icon={<BarsIcon />}
+                        variant="secondary"
+                        onClick={toggleContentDrawer}
+                        aria-label="Toggle content drawer"
+                      >
+                        Content Details
+                      </Button>
+                    </ToolbarItem>
+                  </ToolbarGroup>
+                </ToolbarContent>
+              </Toolbar>
+            }
+          />
+          <Drawer isExpanded={isContentDrawerOpen}>
+            <DrawerContent panelContent={contentDrawerContent}>
+              <CompassContent>
+                <CompassSection>
+                  <TestReactFlow />
+                </CompassSection>
+              </CompassContent>
+            </DrawerContent>
+          </Drawer>
+          {/* <CompassPage
             toolbar={
               <Flex alignItems={{ default: "alignItemsCenter" }}>
                 <FlexItem grow={{ default: "grow" }}>
@@ -123,7 +164,7 @@ const CompassTestPageContent: React.FunctionComponent = () => {
                 </DrawerContent>
               </Drawer>
             }
-          />
+          /> */}
         </DrawerContent>
       </Drawer>
     </Fragment>

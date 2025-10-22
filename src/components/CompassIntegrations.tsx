@@ -50,8 +50,9 @@ import ListIcon from "@patternfly/react-icons/dist/esm/icons/list-icon";
 import { RHServerStackIcon } from "./lib/assets/RHServerStackIcon";
 import { Glass } from "./lib/Glass";
 import { CompassFooter } from "./lib/CompassFooter";
-import { CompassPage } from "./lib/CompassPage";
-import { CompassPageBody } from "./lib/CompassPageBody";
+import { CompassMainHeader } from "./lib/CompassMainHeader.tsx";
+import { CompassContent } from "./lib/CompassContent.tsx";
+import { CompassSection } from "./lib/CompassSection.tsx";
 
 export const CompassIntegrations: React.FunctionComponent = () => {
   const [activeDisplay, setActiveDisplay] = useState("grid");
@@ -469,7 +470,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
   const addIntegration = (
     <>
       <Glass>
-        <PageSection hasOverflowScroll>
+        <CompassSection>
           <Content component="h2">Configure integration</Content>
           <Form>
             <FormGroup
@@ -715,10 +716,10 @@ export const CompassIntegrations: React.FunctionComponent = () => {
               </Button>
             </ActionGroup>
           </Form>
-        </PageSection>
+        </CompassSection>
       </Glass>
       <Glass>
-        <PageSection hasOverflowScroll>
+        <CompassSection>
           <Flex alignItems={{ default: "alignItemsCenter" }}>
             <FlexItem grow={{ default: "grow" }}>
               <Title headingLevel="h2">
@@ -742,7 +743,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
           </Flex>
           <SwitchToolTable />
           <CompassFooter>161 tools selected</CompassFooter>
-        </PageSection>
+        </CompassSection>
       </Glass>
     </>
   );
@@ -814,7 +815,27 @@ export const CompassIntegrations: React.FunctionComponent = () => {
 
   return (
     <Fragment>
-      <CompassPage
+      <CompassMainHeader>
+        {(() => {
+          if (activeDisplay === "add") {
+            return addIntegrationHeader;
+          } else {
+            return integrationHeader;
+          }
+        })()}
+      </CompassMainHeader>
+      <CompassContent>
+        {(() => {
+          if (activeDisplay === "add") {
+            return <Flex>{addIntegration}</Flex>;
+          } else if (activeDisplay === "list") {
+            return <CompassSection>{dataViewIntegration}</CompassSection>;
+          } else {
+            return <CompassSection>{cardIntegration}</CompassSection>;
+          }
+        })()}
+      </CompassContent>
+      {/* <CompassPage
         toolbar={(() => {
           if (activeDisplay === "add") {
             return addIntegrationHeader;
@@ -842,7 +863,7 @@ export const CompassIntegrations: React.FunctionComponent = () => {
             })()}
           </CompassPageBody>
         }
-      />
+      /> */}
     </Fragment>
   );
 };
