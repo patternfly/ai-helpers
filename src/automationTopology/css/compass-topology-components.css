@@ -1,0 +1,38 @@
+.compass {
+  --pf-topology__node__background--StrokeWidth: 2px;
+  --pf-topology__node--m-selected--Background--Fill: var(--pf-topology__node__background--Fill);
+  --pf-topology__node--m-selected--node__label__text--Fill: var(--pf-topology__node__label__text--Fill);
+  --pf-topology-visualization-surface--BackgroundColor: transparent;
+  --pf-topology__group--m-selected--topology__group__background--Fill: transparent;
+
+  .compass__node-label.pf-topology__node__background {
+    --pf-topology__node--m-selected__background--StrokeWidth: var(--pf-topology__node__background--StrokeWidth);
+    --pf-topology__node--m-selected--Background--Stroke: var(--pf-t--global--border--color--default);
+  }
+
+  .compass__automation-topology--view {
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .pf-topology-content {
+    background-color: transparent;
+  }
+
+  @media (min-width: 768px) {
+    .pf-topology-side-bar.shown {
+      max-width: 350px;
+    }
+    .pf-topology-container__with-sidebar.pf-topology-container__with-sidebar--open .pf-topology-content {
+      width: calc(100% - 350px);
+    }
+  }
+  .pf-topology-side-bar {
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    right: 24px;
+    border-radius: 24px;
+    height: unset;
+  }
+}
