@@ -1,8 +1,10 @@
 # PatternFly React Plugin
 
-Claude Code plugin for PatternFly React development with coding standards enforcement and test generation.
+AI plugin for PatternFly React development with coding standards enforcement and unit test generation. Works in both **Claude Code** and **Cursor**.
 
 ## Installation
+
+### Claude Code
 
 ```bash
 # Add the PatternFly marketplace
@@ -12,43 +14,17 @@ Claude Code plugin for PatternFly React development with coding standards enforc
 /plugin install pf-react@ai-helpers
 ```
 
-## Commands
+### Cursor
 
-### `/coding-standards`
-
-Get guidance on PatternFly React best practices:
-
-```
-/coding-standards
-> How should I structure a data table with filtering?
-> Review this Table implementation for PatternFly v6 compliance
-> What's the best component for displaying notifications?
-```
-
-### `/test-generator`
-
-Generate comprehensive unit tests:
-
-```
-/test-generator
-> Generate tests for my UserProfile component
-> Create tests for this data fetching hook
-```
+See the [root README](../../README.md) for Cursor installation options.
 
 ## What's Included
 
-### PatternFly MCP Server Integration
+### Agents
 
-Both agents automatically connect to the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) which provides:
+Agents are domain experts that auto-invoke when relevant context is detected. No slash command needed — just ask about PatternFly topics.
 
-- **`searchPatternFlyDocs`** - Search for component documentation
-- **`usePatternFlyDocs`** - Get full docs and JSON schemas
-
-This means agents have access to up-to-date PatternFly documentation without any manual configuration.
-
-### Coding Standards Agent
-
-Based on official PatternFly guidelines:
+**Coding Standards** — PatternFly React best practices:
 
 - Component composition patterns
 - PatternFly v6 styling standards
@@ -56,9 +32,7 @@ Based on official PatternFly guidelines:
 - Accessibility requirements (WCAG 2.1 Level AA)
 - React and TypeScript best practices
 
-### Test Generator Agent
-
-Based on Testing Library best practices:
+**Unit Test Generator** — Unit tests following Testing Library best practices:
 
 - User behavior testing over implementation details
 - Semantic query strategies
@@ -66,26 +40,34 @@ Based on Testing Library best practices:
 - Accessibility testing
 - PatternFly-specific patterns
 
+### PatternFly MCP Server
+
+Both agents have access to the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) which provides:
+
+- **`searchPatternFlyDocs`** — Search for component documentation
+- **`usePatternFlyDocs`** — Get full docs and JSON schemas
+
+No manual configuration needed — the MCP server is defined in `plugin.json`.
+
 ## File Structure
 
 ```
 pf-react/
 ├── .claude-plugin/
-│   └── plugin.json      # Plugin metadata + MCP server config
+│   └── plugin.json        # Plugin manifest + MCP server config
+├── .cursor-plugin/
+│   └── plugin.json        # Identical copy for Cursor
 ├── agents/
 │   ├── coding-standards.md
-│   └── test-generator.md
-├── commands/
-│   ├── coding-standards.md
-│   └── test-generator.md
+│   └── unit-test-generator.md
 └── README.md
 ```
 
 ## Troubleshooting
 
-**Commands not recognized:**
+**Plugin not recognized:**
 ```bash
-/plugin list                              # Verify plugin is installed
+/plugin list                         # Verify plugin is installed
 /plugin install pf-react@ai-helpers  # Reinstall if needed
 ```
 
