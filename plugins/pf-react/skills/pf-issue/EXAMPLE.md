@@ -119,7 +119,7 @@ Claude: Added: Update documentation with migration guide
 
         Here's the complete followup issue:
 
-        **Title**: Followup: Update PatternFly core to use new spacing tokens
+        **Title**: Update PatternFly core to use new spacing tokens
 
         **Body**:
         ## Context

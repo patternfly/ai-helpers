@@ -28,16 +28,16 @@ Invoke the skill with `/pf-issue`:
 
 ### Optional (but recommended)
 
-- **GitHub CLI (gh)** - Enables direct issue creation and duplicate detection
+- **GitHub CLI (gh)** - Enables direct issue creation, remote template fetching, and duplicate detection
   - Install: `brew install gh` (macOS) or see https://cli.github.com/
   - Authenticate: `gh auth login`
-  - Without gh CLI: issues are saved to files, and similar issue detection is skipped
+  - Without gh CLI: templates must be available locally, issues are saved to files, and similar issue detection is skipped
 
 ## Workflow Overview
 
 1. **Detect Context**: Identifies if you're in a PatternFly repo and analyzes context to suggest relevant repos
 2. **Choose Type**: New issue or followup issue
-3. **Select Template**: Automatically searches for templates or offers blank option
+3. **Select Template**: Checks for templates locally, then remotely via GitHub CLI, or offers blank option
 4. **Pre-populate Fields**: Intelligently fills in issue fields based on your context
 5. **Analyze Commits**: For followup issues, optionally analyzes branch commits or lets you provide work yourself
 6. **Auto-detect PR**: Automatically finds associated PR using GitHub CLI

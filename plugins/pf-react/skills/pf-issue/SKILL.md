@@ -73,7 +73,33 @@ ls -1 .github/ISSUE_TEMPLATE/ 2>/dev/null
 
 **If templates NOT found in current directory:**
 
-**Step 2: Ask user about target repo location**
+**Step 2: Check remote repo using GitHub CLI**
+
+Check if gh CLI is available:
+```bash
+gh auth status 2>&1
+```
+
+**If gh CLI is available and authenticated:**
+
+Try to fetch templates from remote repo:
+```bash
+# List issue templates from remote repo
+gh api repos/patternfly/[target-repo-name]/contents/.github/ISSUE_TEMPLATE --jq '.[] | .name' 2>/dev/null
+```
+
+**If templates found remotely:**
+- List available templates
+- When user selects a template, fetch its content:
+  ```bash
+  # Fetch template content (handles both markdown and yaml)
+  gh api repos/patternfly/[target-repo-name]/contents/.github/ISSUE_TEMPLATE/[template-name] --jq '.content' | base64 -d
+  ```
+- Skip to "Present options" below
+
+**If templates NOT found remotely or gh CLI not available:**
+
+**Step 3: Search for local clone (fallback)**
 
 Ask user: "Do you have the [target-repo-name] repository cloned locally?"
 
@@ -106,8 +132,8 @@ Then check templates at discovered path:
 ls -1 <discovered-path>/.github/ISSUE_TEMPLATE/ 2>/dev/null
 ```
 
-**If repo found but no templates:**
-- Inform user that no templates were found in the repo
+**If no templates found anywhere:**
+- Inform user that no templates were found
 - Proceed with blank issue option
 
 **Present options:**
@@ -132,7 +158,7 @@ Before asking the user, analyze available context to pre-populate fields:
 
 | Field | Context Clues | Example Pre-population |
 |-------|---------------|----------------------|
-| Title | User's request summary | "Button component accessibility issue with keyboard navigation" |
+| Title | User's request summary, with format based on detected type | "Bug - Button not responding to Enter key" (bug) or "Button - Add loading state" (feature) |
 | Component/Area | Component names mentioned, file paths | "Button", "DataList", "Pagination" |
 | Issue Type | Keywords: "broken", "doesn't work" → Bug; "would be nice", "add" → Feature; "update example", "add tests" → Tech Debt | "Bug", "Feature", "Tech Debt" |
 | Description | User's detailed explanation | Pre-filled with user's context, formatted appropriately |
@@ -155,22 +181,33 @@ Before asking the user, analyze available context to pre-populate fields:
 
 **If creating blank issue:**
 
-1. Attempt to pre-populate:
-   - **Title**: Based on user's request (required)
+1. Detect issue type from context:
+   - **Bug**: Keywords like "broken", "doesn't work", "error", "failing", "regression", "not working"
+   - **Feature**: Keywords like "add", "new", "would be nice", "enhancement", "support for"
+   - **Tech Debt**: Keywords like "update example", "refactor", "improve", "add tests", "documentation"
+   - **Other**: If type unclear, no prefix
+
+2. Attempt to pre-populate:
+   - **Title**: Based on user's request, with appropriate format:
+     - If Bug: "Bug - [description]"
+     - If Feature: "[Component] - [short description]" (no "Feature" prefix)
+     - If Tech Debt: "[description]" (no "Tech Debt" prefix)
+     - If unclear: "[description]" (no prefix)
    - **Description/Body**: Based on user's detailed context (required)
 
-2. For each field:
+3. For each field:
    - **If pre-populated**: Show value and ask "Is this accurate? (y/n/edit)"
    - **If not pre-populated**: Ask user to provide value
 
-3. Build the issue with final values
+4. Build the issue with final values
 
 **Example interaction:**
 
 ```
 Claude: I'll help create the issue. Based on your description, here's what I have:
 
-Title: "Button component not responding to Enter key press"
+Title: "Bug - Button component not responding to Enter key press"
+(Detected as Bug based on context)
 Is this accurate? (y/n/edit)
 
 User: y
@@ -243,9 +280,29 @@ Analyze the commits and file changes to suggest followup work:
 - Identify: What needs to be updated in the target repo to match these changes
 - Consider: Breaking changes, deprecations, new features
 
+**Filter relevant vs irrelevant changes:**
+
+When analyzing commits, only include context that's relevant for the target repo's followup work. **Omit changes that:**
+- Are purely internal to the source repo (e.g., refactoring that doesn't affect the API)
+- Will be automatically pulled in via version bump without requiring code changes
+- Are simple value updates that don't require action (e.g., color tweaks, spacing adjustments)
+- Don't impact the target repo's implementation
+
+**Include changes that:**
+- Add new CSS classes/modifiers that need corresponding React props
+- Introduce structural changes requiring implementation updates
+- Add new features or capabilities that need to be exposed
+- Cause breaking changes requiring migration work
+- Add new design tokens that need to be integrated
+
+**Example:**
+- ❌ Don't include: "Updated button background color from #ccc to #ddd" (automatically pulled in)
+- ✅ Include: "Added new .pf-m-danger modifier class" (needs React variant prop)
+
 **Present suggestions:**
 
-- List suggested followup work items
+- List suggested followup work items (filtered to only relevant changes)
+- Summarize relevant changes from commits (omitting irrelevant details)
 - Ask user to confirm, modify, or add to the suggestions
 
 #### 3B.3 Create Followup Issue Content
@@ -275,7 +332,24 @@ gh pr view --json url,number,title --jq '{url: .url, number: .number, title: .ti
 
 **Structure the followup issue:**
 
-**Title:** `Followup: [Brief description of work needed]`
+**Determine issue type from followup work:**
+- Analyze the followup tasks to determine the appropriate format:
+  - **Bug**: If followup is to fix a bug or regression introduced by source changes
+  - **Feature**: If followup is to add new functionality or expose new capabilities
+  - **Tech Debt**: If followup is to update examples, tests, documentation, or refactor
+  - **Other**: If followup is general maintenance or unclear
+
+**Title format based on type:**
+- **Bug**: "Bug - [description]"
+- **Feature**: "[Component] - [short description]" (no "Feature" prefix)
+- **Tech Debt**: "[description]" (no "Tech Debt" prefix)
+- **Other**: "[description]" (no prefix)
+
+**Examples:**
+  - "CardHeader - Add variant prop" (feature)
+  - "Update Card examples for new header variants" (tech debt)
+  - "Bug - Fix Card border radius regression in nested cards" (bug)
+  - "Update Button to use new design tokens" (general/unclear)
 
 **Body (if PR URL provided):**
 
@@ -286,7 +360,9 @@ This is followup work from [[source-repo]#[pr-number]]([PR URL]).
 
 ### Changes in [source-repo]
 
-- [Summary of relevant changes]
+- [Summary of ONLY relevant changes that require action in target repo]
+- [Omit changes that are automatically pulled in via version bump]
+- [Focus on new classes, structural changes, breaking changes, new features]
 
 ### Work Needed in [target-repo]
 
@@ -304,7 +380,9 @@ This is followup work from [source-repo] branch [branch-name].
 
 ### Changes in [source-repo]
 
-- [Summary of relevant changes from commits]
+- [Summary of ONLY relevant changes that require action in target repo]
+- [Omit simple value updates, refactoring, or changes automatically pulled in]
+- [Focus on new classes, structural changes, breaking changes, new features]
 
 ### Work Needed in [target-repo]
 
@@ -314,7 +392,7 @@ This is followup work from [source-repo] branch [branch-name].
 
 ### References
 
-- Related commits: [commit hashes]
+- Related commits: [commit hashes for relevant changes only]
 - Source branch: [branch-name]
 ```
 
@@ -398,8 +476,6 @@ Create the file:
 # Issue for patternfly/[target-repo]
 
 **Title:** [Issue Title]
-
-**Labels:** [suggested labels if any]
 
 **Body:**
 [Issue body content]
