@@ -212,11 +212,20 @@ Claude: Based on the CSS changes, here's the suggested followup work:
         - --pf-v6-c-card--BackgroundColor (now uses --pf-t--global--background--color--primary)
         - --pf-v6-c-card--BorderColor (now uses --pf-t--global--border--color--default)
 
-        Suggested followup work for patternfly-react:
-        - Add 'variant' prop to CardHeader component ('default' | 'compact' | 'elevated')
-        - Update Card component CSS variable integration for new tokens
-        - Add examples demonstrating new header variants
-        - Update Card tests to cover new variants
+        Searching for patternfly-react repository locally...
+        Found: ~/GitHub/PatternFly/patternfly-react
+
+        Analyzing target repo files...
+        - Found CardHeader component at packages/react-core/src/components/Card/CardHeader.tsx
+        - Found Card examples at packages/react-core/src/components/Card/examples/Card.md
+        - Current CardHeader props don't include variant prop
+
+        Specific followup work for patternfly-react:
+        - Add 'variant' prop to CardHeaderProps interface (CardHeader.tsx:24)
+          - Type: 'default' | 'compact' | 'elevated'
+        - Update CardHeader className logic to include variant modifier (CardHeader.tsx:45)
+        - Add examples demonstrating new header variants in Card.md
+        - Update Card tests (Card.test.tsx) to cover new variants
         - Update migration guide for token changes
 
         Would you like to modify these suggestions?

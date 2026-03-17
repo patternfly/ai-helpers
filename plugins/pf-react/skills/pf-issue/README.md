@@ -6,6 +6,7 @@ A Claude Code skill for creating well-structured GitHub issues across PatternFly
 
 - **Template Support**: Automatically detects and uses issue templates from `.github/ISSUE_TEMPLATE/`
 - **Followup Tracking**: Analyzes commits to suggest followup work needed in related repos
+- **Target Repo Analysis**: Analyzes the target repo's code to provide specific, actionable followup tasks with file paths and line numbers
 - **Duplicate Detection**: Searches for similar open/closed issues before creating
 - **Flexible Output**: Create directly via GitHub CLI or save as a file
 - **Multi-Repo Aware**: Works across all PatternFly organization repositories
@@ -40,9 +41,10 @@ Invoke the skill with `/pf-issue`:
 3. **Select Template**: Checks for templates locally, then remotely via GitHub CLI, or offers blank option
 4. **Pre-populate Fields**: Intelligently fills in issue fields based on your context
 5. **Analyze Commits**: For followup issues, optionally analyzes branch commits or lets you provide work yourself
-6. **Auto-detect PR**: Automatically finds associated PR using GitHub CLI
-7. **Check Duplicates**: Searches for similar existing issues (if gh CLI available)
-8. **Create/Save**: Creates via gh CLI (if available) or saves to file
+6. **Analyze Target Repo**: For followup issues, searches and analyzes the target repo's code to make specific suggestions with file paths
+7. **Auto-detect PR**: Automatically finds associated PR using GitHub CLI
+8. **Check Duplicates**: Searches for similar existing issues (if gh CLI available)
+9. **Create/Save**: Creates via gh CLI (if available) or saves to file
 
 ## PatternFly Repository Map
 

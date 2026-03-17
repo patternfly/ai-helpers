@@ -299,10 +299,90 @@ When analyzing commits, only include context that's relevant for the target repo
 - ❌ Don't include: "Updated button background color from #ccc to #ddd" (automatically pulled in)
 - ✅ Include: "Added new .pf-m-danger modifier class" (needs React variant prop)
 
+**Analyze target repo context:**
+
+After identifying relevant changes, analyze the target repo to make more specific suggestions:
+
+**Step 1: Locate target repo**
+
+Try to find the target repo:
+```bash
+# Check if we're already in the target repo
+git remote get-url origin 2>/dev/null | grep -q "patternfly/[target-repo-name]"
+
+# If not, search for it locally
+find ~ -type d -name ".git" -maxdepth 5 2>/dev/null | while read git_dir; do
+  repo_dir=$(dirname "$git_dir")
+  if git -C "$repo_dir" remote get-url origin 2>/dev/null | grep -q "patternfly/[target-repo-name]"; then
+    echo "$repo_dir"
+    break
+  fi
+done
+```
+
+**Step 2: Search for relevant files in target repo**
+
+Based on the changes detected, search for files that likely need updates:
+
+**For component changes:**
+- Identify component names from CSS class changes (e.g., `.pf-v6-c-button` → Button component)
+- Search for component files:
+  ```bash
+  # Search for React component files (if target is patternfly-react)
+  find [target-repo-path]/packages -name "*Button*.tsx" -o -name "*Button*.ts" 2>/dev/null
+
+  # Search for CSS files (if target is patternfly)
+  find [target-repo-path]/src -name "*button*.scss" 2>/dev/null
+
+  # Search for example/demo files
+  find [target-repo-path] -name "*Button*.md" -o -name "*Button*example*" 2>/dev/null
+  ```
+
+**For token changes:**
+- Search for files using the old tokens:
+  ```bash
+  # Find files using deprecated tokens
+  grep -r --include="*.tsx" --include="*.ts" --include="*.scss" "[old-token-name]" [target-repo-path] 2>/dev/null | head -20
+  ```
+
+**Step 3: Analyze relevant files**
+
+Read the most relevant files to understand current implementation:
+```bash
+# Read component implementation
+cat [target-repo-path]/path/to/Component.tsx
+
+# Check current props/API
+grep -A 20 "interface.*Props" [target-repo-path]/path/to/Component.tsx
+```
+
+**Step 4: Generate specific suggestions**
+
+Based on file analysis, create specific, actionable tasks:
+
+**Generic suggestion (without context):**
+- "Update Button component to use new CSS classes"
+
+**Specific suggestion (with context):**
+- "Add `danger` variant to ButtonProps interface in Button.tsx:15"
+- "Update getModifiers() function in Button.tsx:45 to include pf-m-danger class"
+- "Add danger variant example to Button.md examples"
+- "Update Button tests to cover danger variant"
+
+**If target repo not found locally:**
+- Ask user: "I couldn't find [target-repo] locally. Would you like to:"
+  1. Provide the path to the repo
+  2. Continue with generic suggestions (without analyzing target repo)
+  3. Skip target repo analysis
+- If user provides path, use it for analysis
+- If user chooses generic or skip, continue without target repo analysis
+
 **Present suggestions:**
 
-- List suggested followup work items (filtered to only relevant changes)
+- List suggested followup work items (filtered to only relevant changes, made specific by target repo analysis if available)
+- Include file paths and line numbers when available (e.g., "Button.tsx:15")
 - Summarize relevant changes from commits (omitting irrelevant details)
+- Indicate if suggestions are specific (with target repo analysis) or generic (without)
 - Ask user to confirm, modify, or add to the suggestions
 
 #### 3B.3 Create Followup Issue Content
