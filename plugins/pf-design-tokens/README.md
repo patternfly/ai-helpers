@@ -40,8 +40,8 @@ pf-design-tokens/
 │   └── plugin.json        # Plugin manifest + MCP server config
 ├── .cursor-plugin/
 │   └── plugin.json        # Identical copy for Cursor
-├── skills/                # User-invoked skills (slash commands)
-├── agents/                # Auto-invoked domain agents
+├── skills/                # Tasks that produce a result
+├── agents/                # Domain knowledge the AI follows
 └── README.md
 ```
 

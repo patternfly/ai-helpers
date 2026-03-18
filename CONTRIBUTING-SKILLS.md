@@ -74,9 +74,9 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 
 **Skill vs agent:**
 - **Skill** — a task that produces a result: "generate tests," "audit for accessibility," "find an icon." Most contributions are skills.
-- **Agent** — knowledge that shapes how the AI works: "always follow these coding standards," "when reviewing designs, always verify brand colors and 8px grid spacing." No slash command, no direct output — it makes the AI smarter in that domain. Only create an agent if it's foundational context that improves *every* interaction in that plugin's area.
+- **Agent** — domain knowledge the AI follows: "always follow these coding standards," "when reviewing designs, always verify brand colors and 8px grid spacing." Only create an agent if it's foundational context that improves *every* interaction in that plugin's area.
 
-**Litmus test:** Can someone use the result? Skill. Does it just make the AI better at its job? Agent. When in doubt, write a skill.
+**Litmus test:** Can someone use the result? Skill. Is it knowledge the AI should always follow? Agent. When in doubt, write a skill.
 
 **They work together:** An agent's knowledge is loaded automatically when the AI detects relevant context. So if you invoke a skill like `unit-test-generator`, the `coding-standards` agent's knowledge is also active — the agent makes the skill's output better.
 

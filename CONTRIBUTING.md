@@ -46,8 +46,8 @@ Create a new plugin when your contribution doesn't fit into an existing one — 
 
 ### Skills vs Agents
 
-- **Skills** (`skills/your-skill/SKILL.md`) — focused instructions for a specific task. Creates a `/slash-command`. Use this for most contributions.
-- **Agents** (`agents/your-agent.md`) — domain experts with broad knowledge. Auto-invoked when relevant context is detected, no slash command. Use for comprehensive standards or review guidelines.
+- **Skills** (`skills/your-skill/SKILL.md`) — tasks that produce a result. Use this for most contributions.
+- **Agents** (`agents/your-agent.md`) — domain knowledge the AI follows. Use for standards and guidelines.
 
 ## Adding Documentation
 

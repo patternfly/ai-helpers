@@ -22,13 +22,13 @@ See the [root README](../../README.md) for Cursor installation options.
 
 ### Skills
 
-Skills are invoked via slash command or auto-invoked when the AI detects relevant context.
+Skills are tasks that produce a result.
 
 **Unit Test Generator** (`/pf-react:unit-test-generator`) — Generates a complete unit test file for a given React component, following Testing Library best practices.
 
 ### Agents
 
-Agents are domain experts that auto-activate when relevant context is detected. No slash command.
+Agents are domain knowledge the AI follows.
 
 **Coding Standards** — PatternFly React best practices:
 
@@ -68,7 +68,7 @@ pf-react/
 │   └── unit-test-standards.md
 ├── skills/
 │   └── unit-test-generator/
-│       └── SKILL.md       # /pf-react:unit-test-generator slash command
+│       └── SKILL.md
 └── README.md
 ```
 

@@ -10,7 +10,7 @@ This repository contains AI coding helpers for PatternFly development, including
 
 ## Available Plugins
 
-- **pf-react** - PatternFly React coding standards and unit test generation agents
+- **pf-react** - PatternFly React coding standards and unit test standards agents
 - **pf-design-tokens** - Design token auditing, validation, and migration for PatternFly styling
 - **pf-a11y** - Accessibility auditing, reporting, and documentation for PatternFly applications
 - **pf-figma** - Figma design review, diffing, and asset identification for PatternFly
