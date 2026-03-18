@@ -1,6 +1,6 @@
 # Contributing to PatternFly AI Helpers
 
-We welcome contributions of new plugins, skills, agents, documentation, and Cursor rules.
+We welcome contributions of new plugins, skills, agents, and documentation.
 
 Plugins in this repo work in both **Claude Code** and **Cursor**. Each plugin has both a `.claude-plugin/` and `.cursor-plugin/` directory with identical manifests, so each tool discovers it natively.
 
@@ -9,7 +9,6 @@ Plugins in this repo work in both **Claude Code** and **Cursor**. Each plugin ha
 ```
 plugins/              # Plugins (skills, agents, MCP servers)
 docs/                 # AI-friendly PatternFly documentation
-.cursor/rules/        # Cursor IDE rules (standalone, no plugin needed)
 .claude-plugin/       # Marketplace config (Claude Code)
 .cursor-plugin/       # Marketplace config (Cursor)
 ```
@@ -54,11 +53,6 @@ Create a new plugin when your contribution doesn't fit into an existing one — 
 
 1. Add markdown files under `docs/` following the existing directory structure
 2. Update `docs/README.md` (table of contents) to link to your new content
-
-## Adding Cursor Rules
-
-1. Add `.mdc` files to `.cursor/rules/`
-2. Follow the existing frontmatter pattern with `description`, `globs`, and `alwaysApply`
 
 ## Submitting Changes
 
