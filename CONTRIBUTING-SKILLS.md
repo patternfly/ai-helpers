@@ -56,14 +56,37 @@ Open the file and read it. It's just markdown. Ask yourself:
 - Is there anything tool-specific that wouldn't work in both Claude Code and Cursor?
 - Is it under 500 lines? Shorter is better.
 
-## Step 5: Contribute it
+## Step 5: Pick the right plugin
+
+Every skill or agent must live in a plugin. Pick the one that matches your skill's domain:
+
+| Plugin | Domain | Example skills | When to use |
+|--------|--------|----------------|-------------|
+| **pf-react** | React components, coding standards, testing | `component-suggest`, `feasibility-check`, `pf-upgrade`, `unit-test-generator` | Your skill helps write, test, review, or migrate PatternFly React code |
+| **pf-design-tokens** | Design tokens, CSS variables, color contrast | `hex-scan`, `css-var-audit`, `token-contrast`, `suggest-tokens` | Your skill audits, validates, or suggests design tokens |
+| **pf-a11y** | Accessibility, WCAG, ARIA, screen readers | `audit`, `doc-scaffold` | Your skill checks, reports on, or documents accessibility |
+| **pf-figma** | Figma designs, design-to-code, assets | `design-review`, `design-diff`, `icon-id`, `brand-assets` | Your skill works with Figma designs, icons, or brand assets |
+
+**How to decide:**
+- Ask yourself: "Who installs this?" A React developer? → `pf-react`. A designer working in Figma? → `pf-figma`.
+- If your skill spans two domains (e.g., checking token contrast in a React component), pick the domain that best describes the *primary task*, not the input.
+- If it doesn't fit any plugin, open an issue to discuss — don't create a new plugin without coordination.
+
+**Skill vs agent:**
+- **Skill** — a task that produces a result: "generate tests," "audit for accessibility," "find an icon." Most contributions are skills.
+- **Agent** — knowledge that shapes how the AI works: "always follow these coding standards," "when reviewing designs, always verify brand colors and 8px grid spacing." No slash command, no direct output — it makes the AI smarter in that domain. Only create an agent if it's foundational context that improves *every* interaction in that plugin's area.
+
+**Litmus test:** Can someone use the result? Skill. Does it just make the AI better at its job? Agent. When in doubt, write a skill.
+
+**They work together:** An agent's knowledge is loaded automatically when the AI detects relevant context. So if you invoke a skill like `unit-test-generator`, the `coding-standards` agent's knowledge is also active — the agent makes the skill's output better.
+
+## Step 6: Contribute it
 
 Once you're happy with the skill:
 
 1. Fork and clone `patternfly/ai-helpers`
-2. Decide which plugin it belongs in. If it fits an existing plugin, add it there. If not, create a new plugin (see [CONTRIBUTING.md](CONTRIBUTING.md))
-3. Copy your `SKILL.md` into `plugins/<plugin-name>/skills/your-skill-name/SKILL.md`
-4. Open a pull request
+2. Copy your `SKILL.md` into `plugins/<plugin-name>/skills/your-skill-name/SKILL.md`
+3. Open a pull request
 
 Your skill becomes available as `/<plugin-name>:your-skill-name` for anyone who installs the plugin.
 

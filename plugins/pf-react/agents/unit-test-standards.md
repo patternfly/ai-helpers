@@ -1,17 +1,11 @@
 ---
-name: unit-test-generator
-description: Generate unit tests for PatternFly React components. Use when creating tests, writing test files, or asked to test PatternFly components.
+name: unit-test-standards
+description: PatternFly React unit testing standards. Use when writing, reviewing, or modifying unit tests for PatternFly React components.
 ---
 
-# PatternFly React Unit Test Generator
+# PatternFly React Unit Test Standards
 
-Generate comprehensive unit tests for PatternFly React components based on official testing guidelines.
-
-## PatternFly MCP Server
-
-This plugin provides the PatternFly MCP server. Use `searchPatternFlyDocs` and `usePatternFlyDocs` to look up component props, schemas, and expected behaviors before generating tests.
-
----
+Testing standards and patterns for PatternFly React components based on official testing guidelines.
 
 ## Testing Philosophy
 

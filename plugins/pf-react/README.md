@@ -20,9 +20,15 @@ See the [root README](../../README.md) for Cursor installation options.
 
 ## What's Included
 
+### Skills
+
+Skills are invoked via slash command or auto-invoked when the AI detects relevant context.
+
+**Unit Test Generator** (`/pf-react:unit-test-generator`) — Generates a complete unit test file for a given React component, following Testing Library best practices.
+
 ### Agents
 
-Agents are domain experts that auto-invoke when relevant context is detected. No slash command needed — just ask about PatternFly topics.
+Agents are domain experts that auto-activate when relevant context is detected. No slash command.
 
 **Coding Standards** — PatternFly React best practices:
 
@@ -32,7 +38,7 @@ Agents are domain experts that auto-invoke when relevant context is detected. No
 - Accessibility requirements (WCAG 2.1 Level AA)
 - React and TypeScript best practices
 
-**Unit Test Generator** — Unit tests following Testing Library best practices:
+**Unit Test Standards** — Unit testing standards following Testing Library best practices:
 
 - User behavior testing over implementation details
 - Semantic query strategies
@@ -59,7 +65,10 @@ pf-react/
 │   └── plugin.json        # Identical copy for Cursor
 ├── agents/
 │   ├── coding-standards.md
-│   └── unit-test-generator.md
+│   └── unit-test-standards.md
+├── skills/
+│   └── unit-test-generator/
+│       └── SKILL.md       # /pf-react:unit-test-generator slash command
 └── README.md
 ```
 

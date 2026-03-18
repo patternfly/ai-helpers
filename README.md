@@ -1,6 +1,6 @@
 # PatternFly AI Helpers
 
-AI coding helpers for [PatternFly](https://www.patternfly.org/) development. This repository provides plugins, rules, and documentation to help AI tools generate accurate, best-practice PatternFly applications.
+AI coding helpers for [PatternFly](https://www.patternfly.org/) development. This repository provides plugins and documentation to help AI tools generate accurate, best-practice PatternFly applications.
 
 Plugins work in both **Claude Code** and **Cursor**. The content is identical — only the install path differs.
 
@@ -22,31 +22,31 @@ After installation, the plugin's agents and skills are available in any project.
 
 Cursor can discover plugins from `.cursor-plugin/` directories. If you also have Claude Code installed, Cursor may pick up installed plugins automatically via its third-party plugin settings.
 
-For lightweight PatternFly guidance without plugins, copy the `.cursor/rules/` directory into your project.
-
 ## Available Plugins
 
 | Plugin | Description | Includes |
 |--------|-------------|----------|
-| **pf-react** | PatternFly React development standards | Coding standards agent, unit test generator agent, PatternFly MCP server |
+| **pf-react** | PatternFly React development standards | Coding standards agent, unit test standards agent, unit test generator skill, PatternFly MCP server |
+| **pf-design-tokens** | Design token auditing, validation, and migration | PatternFly MCP server |
+| **pf-a11y** | Accessibility auditing, reporting, and documentation | PatternFly MCP server |
+| **pf-figma** | Figma design review, diffing, and asset identification | PatternFly MCP server |
 
-See [plugins/pf-react/](plugins/pf-react/) for full documentation.
+See each plugin's README for full documentation.
 
 ## Repository Structure
 
 ```
 ai-helpers/
 ├── plugins/              # Plugins (work in both Claude Code and Cursor)
-│   └── pf-react/
-│       ├── .claude-plugin/   # Plugin manifest (Claude Code)
-│       ├── .cursor-plugin/   # Plugin manifest (Cursor)
-│       └── agents/           # Domain expert agents
+│   ├── pf-react/         # React coding standards, testing
+│   ├── pf-design-tokens/ # Design token auditing and migration
+│   ├── pf-a11y/          # Accessibility auditing and reporting
+│   └── pf-figma/         # Figma design review and diffing
 ├── docs/                 # AI-friendly PatternFly documentation
 │   ├── guidelines/
 │   ├── components/
 │   ├── charts/
 │   └── chatbot/
-├── .cursor/rules/        # Cursor rules (standalone, no plugin needed)
 ├── .claude-plugin/       # Marketplace config (Claude Code)
 └── .cursor-plugin/       # Marketplace config (Cursor)
 ```

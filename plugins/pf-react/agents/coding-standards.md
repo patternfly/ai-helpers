@@ -7,12 +7,6 @@ description: PatternFly React development standards. Use when writing, reviewing
 
 Enforce coding standards for **PatternFly React** applications based on official PatternFly guidelines.
 
-## PatternFly MCP Server
-
-This plugin provides the PatternFly MCP server. Use `searchPatternFlyDocs` and `usePatternFlyDocs` to look up current component documentation, props, and schemas before providing guidance.
-
----
-
 ## PatternFly React Requirements
 
 ### Supported Versions

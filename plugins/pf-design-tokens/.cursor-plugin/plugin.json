@@ -1,0 +1,18 @@
+{
+  "name": "pf-design-tokens",
+  "description": "Design token auditing, validation, and migration for PatternFly styling",
+  "version": "1.0.0",
+  "author": {
+    "name": "PatternFly Team",
+    "url": "https://www.patternfly.org"
+  },
+  "repository": "https://github.com/patternfly/ai-helpers",
+  "license": "MIT",
+  "mcpServers": {
+    "patternfly": {
+      "command": "npx",
+      "args": ["-y", "@patternfly/patternfly-mcp@latest"],
+      "env": {}
+    }
+  }
+}
