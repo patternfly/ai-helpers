@@ -28,6 +28,8 @@ Skills and agents for the Figma-to-code workflow:
 - Summarizing implementation work from design updates
 - Identifying icons and brand assets
 
+Browse `skills/` for available skills (invoked as `/pf-figma:<skill-name>`) and `agents/` for domain knowledge.
+
 ### PatternFly MCP Server
 
 Skills and agents have access to the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) for looking up component documentation and design guidelines. No manual configuration needed.

@@ -27,6 +27,8 @@ Skills and agents for PatternFly accessibility:
 - Accessibility documentation scaffolding
 - UI review for PatternFly conformance and deviations
 
+Browse `skills/` for available skills (invoked as `/pf-a11y:<skill-name>`) and `agents/` for domain knowledge.
+
 ### PatternFly MCP Server
 
 Skills and agents have access to the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) for looking up component documentation and accessibility guidelines. No manual configuration needed.
