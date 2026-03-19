@@ -26,6 +26,15 @@ Skills are tasks that produce a result.
 
 **Unit Test Generator** (`/pf-react:unit-test-generator`) — Generates a complete unit test file for a given React component, following Testing Library best practices.
 
+**PF Library Test Writer** (`/pf-react:pf-library-test-writer`) — Writes unit tests for components and features across the PatternFly ecosystem (patternfly-react, patternfly-chatbot, etc.), strictly following the [official testing guidelines](https://github.com/patternfly/patternfly-react/wiki/React-Testing-Library-Basics,-Best-Practices,-and-Guidelines):
+
+- Separate test files per exported component
+- `test()` outside `describe()`, `it()` inside
+- `screen` for queries, `asFragment` for snapshots only
+- Snapshots for structure, `toHaveClass` for CSS classes
+- Mock child components for unit isolation
+- Default to inline setup (no premature abstraction)
+
 ### Agents
 
 Agents are domain knowledge the AI follows.
@@ -67,7 +76,9 @@ pf-react/
 │   ├── coding-standards.md
 │   └── unit-test-standards.md
 ├── skills/
-│   └── unit-test-generator/
+│   ├── unit-test-generator/
+│   │   └── SKILL.md
+│   └── pf-library-test-writer/
 │       └── SKILL.md
 └── README.md
 ```
