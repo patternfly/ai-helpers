@@ -3,7 +3,7 @@ name: pf-token-auditor
 description: Validate and bridge Figma design styles to PatternFly 6 design tokens. Use when auditing Figma designs against PatternFly tokens, validating token naming, translating Figma styles to composite tokens, or when the user mentions "token validation", "token audit", "design tokens", "Figma audit", "Figma variables", "token bridge", or "PF tokens".
 ---
 
-# PatternFly Design Token Validator & Bridge
+# PatternFly Design Token Auditor & Bridge
 
 Audit designs (from Figma or raw CSS) against the PatternFly Token Architecture. Bridge Figma style outputs to PatternFly 6 composite and semantic tokens.
 
@@ -265,6 +265,8 @@ Token values in the Figma source file may be updated before the CSS is regenerat
 
 #### Rule 8 — Unbound Figma Properties
 When the generated code contains hardcoded values (raw `px`, hex, etc.) that are NOT backed by a Figma variable, this means the property was never bound to a variable in the Figma file. The Figma MCP cannot write changes back to designs.
+
+**Only suggest semantic tokens as replacements.** Never suggest base/numbered tokens (e.g., `border--radius--100`, `spacer--200`, `color--brand--100`). Always find the purpose-specific semantic token that matches the element's context (e.g., `border--radius--action--plain--default` instead of `border--radius--100`). If no semantic token exists for the property, state that explicitly and provide the closest semantic matches for reference.
 
 Report these as **FIGMA FIX NEEDED** with actionable instructions:
 
