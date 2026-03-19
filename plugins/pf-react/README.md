@@ -26,7 +26,33 @@ Skills and agents for PatternFly React development:
 - Unit test generation following Testing Library best practices
 - React and PatternFly-specific patterns and conventions
 
-Browse `skills/` for available skills (invoked as `/pf-react:<skill-name>`) and `agents/` for domain knowledge.
+### Skills
+
+Skills are tasks that produce a result.
+
+**Unit Test Generator** (`/pf-react:unit-test-generator`) — Generates a complete unit test file for a given React component, following Testing Library best practices.
+
+**Bug Triage** (`/pf-react:bug-triage`) — Performs preliminary triage of opened bug issues. Suggests what needs to be updated to fix the bug, provides context for assignees, and recommends the most appropriate maintainer to tag when the issue contains questions.
+
+### Agents
+
+Agents are domain knowledge the AI follows.
+
+**Coding Standards** — PatternFly React best practices:
+
+- Component composition patterns
+- PatternFly v6 styling standards
+- Design token usage
+- Accessibility requirements (WCAG 2.1 Level AA)
+- React and TypeScript best practices
+
+**Unit Test Standards** — Unit testing standards following Testing Library best practices:
+
+- User behavior testing over implementation details
+- Semantic query strategies
+- Proper mocking patterns
+- Accessibility testing
+- PatternFly-specific patterns
 
 ### PatternFly MCP Server
 
@@ -40,8 +66,14 @@ pf-react/
 │   └── plugin.json        # Plugin manifest + MCP server config
 ├── .cursor-plugin/
 │   └── plugin.json        # Identical copy for Cursor
-├── skills/                # Tasks that produce a result
-├── agents/                # Domain knowledge the AI follows
+├── agents/
+│   ├── coding-standards.md
+│   └── unit-test-standards.md
+├── skills/
+│   ├── bug-triage/
+│   │   └── SKILL.md
+│   └── unit-test-generator/
+│       └── SKILL.md
 └── README.md
 ```
 
