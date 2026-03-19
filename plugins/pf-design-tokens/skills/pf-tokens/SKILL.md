@@ -1,31 +1,11 @@
-# pf-tokens
+Build CSS design tokens for PatternFly core and move them to the PatternFly repository.
 
-Build CSS tokens for PatternFly core and copy them to the PatternFly repository.
+## What to do
 
-## Steps
+1. Build the SCSS for PatternFly core using the `build:scss:core` script
+2. Copy the generated CSS files from the build output to the PatternFly repository's token directory (PatternFly is typically cloned as a sibling directory)
 
-1. Build the SCSS for PatternFly core
-2. Copy the generated CSS files to the PatternFly repository (assumed to be in a sibling directory)
+## Expected outcome
 
-## Implementation
-
-```bash
-# Build SCSS for PatternFly core
-npm run build:scss:core
-
-# Copy generated CSS to PatternFly repository
-cp packages/module/build/css/* ../patternfly/src/patternfly/base/tokens/
-```
-
-## Prerequisites
-
-- The PatternFly repository must be cloned as a sibling directory to this repository
-- The build:scss:core npm script must be defined in package.json
-
-## Usage
-
-Run this skill with:
-```
-/pf-tokens
-```
+The PatternFly repository's `src/patternfly/base/tokens/` directory contains the freshly built CSS token files from this repository's build output at `packages/module/build/css/`.
 
