@@ -1,3 +1,8 @@
+---
+name: pf-library-test-writer
+description: Write unit tests for PatternFly ecosystem components following official testing standards
+---
+
 Write unit tests for components and features within the PatternFly ecosystem (patternfly-react, patternfly-chatbot, patternfly-virtual-assistant, and other JS/TS-based PatternFly libraries). All tests must strictly follow the [official PatternFly testing guidelines](https://github.com/patternfly/patternfly-react/wiki/React-Testing-Library-Basics,-Best-Practices,-and-Guidelines).
 
 ## Input
