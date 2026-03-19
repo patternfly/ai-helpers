@@ -62,7 +62,7 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 
 | Plugin | Domain | Example skills | When to use |
 |--------|--------|----------------|-------------|
-| **pf-react** | React components, coding standards, testing | `component-suggest`, `feasibility-check`, `pf-upgrade`, `unit-test-generator` | Your skill helps write, test, review, or migrate PatternFly React code |
+| **pf-react** | React components, coding standards, testing | `component-suggest`, `feasibility-check`, `pf-upgrade`, `unit-test-generator`, `bug-triage` | Your skill helps write, test, review, triage, or migrate PatternFly React code |
 | **pf-design-tokens** | Design tokens, CSS variables, color contrast | `hex-scan`, `css-var-audit`, `token-contrast`, `suggest-tokens` | Your skill audits, validates, or suggests design tokens |
 | **pf-a11y** | Accessibility, WCAG, ARIA, screen readers | `audit`, `doc-scaffold` | Your skill checks, reports on, or documents accessibility |
 | **pf-figma** | Figma designs, design-to-code, assets | `design-review`, `design-diff`, `icon-id`, `brand-assets` | Your skill works with Figma designs, icons, or brand assets |
@@ -148,3 +148,4 @@ That's it. No frontmatter required. No code. No config. Just instructions in mar
 | `api-mock` | Generate mock data from a TypeScript interface |
 | `rename` | Suggest better names for variables and functions |
 | `pr-description` | Generate a clear PR description from a diff |
+| `bug-triage` | Preliminary triage of bug issues with fix suggestions and maintainer tagging |

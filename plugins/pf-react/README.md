@@ -26,6 +26,8 @@ Skills are tasks that produce a result.
 
 **Unit Test Generator** (`/pf-react:unit-test-generator`) — Generates a complete unit test file for a given React component, following Testing Library best practices.
 
+**Bug Triage** (`/pf-react:bug-triage`) — Performs preliminary triage of opened bug issues. Suggests what needs to be updated to fix the bug, provides context for assignees, and recommends the most appropriate maintainer to tag when the issue contains questions.
+
 ### Agents
 
 Agents are domain knowledge the AI follows.
@@ -67,6 +69,8 @@ pf-react/
 │   ├── coding-standards.md
 │   └── unit-test-standards.md
 ├── skills/
+│   ├── bug-triage/
+│   │   └── SKILL.md
 │   └── unit-test-generator/
 │       └── SKILL.md
 └── README.md
