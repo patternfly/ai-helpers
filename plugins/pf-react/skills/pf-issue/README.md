@@ -7,7 +7,7 @@ A Claude Code skill for creating well-structured GitHub issues across PatternFly
 - **Template Support**: Automatically detects and uses issue templates from `.github/ISSUE_TEMPLATE/`
 - **Followup Tracking**: Analyzes commits to suggest followup work needed in related repos
 - **Target Repo Analysis**: Analyzes the target repo's code to provide specific, actionable followup tasks with file paths and line numbers
-- **Duplicate Detection**: Searches for similar open/closed issues before creating
+- **Smart Duplicate Detection**: Uses multiple search strategies with synonyms and related terms to find similar issues, scored by relevance
 - **Flexible Output**: Create directly via GitHub CLI or save as a file
 - **Multi-Repo Aware**: Works across all PatternFly organization repositories
 

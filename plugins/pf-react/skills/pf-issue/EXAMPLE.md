@@ -60,13 +60,30 @@ User: y
 
 Claude: Checking for similar issues in patternfly/patternfly...
 
-        Found 2 potentially similar issues:
+        Searching with multiple strategies:
+        - "Button focus" (exact match)
+        - "Button" (component-wide)
+        - "focus ring" "dark mode" (feature keywords)
+        - "accessibility" "a11y" (related concepts and synonyms)
+
+        Found 4 potentially similar issues:
+
+        **High relevance:**
         #8156 - Button focus styles inconsistent [OPEN]
         https://github.com/patternfly/patternfly/issues/8156
+        Labels: bug, Button
 
-        #7924 - Dark mode contrast issues [CLOSED]
+        **Medium relevance:**
+        #8201 - Improve focus indicators across all components [OPEN]
+        https://github.com/patternfly/patternfly/issues/8201
+        Labels: enhancement, a11y
+
+        **Lower relevance:**
+        #7924 - Dark mode contrast issues [CLOSED - 2025-02-10]
         https://github.com/patternfly/patternfly/issues/7924
-        Closed: 2025-02-10
+
+        #8089 - Button styles update for v6 [OPEN]
+        https://github.com/patternfly/patternfly/issues/8089
 
         Would you like to:
         1. Create a new issue anyway
@@ -386,6 +403,82 @@ Claude: Creating issue for patternfly-react.
 User: B
 
 [... continues with followup issue workflow ...]
+```
+
+---
+
+### Scenario 7: Related Component Detection in Similar Issues
+
+Creating an issue for Select and discovering related Menu/Popper issues.
+
+```
+User: /pf-issue patternfly-react
+User's description: "Select component keyboard navigation is broken - can't use arrow keys to navigate options"
+
+Claude: What type of issue are you creating?
+        A. New Issue
+        B. Followup Issue
+User: A
+
+Claude: Found templates: bug_report.md, feature_request.md...
+        Which would you like to use?
+User: 1 (bug_report.md)
+
+Claude: Based on your description, I've pre-populated some fields:
+
+        **Title**: Bug - Select keyboard navigation broken
+        Is this accurate? (y/n/edit)
+User: y
+
+[... continues through template ...]
+
+Claude: Checking for similar issues in patternfly/patternfly-react...
+
+        Searching with multiple strategies:
+        - "Select keyboard" (exact match)
+        - "Select" (component-wide)
+        - "Menu", "Popper", "MenuToggle" (related components - Select uses these)
+        - "keyboard navigation" "arrow keys" (feature keywords)
+        - "a11y" "accessibility" (related concepts)
+
+        Found 5 potentially similar issues:
+
+        **High relevance:**
+        #10456 - Select - Arrow keys not working in options list [OPEN]
+        https://github.com/patternfly/patternfly-react/issues/10456
+        Labels: bug, Select
+
+        **High-Medium relevance (related components):**
+        #10412 - Menu keyboard navigation regression [OPEN]
+        https://github.com/patternfly/patternfly-react/issues/10412
+        Labels: bug, Menu
+        Note: Menu (used by Select)
+
+        #10389 - Popper focus management issues with keyboard [OPEN]
+        https://github.com/patternfly/patternfly-react/issues/10389
+        Labels: bug, Popper, a11y
+        Note: Popper (used by Select)
+
+        **Medium relevance:**
+        #10234 - Improve keyboard navigation across all dropdown-like components [OPEN]
+        https://github.com/patternfly/patternfly-react/issues/10234
+        Labels: enhancement, a11y
+
+        **Lower relevance:**
+        #10123 - Dropdown keyboard shortcuts [CLOSED - 2026-02-15]
+        https://github.com/patternfly/patternfly-react/issues/10123
+
+        Would you like to:
+        1. Create a new issue anyway
+        2. Comment on #10456 (exact Select match)
+        3. Comment on #10412 (Menu - related component)
+        4. Cancel and review these issues first
+User: 4
+
+Claude: You can review these issues at the provided URLs. Would you like to create an issue later or cancel?
+User: cancel
+
+Claude: Issue creation cancelled. You can review the similar issues and determine if a new issue is needed.
 ```
 
 ---

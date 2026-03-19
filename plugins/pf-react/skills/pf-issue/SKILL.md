@@ -478,19 +478,76 @@ This is followup work from [source-repo] branch [branch-name].
 
 ### 4. Check for Similar Issues
 
-Before creating the issue, search for similar issues in the target repo (requires gh CLI):
+Before creating the issue, search for similar issues in the target repo using multiple search strategies (requires gh CLI):
+
+**Extract search terms from issue context:**
+
+From the issue title and description, identify:
+1. **Component name** (e.g., "Button", "Card", "DataList")
+2. **Feature/concept keywords** (e.g., "variant", "danger", "loading", "keyboard", "accessibility")
+3. **Action keywords** (e.g., "add", "update", "fix", "support")
+4. **Related/dependent components** based on component relationships:
+   - **Select** → also search "Menu", "Popper", "MenuToggle"
+   - **Dropdown** → also search "Menu", "Popper", "MenuToggle"
+   - **DatePicker** → also search "Menu", "Popper", "Calendar", "TextInput"
+   - **TimePicker** → also search "Menu", "Popper", "TextInput"
+   - **Popover** → also search "Popper"
+   - **Tooltip** → also search "Popper"
+   - **Modal** → also search "Backdrop"
+   - **Wizard** → also search "Modal", "Backdrop"
+   - **DataList** → also search "Checkbox", "Radio"
+   - **Table** → also search "Checkbox", "Pagination", "Toolbar"
+   - **Tabs** → also search "TabContent"
+   - **Card** → also search "CardHeader", "CardBody", "CardFooter"
+   - **Form** → also search "FormGroup", "TextInput", "Checkbox", "Radio", "Select"
+5. **Synonyms and related terms**:
+   - "danger" → also search "error", "destructive", "warning"
+   - "variant" → also search "modifier", "type", "style"
+   - "loading" → also search "spinner", "pending", "busy"
+   - "keyboard" → also search "a11y", "accessibility", "focus"
+   - "select" → also search "dropdown" (often used interchangeably)
+   - "menu" → also search "dropdown", "select" (reverse relationship)
+
+**Perform multiple searches with broadening scope:**
 
 ```bash
 # Check if gh CLI is available
 gh auth status 2>&1
 
-# Extract key terms from issue title for searching
-# Search open issues
-gh issue list --repo patternfly/[target-repo] --search "[key terms from title]" --limit 10 --json number,title,state,url
+# Search 1: Exact component + primary feature
+gh issue list --repo patternfly/[target-repo] --search "[component] [primary-feature]" --limit 10 --json number,title,state,url,labels
 
-# Search closed issues (recent)
-gh issue list --repo patternfly/[target-repo] --search "[key terms from title]" --state closed --limit 5 --json number,title,state,url,closedAt
+# Search 2: Component only (broader, catches related features)
+gh issue list --repo patternfly/[target-repo] --search "[component]" --limit 15 --json number,title,state,url,labels
+
+# Search 3: Related/dependent components (if applicable)
+# For example, if component is "Select", also search "Menu", "Popper", "MenuToggle"
+for related_component in [related-components]; do
+  gh issue list --repo patternfly/[target-repo] --search "$related_component [primary-feature]" --limit 5 --json number,title,state,url,labels
+done
+
+# Search 4: Feature/concept keywords (may find similar work in different components)
+gh issue list --repo patternfly/[target-repo] --search "[feature-keyword]" --limit 10 --json number,title,state,url,labels
+
+# Search 5: Synonym searches (if applicable)
+gh issue list --repo patternfly/[target-repo] --search "[synonym-term]" --limit 5 --json number,title,state,url,labels
+
+# Also search closed issues (to avoid duplicating recently completed work)
+gh issue list --repo patternfly/[target-repo] --search "[component]" --state closed --limit 10 --json number,title,state,url,closedAt,labels
 ```
+
+**Deduplicate and filter results:**
+- Combine results from all searches
+- Remove duplicates (same issue number)
+- Score relevance based on:
+  - **Exact component name match** (high relevance)
+  - **Related/dependent component match** (high-medium relevance) - e.g., Menu issue when searching for Select
+  - **Feature keyword match** (medium relevance)
+  - **Similar action/concept** (medium relevance)
+  - **Synonym match** (medium-low relevance)
+  - **Label overlap** (low-medium relevance)
+- Sort by relevance score
+- Show top 5-10 most relevant results
 
 **If gh CLI not available or not authenticated:**
 
@@ -499,7 +556,13 @@ gh issue list --repo patternfly/[target-repo] --search "[key terms from title]" 
 
 **If similar issues found:**
 
-- Display the similar issues (number, title, state, url)
+- Display the similar issues with relevance indication:
+  - **High relevance**: Same component + same feature
+  - **High-Medium relevance**: Related/dependent component + same feature (e.g., Menu issue when creating Select issue)
+  - **Medium relevance**: Same component OR same feature/concept
+  - **Lower relevance**: Related keywords, concepts, or synonyms
+- Show: number, title, state, url, labels (if relevant)
+- For related component matches, indicate the relationship (e.g., "Menu (used by Select)")
 - Ask user: "Found potentially similar issues. Do you want to:"
   1. Create a new issue anyway
   2. Comment on one of the existing issues instead
