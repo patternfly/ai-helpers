@@ -1,6 +1,8 @@
 # PatternFly AI Helpers
 
-AI coding helpers for [PatternFly](https://www.patternfly.org/) development. This repository provides plugins, rules, and documentation to help AI tools (Claude Code, Cursor, Copilot, etc.) generate accurate, best-practice PatternFly applications.
+AI coding helpers for [PatternFly](https://www.patternfly.org/) development. This repository provides plugins and documentation to help AI tools generate accurate, best-practice PatternFly applications.
+
+Plugins work in both **Claude Code** and **Cursor**. The content is identical — only the install path differs.
 
 ## Quick Start
 
@@ -14,54 +16,52 @@ AI coding helpers for [PatternFly](https://www.patternfly.org/) development. Thi
 /plugin install pf-react@ai-helpers
 ```
 
-After installation, use the commands in any project:
-
-```bash
-/coding-standards    # PatternFly v6 React coding standards
-/test-generator      # Generate unit tests following Testing Library best practices
-```
-
-See [plugins/pf-react/](plugins/pf-react/) for full documentation.
+After installation, the plugin's agents and skills are available in any project.
 
 ### Cursor
 
-Copy the `.cursor/rules/` directory into your project to enable PatternFly best-practice enforcement.
+Cursor can discover plugins from `.cursor-plugin/` directories. If you also have Claude Code installed, Cursor may pick up installed plugins automatically via its third-party plugin settings.
 
-### Other AI Tools
+## Available Plugins
 
-Copy the `docs/` directory into your project workspace. AI tools index local files for context, so having the documentation present locally ensures accurate PatternFly guidance.
+| Plugin | Description |
+|--------|-------------|
+| **pf-react** | PatternFly React coding standards, testing, and development |
+| **pf-design-tokens** | Design token auditing, validation, and migration |
+| **pf-a11y** | Accessibility auditing, reporting, and documentation |
+| **pf-figma** | Figma design review, diffing, and asset identification |
+
+Each plugin includes skills, agents, and a [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp). Browse each plugin's `skills/` and `agents/` directories for what's available.
 
 ## Repository Structure
 
 ```
 ai-helpers/
-├── plugins/              # Claude Code plugins
-│   └── pf-react/         # PatternFly React coding standards & test generation
+├── plugins/              # Plugins (work in both Claude Code and Cursor)
+│   ├── pf-react/         # React coding standards, testing
+│   ├── pf-design-tokens/ # Design token auditing and migration
+│   ├── pf-a11y/          # Accessibility auditing and reporting
+│   └── pf-figma/         # Figma design review and diffing
 ├── docs/                 # AI-friendly PatternFly documentation
-│   ├── guidelines/       # Coding standards, styling, accessibility
-│   ├── components/       # Component-specific patterns
-│   ├── charts/           # Chart guidelines
-│   └── chatbot/          # Chatbot patterns
-├── .cursor/rules/        # Cursor IDE rules
-├── .claude-plugin/       # Plugin marketplace configuration
-└── .claude/              # Claude Code settings
+│   ├── guidelines/
+│   ├── components/
+│   ├── charts/
+│   └── chatbot/
+├── .claude-plugin/       # Marketplace config (Claude Code)
+└── .cursor-plugin/       # Marketplace config (Cursor)
 ```
+
+Both `.claude-plugin/` and `.cursor-plugin/` contain identical manifests so each tool discovers plugins natively.
 
 ## Documentation
 
 The `docs/` directory contains comprehensive, AI-friendly PatternFly documentation. See [docs/README.md](docs/README.md) for the full table of contents.
 
-### Using Documentation with AI Tools
-
-AI tools only index files present in your local workspace. To get the full benefit:
-
-1. Clone or copy this repository (or at least the `docs/` directory) into your project
-2. Open your project in your AI coding tool
-3. The tool will automatically reference the documentation for PatternFly guidance
-
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding plugins, commands, documentation, and Cursor rules.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding plugins, skills, and documentation.
+
+See [CONTRIBUTING-SKILLS.md](CONTRIBUTING-SKILLS.md) for a step-by-step guide to creating and contributing a skill.
 
 ## References
 

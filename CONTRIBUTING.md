@@ -1,50 +1,58 @@
 # Contributing to PatternFly AI Helpers
 
-We welcome contributions of new plugins, commands, agents, documentation, and Cursor rules.
+We welcome contributions of new plugins, skills, agents, and documentation.
+
+Plugins in this repo work in both **Claude Code** and **Cursor**. Each plugin has both a `.claude-plugin/` and `.cursor-plugin/` directory with identical manifests, so each tool discovers it natively.
 
 ## Repository Structure
 
 ```
-plugins/          # Claude Code plugins (each with commands/, agents/, skills/)
-docs/             # AI-friendly PatternFly documentation
-.cursor/rules/    # Cursor IDE rules
-.claude-plugin/   # Plugin marketplace configuration
+plugins/              # Plugins (skills, agents, MCP servers)
+docs/                 # AI-friendly PatternFly documentation
+.claude-plugin/       # Marketplace config (Claude Code)
+.cursor-plugin/       # Marketplace config (Cursor)
 ```
 
-## Adding a New Claude Code Plugin
+## Adding a Skill to an Existing Plugin
+
+This is the simplest way to contribute. See [CONTRIBUTING-SKILLS.md](CONTRIBUTING-SKILLS.md) for a full walkthrough.
+
+1. Create a directory under the plugin's `skills/` folder: `plugins/<plugin-name>/skills/your-skill/`
+2. Add a `SKILL.md` with your instructions in plain markdown
+3. Open a pull request
+
+Your skill becomes available as `/<plugin-name>:your-skill` once merged.
+
+## Creating a New Plugin
+
+Create a new plugin when your contribution doesn't fit into an existing one — for example, a new domain like charts, chatbot patterns, or migration tooling.
 
 1. Create a new directory under `plugins/your-plugin-name/`
-2. Add a `.claude-plugin/plugin.json` with required metadata:
+2. Add a `plugin.json` to both `.claude-plugin/` and `.cursor-plugin/` (identical content):
    ```json
    {
      "name": "your-plugin-name",
      "description": "What your plugin does",
-     "version": "0.0.1",
+     "version": "1.0.0",
      "author": {
        "name": "Your Name"
      }
    }
    ```
-3. Add commands under `commands/` and/or agents under `agents/` as `.md` files
-4. Register your plugin in `.claude-plugin/marketplace.json`
-5. Add a `README.md` documenting your plugin's commands and usage
+   Both directories contain the same file so each tool discovers the plugin natively.
+3. Add skills under `skills/`, agents under `agents/`, or both
+4. Register your plugin in both `.claude-plugin/marketplace.json` and `.cursor-plugin/marketplace.json` at the repo root
+5. Add a `README.md` documenting your plugin
 
-## Adding a Command or Agent to an Existing Plugin
+### Skills vs Agents
 
-1. Add your `.md` file to the appropriate `commands/` or `agents/` directory
-2. Commands need frontmatter with at minimum a `description` field
-3. Agents need frontmatter with `name`, `description`, and `color` fields
-4. Do **not** hardcode a `model:` in agent frontmatter -- let users choose their preferred model
+- **Skills** (`skills/your-skill/SKILL.md`) — tasks that produce a result. Use this for most contributions.
+- **Agents** (`agents/your-agent.md`) — domain knowledge the AI follows. Use for standards and guidelines.
 
 ## Adding Documentation
 
 1. Add markdown files under `docs/` following the existing directory structure
 2. Update `docs/README.md` (table of contents) to link to your new content
-
-## Adding Cursor Rules
-
-1. Add `.mdc` files to `.cursor/rules/`
-2. Follow the existing frontmatter pattern with `description`, `globs`, and `alwaysApply`
 
 ## Submitting Changes
 
@@ -57,5 +65,6 @@ docs/             # AI-friendly PatternFly documentation
 
 - Use kebab-case for directory and file names
 - Include clear descriptions in all frontmatter
-- Test your plugins locally before submitting
+- Test your skills locally before submitting
 - Keep documentation concise and AI-friendly
+- Don't hardcode a `model:` in agent frontmatter — let users choose their preferred model

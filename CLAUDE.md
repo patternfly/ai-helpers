@@ -1,19 +1,19 @@
 # PatternFly AI Helpers
 
-This repository contains AI coding helpers for PatternFly development, including Claude Code plugins, Cursor rules, and AI-friendly documentation.
+This repository contains AI coding helpers for PatternFly development, including Claude Code and Cursor plugins and AI-friendly documentation.
 
 ## Key Directories
 
-- `plugins/` - Claude Code plugins with commands and agents
+- `plugins/` - Claude Code and Cursor plugins with skills and agents
 - `docs/` - AI-friendly PatternFly documentation, guidelines, and reference data
-- `.cursor/rules/` - Cursor IDE rules for PatternFly development
-- `.claude-plugin/` - Plugin marketplace configuration
+- `.claude-plugin/` / `.cursor-plugin/` - Marketplace config (identical manifests for each tool)
 
 ## Available Plugins
 
-- **pf-react** - PatternFly React coding standards and test generation agents
-  - `/coding-standards` - PatternFly v6 React coding standards
-  - `/test-generator` - Generate unit tests following Testing Library best practices
+- **pf-react** - PatternFly React coding standards and unit test standards agents
+- **pf-design-tokens** - Design token auditing, validation, and migration for PatternFly styling
+- **pf-a11y** - Accessibility auditing, reporting, and documentation for PatternFly applications
+- **pf-figma** - Figma design review, diffing, and asset identification for PatternFly
 
 ## Documentation
 
