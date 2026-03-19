@@ -1,3 +1,8 @@
+---
+name: PatternFly Component Structure
+description: Guide for correctly composing PatternFly React components with proper structural hierarchy. Use when building UIs with @patternfly/react-core or @patternfly/react-table, or when debugging layout issues like misaligned content, unexpected padding/margins, or broken spacing.
+---
+
 Guide for correctly composing PatternFly React components with proper
 structural hierarchy. Use this skill when building UIs with
 `@patternfly/react-core` or `@patternfly/react-table`, or when debugging
