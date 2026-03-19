@@ -20,40 +20,17 @@ See the [root README](../../README.md) for Cursor installation options.
 
 ## What's Included
 
-### Skills
+Skills and agents for PatternFly React development:
 
-Skills are tasks that produce a result.
+- Coding standards enforcement for components, styling, accessibility, and TypeScript
+- Unit test generation following Testing Library best practices
+- React and PatternFly-specific patterns and conventions
 
-**Unit Test Generator** (`/pf-react:unit-test-generator`) — Generates a complete unit test file for a given React component, following Testing Library best practices.
-
-### Agents
-
-Agents are domain knowledge the AI follows.
-
-**Coding Standards** — PatternFly React best practices:
-
-- Component composition patterns
-- PatternFly v6 styling standards
-- Design token usage
-- Accessibility requirements (WCAG 2.1 Level AA)
-- React and TypeScript best practices
-
-**Unit Test Standards** — Unit testing standards following Testing Library best practices:
-
-- User behavior testing over implementation details
-- Semantic query strategies
-- Proper mocking patterns
-- Accessibility testing
-- PatternFly-specific patterns
+Browse `skills/` for available skills (invoked as `/pf-react:<skill-name>`) and `agents/` for domain knowledge.
 
 ### PatternFly MCP Server
 
-Both agents have access to the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) which provides:
-
-- **`searchPatternFlyDocs`** — Search for component documentation
-- **`usePatternFlyDocs`** — Get full docs and JSON schemas
-
-No manual configuration needed — the MCP server is defined in `plugin.json`.
+Skills and agents have access to the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) for looking up component documentation and prop schemas. No manual configuration needed.
 
 ## File Structure
 
@@ -63,12 +40,8 @@ pf-react/
 │   └── plugin.json        # Plugin manifest + MCP server config
 ├── .cursor-plugin/
 │   └── plugin.json        # Identical copy for Cursor
-├── agents/
-│   ├── coding-standards.md
-│   └── unit-test-standards.md
-├── skills/
-│   └── unit-test-generator/
-│       └── SKILL.md
+├── skills/                # Tasks that produce a result
+├── agents/                # Domain knowledge the AI follows
 └── README.md
 ```
 

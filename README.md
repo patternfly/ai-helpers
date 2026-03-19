@@ -24,14 +24,14 @@ Cursor can discover plugins from `.cursor-plugin/` directories. If you also have
 
 ## Available Plugins
 
-| Plugin | Description | Includes |
-|--------|-------------|----------|
-| **pf-react** | PatternFly React development standards | Coding standards agent, unit test standards agent, unit test generator skill, PatternFly MCP server |
-| **pf-design-tokens** | Design token auditing, validation, and migration | PatternFly MCP server |
-| **pf-a11y** | Accessibility auditing, reporting, and documentation | PatternFly MCP server |
-| **pf-figma** | Figma design review, diffing, and asset identification | PatternFly MCP server |
+| Plugin | Description |
+|--------|-------------|
+| **pf-react** | PatternFly React coding standards, testing, and development |
+| **pf-design-tokens** | Design token auditing, validation, and migration |
+| **pf-a11y** | Accessibility auditing, reporting, and documentation |
+| **pf-figma** | Figma design review, diffing, and asset identification |
 
-See each plugin's README for full documentation.
+Each plugin includes skills, agents, and a [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp). Browse each plugin's `skills/` and `agents/` directories for what's available.
 
 ## Repository Structure
 

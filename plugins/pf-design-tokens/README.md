@@ -28,6 +28,8 @@ Skills and agents for working with PatternFly design tokens:
 - Suggesting semantic tokens for common use cases
 - Mapping Figma-only token references to code equivalents
 
+Browse `skills/` for available skills (invoked as `/pf-design-tokens:<skill-name>`) and `agents/` for domain knowledge.
+
 ### PatternFly MCP Server
 
 Skills and agents have access to the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) for looking up component documentation and token references. No manual configuration needed.

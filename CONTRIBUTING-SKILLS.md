@@ -100,7 +100,11 @@ Your skill becomes available as `/<plugin-name>:your-skill-name` for anyone who 
 
 **Good skills include examples.** Show what good output looks like AND what bad output looks like.
 
-**Good skills are short.** If your SKILL.md is over 200 lines, you're probably over-explaining. Say what you want, not how to think.
+**Good skills are short.** If your SKILL.md is over 200 lines, you're probably over-explaining. Say what you want, not how to think. The [Claude Code docs recommend under 500 lines](https://code.claude.com/docs/en/skills#add-supporting-files) as a ceiling — beyond that, move reference content into supporting files alongside your SKILL.md.
+
+**Good skills describe outcomes, not implementation.** Tell the AI what to accomplish, not how to do it. The AI already knows how to use `git`, `gh`, `grep`, and other tools — you don't need to spell out exact commands or multi-step conditional logic. A single sentence like "Check for issue templates locally, then via GitHub CLI, falling back to a blank issue" is better than 70 lines of bash scripts and if/else branches.
+
+**Good skills are tool-agnostic.** Skills in this repo work in both Claude Code and Cursor. Avoid referencing a specific tool in your instructions or examples (e.g., use "Assistant:" instead of "Claude:" in example conversations).
 
 ## What does a SKILL.md look like?
 
