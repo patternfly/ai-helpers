@@ -202,10 +202,6 @@ Available composites: `--sm`, `--md`, `--lg` (each with `--top`, `--bottom`, `--
 /* Composite glass tokens (use color-mix internally) */
 background-color: var(--pf-t--global--background--color--glass--primary--default);
 backdrop-filter: var(--pf-t--global--background--filter--glass--blur--primary);
-
-/* Floating variant */
-background-color: var(--pf-t--global--background--color--glass--floating--default);
-backdrop-filter: var(--pf-t--global--background--filter--glass--blur--floating);
 ```
 
 #### Rule 5 — Theme & Collection Awareness
