@@ -343,6 +343,8 @@ Screenshot workflow:
 4. For VALIDATED tokens, screenshots are not needed — only flagged findings get visual evidence.
 5. Composite, sync, and escalation findings that reference the full frame (not a specific element) can skip screenshots.
 
+**Token naming in all tables:** Every table that references a token — whether in findings or the validated tokens summary — must include **both** the Figma variable name (e.g., `global/text/color/regular`) **and** the corresponding CSS token (e.g., `--pf-t--global--text--color--regular`). Developers need the CSS token names for implementation; designers need the Figma variable names for source-of-truth context.
+
 Use this output format:
 
 ```markdown
