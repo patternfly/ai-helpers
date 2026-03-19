@@ -14,7 +14,7 @@ Audit designs (from Figma or raw CSS) against the PatternFly Token Architecture.
 Determine the input type:
 
 **Figma URL provided?** Use the Figma MCP:
-1. Call `get_variable_defs` (server: `plugin-figma-figma`) with `nodeId` and `fileKey` to extract Figma variables.
+1. Call `get_variable_defs` via the Figma MCP with `nodeId` and `fileKey` to extract Figma variables.
 2. Call `get_design_context` to get code output and screenshot of the full frame.
 3. **Collect element node IDs.** The `get_design_context` output includes `data-node-id` attributes on each element. Track node IDs for any elements that will be flagged in findings — these will be used to capture element-level screenshots during the handoff step.
 4. **Identify the active theme and mode.** Figma variables have an "Extended Collection" (theme) and a mode applied to each frame. Determine which are active by inspecting the resolved values:
@@ -329,12 +329,12 @@ Before escalating, search the codebase for a matching token and cross-reference 
 1. Search `src/patternfly/base/tokens/tokens-local.scss` for composites and temporary tokens.
 2. Search `src/patternfly/base/tokens/tokens-default.scss` for semantic tokens.
 3. **Cross-check component SCSS** (Rule 9): If the design maps to a known PatternFly component, read `src/patternfly/components/{ComponentName}/{component}.scss` and compare the variant's token assignments against the Figma design. Flag any differences as IMPLEMENTATION DRIFT.
-4. Use PatternFly Docs MCP: call `searchPatternFlyDocs` (server: `user-patternfly-docs`) with the concept name.
+4. Use the PatternFly MCP: call `searchPatternFlyDocs` with the concept name.
 5. Call `usePatternFlyDocs` with `name: "Design tokens"` for documentation.
 
 ### Step 7: Produce Handoff
 
-**Element-level screenshots:** Before writing the handoff, call `get_screenshot` (server: `plugin-figma-figma`) for each element node ID that has a finding (IMPLEMENTATION DRIFT, CONTEXT MISMATCH, FIGMA FIX NEEDED, etc.). This gives the reader immediate visual context for each flagged issue. Include the screenshot image directly above or alongside the finding it relates to.
+**Element-level screenshots:** Before writing the handoff, call `get_screenshot` via the Figma MCP for each element node ID that has a finding (IMPLEMENTATION DRIFT, CONTEXT MISMATCH, FIGMA FIX NEEDED, etc.). This gives the reader immediate visual context for each flagged issue. Include the screenshot image directly above or alongside the finding it relates to.
 
 Screenshot workflow:
 1. Gather the list of unique node IDs from findings (from `data-node-id` attributes collected in Step 1).
