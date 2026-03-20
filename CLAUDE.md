@@ -14,6 +14,7 @@ This repository contains AI coding helpers for PatternFly development, including
 - **pf-design-tokens** - Design token auditing, validation, and migration for PatternFly styling
 - **pf-a11y** - Accessibility auditing, reporting, and documentation for PatternFly applications
 - **pf-figma** - Figma design review, diffing, and asset identification for PatternFly
+- **pf-workflow** - Issue tracking, PR management, and cross-repo coordination for PatternFly projects
 
 ## Documentation
 

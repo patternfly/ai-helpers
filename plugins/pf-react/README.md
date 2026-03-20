@@ -48,12 +48,14 @@ pf-react/
 ## Troubleshooting
 
 **Plugin not recognized:**
+
 ```bash
 /plugin list                         # Verify plugin is installed
 /plugin install pf-react@ai-helpers  # Reinstall if needed
 ```
 
 **MCP server not connecting:**
+
 ```bash
 /mcp status  # Check MCP server status
 ```

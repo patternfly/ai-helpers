@@ -66,6 +66,7 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 | **pf-design-tokens** | Design tokens, CSS variables, color contrast | `hex-scan`, `css-var-audit`, `token-contrast`, `suggest-tokens` | Your skill audits, validates, or suggests design tokens |
 | **pf-a11y** | Accessibility, WCAG, ARIA, screen readers | `audit`, `doc-scaffold` | Your skill checks, reports on, or documents accessibility |
 | **pf-figma** | Figma designs, design-to-code, assets | `design-review`, `design-diff`, `icon-id`, `brand-assets` | Your skill works with Figma designs, icons, or brand assets |
+| **pf-workflow** | Issue tracking, PR management, cross-repo coordination | `create-issue`, `pr-description`, `changelog-entry`, `release-notes` | Your skill helps with PatternFly project workflows, issue/PR management, or contributor coordination |
 
 **How to decide:**
 - Ask yourself: "Who installs this?" A React developer? → `pf-react`. A designer working in Figma? → `pf-figma`.

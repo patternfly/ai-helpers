@@ -13,12 +13,12 @@ A Claude Code skill for creating well-structured GitHub issues across PatternFly
 
 ## Usage
 
-Invoke the skill with `/pf-issue`:
+Invoke the skill with `/create-issue`:
 
 ```
-/pf-issue                          # Interactive mode
-/pf-issue patternfly-react         # Create issue for specific repo
-/pf-issue followup patternfly-org  # Create followup issue
+/create-issue                          # Interactive mode
+/create-issue patternfly-react         # Create issue for specific repo
+/create-issue followup patternfly-org  # Create followup issue
 ```
 
 ## Prerequisites
@@ -32,11 +32,11 @@ Invoke the skill with `/pf-issue`:
 - **GitHub CLI (gh)** - Enables direct issue creation, remote template fetching, and duplicate detection
   - Install: `brew install gh` (macOS) or see https://cli.github.com/
   - Authenticate: `gh auth login`
-  - Without gh CLI: templates must be available locally, issues are saved to files, and similar issue detection is skipped
+  - Without gh CLI: local repo clone must be available locally for template detection, issues are saved to files, and similar issue detection is skipped
 
 ## Workflow Overview
 
-1. **Detect Context**: Identifies if you're in a PatternFly repo and analyzes context to suggest relevant repos
+1. **Detect Context**: Identifies if you're in a PatternFly repo and analyzes context to suggest relevant repos to open your issue in
 2. **Choose Type**: New issue or followup issue
 3. **Select Template**: Checks for templates locally, then remotely via GitHub CLI, or offers blank option
 4. **Pre-populate Fields**: Intelligently fills in issue fields based on your context
@@ -46,24 +46,12 @@ Invoke the skill with `/pf-issue`:
 8. **Check Duplicates**: Searches for similar existing issues (if gh CLI available)
 9. **Create/Save**: Creates via gh CLI (if available) or saves to file
 
-## PatternFly Repository Map
-
-Common followup patterns:
-
-| Source           | Target           | Typical Followup                                           |
-| ---------------- | ---------------- | ---------------------------------------------------------- |
-| patternfly       | patternfly-react | Update React components for CSS changes or example parity |
-| patternfly-react | patternfly       | Update HTML/CSS examples for parity with React changes    |
-| design-tokens    | patternfly       | Apply new token variables                                  |
-| patternfly-react | patternfly-org   | Update documentation and examples                          |
-| patternfly-react | pf-codemods      | Add codemods for breaking changes                          |
-
 ## Examples
 
 ### Creating a Bug Report
 
 ```
-/pf-issue
+/create-issue
 
 > You're in patternfly/patternfly. Create issue here? (yes)
 > Type: New Issue
@@ -77,7 +65,7 @@ Common followup patterns:
 ### Creating a Followup Issue
 
 ```
-/pf-issue followup patternfly-react
+/create-issue followup patternfly-react
 
 > Analyzing 4 commits on feat/card-tokens branch...
 > Suggested followup work:
@@ -90,10 +78,6 @@ Common followup patterns:
 ```
 
 ## Customization
-
-### Adding New Templates
-
-Place additional templates in the target repo's `.github/ISSUE_TEMPLATE/` directory.
 
 ### Modifying Followup Patterns
 
