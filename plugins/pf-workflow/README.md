@@ -2,6 +2,22 @@
 
 Project management, issue tracking, and contributor workflow automation for PatternFly repositories.
 
+## Installation
+
+### Claude Code
+
+```bash
+# Add the PatternFly marketplace
+/plugin marketplace add patternfly/ai-helpers
+
+# Install the plugin
+/plugin install pf-workflow@ai-helpers
+```
+
+### Cursor
+
+See the [root README](../../README.md) for Cursor installation options.
+
 ## What's Included
 
 Skills and agents for PatternFly workflows:
@@ -23,7 +39,7 @@ Skills and agents have access to the [PatternFly MCP server](https://github.com/
 
 ```bash
 /plugin list                         # Verify plugin is installed
-/plugin install pf-react@ai-helpers  # Reinstall if needed
+/plugin install pf-workflow@ai-helpers  # Reinstall if needed
 ```
 
 **MCP server not connecting:**
