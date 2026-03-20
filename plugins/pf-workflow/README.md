@@ -26,6 +26,7 @@ Skills and agents for PatternFly workflows:
 - Tracking followup work across repositories
 - Managing pull requests and releases
 - Coordinating cross-repo changes
+- Dependency recommendations from manifests and code patterns (`dependency-recommender`)
 
 Browse `skills/` for available skills (invoked as `/pf-workflow:<skill-name>`) and `agents/` for domain knowledge.
 
