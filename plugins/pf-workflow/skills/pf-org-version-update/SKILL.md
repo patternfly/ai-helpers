@@ -159,7 +159,7 @@ The agent **does not** run `yarn install`, `yarn build`, `yarn serve`, or `yarn 
 
 5. When `yarn screenshots` has finished, stop the serve process.
 
-After providing the user with the steps to update screenshots, the SKill is done.
+After providing the user with the steps to update screenshots, the skill is done.
 
 ## Summary
 
