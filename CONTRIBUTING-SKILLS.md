@@ -144,7 +144,7 @@ developers, and stakeholders.
 - Shorter is better.
 ```
 
-Every SKILL.md needs YAML frontmatter with a `name` and `description` so the plugin system can discover it:
+We recommend adding YAML frontmatter with a `name` and `description` to every SKILL.md. While skills are discovered by directory path, frontmatter improves compatibility with third-party tooling:
 
 ```yaml
 ---

@@ -1,3 +1,8 @@
+---
+name: unit-test-generator
+description: Generate a comprehensive unit test file for a given React component
+---
+
 Generate a comprehensive unit test file for the given React component.
 
 ## Input
