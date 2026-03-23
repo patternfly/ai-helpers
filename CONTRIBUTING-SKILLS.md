@@ -112,6 +112,11 @@ Your skill becomes available as `/<plugin-name>:your-skill-name` for anyone who 
 Here's an example `summarize` skill — the entire file:
 
 ```markdown
+---
+name: summarize
+description: Summarize code, files, PRs, or directories for a mixed audience
+---
+
 Provide clear, concise summaries of code, files, pull requests,
 or entire directories. Write for a mixed audience of designers,
 developers, and stakeholders.
@@ -139,7 +144,16 @@ developers, and stakeholders.
 - Shorter is better.
 ```
 
-That's it. No frontmatter required. No code. No config. Just instructions in markdown.
+We recommend adding YAML frontmatter with a `name` and `description` to every SKILL.md. While skills are discovered by directory path, frontmatter improves compatibility with third-party tooling:
+
+```yaml
+---
+name: summarize
+description: Summarize code, files, PRs, or directories for a mixed audience
+---
+```
+
+After the frontmatter, it's just instructions in markdown. No code. No config.
 
 ## Skill ideas to get you started
 
