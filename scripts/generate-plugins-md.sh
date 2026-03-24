@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+# Generates PLUGINS.md from the plugins/ directory structure.
+# Reads descriptions from plugin.json and YAML frontmatter in SKILL.md / agent files.
+
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+OUTPUT="PLUGINS.md"
+
+# Extract "description" from YAML frontmatter (between --- delimiters)
+get_frontmatter_desc() {
+  local file="$1"
+  sed -n '/^---$/,/^---$/p' "$file" | grep '^description:' | sed 's/^description: *//'
+}
+
+# Fallback: first non-empty line after frontmatter (or first line if no frontmatter)
+get_first_line_desc() {
+  local file="$1"
+  if head -1 "$file" | grep -q '^---$'; then
+    sed -n '/^---$/,/^---$/!p' "$file" | sed '/^$/d' | head -1
+  else
+    sed '/^$/d' "$file" | head -1
+  fi
+}
+
+get_description() {
+  local file="$1"
+  local desc
+  desc=$(get_frontmatter_desc "$file")
+  if [ -z "$desc" ]; then
+    desc=$(get_first_line_desc "$file")
+  fi
+  echo "$desc"
+}
+
+# Read plugin description from plugin.json
+get_plugin_desc() {
+  local plugin_dir="$1"
+  local json="$plugin_dir/.claude-plugin/plugin.json"
+  if [ -f "$json" ]; then
+    grep '"description"' "$json" | head -1 | sed 's/.*"description": *"//;s/".*//'
+  fi
+}
+
+{
+  cat <<'HEADER'
+# Available Plugins
+
+Quick reference of all plugins and what they contain. This file is auto-generated — do not edit manually.
+
+## Table of Contents
+
+HEADER
+
+  # Build TOC
+  for plugin_dir in plugins/*/; do
+    plugin=$(basename "$plugin_dir")
+    desc=$(get_plugin_desc "$plugin_dir")
+    echo "- [${plugin}](#${plugin}) — ${desc}"
+  done
+
+  echo ""
+  echo "---"
+  echo ""
+
+  # Build per-plugin sections
+  for plugin_dir in plugins/*/; do
+    plugin=$(basename "$plugin_dir")
+    desc=$(get_plugin_desc "$plugin_dir")
+
+    echo "### ${plugin}"
+    echo ""
+    echo "${desc}"
+    echo ""
+
+    # Skills
+    has_skills=false
+    if [ -d "${plugin_dir}skills" ]; then
+      for skill_dir in "${plugin_dir}skills"/*/; do
+        [ -d "$skill_dir" ] || continue
+        skill_file="${skill_dir}SKILL.md"
+        [ -f "$skill_file" ] || continue
+        if [ "$has_skills" = false ]; then
+          echo "**Skills:**"
+          has_skills=true
+        fi
+        skill_name=$(basename "$skill_dir")
+        skill_desc=$(get_description "$skill_file")
+        echo "- \`/${plugin}:${skill_name}\` — ${skill_desc}"
+      done
+    fi
+
+    # Agents
+    has_agents=false
+    if [ -d "${plugin_dir}agents" ]; then
+      for agent_file in "${plugin_dir}agents"/*.md; do
+        [ -f "$agent_file" ] || continue
+        if [ "$has_agents" = false ]; then
+          if [ "$has_skills" = true ]; then echo ""; fi
+          echo "**Agents:**"
+          has_agents=true
+        fi
+        agent_name=$(basename "$agent_file" .md)
+        agent_desc=$(get_description "$agent_file")
+        echo "- \`${agent_name}\` — ${agent_desc}"
+      done
+    fi
+
+    if [ "$has_skills" = false ] && [ "$has_agents" = false ]; then
+      echo "No skills or agents yet — contributions welcome!"
+    fi
+
+    echo ""
+  done
+} > "$OUTPUT"
+
+echo "Generated $OUTPUT"

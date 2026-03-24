@@ -31,7 +31,7 @@ Cursor can discover plugins from `.cursor-plugin/` directories. If you also have
 | **pf-a11y** | Accessibility auditing, reporting, and documentation |
 | **pf-figma** | Figma design review, diffing, and asset identification |
 
-Each plugin includes skills, agents, and a [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp). Browse each plugin's `skills/` and `agents/` directories for what's available.
+Each plugin includes skills, agents, and a [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp). See [PLUGINS.md](PLUGINS.md) for a full list of skills and agents in each plugin.
 
 ## Architecture
 
@@ -60,11 +60,11 @@ ai-helpers/
 ├── .claude-plugin/       # Claude Code marketplace config
 ├── .cursor-plugin/       # Cursor marketplace config
 ├── plugins/
-│   ├── pf-react/         # React coding standards, testing
-│   ├── pf-design-tokens/ # Design token auditing and migration
-│   ├── pf-a11y/          # Accessibility auditing and reporting
-│   ├── pf-figma/         # Figma design review and diffing
-│   └── pf-workflow/      # Issue tracking, PR management
+│   └── <plugin-name>/    # One directory per plugin
+│       ├── .claude-plugin/
+│       ├── .cursor-plugin/
+│       ├── skills/
+│       └── agents/
 └── docs/                 # AI-friendly PatternFly documentation
 ```
 
