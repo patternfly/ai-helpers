@@ -1,5 +1,5 @@
 ---
-name: patternfly-example-descriptions
+name: write-example-description
 description: >-
   Helps PatternFly developers write and refine example descriptions and demo
   descriptions for PatternFly.org. Covers (1) component example MD files: prose
