@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Maps Figma design token names to PatternFly CSS token names for automated comparison",
+  "version": "1.0.0",
+  "mappings": {
+    "colors": {
+      "Button/Primary/Background": "--pf-c-button--m-primary--BackgroundColor",
+      "Button/Primary/Hover/Background": "--pf-c-button--m-primary--hover--BackgroundColor",
+      "Button/Primary/Active/Background": "--pf-c-button--m-primary--active--BackgroundColor",
+      "Button/Primary/Text": "--pf-c-button--m-primary--Color",
+      "Button/Secondary/Background": "--pf-c-button--m-secondary--BackgroundColor",
+      "Button/Secondary/Border": "--pf-c-button--m-secondary--BorderColor",
+      "Card/Background": "--pf-c-card--BackgroundColor",
+      "Card/Border": "--pf-c-card--BorderColor",
+      "Alert/Info/Background": "--pf-c-alert--m-info--BackgroundColor",
+      "Alert/Info/Icon": "--pf-c-alert--m-info--icon--Color",
+      "Alert/Success/Background": "--pf-c-alert--m-success--BackgroundColor",
+      "Global/Brand/Primary": "--pf-global--primary-color--100",
+      "Global/Danger": "--pf-global--danger-color--100",
+      "Global/Success": "--pf-global--success-color--100"
+    },
+    "spacing": {
+      "Button/Padding/Horizontal": "--pf-c-button--PaddingLeft",
+      "Button/Padding/Vertical": "--pf-c-button--PaddingTop",
+      "Card/Padding": "--pf-c-card--first-child--PaddingTop",
+      "Card/Gap": "--pf-c-card--child--Gap",
+      "Global/Spacing/XS": "--pf-global--spacer--xs",
+      "Global/Spacing/SM": "--pf-global--spacer--sm",
+      "Global/Spacing/MD": "--pf-global--spacer--md",
+      "Global/Spacing/LG": "--pf-global--spacer--lg",
+      "Global/Spacing/XL": "--pf-global--spacer--xl"
+    },
+    "typography": {
+      "Button/Font/Size": "--pf-c-button--FontSize",
+      "Button/Font/Weight": "--pf-c-button--FontWeight",
+      "Heading/H1/Size": "--pf-global--FontSize--4xl",
+      "Heading/H2/Size": "--pf-global--FontSize--3xl",
+      "Heading/H3/Size": "--pf-global--FontSize--2xl",
+      "Heading/H4/Size": "--pf-global--FontSize--xl",
+      "Body/Size": "--pf-global--FontSize--md",
+      "Body/LineHeight": "--pf-global--LineHeight--md",
+      "Small/Size": "--pf-global--FontSize--sm"
+    },
+    "dimensions": {
+      "Button/MinWidth": "--pf-c-button--MinWidth",
+      "Button/Height": "--pf-c-button--Height",
+      "Card/MinHeight": "--pf-c-card--MinHeight"
+    }
+  },
+  "patterns": {
+    "description": "Regex patterns for fuzzy matching when exact mapping not found",
+    "rules": [
+      {
+        "figmaPattern": "^(.+)/Background$",
+        "tokenPattern": "--pf-c-{component}--BackgroundColor",
+        "example": "Button/Background → --pf-c-button--BackgroundColor"
+      },
+      {
+        "figmaPattern": "^(.+)/Border$",
+        "tokenPattern": "--pf-c-{component}--BorderColor",
+        "example": "Card/Border → --pf-c-card--BorderColor"
+      },
+      {
+        "figmaPattern": "^(.+)/Padding/Horizontal$",
+        "tokenPattern": "--pf-c-{component}--PaddingLeft",
+        "example": "Alert/Padding/Horizontal → --pf-c-alert--PaddingLeft"
+      },
+      {
+        "figmaPattern": "^(.+)/Font/Size$",
+        "tokenPattern": "--pf-c-{component}--FontSize",
+        "example": "Button/Font/Size → --pf-c-button--FontSize"
+      }
+    ]
+  },
+  "ignoreList": {
+    "description": "Figma tokens to ignore during comparison (design-only or deprecated)",
+    "tokens": [
+      "Internal/Spacing/GridUnit",
+      "Internal/Debug/Overlay",
+      "Deprecated/OldButton/Color",
+      "Sketch/Legacy/Shadow"
+    ]
+  },
+  "customTransforms": {
+    "description": "Special transformations for specific token pairs",
+    "transforms": [
+      {
+        "figmaToken": "Global/BorderRadius/Default",
+        "codeToken": "--pf-global--BorderRadius--sm",
+        "note": "Figma uses 'Default' but code uses 'sm' for the same value"
+      },
+      {
+        "figmaToken": "Button/Padding",
+        "codeTokens": [
+          "--pf-c-button--PaddingTop",
+          "--pf-c-button--PaddingBottom",
+          "--pf-c-button--PaddingLeft",
+          "--pf-c-button--PaddingRight"
+        ],
+        "note": "Single Figma token maps to multiple directional tokens in code"
+      }
+    ]
+  },
+  "usage": {
+    "description": "How to use this mapping file",
+    "examples": [
+      "node compare-tokens.js figma-data.json ./tokens --mappings=token-mappings.json",
+      "node compare-tokens.js figma-data.json ./tokens --mappings=token-mappings.json --ignore-unmapped"
+    ]
+  }
+}
