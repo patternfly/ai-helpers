@@ -22,7 +22,7 @@ Track Figma design updates and generate code checklists for PatternFly.
 **RELEASE_NOTES.md** - Consumer-facing release notes
 **figma-updates-[date].md** - Detailed checklist with token changes
 
-See [Report Templates](references/) for examples.
+See [report-templates.md](report-templates.md) for full template examples.
 
 ## What to Analyze
 
@@ -117,7 +117,7 @@ Figma updated to match PatternFly 6.0.0. No code changes needed.
 
 ## Additional Resources
 
-- [Report Templates](references/) - Example outputs
+- [Report Templates](report-templates.md) - Full template examples
 - [Troubleshooting](references/troubleshooting.md) - Common issues
 - [Validation Checklists](references/validation-checklists.md) - Quality checks
 - [Token Mappings](examples/token-mappings.json) - Figma ↔ Code mapping
