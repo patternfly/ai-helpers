@@ -107,6 +107,43 @@ Your skill becomes available as `/<plugin-name>:your-skill-name` for anyone who 
 
 **Good skills are tool-agnostic.** Skills in this repo work in both Claude Code and Cursor. Avoid referencing a specific tool in your instructions or examples (e.g., use "Assistant:" instead of "Claude:" in example conversations).
 
+## Frontmatter
+
+We recommend YAML frontmatter at the top of your SKILL.md with `name` and `description`:
+
+```yaml
+---
+name: summarize
+description: Summarizes code, files, PRs, or directories for a mixed audience.
+---
+```
+
+**Why:** Frontmatter gives the AI a structured name and description to display at startup, instead of inferring them from the directory name and first paragraph. Third-party tools may also rely on this format for discovery.
+
+- `name` should match the directory name to avoid confusion when invoking the skill
+- Add `disable-model-invocation: true` if your skill has side effects (creates issues, posts comments, deploys) — this prevents the AI from triggering it automatically
+
+## Supporting scripts
+
+Skills can bundle executable scripts alongside SKILL.md. The [official Claude Code docs](https://code.claude.com/docs/en/skills) support this pattern:
+
+```
+my-skill/
+├── SKILL.md           # Instructions (required)
+├── reference.md       # Reference docs (optional)
+└── scripts/
+    └── analyze.sh     # Script the AI can execute (optional)
+```
+
+**Guidelines:**
+- **Prefer bash** — every user has it, no runtime dependency to install
+- If your script requires Node.js, Python, or another runtime, declare it in a `## Requirements` section in your SKILL.md
+- Scripts must fail with a **clear error message** if the runtime is missing — not silently. Add a check like:
+  ```bash
+  command -v node >/dev/null 2>&1 || { echo "Error: This skill requires Node.js." >&2; exit 1; }
+  ```
+- Reference scripts from your SKILL.md so the AI knows they exist and when to run them
+
 ## What does a SKILL.md look like?
 
 Here's an example `summarize` skill — the entire file:
@@ -114,7 +151,7 @@ Here's an example `summarize` skill — the entire file:
 ```markdown
 ---
 name: summarize
-description: Summarize code, files, PRs, or directories for a mixed audience
+description: Summarizes code, files, PRs, or directories for a mixed audience.
 ---
 
 Provide clear, concise summaries of code, files, pull requests,
@@ -144,16 +181,7 @@ developers, and stakeholders.
 - Shorter is better.
 ```
 
-We recommend adding YAML frontmatter with a `name` and `description` to every SKILL.md. While skills are discovered by directory path, frontmatter improves compatibility with third-party tooling:
-
-```yaml
----
-name: summarize
-description: Summarize code, files, PRs, or directories for a mixed audience
----
-```
-
-After the frontmatter, it's just instructions in markdown. No code. No config.
+That's it. Frontmatter and instructions in markdown, with optional supporting scripts.
 
 ## Skill ideas to get you started
 
