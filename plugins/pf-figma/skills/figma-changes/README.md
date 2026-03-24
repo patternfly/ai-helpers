@@ -72,9 +72,10 @@ The skill generates:
 ## Files in This Skill
 
 - `SKILL.md` - Main skill instructions
-- `references/figma-api-guide.md` - Figma API reference
+- `references/` - Report templates and API guides
 - `scripts/extract-figma-file-key.sh` - Extract file key from URL
-- `scripts/compare-tokens.js` - Automated token comparison
+- `scripts/compare-tokens.sh` - Automated token comparison (with Node.js validation)
+- `scripts/compare-tokens.js` - Token comparison implementation
 
 ## Configuration
 
