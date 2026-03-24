@@ -60,11 +60,11 @@ ai-helpers/
 ├── .claude-plugin/       # Claude Code marketplace config
 ├── .cursor-plugin/       # Cursor marketplace config
 ├── plugins/
-│   └── <plugin-name>/    # One directory per plugin
-│       ├── .claude-plugin/
-│       ├── .cursor-plugin/
-│       ├── skills/
-│       └── agents/
+│   ├── pf-react/         # React coding standards, testing
+│   ├── pf-design-tokens/ # Design token auditing and migration
+│   ├── pf-a11y/          # Accessibility auditing and reporting
+│   ├── pf-figma/         # Figma design review and diffing
+│   └── pf-workflow/      # Issue tracking, PR management
 └── docs/                 # AI-friendly PatternFly documentation
 ```
 
