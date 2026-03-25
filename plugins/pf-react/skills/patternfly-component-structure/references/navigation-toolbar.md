@@ -107,6 +107,40 @@ Nav (context provider)
 3. **NavItem cannot have both `to` and `flyout`** — will cause console errors
 4. **NavExpandable requires `title`** — won't render properly without it
 
+### Anti-pattern: NavItem directly under Nav
+
+```tsx
+// Wrong
+<Nav aria-label="Main">
+  <NavItem to="/">Home</NavItem>
+</Nav>
+
+// Correct
+<Nav aria-label="Main">
+  <NavList>
+    <NavItem to="/">Home</NavItem>
+  </NavList>
+</Nav>
+```
+
+### Anti-pattern: extra NavList inside NavGroup
+
+`NavGroup` renders its own list wrapper — wrapping its children again breaks structure.
+
+```tsx
+// Wrong
+<NavGroup title="Section">
+  <NavList>
+    <NavItem>Item</NavItem>
+  </NavList>
+</NavGroup>
+
+// Correct
+<NavGroup title="Section">
+  <NavItem>Item</NavItem>
+</NavGroup>
+```
+
 ## Tabs
 
 Tabbed content component.
@@ -212,6 +246,24 @@ For cases where tab content needs to live outside the Tabs component:
 3. **Each Tab needs a unique `eventKey`**
 4. Don't use both `activeKey` and `defaultActiveKey`
 5. Use `TabTitleText` and `TabTitleIcon` for proper styling of tab labels
+
+### Anti-pattern: tab label as child instead of `title`
+
+Children of **`Tab`** are the **panel body**, not the visible tab label.
+
+```tsx
+// Wrong — "Users" becomes panel content, not the tab text
+<Tabs activeKey={key} onSelect={onSelect} aria-label="Example">
+  <Tab eventKey={0}>Users</Tab>
+</Tabs>
+
+// Correct
+<Tabs activeKey={key} onSelect={onSelect} aria-label="Example">
+  <Tab eventKey={0} title={<TabTitleText>Users</TabTitleText>}>
+    Users panel content here
+  </Tab>
+</Tabs>
+```
 
 ## Toolbar
 
@@ -350,3 +402,30 @@ Toolbar
 2. **ToolbarItem wraps every control** — provides proper spacing between items
 3. **ToolbarFilter wraps filter controls** only when you need applied-filter labels below the toolbar
 4. **ToolbarToggleGroup** is only needed for responsive collapse behavior — simple toolbars don't need it
+
+### Anti-pattern: controls directly in Toolbar or ToolbarContent
+
+`ToolbarContent` establishes layout context; **`ToolbarItem`** applies spacing around each control.
+
+```tsx
+// Wrong
+<Toolbar>
+  <Button>Action</Button>
+  <SearchInput />
+</Toolbar>
+
+// Also wrong — missing ToolbarItem inside ToolbarContent
+<Toolbar>
+  <ToolbarContent>
+    <Button>Action</Button>
+  </ToolbarContent>
+</Toolbar>
+
+// Correct
+<Toolbar>
+  <ToolbarContent>
+    <ToolbarItem><Button>Action</Button></ToolbarItem>
+    <ToolbarItem><SearchInput /></ToolbarItem>
+  </ToolbarContent>
+</Toolbar>
+```

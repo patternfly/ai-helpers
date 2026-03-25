@@ -87,6 +87,24 @@ Card
 
 Card uses `CardContext` to pass `cardId`, `isExpanded`, `isClickable`, `isSelectable`, `isSelected`, `isClicked`, `isDisabled` to children. `CardExpandableContent` reads `isExpanded` from context to show/hide.
 
+### Anti-pattern: body content not in CardBody
+
+`CardBody` supplies padding and fill behavior. Raw nodes inside **`Card`** sit flush to the border unless you use **`CardHeader`** / **`CardBody`** / **`CardFooter`** (or expandable content) intentionally.
+
+```tsx
+// Wrong
+<Card>
+  <p>Description text with no padding wrapper</p>
+</Card>
+
+// Correct
+<Card>
+  <CardBody>
+    <p>Description text with no padding wrapper</p>
+  </CardBody>
+</Card>
+```
+
 ## Modal
 
 ### Hierarchy
@@ -142,6 +160,20 @@ Modal (creates portal + backdrop + focus trap)
 </Modal>
 ```
 
+### Anti-pattern: incomplete Modal structure
+
+Skipping **`ModalHeader`**, **`ModalBody`**, or **`ModalFooter`** breaks the intended scroll regions and footer alignment. Omitting **`aria-labelledby`** / **`aria-label`** fails accessibility expectations.
+
+```tsx
+// Wrong — arbitrary children, no regions / labeling
+<Modal isOpen={open} onClose={close}>
+  <div>Are you sure?</div>
+  <Button onClick={close}>OK</Button>
+</Modal>
+
+// Correct — see [Example](#example) above for full pattern with aria-labelledby
+```
+
 ## Drawer
 
 ### Hierarchy
@@ -184,9 +216,46 @@ DrawerPanelContent (passed as prop)
 |------|---------|
 | `hasPadding` | Enable padding |
 
-### Critical Pattern
+### Critical pattern and anti-patterns
 
-`panelContent` is a **prop** on `DrawerContent`, not a child:
+`panelContent` is a **prop** on `DrawerContent`, not a child. Main column content belongs in **`DrawerContentBody`**.
+
+#### Anti-pattern: panel as child, main column without DrawerContentBody
+
+```tsx
+// Wrong — panel nested as child; main area not wrapped
+<Drawer isExpanded={expanded}>
+  <DrawerContent>
+    <div>Main content</div>
+    <DrawerPanelContent>
+      <DrawerHead>
+        Title
+        <DrawerActions><DrawerCloseButton onClick={close} /></DrawerActions>
+      </DrawerHead>
+      <DrawerPanelBody>Panel</DrawerPanelBody>
+    </DrawerPanelContent>
+  </DrawerContent>
+</Drawer>
+
+// Correct — panelContent prop; main column in DrawerContentBody
+<Drawer isExpanded={expanded}>
+  <DrawerContent
+    panelContent={
+      <DrawerPanelContent>
+        <DrawerHead>
+          Title
+          <DrawerActions><DrawerCloseButton onClick={close} /></DrawerActions>
+        </DrawerHead>
+        <DrawerPanelBody>Panel</DrawerPanelBody>
+      </DrawerPanelContent>
+    }
+  >
+    <DrawerContentBody>Main content</DrawerContentBody>
+  </DrawerContent>
+</Drawer>
+```
+
+#### Example: `onExpand` and `DrawerPanelBody` padding
 
 ```tsx
 <Drawer isExpanded={expanded} onExpand={onExpand}>
@@ -265,6 +334,38 @@ EmptyState (can accept titleText + icon as props, OR use children)
 
 Don't mix both approaches — pick one.
 
+### Anti-pattern: EmptyStateIcon outside EmptyStateHeader
+
+The icon must sit under **`EmptyStateHeader`** so spacing and status styling apply.
+
+```tsx
+// Wrong
+<EmptyState>
+  <EmptyStateIcon icon={SearchIcon} />
+  <EmptyStateBody>No results</EmptyStateBody>
+</EmptyState>
+
+// Correct (children approach)
+<EmptyState>
+  <EmptyStateHeader>
+    <EmptyStateIcon icon={SearchIcon} />
+    No results
+  </EmptyStateHeader>
+  <EmptyStateBody>Try different filters.</EmptyStateBody>
+</EmptyState>
+```
+
+### Anti-pattern: mixing shortcut props with explicit header tree
+
+```tsx
+// Wrong — titleText + icon props alongside EmptyStateHeader children
+<EmptyState titleText="Oops" icon={SearchIcon}>
+  <EmptyStateHeader>Custom title</EmptyStateHeader>
+</EmptyState>
+
+// Correct — pick props OR explicit header (see [Two Approaches](#two-approaches) above)
+```
+
 ## Sidebar
 
 Generic layout component (not PageSidebar).
@@ -313,3 +414,22 @@ Sidebar
   </SidebarContent>
 </Sidebar>
 ```
+
+### Anti-pattern: only one branch of Sidebar
+
+Use **`SidebarPanel`** and **`SidebarContent`** together — omitting either breaks the split layout.
+
+```tsx
+// Wrong — content only, no panel structure
+<Sidebar orientation="split">
+  <div>Filters</div>
+  <div>Results</div>
+</Sidebar>
+
+// Correct — use SidebarPanel + SidebarContent as in the full example in this section
+```
+</think>
+
+
+<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
+Grep

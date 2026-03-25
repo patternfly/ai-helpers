@@ -1,142 +1,114 @@
 ---
 name: component-structure-audit
-description: Audit PatternFly React component hierarchies for structural violations. Use when reviewing code for incorrect component nesting, missing wrapper components, or debugging layout issues caused by broken PatternFly component trees.
+description: PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns. Use when writing, reviewing, or refactoring PatternFly UI so layouts rely on correct trees, not custom CSS.
 ---
 
-# PatternFly Component Structure Audit
+# PatternFly component structure
 
-Scan a codebase for PatternFly React component hierarchy violations -- missing wrappers, incorrect nesting, and props-vs-children mistakes that break layouts.
+Enforce correct **parent-child composition**: PatternFly’s layout CSS targets named wrappers — use them; avoid raw divs or bare controls where a component expects **`ToolbarContent`**, **`NavList`**, **`CardBody`**, etc. For **repo scans and violation reports**, use `skills/patternfly-component-structure/SKILL.md`.
 
-## How to Run
+## Page and shell
 
-1. Ask the user which directory or files to audit. Default to the current working directory.
-2. Search for files importing from `@patternfly/react-core` or `@patternfly/react-table`.
-3. For each file, check for the violations listed below.
-4. Report findings grouped by file, with line numbers and the specific violation.
-5. If the user requests fixes, apply them. Only fix unambiguous structural issues -- if a fix would change behavior or requires design decisions, report it and ask.
+- **`Page`**: Put main content in **`PageSection`** (or **`PageGroup`** with sections inside). Do not use arbitrary divs as direct children for primary content.
+- **`masthead`** and **`sidebar`** are **`Page` props**, not children.
+- **`PageSection`** auto-wraps children in **`PageBody`** for horizontal padding. Use **`hasBodyWrapper={false}`** only when you need multiple **`PageBody`** regions.
+- **`PageSidebar`** must wrap its content in **`PageSidebarBody`**.
 
-## Violations to Detect
-
-### Page Layout
-
-- `<Page>` with direct content children that aren't `<PageSection>` or `<PageGroup>`
-- `<PageSidebar>` without a `<PageSidebarBody>` child
-- `<PageSection hasBodyWrapper={false}>` without explicit `<PageBody>` children (flag as informational)
-
-### Masthead
-
-- `<Masthead>` with `<MastheadBrand>` or `<MastheadToggle>` not wrapped in `<MastheadMain>`
-- `<MastheadLogo>` used outside of `<MastheadBrand>`
-
-### Toolbar
-
-- `<Toolbar>` with children that aren't `<ToolbarContent>`
-- Controls (Button, SearchInput, Select, etc.) directly inside `<ToolbarContent>` or `<ToolbarGroup>` without a `<ToolbarItem>` wrapper
-
-### Card
-
-- `<Card>` with content directly inside it (not wrapped in `<CardBody>`, `<CardHeader>`, or `<CardFooter>`)
-- Expandable cards missing `<CardExpandableContent>`
-
-### Modal
-
-- `<Modal>` without `<ModalHeader>`, `<ModalBody>`, or `<ModalFooter>` children
-- `<Modal>` missing `aria-labelledby` or `aria-label`
-
-### Drawer
-
-- `<DrawerPanelContent>` passed as a child of `<DrawerContent>` instead of via the `panelContent` prop
-- `<DrawerContent>` without `<DrawerContentBody>`
-- `<DrawerCloseButton>` not inside `<DrawerActions>` inside `<DrawerHead>`
-
-### Navigation
-
-- `<Nav>` with `<NavItem>` children not wrapped in `<NavList>`
-- `<NavGroup>` children wrapped in an extra `<NavList>` (NavGroup creates its own)
-
-### Table
-
-- `<Table>` with `<Tr>` directly as children (missing `<Thead>` or `<Tbody>`)
-- `<Th>` used inside `<Tbody>` rows or `<Td>` used inside `<Thead>` rows
-- `<Td>` missing `dataLabel` prop (flag as warning, not error)
-
-### DataList
-
-- `<DataList>` missing `aria-label`
-- `<DataListItem>` without `<DataListItemRow>`
-- `<DataListItemRow>` without `<DataListItemCells>`
-- `<DataListContent>` nested inside `<DataListItemRow>` instead of as a sibling
-
-### Tabs
-
-- `<Tab>` with label text as children instead of using the `title` prop
-- `<Tab>` missing `eventKey`
-
-### EmptyState
-
-- `<EmptyStateIcon>` directly inside `<EmptyState>` instead of inside `<EmptyStateHeader>`
-- Mixing `titleText`/`icon` props with explicit `<EmptyStateHeader>` children
-
-### DescriptionList
-
-- `<DescriptionListTerm>` or `<DescriptionListDescription>` directly inside `<DescriptionList>` without `<DescriptionListGroup>`
-
-## Report Format
-
-For each violation found, report:
+## Masthead
 
 ```
-[ERROR|WARN] file/path.tsx:42 - <Toolbar> has direct children that are not <ToolbarContent>
-  Found: <Button> as direct child of <Toolbar>
-  Fix: Wrap children in <ToolbarContent><ToolbarItem>...</ToolbarItem></ToolbarContent>
+Masthead
+├── MastheadMain
+│   ├── MastheadToggle → PageToggleButton
+│   └── MastheadBrand → MastheadLogo
+└── MastheadContent
 ```
 
-Use `ERROR` for violations that will break layout. Use `WARN` for best-practice issues (missing `dataLabel`, informational notes).
+**MastheadMain** groups toggle and brand for flex layout. **MastheadLogo** uses **`component="a"`** when it should be a link.
 
-### Summary
-
-After scanning, provide a summary:
+## Toolbar
 
 ```
-Scanned: 23 files
-Errors: 7 (across 4 files)
-Warnings: 3 (across 2 files)
+Toolbar
+└── ToolbarContent   ← required
+    └── ToolbarGroup / ToolbarItem / ToolbarToggleGroup …
 ```
 
-Group errors by violation type so the user can see patterns (e.g., "5 instances of missing ToolbarContent wrapper").
+**ToolbarContent** is never optional. Each control should sit in a **`ToolbarItem`** (directly or inside **`ToolbarGroup`**).
 
-## Applying Fixes
-
-When the user asks to fix violations:
-
-1. Only fix structural issues where the correct hierarchy is unambiguous.
-2. Preserve all existing props, event handlers, and content.
-3. Do not reformat or refactor surrounding code.
-4. Show the user what changed after applying fixes.
-
-Fixes that are safe to auto-apply:
-- Wrapping children in missing intermediate components (ToolbarContent, ToolbarItem, CardBody, NavList, DescriptionListGroup, etc.)
-- Moving `<DrawerPanelContent>` from children to the `panelContent` prop
-- Adding `<Thead>`/`<Tbody>` wrappers around table rows
-
-Fixes that require user input:
-- Adding missing `aria-label` or `aria-labelledby` (needs user-provided text)
-- Choosing between `titleText` prop vs `<EmptyStateHeader>` children
-- Restructuring complex nested components where intent is unclear
-
-## Custom CSS Check
-
-When a violation is found near custom CSS that adjusts spacing/padding/margins on PatternFly components, flag it:
+## Card
 
 ```
-[INFO] file/path.tsx:42 - Custom CSS spacing override detected near structural violation
-  .my-toolbar-fix { padding: 8px } may be compensating for missing <ToolbarContent>
-  Fixing the structure may make this CSS unnecessary
+Card
+├── CardHeader → CardTitle (optional)
+├── CardBody      ← provides padding; don’t skip for main content
+├── CardFooter
+└── CardExpandableContent (expandable cards)
 ```
 
-## References
+Expandable content belongs in **`CardExpandableContent`**, not only in **`CardBody`**.
 
-This agent enforces the hierarchy rules defined in the PatternFly Component Structure skill. For detailed component hierarchies and prop documentation, see:
+## Modal
 
-- `skills/patternfly-component-structure/SKILL.md`
-- `skills/patternfly-component-structure/references/`
+```
+Modal
+├── ModalHeader
+├── ModalBody
+└── ModalFooter
+```
+
+Set **`aria-labelledby`** to match **`ModalHeader`**’s label id, or **`aria-label`**. **`onClose`** is required for the close affordance.
+
+## Drawer
+
+- **`DrawerPanelContent`** is passed as **`panelContent`** on **`DrawerContent`**, not as a sibling child inside **`DrawerContent`**.
+- Main column content goes in **`DrawerContentBody`**.
+- **`DrawerCloseButton`** belongs under **`DrawerActions`** inside **`DrawerHead`**.
+
+## Navigation
+
+```
+Nav
+└── NavList   ← required
+    ├── NavItem
+    ├── NavExpandable → NavItem
+    └── NavGroup → NavItem   ← NavGroup owns an internal NavList; don’t wrap its children in another NavList
+```
+
+## Table (`@patternfly/react-table`)
+
+```
+Table
+├── Caption (optional, first)
+├── Thead → Tr → Th
+└── Tbody → Tr → Td
+```
+
+Never put **`Tr`** directly under **`Table`**. Use **`dataLabel`** on **`Td`** for responsive/stacked layouts. Expandable row content uses **`ExpandableRowContent`** inside **`Td`** with appropriate **`colSpan`**.
+
+## DataList
+
+- **`DataList`** needs **`aria-label`**; **`DataListItem`** needs **`aria-labelledby`**.
+- **`DataListItemRow`** is required; cells go through **`DataListItemCells`** / **`dataListCells`**, not ad hoc structure.
+- **`DataListContent`** is a **sibling** of **`DataListItemRow`**, not nested inside the row.
+
+## Tabs
+
+- Panel content is **`Tab`**’s **children**; the visible tab label is the **`title`** prop (often **`TabTitleText`** / **`TabTitleIcon`**), not raw text children.
+- Each **`Tab`** needs a unique **`eventKey`**.
+
+## EmptyState
+
+**`EmptyStateIcon`** lives under **`EmptyStateHeader`**, not directly under **`EmptyState`**. Do not mix shortcut props (`titleText`, `icon`) with an explicit **`EmptyStateHeader`** tree — pick one approach.
+
+## DescriptionList
+
+**`DescriptionListGroup`** is required between **`DescriptionList`** and **`DescriptionListTerm`** / **`DescriptionListDescription`**.
+
+## Sidebar
+
+**`Sidebar`** composes **`SidebarPanel`** and **`SidebarContent`**. Panel width uses breakpoint objects (see **`references/containers.md`**).
+
+## Deeper reference
+
+Props tables, anti-patterns, and full examples: `skills/patternfly-component-structure/references/` (`page-layout.md`, `containers.md`, `data-components.md`, `navigation-toolbar.md`).

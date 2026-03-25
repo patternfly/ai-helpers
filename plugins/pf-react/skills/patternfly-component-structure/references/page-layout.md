@@ -33,6 +33,22 @@ Root container that manages layout, sidebar state, responsive breakpoints, and c
 
 **Layout structure:** Page creates a CSS grid with areas for masthead, sidebar, and main content container. The main content container wraps all direct children.
 
+### Anti-pattern: main content without PageSection
+
+`PageSection` applies section padding, background, and vertical fill. A plain wrapper skips those classes and often leads to custom CSS “fixes.”
+
+```tsx
+// Wrong — raw div as main content child
+<Page masthead={header}>
+  <div className="my-content">Hello</div>
+</Page>
+
+// Correct
+<Page masthead={header}>
+  <PageSection>Hello</PageSection>
+</Page>
+```
+
 ## PageSection
 
 Main content container for page content areas.
@@ -127,6 +143,22 @@ Multiple PageSidebarBody components stack vertically:
 </PageSidebar>
 ```
 
+### Anti-pattern: sidebar content without PageSidebarBody
+
+```tsx
+// Wrong — nav or text directly in PageSidebar (no spacing / layout classes)
+<PageSidebar isSidebarOpen>
+  <Nav>...</Nav>
+</PageSidebar>
+
+// Correct
+<PageSidebar isSidebarOpen>
+  <PageSidebarBody usePageInsets>
+    <Nav>...</Nav>
+  </PageSidebarBody>
+</PageSidebar>
+```
+
 ## PageToggleButton
 
 Sidebar toggle button. **Goes in Masthead, not in Page.**
@@ -168,6 +200,28 @@ Application header component.
 - `MastheadContent` — right-aligned container for nav, search, user menu
 
 **Important:** Masthead consumes `PageContext` for breakpoint info. It should be used within a `Page` component for responsive behavior to work correctly.
+
+### Anti-pattern: skipping MastheadMain
+
+Toggle and brand must sit under **`MastheadMain`** so flex layout and spacing stay correct.
+
+```tsx
+// Wrong — brand/toggle not grouped in MastheadMain
+<Masthead>
+  <MastheadToggle><PageToggleButton ... /></MastheadToggle>
+  <MastheadBrand><MastheadLogo>App</MastheadLogo></MastheadBrand>
+  <MastheadContent>...</MastheadContent>
+</Masthead>
+
+// Correct
+<Masthead>
+  <MastheadMain>
+    <MastheadToggle><PageToggleButton ... /></MastheadToggle>
+    <MastheadBrand><MastheadLogo component="a" href="/">App</MastheadLogo></MastheadBrand>
+  </MastheadMain>
+  <MastheadContent>...</MastheadContent>
+</Masthead>
+```
 
 ## Full Page Layout Example
 

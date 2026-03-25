@@ -81,6 +81,46 @@ Table
 </Table>
 ```
 
+### Anti-pattern: `Tr` directly under `Table`
+
+Rows must live inside **`Thead`** or **`Tbody`** so structure, styling, and accessibility stay valid.
+
+```tsx
+// Wrong
+<Table aria-label="Bad">
+  <Tr>
+    <Th>Name</Th>
+  </Tr>
+  <Tr>
+    <Td dataLabel="Name">Ada</Td>
+  </Tr>
+</Table>
+
+// Correct — see [Basic Table](#basic-table) above
+```
+
+### Anti-pattern: `Th` / `Td` in the wrong row type
+
+Header cells belong in **`Thead`** rows; data cells in **`Tbody`** rows. Swapping them breaks semantics and responsive table behavior.
+
+```tsx
+// Wrong — Td in header row, Th in body row
+<Table aria-label="Mixed cells">
+  <Thead>
+    <Tr>
+      <Td>Name</Td>
+    </Tr>
+  </Thead>
+  <Tbody>
+    <Tr>
+      <Th>Ada</Th>
+    </Tr>
+  </Tbody>
+</Table>
+
+// Correct — Th inside Thead/Tr, Td inside Tbody/Tr (see [Basic Table](#basic-table))
+```
+
 ### Expandable Row Pattern
 
 ```tsx
@@ -243,6 +283,26 @@ DataList (ul, requires aria-label)
 3. **DataListControl wraps toggle/check/drag** — don't put these directly in DataListItemRow
 4. **aria-labelledby on DataListItem** must reference an element inside the item for accessibility
 
+### Anti-pattern: `DataListContent` nested inside `DataListItemRow`
+
+Expandable content is a **sibling** of the row, not a child of it.
+
+```tsx
+// Wrong
+<DataListItemRow>
+  <DataListItemCells dataListCells={[...]} />
+  <DataListContent aria-label="Details">Expanded</DataListContent>
+</DataListItemRow>
+
+// Correct — DataListContent after DataListItemRow closes
+<DataListItemRow>
+  <DataListItemCells dataListCells={[...]} />
+</DataListItemRow>
+<DataListContent aria-label="Details" isHidden={!expanded}>
+  Expanded
+</DataListContent>
+```
+
 ## DescriptionList
 
 Key-value pair display component.
@@ -310,3 +370,17 @@ DescriptionList (dl element)
 1. **DescriptionListGroup is required** — never put Term or Description directly in DescriptionList
 2. Always pair a Term with a Description
 3. Use `icon` prop on DescriptionListTerm for icons, not as child content
+
+### Anti-pattern: terms or descriptions directly in `DescriptionList`
+
+Every pair must be wrapped in **`DescriptionListGroup`**.
+
+```tsx
+// Wrong
+<DescriptionList>
+  <DescriptionListTerm>Name</DescriptionListTerm>
+  <DescriptionListDescription>Ada</DescriptionListDescription>
+</DescriptionList>
+
+// Correct — see [Example](#example) above
+```
