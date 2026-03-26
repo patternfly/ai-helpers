@@ -428,8 +428,3 @@ Use **`SidebarPanel`** and **`SidebarContent`** together — omitting either bre
 
 // Correct — use SidebarPanel + SidebarContent as in the full example in this section
 ```
-</think>
-
-
-<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
-Grep
