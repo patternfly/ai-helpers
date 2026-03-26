@@ -23,6 +23,11 @@
       "name": "pf-figma",
       "source": "./plugins/pf-figma",
       "description": "Figma design review, diffing, and asset identification for PatternFly"
+    },
+    {
+      "name": "pf-workflow",
+      "source": "./plugins/pf-workflow",
+      "description": "Issue tracking, PR management, and cross-repo coordination for PatternFly projects"
     }
   ]
 }

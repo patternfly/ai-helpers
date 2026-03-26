@@ -62,10 +62,11 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 
 | Plugin | Domain | Example skills | When to use |
 |--------|--------|----------------|-------------|
-| **pf-react** | React components, coding standards, testing | `component-suggest`, `feasibility-check`, `pf-upgrade`, `unit-test-generator` | Your skill helps write, test, review, or migrate PatternFly React code |
+| **pf-react** | React components, coding standards, testing | `component-suggest`, `feasibility-check`, `pf-upgrade`, `unit-test-generator`, `bug-triage` | Your skill helps write, test, review, triage, or migrate PatternFly React code |
 | **pf-design-tokens** | Design tokens, CSS variables, color contrast | `hex-scan`, `css-var-audit`, `token-contrast`, `suggest-tokens` | Your skill audits, validates, or suggests design tokens |
 | **pf-a11y** | Accessibility, WCAG, ARIA, screen readers | `audit`, `doc-scaffold` | Your skill checks, reports on, or documents accessibility |
 | **pf-figma** | Figma designs, design-to-code, assets | `design-review`, `design-diff`, `icon-id`, `brand-assets` | Your skill works with Figma designs, icons, or brand assets |
+| **pf-workflow** | Issue tracking, PR management, cross-repo coordination | `create-issue`, `dependency-recommender`, `pr-description`, `changelog-entry`, `release-notes` | Your skill helps with PatternFly project workflows, issue/PR management, contributor coordination, or repo-level tooling (e.g. dependency suggestions) |
 
 **How to decide:**
 - Ask yourself: "Who installs this?" A React developer? → `pf-react`. A designer working in Figma? → `pf-figma`.
@@ -111,6 +112,11 @@ Your skill becomes available as `/<plugin-name>:your-skill-name` for anyone who 
 Here's an example `summarize` skill — the entire file:
 
 ```markdown
+---
+name: summarize
+description: Summarize code, files, PRs, or directories for a mixed audience
+---
+
 Provide clear, concise summaries of code, files, pull requests,
 or entire directories. Write for a mixed audience of designers,
 developers, and stakeholders.
@@ -138,7 +144,16 @@ developers, and stakeholders.
 - Shorter is better.
 ```
 
-That's it. No frontmatter required. No code. No config. Just instructions in markdown.
+We recommend adding YAML frontmatter with a `name` and `description` to every SKILL.md. While skills are discovered by directory path, frontmatter improves compatibility with third-party tooling:
+
+```yaml
+---
+name: summarize
+description: Summarize code, files, PRs, or directories for a mixed audience
+---
+```
+
+After the frontmatter, it's just instructions in markdown. No code. No config.
 
 ## Skill ideas to get you started
 
@@ -152,3 +167,4 @@ That's it. No frontmatter required. No code. No config. Just instructions in mar
 | `api-mock` | Generate mock data from a TypeScript interface |
 | `rename` | Suggest better names for variables and functions |
 | `pr-description` | Generate a clear PR description from a diff |
+| `bug-triage` | Preliminary triage of bug issues with fix suggestions and maintainer tagging |
