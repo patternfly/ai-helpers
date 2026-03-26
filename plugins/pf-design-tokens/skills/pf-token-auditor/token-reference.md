@@ -57,15 +57,6 @@ Line-height (**only two tokens exist**):
 - `--pf-t--global--font--line-height--body` → `1.5` (unitless)
 - `--pf-t--global--font--line-height--heading` → `1.3` (unitless)
 
-**Figma line-height mapping:** Figma expresses line-heights as absolute pixel values per font size. These all map to the two CSS tokens above:
-
-| Figma Variable | Pixel Value | Calculation | CSS Token |
-|---|---|---|---|
-| `global/font/line-height/figma-only/body/default` | `21px` | 14px × 1.5 | `--pf-t--global--font--line-height--body` |
-| `global/font/line-height/figma-only/body/large` | `24px` | 16px × 1.5 | `--pf-t--global--font--line-height--body` |
-| `global/font/line-height/figma-only/body/small` | `18px` | 12px × 1.5 | `--pf-t--global--font--line-height--body` |
-| `global/font/line-height/figma-only/heading/xs` | `24px` | heading context | `--pf-t--global--font--line-height--heading` |
-
 ### Icon Size
 ```
 --pf-t--global--icon--size--{scale}
@@ -105,6 +96,12 @@ Primitive components (in tokens-default.scss):
 - `--pf-t--global--box-shadow--blur--{scale}` (100-300)
 - `--pf-t--global--box-shadow--color--{scale}` (100-200)
 - `--pf-t--global--box-shadow--spread--{scale}` (100-400)
+
+When Figma outputs individual shadow properties, recommend the single composite:
+```scss
+/* Individual → Composite */
+box-shadow: var(--pf-t--global--box-shadow--sm); /* replaces X, Y, blur, spread, color primitives */
+```
 
 ### Glass (Composites in tokens-local.scss)
 ```
@@ -159,6 +156,135 @@ CSS uses `rem`, Figma outputs `px`:
 | `xl` | `500` | `75rem` | `1200` |
 | — | `550` | `80rem` | `1280` |
 | `2xl` | `600` | `90.625rem` | `1450` |
+
+---
+
+## Figma-to-CSS Unit Mapping
+
+Figma outputs `px`; PatternFly CSS uses `rem` (`1rem = 16px`). Do NOT flag unit differences as value mismatches.
+
+### Font Size
+
+| Figma (px) | CSS Token | CSS Value |
+|---|---|---|
+| `12` | `--pf-t--global--font--size--xs` | `0.75rem` |
+| `14` | `--pf-t--global--font--size--sm` | `0.875rem` |
+| `16` | `--pf-t--global--font--size--md` | `1rem` |
+| `18` | `--pf-t--global--font--size--lg` | `1.125rem` |
+| `20` | `--pf-t--global--font--size--xl` | `1.25rem` |
+| `24` | `--pf-t--global--font--size--2xl` | `1.5rem` |
+| `28` | `--pf-t--global--font--size--3xl` | `1.75rem` |
+| `36` | `--pf-t--global--font--size--4xl` | `2.25rem` |
+
+### Line-Height
+
+Figma outputs absolute `px`; CSS uses unitless multipliers. Only **two** line-height tokens exist:
+
+| Figma Variable | Pixel Value | Calculation | CSS Token |
+|---|---|---|---|
+| `global/font/line-height/figma-only/body/default` | `21px` | 14px × 1.5 | `--pf-t--global--font--line-height--body` |
+| `global/font/line-height/figma-only/body/large` | `24px` | 16px × 1.5 | `--pf-t--global--font--line-height--body` |
+| `global/font/line-height/figma-only/body/small` | `18px` | 12px × 1.5 | `--pf-t--global--font--line-height--body` |
+| `global/font/line-height/figma-only/heading/xs` | `24px` | heading context | `--pf-t--global--font--line-height--heading` |
+
+Do NOT invent size-specific variants like `--body--lg` — they don't exist.
+
+---
+
+## Purpose-Specific Spacer Tokens
+
+Always prefer purpose-specific tokens over generic scale tokens (`spacer--xs` through `spacer--4xl`).
+
+### Gap Tokens
+
+| Token | Value | Use when... |
+|---|---|---|
+| `spacer--gap--action-to-action--default` | `1rem` | Spacing between actions (buttons) in an action group |
+| `spacer--gap--action-to-action--plain` | `0.25rem` | Spacing between plain/icon actions |
+| `spacer--gap--control-to-control--default` | `0.25rem` | Spacing between controls (input groups, filter groups) |
+| `spacer--gap--text-to-element--default` | `0.5rem` | Spacing an icon or badge inline with text |
+| `spacer--gap--text-to-element--compact` | `0.25rem` | Compact variant of above |
+| `spacer--gap--group--horizontal` | `1rem` | Horizontal spacing between items in a group (label + input) |
+| `spacer--gap--group--vertical` | `0.5rem` | Vertical spacing between items in a group (label, input, helper text) |
+| `spacer--gap--group-to-group--horizontal--default` | `3rem` | Horizontal spacing between groups of elements |
+| `spacer--gap--group-to-group--vertical--default` | `1.5rem` | Vertical spacing between groups (stacked form groups) |
+
+### Action, Control, and Inset Tokens
+
+| Token | Value | Use when... |
+|---|---|---|
+| `spacer--action--horizontal--default` | `1.5rem` | Horizontal padding inside a default action/button |
+| `spacer--action--horizontal--spacious` | `2rem` | Horizontal padding inside a CTA/display-lg action |
+| `spacer--action--horizontal--compact` | `1rem` | Horizontal padding inside a compact action |
+| `spacer--control--vertical--default` | `0.5rem` | Vertical padding inside controls |
+| `spacer--control--vertical--spacious` | `1rem` | Vertical padding inside CTA/display-lg controls |
+| `spacer--control--horizontal--default` | `1rem` | Horizontal padding inside controls (inputs, toggles) |
+
+---
+
+## On-Context Foreground Pairing
+
+Foreground elements (text, icons) on a colored background must use `on-` tokens that exactly match the background context.
+
+| Background Token | Text Token | Icon Token |
+|---|---|---|
+| `color--brand--default` | `text--color--on-brand--default` | `icon--color--on-brand--default` |
+| `color--brand--accent--default` | `text--color--on-brand--accent--default` | `icon--color--on-brand--accent--default` |
+| `color--brand--subtle--default` | `text--color--on-brand--subtle--default` | `icon--color--on-brand--subtle--default` |
+| `color--status--danger--default` | `text--color--status--on-danger--default` | `icon--color--status--on-danger--default` |
+| `color--status--success--default` | `text--color--status--on-success--default` | `icon--color--status--on-success--default` |
+| `color--status--warning--default` | `text--color--status--on-warning--default` | `icon--color--status--on-warning--default` |
+| `color--status--info--default` | `text--color--status--on-info--default` | `icon--color--status--on-info--default` |
+| `color--status--custom--default` | `text--color--status--on-custom--default` | `icon--color--status--on-custom--default` |
+| `background--color--disabled` | `text--color--on-disabled` | `icon--color--on-disabled` |
+| `background--color--highlight` | `text--color--on-highlight` | — |
+
+The `on-` prefix must match the background variant precisely. Using `on-brand--default` on a `brand--accent` background may pass in one theme but will fail in others (e.g., RedHat dark where `on-brand--accent` resolves to `--text--color--regular` instead of `--inverse`).
+
+---
+
+## Contextual Token Pairing
+
+Sibling properties on the same element should share the same context:
+
+| Background Context | Border Token | Text/Icon Token |
+|---|---|---|
+| `glass--primary` | `border--color--glass--default` (if available) or `border--color--subtle` | `text--color--regular` |
+| `brand--default` | `border--color--brand--default` | `text--color--on-brand--default` |
+| `brand--accent` | `border--color--brand--accent--default` | `text--color--on-brand--accent--default` |
+| `status--danger` | `border--color--status--danger--default` | `text--color--status--on-danger--default` |
+
+If a context-specific border token does not yet exist in CSS, flag as ESCALATION RECOMMENDED.
+
+---
+
+## Common Figma-to-Token Mappings
+
+| Figma Property | Raw Value | PatternFly Token |
+|---------------|-----------|-----------------|
+| Fill (white bg) | `#ffffff` | `--pf-t--global--background--color--primary--default` |
+| Fill (dark bg) | `#151515` | `--pf-t--global--background--color--primary--default` (dark theme) |
+| Text color | `#151515` | `--pf-t--global--text--color--regular` |
+| Subtle text | `#4d4d4d` | `--pf-t--global--text--color--subtle` |
+| Link color | `#0066cc` | `--pf-t--global--text--color--link--default` |
+| Border | `#e0e0e0` | `--pf-t--global--border--color--default` |
+| Border radius 4px | `4px` | `--pf-t--global--border--radius--100` |
+| Border radius 6px | `6px` | `--pf-t--global--border--radius--200` |
+| Small shadow | `0 1px 4px 0 rgba(41,41,41,.15)` | `--pf-t--global--box-shadow--sm` |
+| Medium shadow | (expanded) | `--pf-t--global--box-shadow--md` |
+| Large shadow | (expanded) | `--pf-t--global--box-shadow--lg` |
+| Spacing 4px | `4px` / `0.25rem` | `--pf-t--global--spacer--100` |
+| Spacing 8px | `8px` / `0.5rem` | `--pf-t--global--spacer--200` |
+| Spacing 16px | `16px` / `1rem` | `--pf-t--global--spacer--300` |
+| Spacing 24px | `24px` / `1.5rem` | `--pf-t--global--spacer--400` |
+| Font 12px | `0.75rem` | `--pf-t--global--font--size--xs` |
+| Font 14px | `0.875rem` | `--pf-t--global--font--size--sm` |
+| Font 16px | `1rem` | `--pf-t--global--font--size--md` |
+| Danger/error | `#b1380b` | `--pf-t--global--color--status--danger--default` |
+| Success | `#3d7317` | `--pf-t--global--color--status--success--default` |
+| Warning | `#ffcc17` | `--pf-t--global--color--status--warning--default` |
+
+---
 
 ## RedHat Theme Key Overrides
 
