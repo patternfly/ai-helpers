@@ -1,15 +1,15 @@
 ---
-name: repos-json-health-review
+name: analytics-repo-pruning
 description: Flags archived or inactive Git repositories listed in PatternFly Analytics repos.json so entries can be pruned. Use when reviewing repos.json, auditing tracked codebases, or removing stale or archived repos from analytics.
 ---
 
-# repos.json health review
+# Analytics repo pruning
 
 Keep PatternFly Analytics from tracking **archived** repositories and repos with **no meaningful code activity** past a configurable threshold (default **730 days**).
 
 ## Plugin placement
 
-This is **analytics inventory hygiene**, not React UI work. It ships under **pf-react** only because the contribution table has no analytics-focused plugin; if that changes, relocate the skill to match.
+This skill lives under **pf-workflow** as **cross-repo / analytics inventory** work (issue and repo coordination), not UI implementation.
 
 ## Input
 
@@ -44,7 +44,7 @@ Use the host’s best signal for **real code activity** (e.g. last push to the d
 
 ## Optional script
 
-For a repeatable local run, execute the bundled **Node** script in `scripts/repos-json-health-review.js` (same directory as this file: `.../repos-json-health-review/scripts/`). Pass the path to `repos.json`; optional `--days <n>` and `--json`. Requires network and credentials as documented in the script. Does not modify `repos.json`.
+For a repeatable local run, execute the bundled **Bash** script `scripts/analytics-repo-pruning.sh` next to this skill. Requires `jq` and either `gh` or `curl` (typically pre-installed). Pass the path to `repos.json`; optional `--days <n>` and `--json`. Does not modify `repos.json`.
 
 ## Report format
 

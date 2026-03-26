@@ -27,6 +27,7 @@ Skills and agents for PatternFly workflows:
 - Managing pull requests and releases
 - Coordinating cross-repo changes
 - Dependency recommendations from manifests and code patterns (`dependency-recommender`)
+- Pruning archived or stale repos from PatternFly Analytics `repos.json` (`analytics-repo-pruning`)
 
 Browse `skills/` for available skills (invoked as `/pf-workflow:<skill-name>`) and `agents/` for domain knowledge.
 
