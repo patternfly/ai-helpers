@@ -142,22 +142,7 @@ Replace `<!-- PROMPT -->` with the user's original message and `<!-- TERMS -->` 
 
 ## Opening the preview
 
-After writing `icon-finder-preview.html`, open it directly in the user's default browser. The page loads PatternFly CSS from a CDN and icon SVGs from GitHub, so it works fine as a local file — no server needed.
-
-### Command
-
-From the directory containing `icon-finder-preview.html`:
-
-- **macOS:** `open icon-finder-preview.html`
-- **Linux:** `xdg-open icon-finder-preview.html`
-
-### Cursor
-
-Run the `open` command via the Shell tool. The browser launches automatically.
-
-### Claude Code (terminal)
-
-Run the `open` or `xdg-open` command. The browser launches automatically.
+After writing `icon-finder-preview.html`, open it in the user's default browser. The page loads PatternFly CSS from a CDN and icon SVGs from GitHub, so it works fine as a local file — no server needed.
 
 ## Deep search fallback
 
