@@ -31,27 +31,42 @@ Cursor can discover plugins from `.cursor-plugin/` directories. If you also have
 | **pf-a11y** | Accessibility auditing, reporting, and documentation |
 | **pf-figma** | Figma design review, diffing, and asset identification |
 
-Each plugin includes skills, agents, and a [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp). Browse each plugin's `skills/` and `agents/` directories for what's available.
+Each plugin includes skills, agents, and a [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp). See [PLUGINS.md](PLUGINS.md) for a full list of skills and agents in each plugin.
+
+## Architecture
+
+```mermaid
+graph TD
+    A[AI Tool] -->|discovers| B[".<tool>-plugin/marketplace.json"]
+    B -->|references| C[plugins/pf-react]
+    B -->|references| D[plugins/pf-a11y]
+    B -->|references| E[plugins/...]
+    C --- F[skills/ + agents/]
+    D --- G[skills/ + agents/]
+    E --- H[skills/ + agents/]
+```
+
+### How it works
+
+1. Each AI tool looks for its own directory (`.claude-plugin/`, `.cursor-plugin/`) to find `marketplace.json`
+2. The marketplace lists plugins with relative paths to `plugins/<name>/`
+3. Each plugin has identical manifests in `.claude-plugin/plugin.json` and `.cursor-plugin/plugin.json`
+4. Adding support for a new tool = copying the manifest into a new `.<tool>-plugin/` directory
 
 ## Repository Structure
 
 ```
 ai-helpers/
-├── plugins/              # Plugins (work in both Claude Code and Cursor)
-│   ├── pf-react/         # React coding standards, testing
-│   ├── pf-design-tokens/ # Design token auditing and migration
-│   ├── pf-a11y/          # Accessibility auditing and reporting
-│   └── pf-figma/         # Figma design review and diffing
-├── docs/                 # AI-friendly PatternFly documentation
-│   ├── guidelines/
-│   ├── components/
-│   ├── charts/
-│   └── chatbot/
-├── .claude-plugin/       # Marketplace config (Claude Code)
-└── .cursor-plugin/       # Marketplace config (Cursor)
+├── .claude-plugin/       # Claude Code marketplace config
+├── .cursor-plugin/       # Cursor marketplace config
+├── plugins/
+│   └── <plugin-name>/    # One directory per plugin
+│       ├── .claude-plugin/
+│       ├── .cursor-plugin/
+│       ├── skills/
+│       └── agents/
+└── docs/                 # AI-friendly PatternFly documentation
 ```
-
-Both `.claude-plugin/` and `.cursor-plugin/` contain identical manifests so each tool discovers plugins natively.
 
 ## Documentation
 

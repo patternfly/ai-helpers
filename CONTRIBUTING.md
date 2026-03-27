@@ -2,7 +2,7 @@
 
 We welcome contributions of new plugins, skills, agents, and documentation.
 
-Plugins in this repo work in both **Claude Code** and **Cursor**. Each plugin has both a `.claude-plugin/` and `.cursor-plugin/` directory with identical manifests, so each tool discovers it natively.
+Plugins work in **Claude Code** and **Cursor**, and the structure is designed to extend to other tools. Each plugin has identical manifests in `.claude-plugin/` and `.cursor-plugin/` so each tool discovers it natively.
 
 ## Repository Structure
 
@@ -39,7 +39,6 @@ Create a new plugin when your contribution doesn't fit into an existing one — 
      }
    }
    ```
-   Both directories contain the same file so each tool discovers the plugin natively.
 3. Add skills under `skills/`, agents under `agents/`, or both
 4. Register your plugin in both `.claude-plugin/marketplace.json` and `.cursor-plugin/marketplace.json` at the repo root
 5. Add a `README.md` documenting your plugin
