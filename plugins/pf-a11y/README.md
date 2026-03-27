@@ -14,6 +14,8 @@ AI plugin for accessibility auditing, reporting, and documentation in PatternFly
 /plugin install pf-a11y@ai-helpers
 ```
 
+For enhanced results, also install the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp).
+
 ### Cursor
 
 See the [root README](../../README.md) for Cursor installation options.
@@ -28,23 +30,6 @@ Skills and agents for PatternFly accessibility:
 - UI review for PatternFly conformance and deviations
 
 Browse `skills/` for available skills (invoked as `/pf-a11y:<skill-name>`) and `agents/` for domain knowledge.
-
-### PatternFly MCP Server
-
-Skills and agents have access to the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) for looking up component documentation and accessibility guidelines. No manual configuration needed.
-
-## File Structure
-
-```
-pf-a11y/
-├── .claude-plugin/
-│   └── plugin.json        # Plugin manifest + MCP server config
-├── .cursor-plugin/
-│   └── plugin.json        # Identical copy for Cursor
-├── skills/                # Tasks that produce a result
-├── agents/                # Domain knowledge the AI follows
-└── README.md
-```
 
 ## Sources
 

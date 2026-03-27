@@ -60,17 +60,17 @@ Open the file and read it. It's just markdown. Ask yourself:
 
 Every skill or agent must live in a plugin. Pick the one that matches your skill's domain:
 
-| Plugin | Domain | Example skills | When to use |
-|--------|--------|----------------|-------------|
-| **pf-react** | React components, coding standards, testing | `component-suggest`, `feasibility-check`, `pf-upgrade`, `unit-test-generator`, `bug-triage` | Your skill helps write, test, review, triage, or migrate PatternFly React code |
-| **pf-design-tokens** | Design tokens, CSS variables, color contrast | `hex-scan`, `css-var-audit`, `token-contrast`, `suggest-tokens` | Your skill audits, validates, or suggests design tokens |
-| **pf-a11y** | Accessibility, WCAG, ARIA, screen readers | `audit`, `doc-scaffold` | Your skill checks, reports on, or documents accessibility |
-| **pf-figma** | Figma designs, design-to-code, assets | `design-review`, `design-diff`, `icon-id`, `brand-assets` | Your skill works with Figma designs, icons, or brand assets |
-| **pf-workflow** | Issue tracking, PR management, cross-repo coordination | `create-issue`, `dependency-recommender`, `pr-description`, `changelog-entry`, `release-notes`, `analytics-repo-pruning` | Your skill helps with PatternFly project workflows, issue/PR management, contributor coordination, or repo-level tooling (e.g. dependency suggestions) |
+| Plugin | Domain | Decision test | Example skills |
+|--------|--------|---------------|----------------|
+| **pf-react** | Component development | Does this help me write or test a React component? | `pf-unit-test-generator`, `pf-bug-triage` |
+| **pf-styling** | Visual implementation | Does this help me understand or apply visual styling? | `pf-raw-colors-scan`, `pf-tokens` |
+| **pf-a11y** | Accessibility | Does this help me make something accessible? | `pf-audit`, `pf-doc-scaffold` |
+| **pf-figma** | Design tooling | Does this require Figma as input or output? | `pf-design-review`, `pf-design-diff` |
+| **pf-workflow** | Project operations | Does this help manage the project, not build it? | `pf-create-issue`, `pf-org-version-update`, `dependency-recommender` |
 
 **How to decide:**
-- Ask yourself: "Who installs this?" A React developer? → `pf-react`. A designer working in Figma? → `pf-figma`.
-- If your skill spans two domains (e.g., checking token contrast in a React component), pick the domain that best describes the *primary task*, not the input.
+- Use the **decision test** column. If you can answer "yes" to a plugin's question, that's where your skill goes.
+- If your skill matches multiple plugins, pick the one closest to its *primary input/output*.
 - If it doesn't fit any plugin, open an issue to discuss — don't create a new plugin without coordination.
 
 **Skill vs agent:**
@@ -79,7 +79,23 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 
 **Litmus test:** Can someone use the result? Skill. Is it knowledge the AI should always follow? Agent. When in doubt, write a skill.
 
-**They work together:** An agent's knowledge is loaded automatically when the AI detects relevant context. So if you invoke a skill like `unit-test-generator`, the `coding-standards` agent's knowledge is also active — the agent makes the skill's output better.
+**They work together:** An agent's knowledge is loaded automatically when the AI detects relevant context. So if you invoke a skill like `pf-unit-test-generator`, the `pf-coding-standards` agent's knowledge is also active — the agent makes the skill's output better.
+
+## Naming convention
+
+Use the `pf-` prefix on skill and agent names that are **PatternFly-specific**. Do not prefix generic skills that could apply to any project.
+
+| Type | PatternFly-specific? | Name |
+|------|---------------------|------|
+| Skill | Yes — generates PF component tests | `pf-unit-test-generator` |
+| Skill | No — recommends deps for any project | `dependency-recommender` |
+| Agent | Yes — PF React coding standards | `pf-coding-standards` |
+
+**Why this matters:** In Cursor, slash commands appear in a flat list without plugin context — `/unit-test-generator` is indistinguishable from skills in other plugins. In Claude Code, skills show the plugin namespace (`/pf-react:pf-unit-test-generator`), but the `pf-` prefix on the skill name ensures discoverability across both tools.
+
+**The directory name, file name, and frontmatter `name` must all match.** A mismatch causes confusing behavior when invoking the skill.
+- Skill directory: `skills/pf-unit-test-generator/SKILL.md` with `name: pf-unit-test-generator`
+- Agent file: `agents/pf-coding-standards.md` with `name: pf-coding-standards`
 
 ## Step 6: Contribute it
 
@@ -93,95 +109,23 @@ Your skill becomes available as `/<plugin-name>:your-skill-name` for anyone who 
 
 ---
 
-## What makes a good skill?
+## Writing skills
 
-**Good skills are specific.** "Summarize a file" is good. "Help with code" is too vague.
+For guidance on writing effective skills — structure, descriptions, examples, evaluation, and bundled resources — see Anthropic's [skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) plugin (also installable via `/plugin install skill-creator@claude-plugins-official`).
 
-**Good skills define the output format.** Specify what sections to include, how long each should be, and what tone to use.
+### Requirements for this repo
 
-**Good skills include examples.** Show what good output looks like AND what bad output looks like.
+In addition to the skill-creator guidance, skills in this repo must follow these rules:
 
-**Good skills are short.** If your SKILL.md is over 200 lines, you're probably over-explaining. Say what you want, not how to think. The [Claude Code docs recommend under 500 lines](https://code.claude.com/docs/en/skills#add-supporting-files) as a ceiling — beyond that, move reference content into supporting files alongside your SKILL.md.
-
-**Good skills describe outcomes, not implementation.** Tell the AI what to accomplish, not how to do it. The AI already knows how to use `git`, `gh`, `grep`, and other tools — you don't need to spell out exact commands or multi-step conditional logic. A single sentence like "Check for issue templates locally, then via GitHub CLI, falling back to a blank issue" is better than 70 lines of bash scripts and if/else branches.
-
-**Good skills are tool-agnostic.** Skills in this repo work in both Claude Code and Cursor. Avoid referencing a specific tool in your instructions or examples (e.g., use "Assistant:" instead of "Claude:" in example conversations).
-
-## Frontmatter
-
-We recommend YAML frontmatter at the top of your SKILL.md with `name` and `description`:
-
-```yaml
----
-name: summarize
-description: Summarizes code, files, PRs, or directories for a mixed audience.
----
-```
-
-**Why:** Frontmatter gives the AI a structured name and description to display at startup, instead of inferring them from the directory name and first paragraph. Third-party tools may also rely on this format for discovery.
-
-- `name` should match the directory name to avoid confusion when invoking the skill
-- Add `disable-model-invocation: true` if your skill has side effects (creates issues, posts comments, deploys) — this prevents the AI from triggering it automatically
-
-## Supporting scripts
-
-Skills can bundle executable scripts alongside SKILL.md. The [official Claude Code docs](https://code.claude.com/docs/en/skills) support this pattern:
-
-```
-my-skill/
-├── SKILL.md           # Instructions (required)
-├── reference.md       # Reference docs (optional)
-└── scripts/
-    └── analyze.sh     # Script the AI can execute (optional)
-```
-
-**Guidelines:**
-- **Prefer bash** — every user has it, no runtime dependency to install
-- If your script requires Node.js, Python, or another runtime, declare it in a `## Requirements` section in your SKILL.md
-- Scripts must fail with a **clear error message** if the runtime is missing — not silently. Add a check like:
+- **Frontmatter is required** with `name` and `description`. The `name` must match the directory name. The `description` should include trigger contexts (e.g., "Use when...") since the AI decides whether to load the skill based on the description alone.
+- Add `disable-model-invocation: true` if your skill has side effects (creates issues, posts comments, deploys)
+- **Describe outcomes, not implementation** — tell the AI what to accomplish, not how to do it. The AI already knows how to use `git`, `gh`, `grep`, etc.
+- **Skills must be tool-agnostic** — they run in both Claude Code and Cursor. Avoid referencing a specific tool (e.g., use "Assistant:" instead of "Claude:" in examples).
+- **Prefer bash** for bundled scripts — every user has it, no runtime dependency. If a script requires Node.js or Python, declare it in a `## Requirements` section and fail with a clear error if missing:
   ```bash
   command -v node >/dev/null 2>&1 || { echo "Error: This skill requires Node.js." >&2; exit 1; }
   ```
-- Reference scripts from your SKILL.md so the AI knows they exist and when to run them
-
-## What does a SKILL.md look like?
-
-Here's an example `summarize` skill — the entire file:
-
-```markdown
----
-name: summarize
-description: Summarizes code, files, PRs, or directories for a mixed audience.
----
-
-Provide clear, concise summaries of code, files, pull requests,
-or entire directories. Write for a mixed audience of designers,
-developers, and stakeholders.
-
-## How to Summarize
-
-### When given a file or code block
-
-1. Read the file or code provided.
-2. Produce a summary with these sections:
-
-**What it does** — One or two sentences in plain language.
-
-**Key details** — 3-6 bullets of the important things happening inside.
-
-**Dependencies** — What does this file rely on?
-
-**Who cares** — Who needs to know about this file and why.
-
-## Tone and Style
-
-- Write like you're explaining to a coworker over coffee.
-- Use short sentences. Avoid filler.
-- No jargon without explanation.
-- Shorter is better.
-```
-
-That's it. Frontmatter and instructions in markdown, with optional supporting scripts.
+- Use `$CLAUDE_SKILL_DIR` to reference scripts relative to the skill directory — it resolves to the directory containing SKILL.md regardless of where the repo is cloned
 
 ## Skill ideas to get you started
 
@@ -195,4 +139,4 @@ That's it. Frontmatter and instructions in markdown, with optional supporting sc
 | `api-mock` | Generate mock data from a TypeScript interface |
 | `rename` | Suggest better names for variables and functions |
 | `pr-description` | Generate a clear PR description from a diff |
-| `bug-triage` | Preliminary triage of bug issues with fix suggestions and maintainer tagging |
+| `pf-bug-triage` | Preliminary triage of bug issues with fix suggestions and maintainer tagging |

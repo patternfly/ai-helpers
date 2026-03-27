@@ -1,5 +1,5 @@
 ---
-name: unit-test-standards
+name: pf-unit-test-standards
 description: PatternFly React unit testing standards. Use when writing, reviewing, or modifying unit tests for PatternFly React components.
 ---
 

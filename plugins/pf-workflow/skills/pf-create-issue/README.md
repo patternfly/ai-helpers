@@ -13,12 +13,12 @@ A Claude Code skill for creating well-structured GitHub issues across PatternFly
 
 ## Usage
 
-Invoke the skill with `/create-issue`:
+Invoke the skill with `/pf-create-issue`:
 
 ```
-/create-issue                          # Interactive mode
-/create-issue patternfly-react         # Create issue for specific repo
-/create-issue followup patternfly-org  # Create followup issue
+/pf-create-issue                          # Interactive mode
+/pf-create-issue patternfly-react         # Create issue for specific repo
+/pf-create-issue followup patternfly-org  # Create followup issue
 ```
 
 ## Prerequisites
@@ -51,7 +51,7 @@ Invoke the skill with `/create-issue`:
 ### Creating a Bug Report
 
 ```
-/create-issue
+/pf-create-issue
 
 > You're in patternfly/patternfly. Create issue here? (yes)
 > Type: New Issue
@@ -65,7 +65,7 @@ Invoke the skill with `/create-issue`:
 ### Creating a Followup Issue
 
 ```
-/create-issue followup patternfly-react
+/pf-create-issue followup patternfly-react
 
 > Analyzing 4 commits on feat/card-tokens branch...
 > Suggested followup work:

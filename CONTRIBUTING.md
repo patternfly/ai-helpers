@@ -7,7 +7,7 @@ Plugins work in **Claude Code** and **Cursor**, and the structure is designed to
 ## Repository Structure
 
 ```
-plugins/              # Plugins (skills, agents, MCP servers)
+plugins/              # Plugins (skills and agents)
 docs/                 # AI-friendly PatternFly documentation
 .claude-plugin/       # Marketplace config (Claude Code)
 .cursor-plugin/       # Marketplace config (Cursor)
@@ -66,4 +66,5 @@ Create a new plugin when your contribution doesn't fit into an existing one — 
 - Include clear descriptions in all frontmatter
 - Test your skills locally before submitting
 - Keep documentation concise and AI-friendly
-- Don't hardcode a `model:` in agent frontmatter — let users choose their preferred model
+- Don't hardcode a `model:` in agent frontmatter — it forces all users onto one model, overriding their preference
+- Use the `pf-` prefix on skill/agent names that are PatternFly-specific (see [CONTRIBUTING-SKILLS.md](CONTRIBUTING-SKILLS.md#naming-convention))

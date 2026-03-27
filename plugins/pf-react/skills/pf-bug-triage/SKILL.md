@@ -1,5 +1,5 @@
 ---
-name: bug-triage
+name: pf-bug-triage
 description: Performs preliminary triage of opened issues marked as bugs. Suggests what needs to be updated to fix reported bugs, provides context for assignees, and tags the most appropriate maintainer when the issue contains questions. Use when triaging bug issues, reviewing new bug reports, or preparing issues for assignment.
 ---
 

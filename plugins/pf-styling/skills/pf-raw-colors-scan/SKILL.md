@@ -1,5 +1,5 @@
 ---
-name: raw-colors-scan
+name: pf-raw-colors-scan
 description: "Analyze the provided code to find any raw color values assigned to styling properties. Flag these values as technical debt and suggest their replacement with design tokens."
 ---
 

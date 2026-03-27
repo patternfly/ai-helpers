@@ -1,5 +1,5 @@
 ---
-name: unit-test-generator
+name: pf-unit-test-generator
 description: Generate a comprehensive unit test file for a given React component
 ---
 
