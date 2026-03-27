@@ -33,7 +33,6 @@ PatternFly React coding standards and unit test generation agents
 - `/pf-react:patternfly-component-structure` — Guide for PatternFly React component structure — audits, correct nesting, and layout debugging. Use when building with @patternfly/react-core or @patternfly/react-table, scanning code for hierarchy violations, or fixing spacing and alignment issues.
 - `/pf-react:pf-bug-triage` — Performs preliminary triage of opened issues marked as bugs. Suggests what needs to be updated to fix reported bugs, provides context for assignees, and tags the most appropriate maintainer when the issue contains questions. Use when triaging bug issues, reviewing new bug reports, or preparing issues for assignment.
 - `/pf-react:pf-unit-test-generator` — Generate a comprehensive unit test file for a given React component
-- `/pf-react:write-example-description` — >-
 
 **Agents:**
 - `component-structure-audit` — PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns. Use when writing, reviewing, or refactoring PatternFly UI so layouts rely on correct trees, not custom CSS.
