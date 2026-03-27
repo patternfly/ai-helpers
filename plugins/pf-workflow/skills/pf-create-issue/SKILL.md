@@ -1,5 +1,5 @@
 ---
-name: create-issue
+name: pf-create-issue
 description: Create GitHub issues for PatternFly repositories with smart templates, followup tracking, and duplicate detection.
 ---
 
@@ -164,9 +164,9 @@ When searching for duplicates or analyzing followup work, consider these depende
 
 ## Arguments
 
-- `/create-issue` - Interactive
-- `/create-issue [repo]` - Target specific repo
-- `/create-issue followup [repo]` - Create followup
+- `/pf-create-issue` - Interactive
+- `/pf-create-issue [repo]` - Target specific repo
+- `/pf-create-issue followup [repo]` - Create followup
 
 ## Key Behaviors
 

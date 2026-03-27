@@ -115,3 +115,37 @@ HEADER
 } > "$OUTPUT"
 
 echo "Generated $OUTPUT"
+
+# Update README.md plugin table between markers
+README="README.md"
+if [ -f "$README" ]; then
+  TMPFILE=$(mktemp)
+  in_block=false
+  replaced=false
+  while IFS= read -r line; do
+    if [[ "$line" == "<!-- BEGIN PLUGIN TABLE -->" ]]; then
+      echo "$line" >> "$TMPFILE"
+      echo "| Plugin | Description |" >> "$TMPFILE"
+      echo "|--------|-------------|" >> "$TMPFILE"
+      for plugin_dir in plugins/*/; do
+        plugin=$(basename "$plugin_dir")
+        desc=$(get_plugin_desc "$plugin_dir")
+        echo "| **${plugin}** | ${desc} |" >> "$TMPFILE"
+      done
+      in_block=true
+      replaced=true
+    elif [[ "$line" == "<!-- END PLUGIN TABLE -->" ]]; then
+      echo "$line" >> "$TMPFILE"
+      in_block=false
+    elif [ "$in_block" = false ]; then
+      echo "$line" >> "$TMPFILE"
+    fi
+  done < "$README"
+  if [ "$replaced" = true ]; then
+    mv "$TMPFILE" "$README"
+    echo "Updated plugin table in $README"
+  else
+    rm -f "$TMPFILE"
+    echo "Warning: no plugin table markers found in $README"
+  fi
+fi

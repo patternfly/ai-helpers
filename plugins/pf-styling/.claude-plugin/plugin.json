@@ -1,6 +1,6 @@
 {
-  "name": "pf-a11y",
-  "description": "Accessibility auditing, reporting, and documentation for PatternFly applications",
+  "name": "pf-styling",
+  "description": "CSS, SCSS, design tokens, and visual styling for PatternFly",
   "version": "1.0.0",
   "author": {
     "name": "PatternFly Team",

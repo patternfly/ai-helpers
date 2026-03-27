@@ -5,7 +5,7 @@
 You're in `patternfly/patternfly` and found a button focus bug.
 
 ```
-/create-issue
+/pf-create-issue
 
 → Detected repo: patternfly/patternfly
 → Issue type? (A) New Issue (B) Followup Issue
@@ -23,7 +23,7 @@ You're in `patternfly/patternfly` and found a button focus bug.
 You updated Card CSS in patternfly and need React followup.
 
 ```
-/create-issue followup patternfly-react
+/pf-create-issue followup patternfly-react
 
 → How to determine followup work?
    (1) Describe yourself (2) Analyze commits
@@ -48,7 +48,7 @@ You updated Card CSS in patternfly and need React followup.
 A PatternFly consumer wants to report a Select keyboard bug but doesn't know which repo. The consumer also has the GitHub CLI installed and authorized.
 
 ```
-/create-issue
+/pf-create-issue
 User context: "Select dropdown not responding to arrow keys"
 
 → Not in a PatternFly repo.

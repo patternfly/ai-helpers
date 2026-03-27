@@ -1,5 +1,5 @@
 ---
-name: coding-standards
+name: pf-coding-standards
 description: PatternFly React development standards. Use when writing, reviewing, or refactoring PatternFly React components, layouts, or styles.
 ---
 

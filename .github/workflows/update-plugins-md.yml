@@ -19,11 +19,11 @@ jobs:
       - run: git remote set-url origin git@github.com:patternfly/ai-helpers.git
       - run: |
           bash scripts/generate-plugins-md.sh
-          git diff --quiet PLUGINS.md || {
+          git diff --quiet PLUGINS.md README.md || {
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add PLUGINS.md
-            git commit -m "docs: auto-update PLUGINS.md"
+            git add PLUGINS.md README.md
+            git commit -m "docs: auto-update PLUGINS.md and README plugin table"
             git pull --rebase
             git push
           }

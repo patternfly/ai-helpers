@@ -14,6 +14,8 @@ AI plugin for PatternFly React development with coding standards enforcement and
 /plugin install pf-react@ai-helpers
 ```
 
+For enhanced results, also install the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp).
+
 ### Cursor
 
 See the [root README](../../README.md) for Cursor installation options.
@@ -30,15 +32,15 @@ Skills and agents for PatternFly React development:
 
 Skills are tasks that produce a result.
 
-**Unit Test Generator** (`/pf-react:unit-test-generator`) — Generates a complete unit test file for a given React component, following Testing Library best practices.
+**PF Unit Test Generator** (`/pf-react:pf-unit-test-generator`) — Generates a complete unit test file for a given React component, following Testing Library best practices.
 
-**Bug Triage** (`/pf-react:bug-triage`) — Performs preliminary triage of opened bug issues. Suggests what needs to be updated to fix the bug, provides context for assignees, and recommends the most appropriate maintainer to tag when the issue contains questions.
+**PF Bug Triage** (`/pf-react:pf-bug-triage`) — Performs preliminary triage of opened bug issues. Suggests what needs to be updated to fix the bug, provides context for assignees, and recommends the most appropriate maintainer to tag when the issue contains questions.
 
 ### Agents
 
 Agents are domain knowledge the AI follows.
 
-**Coding Standards** — PatternFly React best practices:
+**PF Coding Standards** — PatternFly React best practices:
 
 - Component composition patterns
 - PatternFly v6 styling standards
@@ -46,7 +48,7 @@ Agents are domain knowledge the AI follows.
 - Accessibility requirements (WCAG 2.1 Level AA)
 - React and TypeScript best practices
 
-**Unit Test Standards** — Unit testing standards following Testing Library best practices:
+**PF Unit Test Standards** — Unit testing standards following Testing Library best practices:
 
 - User behavior testing over implementation details
 - Semantic query strategies
@@ -54,51 +56,29 @@ Agents are domain knowledge the AI follows.
 - Accessibility testing
 - PatternFly-specific patterns
 
-### PatternFly MCP Server
-
-Skills and agents have access to the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) for looking up component documentation and prop schemas. No manual configuration needed.
-
 ## File Structure
 
 ```
 pf-react/
 ├── .claude-plugin/
-│   └── plugin.json        # Plugin manifest + MCP server config
+│   └── plugin.json
 ├── .cursor-plugin/
-│   └── plugin.json        # Identical copy for Cursor
+│   └── plugin.json
 ├── agents/
-│   ├── coding-standards.md
-│   └── unit-test-standards.md
+│   ├── pf-coding-standards.md
+│   └── pf-unit-test-standards.md
 ├── skills/
-│   ├── bug-triage/
+│   ├── pf-bug-triage/
 │   │   └── SKILL.md
-│   └── unit-test-generator/
+│   └── pf-unit-test-generator/
 │       └── SKILL.md
 └── README.md
 ```
-
-## Troubleshooting
-
-**Plugin not recognized:**
-
-```bash
-/plugin list                         # Verify plugin is installed
-/plugin install pf-react@ai-helpers  # Reinstall if needed
-```
-
-**MCP server not connecting:**
-
-```bash
-/mcp status  # Check MCP server status
-```
-
-If MCP is unavailable, agents fall back to their built-in documentation.
 
 ## Sources
 
 - [PatternFly.org](https://www.patternfly.org/)
 - [PatternFly React GitHub](https://github.com/patternfly/patternfly-react)
-- [PatternFly MCP Server](https://github.com/patternfly/patternfly-mcp)
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
 
 ## License
