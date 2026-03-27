@@ -28,7 +28,6 @@ Cursor can discover plugins from `.cursor-plugin/` directories. If you also have
 | Plugin | Description |
 |--------|-------------|
 | **pf-a11y** | Accessibility auditing, reporting, and documentation for PatternFly applications |
-| **pf-design-tokens** |  |
 | **pf-figma** | Figma design review, diffing, and asset identification for PatternFly |
 | **pf-react** | PatternFly React coding standards and unit test generation agents |
 | **pf-styling** | CSS, SCSS, design tokens, and visual styling for PatternFly |

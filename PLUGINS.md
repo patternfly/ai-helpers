@@ -5,7 +5,6 @@ Quick reference of all plugins and what they contain. This file is auto-generate
 ## Table of Contents
 
 - [pf-a11y](#pf-a11y) — Accessibility auditing, reporting, and documentation for PatternFly applications
-- [pf-design-tokens](#pf-design-tokens) — 
 - [pf-figma](#pf-figma) — Figma design review, diffing, and asset identification for PatternFly
 - [pf-react](#pf-react) — PatternFly React coding standards and unit test generation agents
 - [pf-styling](#pf-styling) — CSS, SCSS, design tokens, and visual styling for PatternFly
@@ -18,13 +17,6 @@ Quick reference of all plugins and what they contain. This file is auto-generate
 Accessibility auditing, reporting, and documentation for PatternFly applications
 
 No skills or agents yet — contributions welcome!
-
-### pf-design-tokens
-
-
-
-**Skills:**
-- `/pf-design-tokens:pf-token-auditor` — Validate and bridge Figma design styles to PatternFly 6 design tokens. Use when auditing Figma designs against PatternFly tokens, validating token naming, translating Figma styles to composite tokens, or when the user mentions "token validation", "token audit", "design tokens", "Figma audit", "Figma variables", "token bridge", or "PF tokens".
 
 ### pf-figma
 
@@ -41,6 +33,7 @@ PatternFly React coding standards and unit test generation agents
 - `/pf-react:patternfly-component-structure` — Guide for PatternFly React component structure — audits, correct nesting, and layout debugging. Use when building with @patternfly/react-core or @patternfly/react-table, scanning code for hierarchy violations, or fixing spacing and alignment issues.
 - `/pf-react:pf-bug-triage` — Performs preliminary triage of opened issues marked as bugs. Suggests what needs to be updated to fix reported bugs, provides context for assignees, and tags the most appropriate maintainer when the issue contains questions. Use when triaging bug issues, reviewing new bug reports, or preparing issues for assignment.
 - `/pf-react:pf-unit-test-generator` — Generate a comprehensive unit test file for a given React component
+- `/pf-react:write-example-description` — >-
 
 **Agents:**
 - `component-structure-audit` — PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns. Use when writing, reviewing, or refactoring PatternFly UI so layouts rely on correct trees, not custom CSS.
@@ -53,6 +46,7 @@ CSS, SCSS, design tokens, and visual styling for PatternFly
 
 **Skills:**
 - `/pf-styling:pf-raw-colors-scan` — "Analyze the provided code to find any raw color values assigned to styling properties. Flag these values as technical debt and suggest their replacement with design tokens."
+- `/pf-styling:pf-token-auditor` — Validate and bridge Figma design styles to PatternFly 6 design tokens. Use when auditing Figma designs against PatternFly tokens, validating token naming, translating Figma styles to composite tokens, or when the user mentions "token validation", "token audit", "design tokens", "Figma audit", "Figma variables", "token bridge", or "PF tokens".
 - `/pf-styling:pf-tokens` — Build CSS design tokens for PatternFly core and copy them to the PatternFly repository.
 
 ### pf-workflow
