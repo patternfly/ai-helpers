@@ -20,7 +20,7 @@ Follow all rules from those skills. This skill adds PatternFly conventions on to
 
 - Figma MCP server must be connected
 - Target Figma file must have both PatternFly libraries enabled:
-  - [PatternFly 6: Components](https://www.figma.com/community/file/1370151925110689873) — core UI components (Button, Card, Table, Nav, Toolbar, Modal, etc.)
+  - [PatternFly 6: Components](https://www.figma.com/design/VMEX8Xg2nzhBX8rfBx53jp/PatternFly-6--Components) — core UI components (Button, Card, Table, Nav, Toolbar, Modal, etc.)
   - [PatternFly 6: Patterns & Extensions](https://www.figma.com/design/MSr6kVEOuAxmPOkjg7x8PO/PatternFly-6--Patterns---Extensions) — higher-level patterns and extensions (Login page, Chatbot, Catalog, Topology & Pipelines, QuickStarts, Error states, Multi-content cards, etc.)
 - If the PatternFly MCP (`@patternfly/patternfly-mcp`) is available, use it for current component props and examples
 
