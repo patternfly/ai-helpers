@@ -5,7 +5,7 @@ description: Build PatternFly screens in Figma using the PF design kit. Use when
 
 # PatternFly Figma Design
 
-Build PatternFly application screens in Figma using the official PatternFly Design Kit components, variables, and styles.
+Build PatternFly application screens in Figma using the official PatternFly Design Kit and Patterns & Extensions libraries — components, variables, and styles.
 
 ## Prerequisites
 
@@ -19,7 +19,9 @@ Follow all rules from those skills. This skill adds PatternFly conventions on to
 ### Required tools
 
 - Figma MCP server must be connected
-- Target Figma file must have the [PatternFly Design Kit](https://www.figma.com/community/file/1370151925110689873) enabled as a library
+- Target Figma file must have both PatternFly libraries enabled:
+  - [PatternFly 6: Components](https://www.figma.com/community/file/1370151925110689873) — core UI components (Button, Card, Table, Nav, Toolbar, Modal, etc.)
+  - [PatternFly 6: Patterns & Extensions](https://www.figma.com/design/MSr6kVEOuAxmPOkjg7x8PO/PatternFly-6--Patterns---Extensions) — higher-level patterns and extensions (Login page, Chatbot, Catalog, Topology & Pipelines, QuickStarts, Error states, Multi-content cards, etc.)
 - If the PatternFly MCP (`@patternfly/patternfly-mcp`) is available, use it for current component props and examples
 
 ## Workflow
@@ -30,22 +32,30 @@ Follow the `figma-generate-design` workflow (Steps 1-6) with these PatternFly-sp
 
 Map every section of the target screen to PatternFly components:
 
-| Screen region | PatternFly components |
-|---|---|
-| Application shell | Page, Masthead, PageSidebar, PageSection |
-| Header bar | Masthead > MastheadMain > MastheadToggle + MastheadBrand; MastheadContent |
-| Side navigation | PageSidebar > PageSidebarBody > Nav > NavList > NavItem |
-| Content areas | PageSection (one per distinct content block) |
-| Data views | Table, DataList, Card grid |
-| Filters / actions | Toolbar > ToolbarContent > ToolbarItem |
-| Overlays | Modal (ModalHeader, ModalBody, ModalFooter), Drawer |
-| Empty views | EmptyState |
+| Screen region | PatternFly components | Library |
+|---|---|---|
+| Application shell | Page, Masthead, PageSidebar, PageSection | Components |
+| Header bar | Masthead > MastheadMain > MastheadToggle + MastheadBrand; MastheadContent | Components |
+| Side navigation | PageSidebar > PageSidebarBody > Nav > NavList > NavItem | Components |
+| Content areas | PageSection (one per distinct content block) | Components |
+| Data views | Table, DataList, Card grid | Components |
+| Filters / actions | Toolbar > ToolbarContent > ToolbarItem | Components |
+| Overlays | Modal (ModalHeader, ModalBody, ModalFooter), Drawer | Components |
+| Empty views | EmptyState | Components |
+| Login / auth | Login page pattern | Patterns & Extensions |
+| AI assistant | Chatbot > ChatbotContent > MessageBox + ChatbotFooter | Patterns & Extensions |
+| Error pages | Error state, Not found (404), Access denied (403) | Patterns & Extensions |
+| Catalog views | Catalog layout with tiles and filters | Patterns & Extensions |
+| Guided tours | QuickStarts pattern | Patterns & Extensions |
+| Log output | Log viewer, Log snippet | Patterns & Extensions |
 
 ### Step 2: Discover PF Design System Assets
 
 #### 2a: Discover PatternFly components
 
 Search for PF components using these terms with `search_design_system` (`includeComponents: true`):
+
+**From PatternFly 6: Components library:**
 
 **Layout:** "Page", "Masthead", "Sidebar"
 **Navigation:** "Nav", "Tabs", "Breadcrumb"
@@ -54,6 +64,14 @@ Search for PF components using these terms with `search_design_system` (`include
 **Feedback:** "Alert", "Modal", "Drawer", "Popover", "Tooltip"
 **Forms:** "TextInput", "FormGroup", "Checkbox", "Radio", "Switch", "Slider"
 **Indicators:** "Label", "Badge", "Spinner", "Progress", "Icon"
+
+**From PatternFly 6: Patterns & Extensions library:**
+
+**Pages:** "Login", "Error", "Not found", "Access denied"
+**AI / Chatbot:** "Chatbot", "Message", "MessageBar", "ChatbotContent", "WelcomePrompt"
+**Component groups:** "BulkSelect", "Multi-content card", "Tag count", "Battery", "Ansible", "Log snippet"
+**Patterns:** "Catalog", "QuickStarts", "Content header", "Close button"
+**Visualization:** "Topology", "Pipelines", "Log viewer"
 
 If the target file already has PatternFly screens, inspect existing instances first (preferred over `search_design_system` — see `figma-generate-design` Step 2a).
 
@@ -184,6 +202,40 @@ After the application shell, fill the main PageSection with:
 - Tabs component for section switching
 - DescriptionList for key-value display
 - Card groups for related settings
+
+### Login page (Patterns & Extensions)
+
+Use the Login page pattern from the Patterns & Extensions library:
+- Full-page layout with brand image/background on one side
+- Login form panel with title, form fields, and submit button
+- Optional "forgot password", SSO links, and language selector
+- Search for "Login" in `search_design_system` to find the pattern component
+
+### Chatbot / AI assistant (Patterns & Extensions)
+
+Use the Chatbot pattern from the Patterns & Extensions library:
+- Chatbot > ChatbotContent > MessageBox + ChatbotFooter
+- ChatbotWelcomePrompt for initial state
+- Message components with role-based styling (user, assistant)
+- MessageBar for input
+- Can be embedded in a PageSection, Modal, or Drawer
+- Search for "Chatbot", "Message", "MessageBar" in `search_design_system`
+
+### Error / empty pages (Patterns & Extensions)
+
+Use error state patterns from the Patterns & Extensions library:
+- Error state (generic server error)
+- Not found (404) page
+- Access denied (403) page
+- These are pre-composed EmptyState patterns with appropriate icons and messaging
+- Search for "Error", "Not found", "Access denied" in `search_design_system`
+
+### Catalog view (Patterns & Extensions)
+
+Use the Catalog pattern from the Patterns & Extensions library:
+- Toolbar with filters and view toggle (grid/list)
+- Tile grid or list of catalog items
+- Search for "Catalog" in `search_design_system`
 
 ## Reference Files
 
