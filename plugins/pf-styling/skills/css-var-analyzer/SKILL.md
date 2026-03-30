@@ -61,10 +61,13 @@ Ask to see all variables within a specific modifier:
 
 ## Implementation Details
 
-The skill uses two Node.js scripts located in this directory:
+The skill uses a bash wrapper script that validates dependencies and invokes two Node.js analysis scripts:
 
-1. **css-var-analyzer.js** - Parses SCSS files to extract variable definitions and usages
-2. **format-css-report.js** - Formats the analysis into readable markdown reports
+1. **scripts/analyze-css-vars.sh** - Wrapper script with Node.js validation
+2. **css-var-analyzer.js** - Parses SCSS files to extract variable definitions and usages
+3. **format-css-report.js** - Formats the analysis into readable markdown reports
+
+If Node.js is missing, the wrapper script exits immediately with a clear error message and platform-specific installation instructions.
 
 ### Analysis Process
 
@@ -210,6 +213,46 @@ When presenting analysis results:
 
 ## Requirements
 
-- Node.js runtime
+This skill requires **Node.js** to run the analysis scripts.
+
+### Installation
+
+**macOS:**
+```bash
+brew install node
+```
+
+**Linux:**
+See [Node.js package manager guide](https://nodejs.org/en/download/package-manager)
+
+**Windows:**
+Download installer from [nodejs.org](https://nodejs.org/en/download)
+
+### Verification
+
+After installation, verify Node.js is available:
+```bash
+node --version  # Should print v14.0.0 or higher
+```
+
+### What Happens If Node.js Is Missing?
+
+If Node.js is not installed, the skill will exit immediately with this error:
+
+```
+Error: This skill requires Node.js.
+
+Node.js was not found in your PATH.
+
+Installation:
+  • macOS:   brew install node
+  • Linux:   https://nodejs.org/en/download/package-manager
+  • Windows: https://nodejs.org/en/download
+
+After installation, verify with: node --version
+```
+
+### Additional Requirements
+
 - PatternFly project structure with components in `src/patternfly/components/`
 - SCSS files using variable interpolation pattern

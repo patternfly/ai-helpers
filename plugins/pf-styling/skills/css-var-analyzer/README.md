@@ -35,9 +35,27 @@ Show me variables for the vertical modifier in tabs
 
 ## Requirements
 
-- Node.js
-- PatternFly project structure (`src/patternfly/components/`)
+**Node.js** - Required to run the analysis scripts.
+
+- **Install:** `brew install node` (macOS) or visit [nodejs.org](https://nodejs.org/)
+- **Verify:** `node --version` should print v14.0.0 or higher
+- **Note:** The skill will display a helpful error message if Node.js is missing
+
+**PatternFly project structure:**
+- Components in `src/patternfly/components/`
 - SCSS files using PatternFly's variable interpolation pattern
+
+## Troubleshooting
+
+### Error: "This skill requires Node.js"
+
+Node.js is not installed or not in your PATH. Install it:
+
+- **macOS:** `brew install node`
+- **Linux:** See [package manager guide](https://nodejs.org/en/download/package-manager)
+- **Windows:** Download from [nodejs.org](https://nodejs.org/en/download)
+
+After installation, verify: `node --version`
 
 ## Example Output
 
