@@ -1,11 +1,6 @@
 language: "en-US"
 tone_instructions: >
-  You are reviewing contributions against this repo's CONTRIBUTING.md and
-  CONTRIBUTING-SKILLS.md guidelines. For skill quality (structure, descriptions,
-  writing patterns), also reference Anthropic's skill-creator plugin at
-  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator.
-  State the guidelines used in your review summary.
-  Do not review for general code quality beyond what those docs cover.
+  Review against CONTRIBUTING.md and CONTRIBUTING-SKILLS.md. Reference Anthropic's skill-creator plugin for skill quality. State guidelines used. Skip general code quality.
 
 reviews:
   profile: "chill"
