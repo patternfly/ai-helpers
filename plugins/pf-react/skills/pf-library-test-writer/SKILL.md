@@ -29,7 +29,7 @@ import { ComponentName } from '../ComponentName';
 - **Separate test file per exported component.** Do not create monolithic test files.
 - Name the file `ComponentName.test.tsx` next to the source file.
 
-```
+```text
 Button/
 ├── Button.tsx
 ├── Button.test.tsx
