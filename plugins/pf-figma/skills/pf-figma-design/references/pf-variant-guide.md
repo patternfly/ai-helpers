@@ -1,4 +1,6 @@
-# PatternFly Variant Selection Guide for Figma
+# PatternFly Variant Selection Guide for Figma — Deep Dive Reference
+
+> **When to read this file:** Only when choosing between Alert types/statuses, Table variants (compact, striped, sticky), EmptyState sizes, Modal sizes, Login page variants, Label colors/styles, Chatbot display modes, Tab styles, or Catalog tile variants. For basic Button variant selection (primary/secondary/danger), the rules are straightforward enough to apply from SKILL.md context alone.
 
 When importing PatternFly components from the design kit, select the correct variant. Variant names in the Figma component set correspond to prop values in code. Selecting the wrong variant produces visually incorrect screens that don't match the implementation.
 

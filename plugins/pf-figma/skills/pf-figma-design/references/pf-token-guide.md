@@ -1,10 +1,6 @@
-# PatternFly Token Guide for Figma
+# PatternFly Token Guide for Figma — Deep Dive Reference
 
-Rules for binding PatternFly design tokens (variables) in Figma. Never hardcode hex colors or pixel spacing when a PatternFly variable exists.
-
-## Core Rule
-
-Every fill, stroke, spacing, radius, and shadow in a PatternFly screen should be bound to a PF design token variable, not set as a raw value. This keeps screens linked to the design system and ensures they update automatically when tokens change.
+> **When to read this file:** Only when using status colors, on-context foreground pairing (`on-brand`, `on-danger`, etc.), font tokens, icon size tokens, or purpose-specific spacers. The core background, text, spacing, and border tokens are already inlined in SKILL.md's Core Token Set — do not re-read those here.
 
 ## How to Bind Variables in Figma
 
@@ -35,65 +31,6 @@ frame.setBoundVariable("topRightRadius", radiusVar);
 frame.setBoundVariable("bottomLeftRadius", radiusVar);
 frame.setBoundVariable("bottomRightRadius", radiusVar);
 ```
-
-## Background Color Tokens
-
-| Usage | Figma variable path | CSS token |
-|---|---|---|
-| Primary background (white) | `global/background/color/primary/default` | `--pf-t--global--background--color--primary--default` |
-| Secondary background | `global/background/color/secondary/default` | `--pf-t--global--background--color--secondary--default` |
-| Numbered scale 100-700 | `global/background/color/100` through `700` | `--pf-t--global--background--color--100` through `--700` |
-
-## Text Color Tokens
-
-| Usage | Figma variable path | CSS token |
-|---|---|---|
-| Regular text | `global/text/color/regular` | `--pf-t--global--text--color--regular` |
-| Subtle text | `global/text/color/subtle` | `--pf-t--global--text--color--subtle` |
-| Link text | `global/text/color/link/default` | `--pf-t--global--text--color--link--default` |
-| Link hover | `global/text/color/link/hover` | `--pf-t--global--text--color--link--hover` |
-| Inverse text | `global/text/color/inverse` | `--pf-t--global--text--color--inverse` |
-| Disabled text | `global/text/color/disabled` | `--pf-t--global--text--color--disabled` |
-| Brand text | `global/text/color/brand` | `--pf-t--global--text--color--brand` |
-| Required indicator | `global/text/color/required` | `--pf-t--global--text--color--required` |
-
-## Icon Color Tokens
-
-| Usage | Figma variable path | CSS token |
-|---|---|---|
-| Regular icon | `global/icon/color/regular` | `--pf-t--global--icon--color--regular` |
-| Subtle icon | `global/icon/color/subtle` | `--pf-t--global--icon--color--subtle` |
-| Disabled icon | `global/icon/color/disabled` | `--pf-t--global--icon--color--disabled` |
-| Brand icon | `global/icon/color/brand` | `--pf-t--global--icon--color--brand` |
-
-## Border Tokens
-
-| Usage | Figma variable path | CSS token |
-|---|---|---|
-| Default border color | `global/border/color/default` | `--pf-t--global--border--color--default` |
-| Width 100 (1px) | `global/border/width/100` | `--pf-t--global--border--width--100` |
-| Width 200 (2px) | `global/border/width/200` | `--pf-t--global--border--width--200` |
-| Radius 0 (0px) | `global/border/radius/0` | `--pf-t--global--border--radius--0` |
-| Radius 100 (4px) | `global/border/radius/100` | `--pf-t--global--border--radius--100` |
-| Radius 200 (6px) | `global/border/radius/200` | `--pf-t--global--border--radius--200` |
-| Radius 300 (16px) | `global/border/radius/300` | `--pf-t--global--border--radius--300` |
-| Radius 400 (24px) | `global/border/radius/400` | `--pf-t--global--border--radius--400` |
-| Radius 500 / pill (999px) | `global/border/radius/500` | `--pf-t--global--border--radius--500` |
-
-## Spacing Tokens
-
-### Generic scale
-
-| Figma variable path | CSS token | Value |
-|---|---|---|
-| `global/spacer/100` | `--pf-t--global--spacer--100` | 4px / 0.25rem |
-| `global/spacer/200` | `--pf-t--global--spacer--200` | 8px / 0.5rem |
-| `global/spacer/300` | `--pf-t--global--spacer--300` | 16px / 1rem |
-| `global/spacer/400` | `--pf-t--global--spacer--400` | 24px / 1.5rem |
-| `global/spacer/500` | `--pf-t--global--spacer--500` | 32px / 2rem |
-| `global/spacer/600` | `--pf-t--global--spacer--600` | 48px / 3rem |
-| `global/spacer/700` | `--pf-t--global--spacer--700` | 64px / 4rem |
-| `global/spacer/800` | `--pf-t--global--spacer--800` | 80px / 5rem |
 
 ### Purpose-specific spacers (preferred over generic scale)
 
