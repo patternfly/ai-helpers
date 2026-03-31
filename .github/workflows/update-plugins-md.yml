@@ -1,0 +1,29 @@
+name: Update PLUGINS.md
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['plugins/**']
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+      - run: git remote set-url origin git@github.com:patternfly/ai-helpers.git
+      - run: |
+          bash scripts/generate-plugins-md.sh
+          git diff --quiet PLUGINS.md README.md || {
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add PLUGINS.md README.md
+            git commit -m "docs: auto-update PLUGINS.md and README plugin table"
+            git pull --rebase
+            git push
+          }

@@ -12,7 +12,7 @@ Plugins work in both **Claude Code** and **Cursor**. The content is identical �
 # Add the marketplace
 /plugin marketplace add patternfly/ai-helpers
 
-# Install the PatternFly React plugin
+# Install the plugins you need
 /plugin install pf-react@ai-helpers
 ```
 
@@ -24,34 +24,56 @@ Cursor can discover plugins from `.cursor-plugin/` directories. If you also have
 
 ## Available Plugins
 
-| Plugin | Description | Includes |
-|--------|-------------|----------|
-| **pf-react** | PatternFly React development standards | Coding standards agent, unit test standards agent, unit test generator skill, PatternFly MCP server |
-| **pf-design-tokens** | Design token auditing, validation, and migration | PatternFly MCP server |
-| **pf-a11y** | Accessibility auditing, reporting, and documentation | PatternFly MCP server |
-| **pf-figma** | Figma design review, diffing, and asset identification | PatternFly MCP server |
+<!-- BEGIN PLUGIN TABLE -->
+| Plugin | Description |
+|--------|-------------|
+| **pf-a11y** | Accessibility auditing, reporting, and documentation for PatternFly applications |
+| **pf-figma** | Figma design review, diffing, and asset identification for PatternFly |
+| **pf-react** | PatternFly React coding standards and unit test generation agents |
+| **pf-styling** | CSS, SCSS, design tokens, and visual styling for PatternFly |
+| **pf-workflow** | Issue tracking, PR management, and cross-repo coordination for PatternFly projects |
+<!-- END PLUGIN TABLE -->
 
-See each plugin's README for full documentation.
+See [PLUGINS.md](PLUGINS.md) for skills, agents, and usage details.
+
+## PatternFly MCP Server (Recommended)
+
+For the best experience, also install the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) which gives AI tools access to component documentation, prop schemas, and design guidelines. Skills and agents work without it but provide enhanced results when it's available.
+
+## Architecture
+
+```mermaid
+graph TD
+    A[AI Tool] -->|discovers| B[".<tool>-plugin/marketplace.json"]
+    B -->|references| C[plugins/pf-react]
+    B -->|references| D[plugins/pf-a11y]
+    B -->|references| E[plugins/...]
+    C --- F[skills/ + agents/]
+    D --- G[skills/ + agents/]
+    E --- H[skills/ + agents/]
+```
+
+### How it works
+
+1. Each AI tool looks for its own directory (`.claude-plugin/`, `.cursor-plugin/`) to find `marketplace.json`
+2. The marketplace lists plugins with relative paths to `plugins/<name>/`
+3. Each plugin has identical manifests in `.claude-plugin/plugin.json` and `.cursor-plugin/plugin.json`
+4. Adding support for a new tool = copying the manifest into a new `.<tool>-plugin/` directory
 
 ## Repository Structure
 
 ```
 ai-helpers/
-├── plugins/              # Plugins (work in both Claude Code and Cursor)
-│   ├── pf-react/         # React coding standards, testing
-│   ├── pf-design-tokens/ # Design token auditing and migration
-│   ├── pf-a11y/          # Accessibility auditing and reporting
-│   └── pf-figma/         # Figma design review and diffing
-├── docs/                 # AI-friendly PatternFly documentation
-│   ├── guidelines/
-│   ├── components/
-│   ├── charts/
-│   └── chatbot/
-├── .claude-plugin/       # Marketplace config (Claude Code)
-└── .cursor-plugin/       # Marketplace config (Cursor)
+├── .claude-plugin/       # Claude Code marketplace config
+├── .cursor-plugin/       # Cursor marketplace config
+├── plugins/
+│   └── <plugin-name>/    # One directory per plugin
+│       ├── .claude-plugin/
+│       ├── .cursor-plugin/
+│       ├── skills/
+│       └── agents/
+└── docs/                 # AI-friendly PatternFly documentation
 ```
-
-Both `.claude-plugin/` and `.cursor-plugin/` contain identical manifests so each tool discovers plugins natively.
 
 ## Documentation
 

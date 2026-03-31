@@ -7,12 +7,5 @@
     "url": "https://www.patternfly.org"
   },
   "repository": "https://github.com/patternfly/ai-helpers",
-  "license": "MIT",
-  "mcpServers": {
-    "patternfly": {
-      "command": "npx",
-      "args": ["-y", "@patternfly/patternfly-mcp@latest"],
-      "env": {}
-    }
-  }
+  "license": "MIT"
 }

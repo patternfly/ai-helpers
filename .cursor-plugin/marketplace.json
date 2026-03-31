@@ -10,9 +10,9 @@
       "description": "PatternFly React coding standards and unit test generation agents"
     },
     {
-      "name": "pf-design-tokens",
-      "source": "./plugins/pf-design-tokens",
-      "description": "Design token auditing, validation, and migration for PatternFly styling"
+      "name": "pf-styling",
+      "source": "./plugins/pf-styling",
+      "description": "CSS, SCSS, design tokens, and visual styling for PatternFly"
     },
     {
       "name": "pf-a11y",
@@ -23,6 +23,11 @@
       "name": "pf-figma",
       "source": "./plugins/pf-figma",
       "description": "Figma design review, diffing, and asset identification for PatternFly"
+    },
+    {
+      "name": "pf-workflow",
+      "source": "./plugins/pf-workflow",
+      "description": "Issue tracking, PR management, and cross-repo coordination for PatternFly projects"
     }
   ]
 }

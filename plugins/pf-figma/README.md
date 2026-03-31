@@ -14,6 +14,8 @@ AI plugin for Figma design review, diffing, and asset identification for Pattern
 /plugin install pf-figma@ai-helpers
 ```
 
+For enhanced results, also install the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp).
+
 ### Cursor
 
 See the [root README](../../README.md) for Cursor installation options.
@@ -28,22 +30,7 @@ Skills and agents for the Figma-to-code workflow:
 - Summarizing implementation work from design updates
 - Identifying icons and brand assets
 
-### PatternFly MCP Server
-
-Skills and agents have access to the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) for looking up component documentation and design guidelines. No manual configuration needed.
-
-## File Structure
-
-```
-pf-figma/
-├── .claude-plugin/
-│   └── plugin.json        # Plugin manifest + MCP server config
-├── .cursor-plugin/
-│   └── plugin.json        # Identical copy for Cursor
-├── skills/                # Tasks that produce a result
-├── agents/                # Domain knowledge the AI follows
-└── README.md
-```
+Browse `skills/` for available skills (invoked as `/pf-figma:<skill-name>`) and `agents/` for domain knowledge.
 
 ## Sources
 
