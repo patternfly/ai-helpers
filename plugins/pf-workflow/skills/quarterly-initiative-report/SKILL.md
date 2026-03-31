@@ -38,7 +38,7 @@ This skill requires Jira API credentials configured as environment variables:
 }
 ```
 
-**Option 2: Shell environment** (add to ~/.zshrc or ~/.bashrc):
+**Option 2: Shell environment**:
 ```bash
 export ATLASSIAN_EMAIL="your-email@company.com"
 export ATLASSIAN_API_TOKEN="your-token-here"

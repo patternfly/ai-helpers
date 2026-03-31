@@ -1,7 +1,7 @@
 # Quarterly Initiative Report Skill - Test Results
 
 **Test Date:** March 28, 2026
-**Skill Location:** `/Users/jawright/.claude/skills/quarterly-initiative-report-test/skill.md`
+**Skill:** quarterly-initiative-report
 **Test Dataset:** PatternFly Q1 2026 (PF project, label Q12026)
 
 ---
