@@ -30,6 +30,7 @@ Figma design review, diffing, and asset identification for PatternFly
 PatternFly React coding standards and unit test generation agents
 
 **Skills:**
+- `/pf-react:icon-finder` — Find icons from the Red Hat Design System (@rhds/icons) by use case. Searches the Red Hat Icons demo site by keyword, returns matching icon names with a visual HTML preview for comparison. Use when the user asks to find an icon, search for an icon by purpose, pick an icon for a UI, or get icon options for a use case.
 - `/pf-react:patternfly-component-structure` — Guide for PatternFly React component structure — audits, correct nesting, and layout debugging. Use when building with @patternfly/react-core or @patternfly/react-table, scanning code for hierarchy violations, or fixing spacing and alignment issues.
 - `/pf-react:pf-bug-triage` — Performs preliminary triage of opened issues marked as bugs. Suggests what needs to be updated to fix reported bugs, provides context for assignees, and tags the most appropriate maintainer when the issue contains questions. Use when triaging bug issues, reviewing new bug reports, or preparing issues for assignment.
 - `/pf-react:pf-unit-test-generator` — Generate a comprehensive unit test file for a given React component
