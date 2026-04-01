@@ -3,22 +3,17 @@ name: pf-library-test-writer
 description: Write unit tests for contributors to PatternFly libraries (patternfly-react, patternfly-chatbot, etc.), not for consumers of PatternFly components. Use `unit-test-generator` for consumer application tests instead.
 ---
 
-Write unit tests for components and features within the PatternFly ecosystem (patternfly-react, patternfly-chatbot, patternfly-virtual-assistant, and other JS/TS-based PatternFly libraries). All tests must strictly follow the [official PatternFly testing guidelines](https://github.com/patternfly/patternfly-react/wiki/React-Testing-Library-Basics,-Best-Practices,-and-Guidelines).
+Write unit tests for components and features within PatternFly ecosystem libraries (patternfly-react, patternfly-chatbot, patternfly-virtual-assistant, and other JS/TS-based PatternFly libraries). Unlike `unit-test-generator` which tests at the network boundary, this skill **mocks child components** for unit isolation of individual library components.
+
+These conventions are based on the [PatternFly testing wiki](https://github.com/patternfly/patternfly-react/wiki/React-Testing-Library-Basics,-Best-Practices,-and-Guidelines).
 
 ## Input
 
 The user will provide a component file path, component code, or describe a new feature. Read the component source before writing tests.
 
-## How to Write Tests
-
-1. Read the component source to understand its props, children, and behavior.
-2. If the PatternFly MCP server is available, use `usePatternFlyDocs` to check the component's props schema, variants, and accessibility requirements.
-3. Generate a complete test file following every rule below.
-
 ## Test File Structure
 
 ```typescript
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ComponentName } from '../ComponentName';
@@ -37,22 +32,6 @@ Button/
 └── ButtonVariant.test.tsx
 ```
 
-## Test Nesting
-
-- **Do NOT** wrap all tests in a `describe()` that just names the component.
-- **Do** use `describe()` to group tests that share setup.
-- Use `test()` outside `describe()`, `it()` inside `describe()`.
-
-```typescript
-test('renders with default props', () => { ... });
-test('applies custom className', () => { ... });
-
-describe('when disabled', () => {
-  it('has disabled attribute', () => { ... });
-  it('does not fire onClick', () => { ... });
-});
-```
-
 ## Mocking Child Components
 
 Default to **mocking child components** for unit testing prop-passing behavior:
@@ -67,6 +46,22 @@ With props:
 jest.mock('../Header', () => ({
   Header: ({ children, ...props }) => <h1 {...props}>{children}</h1>
 }));
+```
+
+## Test Nesting
+
+- **Do NOT** wrap all tests in a `describe()` that just names the component.
+- **Do** use `describe()` to group tests that share setup.
+- Use `test()` outside `describe()`, `it()` inside `describe()`.
+
+```typescript
+test('renders with default props', () => { ... });
+test('applies custom className', () => { ... });
+
+describe('when disabled', () => {
+  it('has disabled attribute', () => { ... });
+  it('does not fire onClick', () => { ... });
+});
 ```
 
 ## Snapshots
