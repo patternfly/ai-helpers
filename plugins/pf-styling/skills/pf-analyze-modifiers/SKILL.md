@@ -1,6 +1,6 @@
 ---
 name: pf-analyze-modifiers
-description: Find, list, and summarize PatternFly component modifiers (pf-m- classes) across the codebase
+description: Find, list, and summarize PatternFly component modifiers (pf-m- classes) across the codebase. Use when analyzing component styling patterns, documenting modifier usage, or auditing CSS consistency.
 ---
 
 # Analyze Modifiers Skill
@@ -77,9 +77,7 @@ Identify what the user wants to analyze:
 - Components in a specific directory
 
 ### Step 2: Search for Modifiers
-1. Use Glob to find relevant SCSS files: `src/patternfly/components/**/*.scss`
-2. Use Grep to extract modifier patterns: `&\.pf-m-[\w-]+|\.pf-m-[\w-]+`
-3. For each modifier found, note the component name (derived from file path)
+Locate all SCSS files containing component modifiers and extract modifier patterns from selectors and comments. For each modifier found, note the component name (derived from file path).
 
 ### Step 3: Extract Modifier Details
 For each modifier, determine:
