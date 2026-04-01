@@ -109,7 +109,7 @@ Write results to a markdown file named appropriately:
 ### Be Clear
 - Use consistent component names (Title, not title)
 - Alphabetize lists for easy scanning
-- Use proper markdown formatting for readability
+- Use proper Markdown formatting for readability
 - Include clear section headers
 
 ### Provide Context
