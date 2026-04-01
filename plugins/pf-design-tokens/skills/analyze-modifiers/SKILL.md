@@ -44,25 +44,25 @@ The default output should be a markdown file with:
 ## Usage Examples
 
 ### Example 1: Analyze all modifiers
-```
+```text
 User: /analyze-modifiers
 ```
 Expected: Create a complete listing of all modifiers across all components, organized alphabetically by modifier name.
 
 ### Example 2: Analyze specific component
-```
+```text
 User: /analyze-modifiers for the Button component
 ```
 Expected: List all modifiers used in the Button component with brief descriptions of what they do.
 
 ### Example 3: Find modifier usage
-```
+```text
 User: /analyze-modifiers find where pf-m-disabled is used
 ```
 Expected: List all components that use the pf-m-disabled modifier and show the CSS properties it applies in each context.
 
 ### Example 4: Compare modifiers
-```
+```text
 User: /analyze-modifiers compare pf-m-expanded and pf-m-collapsed
 ```
 Expected: Show which components use each modifier and explain the differences in behavior.
