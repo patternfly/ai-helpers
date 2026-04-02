@@ -79,8 +79,11 @@ class CSSVariableAnalyzer {
     const componentsDir = path.join(baseDir, 'components');
 
     for (const name of componentNames) {
-      // Convert component name to proper case (tabs -> Tabs)
-      const componentDir = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+      // Convert kebab-case or lowercase to PascalCase (tabs -> Tabs, data-list -> DataList)
+      const componentDir = name
+        .split('-')
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+        .join('');
       const componentPath = path.join(componentsDir, componentDir);
 
       if (fs.existsSync(componentPath)) {
@@ -90,6 +93,8 @@ class CSSVariableAnalyzer {
             files.push(path.join(componentPath, file));
           }
         }
+      } else {
+        console.error(`Component directory not found: ${componentPath} (input: "${name}")`);
       }
     }
 
