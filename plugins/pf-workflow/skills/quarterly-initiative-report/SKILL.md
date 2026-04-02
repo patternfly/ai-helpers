@@ -143,7 +143,7 @@ curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
   -H "Accept: application/json" \
   -X POST \
   -H "Content-Type: application/json" \
-  -d '{"jql":"labels=\"LABEL\" AND (status=Blocked OR priority=Highest)","fields":["key","summary","status","priority","assignee"],"maxResults":100}' \
+  -d '{"jql":"project=PROJECT AND labels=\"LABEL\" AND (status=Blocked OR priority=Highest)","fields":["key","summary","status","priority","assignee"],"maxResults":100}' \
   "$JIRA_SITE_URL/rest/api/3/search/jql"
 ```
 
