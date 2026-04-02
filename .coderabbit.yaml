@@ -1,15 +1,66 @@
 language: "en-US"
 tone_instructions: >
-  Review against CONTRIBUTING.md and CONTRIBUTING-SKILLS.md. Reference Anthropic's skill-creator plugin for skill quality. State guidelines used. Skip general code quality.
+  Prioritize bugs, logic errors, and security issues. Skip markdownlint rules,
+  grammar nits, and naming conventions — maintainers check those.
 
 reviews:
   profile: "chill"
   high_level_summary: true
+  poem: false
+  sequence_diagrams: false
   auto_review:
     enabled: true
     base_branches: ["main"]
+    path_filters:
+      - "!docs/**"
+      - "!**/README.md"
+  path_instructions:
+    - path: "plugins/**/SKILL.md"
+      instructions: >
+        Review against CONTRIBUTING-SKILLS.md and the skill-creator plugin at
+        anthropics/claude-plugins-official. Check: frontmatter has name and
+        description, description includes trigger contexts, content describes
+        outcomes not implementation, skill is tool-agnostic (must work in both
+        Claude Code and Cursor — no tool-specific references). Do not flag
+        pf- prefix naming or markdown formatting.
+    - path: "plugins/**/agents/*.md"
+      instructions: >
+        Review against CONTRIBUTING-SKILLS.md. Agents provide domain knowledge
+        the AI follows across all interactions in the plugin's area — they are
+        not tasks that produce results (those are skills). Must be tool-agnostic.
+    - path: "**/.claude-plugin/**"
+      instructions: >
+        Manifests must be identical in .claude-plugin/ and .cursor-plugin/.
+        If this file changed, verify the corresponding file in the other
+        directory has the exact same content. Flag any differences.
+    - path: "**/.cursor-plugin/**"
+      instructions: >
+        Manifests must be identical in .claude-plugin/ and .cursor-plugin/.
+        If this file changed, verify the corresponding file in the other
+        directory has the exact same content. Flag any differences.
+    - path: "plugins/**/*.{js,sh,py,ts}"
+      instructions: >
+        Review for bugs, logic errors, security issues, and broken behavior.
+        These run as part of AI skills — check for runtime errors, missing
+        error handling at system boundaries, and incorrect data transformations.
+        Do not flag style or formatting.
+    - path: "scripts/**"
+      instructions: >
+        Repo-level automation scripts. Review for bugs, correctness, and
+        broken behavior. These generate docs and maintain repo consistency.
+    - path: "CONTRIBUTING*.md"
+      instructions: >
+        These are the source-of-truth guidelines that CodeRabbit and human
+        reviewers use to evaluate all contributions. Changes here affect every
+        future review. Verify accuracy, check for contradictions, and ensure
+        the plugin taxonomy table stays consistent with the actual plugins/
+        directory structure.
 
 knowledge_base:
+  web_search:
+    enabled: true
+  learnings:
+    scope: "auto"
   code_guidelines:
     enabled: true
     filePatterns:
