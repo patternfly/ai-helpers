@@ -36,6 +36,15 @@ Skills are tasks that produce a result.
 
 **PF Bug Triage** (`/pf-react:pf-bug-triage`) — Performs preliminary triage of opened bug issues. Suggests what needs to be updated to fix the bug, provides context for assignees, and recommends the most appropriate maintainer to tag when the issue contains questions.
 
+**PF Library Test Writer** (`/pf-react:pf-library-test-writer`) — Writes unit tests for components and features across the PatternFly ecosystem (patternfly-react, patternfly-chatbot, etc.), strictly following the [official testing guidelines](https://github.com/patternfly/patternfly-react/wiki/React-Testing-Library-Basics,-Best-Practices,-and-Guidelines):
+
+- Separate test files per exported component
+- `test()` outside `describe()`, `it()` inside
+- `screen` for queries, `asFragment` for snapshots only
+- Snapshots for structure, `toHaveClass` for CSS classes
+- Mock child components for unit isolation
+- Default to inline setup (no premature abstraction)
+
 ### Agents
 
 Agents are domain knowledge the AI follows.
@@ -69,6 +78,9 @@ pf-react/
 │   └── pf-unit-test-standards.md
 ├── skills/
 │   ├── pf-bug-triage/
+│   │   ├── SKILL.md
+│   │   └── reference.md
+│   ├── pf-library-test-writer/
 │   │   └── SKILL.md
 │   └── pf-unit-test-generator/
 │       └── SKILL.md
