@@ -46,6 +46,7 @@ PatternFly React coding standards and unit test generation agents
 CSS, SCSS, design tokens, and visual styling for PatternFly
 
 **Skills:**
+- `/pf-styling:pf-analyze-modifiers` — Find, list, and summarize PatternFly component modifiers (pf-m- classes) across the codebase. Use when analyzing component styling patterns, documenting modifier usage, or auditing CSS consistency.
 - `/pf-styling:pf-raw-colors-scan` — "Analyze the provided code to find any raw color values assigned to styling properties. Flag these values as technical debt and suggest their replacement with design tokens."
 - `/pf-styling:pf-token-auditor` — Validate and bridge Figma design styles to PatternFly 6 design tokens. Use when auditing Figma designs against PatternFly tokens, validating token naming, translating Figma styles to composite tokens, or when the user mentions "token validation", "token audit", "design tokens", "Figma audit", "Figma variables", "token bridge", or "PF tokens".
 - `/pf-styling:pf-tokens` — Build CSS design tokens for PatternFly core and copy them to the PatternFly repository.
