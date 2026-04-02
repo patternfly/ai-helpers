@@ -71,12 +71,13 @@ function formatSummaryReport(data, componentNames) {
   }
 
   // Redefinition summary
-  if (redefinitions.size > 0) {
+  const redefinitionKeys = Object.keys(redefinitions);
+  if (redefinitionKeys.length > 0) {
     report += `## Redefinition Summary\n`;
     report += `Top variables by redefinition count:\n\n`;
 
-    const sorted = Array.from(redefinitions.entries())
-      .map(([varName, defs]) => ({ varName, count: defs.length }))
+    const sorted = Object.entries(redefinitions)
+      .map(([varName, defs]) => ({ varName, count: Array.isArray(defs) ? defs.length : 0 }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 15);
 
@@ -226,7 +227,7 @@ function formatModifierDetail(data, modifierName, componentNames) {
 
   // Find variables defined in this modifier
   const modifierDefs = result.definitions.filter(def =>
-    def.scope === 'modifier' && def.selector.includes(modifierClass)
+    def.scope === 'modifier' && def.selector && def.selector.includes(modifierClass)
   );
 
   if (modifierDefs.length === 0) {
@@ -290,7 +291,13 @@ if (require.main === module) {
     }
   }
 
-  const data = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
+  let data;
+  try {
+    data = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
+  } catch (error) {
+    console.error(`Error reading ${jsonFile}: ${error.message}`);
+    process.exit(1);
+  }
 
   let report;
   if (variable) {

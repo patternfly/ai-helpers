@@ -394,10 +394,10 @@ class CSSVariableAnalyzer {
         namingViolations: this.issues.namingViolations.length
       },
       issues: this.issues,
-      redefinitions: this.redefinitions,
+      redefinitions: Object.fromEntries(this.redefinitions),
       definitions: this.definitions,
       usages: this.usages,
-      scssVariables: this.scssVariables
+      scssVariables: Object.fromEntries(this.scssVariables)
     };
   }
 
@@ -428,7 +428,7 @@ class CSSVariableAnalyzer {
     const modifierClass = modifierName.startsWith('pf-m-') ? modifierName : `pf-m-${modifierName}`;
 
     return this.definitions.filter(def =>
-      def.scope === 'modifier' && def.selector.includes(modifierClass)
+      def.scope === 'modifier' && def.selector && def.selector.includes(modifierClass)
     );
   }
 }
