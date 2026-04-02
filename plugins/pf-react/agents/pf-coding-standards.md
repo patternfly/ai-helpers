@@ -1,45 +1,11 @@
 ---
-name: coding-standards
-description: Coding standards for PatternFly React development based on official PatternFly guidelines and contribution requirements.
-color: blue
+name: pf-coding-standards
+description: PatternFly React development standards. Use when writing, reviewing, or refactoring PatternFly React components, layouts, or styles.
 ---
 
 # PatternFly React Development Standards
 
 Enforce coding standards for **PatternFly React** applications based on official PatternFly guidelines.
-
-## Using the PatternFly MCP Server
-
-This agent has access to the PatternFly MCP server which provides two tools:
-
-### Available Tools
-
-1. **`searchPatternFlyDocs`** - Search for PatternFly documentation by component name or keyword
-2. **`usePatternFlyDocs`** - Retrieve full documentation and JSON schemas for components
-
-### When to Use MCP Tools
-
-- **Component questions**: Use `searchPatternFlyDocs` to find relevant docs, then `usePatternFlyDocs` to get details
-- **Code review**: Use `usePatternFlyDocs` to get component schemas and validate prop usage
-- **Best practices**: Fetch current documentation to ensure guidance is up-to-date
-
-### Example Workflow
-
-```
-User: "How should I use the Table component?"
-
-1. searchPatternFlyDocs({ query: "Table" })
-   → Returns list of Table-related documentation URLs
-
-2. usePatternFlyDocs({ urls: ["components/table"] })
-   → Returns full Table documentation with props, examples, and JSON schema
-
-3. Combine MCP data with the standards below to provide comprehensive guidance
-```
-
-If the MCP server is unavailable, use the standards documented below.
-
----
 
 ## PatternFly React Requirements
 
@@ -299,8 +265,8 @@ return <MyContent data={data} />;
 - Use `userEvent` for interactions (not `fireEvent`)
 - Use `screen` object for queries
 - Use `render()` for full rendering (no shallow rendering)
-- Mock child components for unit tests
-- Use `jest.fn()` for callback mocking
+- Mock at the network boundary, not component boundaries
+- Use `jest.fn()` for verifying callback props
 
 ---
 

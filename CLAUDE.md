@@ -1,26 +1,20 @@
 # PatternFly AI Helpers
 
-This repository contains AI coding helpers for PatternFly development, including Claude Code plugins, Cursor rules, and AI-friendly documentation.
+AI coding helpers for PatternFly development — plugins, skills, agents, and documentation for Claude Code and Cursor.
 
-## Key Directories
+## Working in this repo
 
-- `plugins/` - Claude Code plugins with commands and agents
-- `docs/` - AI-friendly PatternFly documentation, guidelines, and reference data
-- `.cursor/rules/` - Cursor IDE rules for PatternFly development
-- `.claude-plugin/` - Plugin marketplace configuration
+- Plugin manifests must be identical in `.claude-plugin/` and `.cursor-plugin/` — always update both
+- After adding or renaming skills/agents, run `bash scripts/generate-plugins-md.sh` to regenerate PLUGINS.md and the README plugin table
+- Skills/agents that are PatternFly-specific use the `pf-` prefix (e.g., `pf-unit-test-generator`). Generic skills do not.
+- Do not add `mcpServers` to plugin.json files — the PatternFly MCP is a separate user install documented in each plugin's README
 
-## Available Plugins
+## Key paths
 
-- **pf-react** - PatternFly React coding standards and test generation agents
-  - `/coding-standards` - PatternFly v6 React coding standards
-  - `/test-generator` - Generate unit tests following Testing Library best practices
+See [PLUGINS.md](PLUGINS.md) for the full list of plugins, skills, and agents.
 
-## Documentation
-
-The `docs/` directory contains comprehensive, AI-friendly PatternFly documentation covering component architecture, styling standards, charts, chatbot patterns, and more. See `docs/README.md` for the full table of contents.
-
-## References
-
-- [PatternFly.org](https://www.patternfly.org/)
-- [PatternFly React GitHub](https://github.com/patternfly/patternfly-react)
-- [PatternFly MCP Server](https://github.com/patternfly/patternfly-mcp)
+- `plugins/<name>/skills/` — Skill definitions (SKILL.md)
+- `plugins/<name>/agents/` — Agent definitions (markdown)
+- `plugins/<name>/.claude-plugin/plugin.json` — Plugin manifest
+- `docs/` — AI-friendly PatternFly documentation (see `docs/README.md`)
+- `.claude-plugin/marketplace.json` / `.cursor-plugin/marketplace.json` — Marketplace config

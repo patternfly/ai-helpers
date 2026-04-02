@@ -1,6 +1,6 @@
 {
-  "name": "pf-react",
-  "description": "PatternFly React coding standards and unit test generation agents",
+  "name": "pf-workflow",
+  "description": "Issue tracking, PR management, and cross-repo coordination for PatternFly projects",
   "version": "1.0.0",
   "author": {
     "name": "PatternFly Team",

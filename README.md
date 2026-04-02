@@ -1,6 +1,8 @@
 # PatternFly AI Helpers
 
-AI coding helpers for [PatternFly](https://www.patternfly.org/) development. This repository provides plugins, rules, and documentation to help AI tools (Claude Code, Cursor, Copilot, etc.) generate accurate, best-practice PatternFly applications.
+AI coding helpers for [PatternFly](https://www.patternfly.org/) development. This repository provides plugins and documentation to help AI tools generate accurate, best-practice PatternFly applications.
+
+Plugins work in both **Claude Code** and **Cursor**. The content is identical — only the install path differs.
 
 ## Quick Start
 
@@ -10,58 +12,78 @@ AI coding helpers for [PatternFly](https://www.patternfly.org/) development. Thi
 # Add the marketplace
 /plugin marketplace add patternfly/ai-helpers
 
-# Install the PatternFly React plugin
+# Install the plugins you need
 /plugin install pf-react@ai-helpers
 ```
 
-After installation, use the commands in any project:
-
-```bash
-/coding-standards    # PatternFly v6 React coding standards
-/test-generator      # Generate unit tests following Testing Library best practices
-```
-
-See [plugins/pf-react/](plugins/pf-react/) for full documentation.
+After installation, the plugin's agents and skills are available in any project.
 
 ### Cursor
 
-Copy the `.cursor/rules/` directory into your project to enable PatternFly best-practice enforcement.
+Cursor can discover plugins from `.cursor-plugin/` directories. If you also have Claude Code installed, Cursor may pick up installed plugins automatically via its third-party plugin settings.
 
-### Other AI Tools
+## Available Plugins
 
-Copy the `docs/` directory into your project workspace. AI tools index local files for context, so having the documentation present locally ensures accurate PatternFly guidance.
+<!-- BEGIN PLUGIN TABLE -->
+| Plugin | Description |
+|--------|-------------|
+| **pf-a11y** | Accessibility auditing, reporting, and documentation for PatternFly applications |
+| **pf-figma** | Figma design review, diffing, and asset identification for PatternFly |
+| **pf-react** | PatternFly React coding standards and unit test generation agents |
+| **pf-styling** | CSS, SCSS, design tokens, and visual styling for PatternFly |
+| **pf-workflow** | Issue tracking, PR management, and cross-repo coordination for PatternFly projects |
+<!-- END PLUGIN TABLE -->
+
+See [PLUGINS.md](PLUGINS.md) for skills, agents, and usage details.
+
+## PatternFly MCP Server (Recommended)
+
+For the best experience, also install the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) which gives AI tools access to component documentation, prop schemas, and design guidelines. Skills and agents work without it but provide enhanced results when it's available.
+
+## Architecture
+
+```mermaid
+graph TD
+    A[AI Tool] -->|discovers| B[".<tool>-plugin/marketplace.json"]
+    B -->|references| C[plugins/pf-react]
+    B -->|references| D[plugins/pf-a11y]
+    B -->|references| E[plugins/...]
+    C --- F[skills/ + agents/]
+    D --- G[skills/ + agents/]
+    E --- H[skills/ + agents/]
+```
+
+### How it works
+
+1. Each AI tool looks for its own directory (`.claude-plugin/`, `.cursor-plugin/`) to find `marketplace.json`
+2. The marketplace lists plugins with relative paths to `plugins/<name>/`
+3. Each plugin has identical manifests in `.claude-plugin/plugin.json` and `.cursor-plugin/plugin.json`
+4. Adding support for a new tool = copying the manifest into a new `.<tool>-plugin/` directory
 
 ## Repository Structure
 
 ```
 ai-helpers/
-├── plugins/              # Claude Code plugins
-│   └── pf-react/         # PatternFly React coding standards & test generation
-├── docs/                 # AI-friendly PatternFly documentation
-│   ├── guidelines/       # Coding standards, styling, accessibility
-│   ├── components/       # Component-specific patterns
-│   ├── charts/           # Chart guidelines
-│   └── chatbot/          # Chatbot patterns
-├── .cursor/rules/        # Cursor IDE rules
-├── .claude-plugin/       # Plugin marketplace configuration
-└── .claude/              # Claude Code settings
+├── .claude-plugin/       # Claude Code marketplace config
+├── .cursor-plugin/       # Cursor marketplace config
+├── plugins/
+│   └── <plugin-name>/    # One directory per plugin
+│       ├── .claude-plugin/
+│       ├── .cursor-plugin/
+│       ├── skills/
+│       └── agents/
+└── docs/                 # AI-friendly PatternFly documentation
 ```
 
 ## Documentation
 
 The `docs/` directory contains comprehensive, AI-friendly PatternFly documentation. See [docs/README.md](docs/README.md) for the full table of contents.
 
-### Using Documentation with AI Tools
-
-AI tools only index files present in your local workspace. To get the full benefit:
-
-1. Clone or copy this repository (or at least the `docs/` directory) into your project
-2. Open your project in your AI coding tool
-3. The tool will automatically reference the documentation for PatternFly guidance
-
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding plugins, commands, documentation, and Cursor rules.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding plugins, skills, and documentation.
+
+See [CONTRIBUTING-SKILLS.md](CONTRIBUTING-SKILLS.md) for a step-by-step guide to creating and contributing a skill.
 
 ## References
 

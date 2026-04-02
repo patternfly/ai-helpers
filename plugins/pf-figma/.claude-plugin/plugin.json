@@ -1,6 +1,6 @@
 {
-  "name": "pf-react",
-  "description": "PatternFly React coding standards and unit test generation agents",
+  "name": "pf-figma",
+  "description": "Figma design review, diffing, and asset identification for PatternFly",
   "version": "1.0.0",
   "author": {
     "name": "PatternFly Team",

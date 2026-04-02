@@ -1,49 +1,11 @@
 ---
-name: test-generator
-description: Generate unit tests for PatternFly React components following Testing Library best practices and PatternFly testing guidelines.
-color: blue
+name: pf-unit-test-standards
+description: PatternFly React unit testing standards. Use when writing, reviewing, or modifying unit tests for PatternFly React components.
 ---
 
-# PatternFly React Test Generator
+# PatternFly React Unit Test Standards
 
-Generate comprehensive unit tests for PatternFly React components based on official testing guidelines.
-
-## Using the PatternFly MCP Server
-
-This agent has access to the PatternFly MCP server which provides two tools:
-
-### Available Tools
-
-1. **`searchPatternFlyDocs`** - Search for PatternFly documentation by component name
-2. **`usePatternFlyDocs`** - Retrieve full documentation and JSON schemas for components
-
-### When to Use MCP Tools
-
-- **Before generating tests**: Use `usePatternFlyDocs` to get the component's JSON schema and understand its props
-- **Validate test coverage**: Check schema to ensure all required props are tested
-- **Understand behavior**: Fetch docs to see expected interactions and accessibility requirements
-
-### Example Workflow
-
-```
-User: "Generate tests for a component using PatternFly Table"
-
-1. searchPatternFlyDocs({ query: "Table" })
-   → Find Table documentation
-
-2. usePatternFlyDocs({ urls: ["components/table"] })
-   → Get Table props, variants, and JSON schema
-
-3. Generate tests that:
-   - Cover required props from schema
-   - Test user interactions (sorting, selecting)
-   - Validate accessibility attributes
-   - Focus on YOUR component's logic, not Table internals
-```
-
-If the MCP server is unavailable, generate tests based on the guidelines below.
-
----
+Testing standards and patterns for PatternFly React components based on official testing guidelines.
 
 ## Testing Philosophy
 
@@ -252,15 +214,6 @@ jest.mock("../api/users", () => ({
   deleteUser: jest.fn(),
 }));
 
-jest.mock("../components/UserCard", () => ({
-  UserCard: ({ user, onEdit }: any) => (
-    <div>
-      <span>{user.name}</span>
-      <button onClick={() => onEdit(user)}>Edit</button>
-    </div>
-  ),
-}));
-
 describe("UserList", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -272,12 +225,11 @@ describe("UserList", () => {
 
 **Do mock:**
 - API calls and external services
-- Complex child components
 - Browser APIs (localStorage, sessionStorage)
 
 **Don't mock:**
+- Your own child components
 - PatternFly components
-- Simple presentational components
 - React hooks
 - Code you're testing
 
@@ -475,10 +427,8 @@ describe("UserManagementPage", () => {
     it("fetches and displays users", async () => {
       render(<UserManagementPage />);
 
-      await waitFor(() => {
-        expect(screen.getByText("Alice")).toBeInTheDocument();
-        expect(screen.getByText("Bob")).toBeInTheDocument();
-      });
+      expect(await screen.findByText("Alice")).toBeInTheDocument();
+      expect(screen.getByText("Bob")).toBeInTheDocument();
     });
   });
 
@@ -488,9 +438,9 @@ describe("UserManagementPage", () => {
       const user = userEvent.setup();
 
       render(<UserManagementPage />);
-      await waitFor(() => screen.getByText("Alice"));
+      await screen.findByText("Alice");
 
-      await user.click(screen.getAllByRole("button", { name: /delete/i })[0]);
+      await user.click(screen.getByRole("button", { name: /delete alice/i }));
       await user.click(screen.getByRole("button", { name: "Confirm" }));
 
       expect(deleteUser).toHaveBeenCalledWith("1");
@@ -534,7 +484,7 @@ describe("UserManagementPage", () => {
 - Use `userEvent` for interactions
 - Use `getByRole` as first choice
 - Use `waitFor` for async assertions
-- Mock child components when unit testing
+- Mock at the network boundary (API calls, external services)
 - Test all conditional rendering branches
 - Test YOUR logic, not PatternFly components
 
