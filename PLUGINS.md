@@ -33,7 +33,10 @@ PatternFly React coding standards and unit test generation agents
 - `/pf-react:icon-finder` — Find icons from the Red Hat Design System (@rhds/icons) by use case. Searches the Red Hat Icons demo site by keyword, returns matching icon names with a visual HTML preview for comparison. Use when the user asks to find an icon, search for an icon by purpose, pick an icon for a UI, or get icon options for a use case.
 - `/pf-react:patternfly-component-structure` — Guide for PatternFly React component structure — audits, correct nesting, and layout debugging. Use when building with @patternfly/react-core or @patternfly/react-table, scanning code for hierarchy violations, or fixing spacing and alignment issues.
 - `/pf-react:pf-bug-triage` — Performs preliminary triage of opened issues marked as bugs. Suggests what needs to be updated to fix reported bugs, provides context for assignees, and tags the most appropriate maintainer when the issue contains questions. Use when triaging bug issues, reviewing new bug reports, or preparing issues for assignment.
+- `/pf-react:pf-class-migration-scanner` — Scans for legacy PatternFly class usage and recommends PF6-safe replacements. Use when modernizing older PatternFly codebases.
+- `/pf-react:pf-import-checker` — Audits and fixes PatternFly import paths, with emphasis on charts, chatbot, and component-groups. Use when imports fail or PatternFly modules are unresolved.
 - `/pf-react:pf-library-test-writer` — Write unit tests for contributors to PatternFly libraries (patternfly-react, patternfly-chatbot, etc.), not for consumers of PatternFly components. Use `unit-test-generator` for consumer application tests instead.
+- `/pf-react:pf-project-scaffolder` — Scaffolds PatternFly React projects with PF6-safe dependencies, imports, and starter layout. Use when creating a new PatternFly app or bootstrapping a migration sandbox.
 - `/pf-react:pf-unit-test-generator` — Generate a comprehensive unit test file for a given React component
 
 **Agents:**
