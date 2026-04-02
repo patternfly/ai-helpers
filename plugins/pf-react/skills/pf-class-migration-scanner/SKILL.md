@@ -13,7 +13,7 @@ When migration recommendations are ambiguous, query the PatternFly MCP server fi
 
 - Legacy versioned classes (`pf-v5-*`, `pf-v4-*`)
 - Unversioned legacy classes (`pf-c-*`, `pf-u-*`, `pf-l-*`)
-- Old token usage where semantic token equivalents exist
+- Legacy token patterns (`--pf-v6-*`, `--pf-global-*`) that should use semantic tokens (`--pf-t--*`)
 
 ## Scan commands
 
