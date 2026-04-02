@@ -12,13 +12,13 @@ When migration recommendations are ambiguous, query the PatternFly MCP server fi
 ## Migration scope
 
 - Legacy versioned classes (`pf-v5-*`, `pf-v4-*`)
-- Unversioned legacy classes (`pf-c-*`, `pf-u-*`, `pf-l-*`, `pf-m-*`)
+- Unversioned legacy classes (`pf-c-*`, `pf-u-*`, `pf-l-*`)
 - Old token usage where semantic token equivalents exist
 
 ## Scan commands
 
 ```bash
-rg "pf-v5-|pf-v4-|pf-c-|pf-u-|pf-l-|pf-m-" src
+rg "pf-v5-|pf-v4-|pf-c-|pf-u-|pf-l-" src
 rg "--pf-v6-|--pf-global-" src
 ```
 
