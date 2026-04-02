@@ -1,0 +1,46 @@
+---
+description: When making design-related UI/UX changes, automatically record what changed and why so designers don't have to manually track design justification.
+globs: "**/*.{ts,tsx,js,jsx,css,scss}"
+alwaysApply: true
+---
+
+# Design History Tracking
+
+## Purpose
+
+Designers often make many small design changes in a session. Manually tracking every change and the reasoning behind it is tedious and gets skipped. This rule ensures the agent records design changes and justification automatically—so there is a clear trail of what was done and why, without the designer having to maintain it.
+
+## When This Applies
+
+- You are adding, removing, or significantly changing UI components, layout, styling, or user flows.
+- You are implementing a design decision or UX change (e.g. "make this button more prominent," "add a filter here," "use a card layout instead of a table").
+
+## Rule
+
+After completing design-related code changes:
+
+1. **Summarize what changed and why** in your response. Include a short "Design change" note: what was updated and the design rationale (e.g. "Moved primary action to a prominent button per user feedback" or "Added filter bar to reduce table clutter"). This gives the designer a justification trail in the chat.
+
+2. **If the project has a design-history file**, append a brief dated entry there instead of or in addition to the in-chat summary. Look for:
+   - `design-history.md` (project root)
+   - `.design/design-history.md`
+   - Or a path documented in the project README or CONTRIBUTING.
+
+   Entry format (keep it short):
+   - Date (YYYY-MM-DD)
+   - One line: what changed and why (e.g. `[Update] Primary CTA moved to PageHeader actions for visibility.`)
+
+3. **If there is no design-history file**, rely on the in-chat summary. You may suggest adding a `design-history.md` if the designer wants a persistent log.
+
+## Example
+
+After implementing a design change, include something like:
+
+> **Design change:** Added an empty state to the table when there are no results, using PatternFly's `EmptyState` with a clear message and optional "Create" action—reduces confusion when the list is empty.
+
+If the project has `design-history.md`, also append:
+
+```markdown
+## 2025-03-17
+- [Update] Table empty state added (EmptyState component) to improve clarity when no results.
+```
