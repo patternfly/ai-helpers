@@ -21,8 +21,8 @@ This skill requires Jira API credentials configured as environment variables:
 
 | Variable | Description | Example |
 |---|---|---|
-| `ATLASSIAN_EMAIL` | Your Atlassian account email | `user@company.com` |
-| `ATLASSIAN_API_TOKEN` | API token from [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens) | `ATATT3xFfGF0...` |
+| `JIRA_USER_EMAIL` | Your Atlassian account email | `user@company.com` |
+| `JIRA_API_TOKEN` | API token from [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens) | `ATATT3xFfGF0...` |
 | `JIRA_SITE_URL` | Your Jira instance URL | `https://company.atlassian.net` |
 
 ### Setting Environment Variables
@@ -31,8 +31,8 @@ This skill requires Jira API credentials configured as environment variables:
 ```json
 {
   "env": {
-    "ATLASSIAN_EMAIL": "your-email@company.com",
-    "ATLASSIAN_API_TOKEN": "your-token-here",
+    "JIRA_USER_EMAIL": "your-email@company.com",
+    "JIRA_API_TOKEN": "your-token-here",
     "JIRA_SITE_URL": "https://your-company.atlassian.net"
   }
 }
@@ -40,14 +40,14 @@ This skill requires Jira API credentials configured as environment variables:
 
 **Option 2: Shell environment**:
 ```bash
-export ATLASSIAN_EMAIL="your-email@company.com"
-export ATLASSIAN_API_TOKEN="your-token-here"
+export JIRA_USER_EMAIL="your-email@company.com"
+export JIRA_API_TOKEN="your-token-here"
 export JIRA_SITE_URL="https://your-company.atlassian.net"
 ```
 
 **Verify credentials:**
 ```bash
-curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
+curl -s -u "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" \
   -H "Accept: application/json" \
   "$JIRA_SITE_URL/rest/api/3/myself" | jq '.displayName'
 ```
@@ -66,7 +66,7 @@ Then execute the workflow below to generate the comprehensive report.
 
 ```bash
 # Search for all epics/initiatives with the label
-curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
+curl -s -u "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" \
   -H "Accept: application/json" \
   -X POST \
   -H "Content-Type: application/json" \
@@ -80,7 +80,7 @@ curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
 
 1. **Fetch direct sub-issues:**
 ```bash
-curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
+curl -s -u "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" \
   -H "Accept: application/json" \
   -X POST \
   -H "Content-Type: application/json" \
@@ -98,7 +98,7 @@ curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
 2. **Check for duplicate links (CRITICAL for all epics):**
 ```bash
 # Check EVERY epic for cross-project duplicate links
-curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
+curl -s -u "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" \
   -H "Accept: application/json" \
   "$JIRA_SITE_URL/rest/api/3/issue/EPIC-KEY?fields=issuelinks" | \
   jq '{
@@ -112,7 +112,7 @@ curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
 
 3. **For each linked epic, fetch its child issues:**
 ```bash
-curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
+curl -s -u "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" \
   -H "Accept: application/json" \
   -X POST \
   -H "Content-Type: application/json" \
@@ -139,7 +139,7 @@ curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
 
 ```bash
 # Find high-priority or blocked issues
-curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
+curl -s -u "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" \
   -H "Accept: application/json" \
   -X POST \
   -H "Content-Type: application/json" \
