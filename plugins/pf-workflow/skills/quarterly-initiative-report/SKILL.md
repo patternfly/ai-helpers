@@ -143,16 +143,16 @@ curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
   -H "Accept: application/json" \
   -X POST \
   -H "Content-Type: application/json" \
-  -d '{"jql":"project=PROJECT AND labels=\"LABEL\" AND (status=Blocked OR priority=Highest)","fields":["key","summary","status","priority","assignee"],"maxResults":100}' \
+  -d '{"jql":"project=PROJECT AND labels=\"LABEL\" AND (status=Blocked OR priority=Highest)","fields":["key","summary","status","priority","assignee"],"maxResults":1000}' \
   "$JIRA_SITE_URL/rest/api/3/search/jql"
 ```
 
 ### Step 5: Determine RAG Status
 
-For each epic:
-- **🟢 Green (On Track):** ≥75% complete OR ≥50% with no blockers
-- **🟡 Amber (At Risk):** 40-74% complete OR 1-2 non-critical blockers
+For each epic, evaluate in this order (first match wins):
 - **🔴 Red (Critical):** <40% complete OR critical blockers OR unassigned near deadline
+- **🟡 Amber (At Risk):** 40-74% complete OR 1-2 non-critical blockers
+- **🟢 Green (On Track):** ≥75% complete OR ≥50% with no blockers
 
 ### Step 6: Generate Report
 
