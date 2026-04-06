@@ -60,20 +60,38 @@ Open the file and read it. It's just markdown. Ask yourself:
 
 Every skill or agent must live in a plugin. Pick the one that matches your skill's domain:
 
-| Plugin | Domain | Decision test | Example skills |
-|--------|--------|---------------|----------------|
-| **pf-react** | Component development | Does this help me write or test a React component? | `pf-unit-test-generator`, `pf-bug-triage` |
-| **pf-styling** | Visual implementation | Does this help me understand or apply visual styling? | `pf-raw-colors-scan`, `pf-tokens` |
-| **pf-a11y** | Accessibility | Does this help me make something accessible? | `pf-audit`, `pf-doc-scaffold` |
-| **pf-figma** | Design tooling | Does this require Figma as input or output? | `pf-design-review`, `pf-design-diff` |
-| **pf-workflow** | Project operations | Does this help manage the project, not build it? | `pf-create-issue`, `pf-org-version-update`, `dependency-recommender` |
+| Plugin | What it helps you do | Decision test | Example skills |
+|--------|---------------------|---------------|----------------|
+| **react** | Develop and test React components | Does this help me write or test a React component? | `pf-unit-test-generator`, `pf-bug-triage` |
+| **design-tokens** | Reference, audit, and migrate design tokens | Does this involve design tokens, CSS variables, or color values? | `pf-tokens`, `pf-token-auditor`, `pf-raw-colors-scan` |
+| **a11y** | Audit and document accessibility | Does this help me make something accessible? | *(accepting contributions)* |
+| **figma** | Review and extract from Figma designs | Does this require Figma as input or output? | `figma-changes` |
+| **issue-management** | Create and track issues across tools | Does this help me create, link, or manage issues? | `pf-create-issue`, `duplicate-epic` |
+| **repo-management** | Manage releases, dependencies, and repo health | Does this help me maintain a repository? | `pf-org-version-update`, `dependency-recommender`, `analytics-repo-pruning` |
 
 **How to decide:**
 - Use the **decision test** column. If you can answer "yes" to a plugin's question, that's where your skill goes.
 - If your skill matches multiple plugins, pick the one closest to its *primary input/output*.
-- If it doesn't fit any plugin, open an issue to discuss — don't create a new plugin without coordination.
+- If it doesn't fit any plugin, open an issue to discuss creating a new one.
 
-**Skill vs agent:**
+### Plugin naming standard
+
+Plugin names must tell a user exactly what the plugin helps them do. A user browsing the marketplace should understand what they're installing without clicking through.
+
+**Good names** describe the capability:
+- `design-tokens` — you know it's about design tokens
+- `issue-management` — you know it manages issues
+- `react` — universally understood technology domain
+
+**Bad names** are vague categories:
+- `workflow` — what workflow?
+- `styling` — styling what? how?
+- `ops` — too abstract
+
+When proposing a new plugin, ask: *"If someone sees this name in a list, do they know what they're installing?"* If not, pick a more specific name. It's fine to create a plugin with only 1-2 skills if it represents a distinct domain — the taxonomy should reflect where the project is going, not just where it is today.
+
+### Skill vs agent
+
 - **Skill** — a task that produces a result: "generate tests," "audit for accessibility," "find an icon." Most contributions are skills.
 - **Agent** — domain knowledge the AI follows: "always follow these coding standards," "when reviewing designs, always verify brand colors and 8px grid spacing." Only create an agent if it's foundational context that improves *every* interaction in that plugin's area.
 
@@ -91,7 +109,7 @@ Use the `pf-` prefix on skill and agent names that are **PatternFly-specific**. 
 | Skill | No — recommends deps for any project | `dependency-recommender` |
 | Agent | Yes — PF React coding standards | `pf-coding-standards` |
 
-**Why this matters:** In Cursor, slash commands appear in a flat list without plugin context — `/unit-test-generator` is indistinguishable from skills in other plugins. In Claude Code, skills show the plugin namespace (`/pf-react:pf-unit-test-generator`), but the `pf-` prefix on the skill name ensures discoverability across both tools.
+**Why this matters:** In Cursor, slash commands appear in a flat list without plugin context — `/unit-test-generator` is indistinguishable from skills in other plugins. In Claude Code, skills show the plugin namespace (`/react:pf-unit-test-generator`), but the `pf-` prefix on the skill name ensures discoverability across both tools.
 
 **The directory name, file name, and frontmatter `name` must all match.** A mismatch causes confusing behavior when invoking the skill.
 - Skill directory: `skills/pf-unit-test-generator/SKILL.md` with `name: pf-unit-test-generator`
@@ -117,7 +135,7 @@ For guidance on writing effective skills — structure, descriptions, examples, 
 
 In addition to the skill-creator guidance, skills in this repo must follow these rules:
 
-- **Frontmatter is required** with `name` and `description`. The `name` must match the directory name. The `description` should include trigger contexts (e.g., "Use when...") since the AI decides whether to load the skill based on the description alone.
+- **Frontmatter is required** with `name` and `description`. The `name` must match the directory name. The `description` should include trigger contexts (e.g., "Use when...") since the AI decides whether to load the skill based on the description alone. Front-load the key use case — descriptions longer than 250 characters are truncated in the skill listing.
 - Add `disable-model-invocation: true` if your skill has side effects (creates issues, posts comments, deploys)
 - **Describe outcomes, not implementation** — tell the AI what to accomplish, not how to do it. The AI already knows how to use `git`, `gh`, `grep`, etc.
 - **Skills must be tool-agnostic** — they run in both Claude Code and Cursor. Avoid referencing a specific tool (e.g., use "Assistant:" instead of "Claude:" in examples).

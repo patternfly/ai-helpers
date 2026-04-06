@@ -5,29 +5,34 @@
   },
   "plugins": [
     {
-      "name": "pf-react",
-      "source": "./plugins/pf-react",
-      "description": "PatternFly React coding standards and unit test generation agents"
+      "name": "react",
+      "source": "./plugins/react",
+      "description": "React component development — coding standards, testing, and structure"
     },
     {
-      "name": "pf-styling",
-      "source": "./plugins/pf-styling",
-      "description": "CSS, SCSS, design tokens, and visual styling for PatternFly"
+      "name": "design-tokens",
+      "source": "./plugins/design-tokens",
+      "description": "Design token reference, auditing, and migration"
     },
     {
-      "name": "pf-a11y",
-      "source": "./plugins/pf-a11y",
-      "description": "Accessibility auditing, reporting, and documentation for PatternFly applications"
+      "name": "a11y",
+      "source": "./plugins/a11y",
+      "description": "Accessibility auditing, reporting, and documentation"
     },
     {
-      "name": "pf-figma",
-      "source": "./plugins/pf-figma",
-      "description": "Figma design review, diffing, and asset identification for PatternFly"
+      "name": "figma",
+      "source": "./plugins/figma",
+      "description": "Figma design review, diffing, and asset identification"
     },
     {
-      "name": "pf-workflow",
-      "source": "./plugins/pf-workflow",
-      "description": "Issue tracking, PR management, and cross-repo coordination for PatternFly projects"
+      "name": "issue-management",
+      "source": "./plugins/issue-management",
+      "description": "Issue creation, tracking, and cross-project coordination"
+    },
+    {
+      "name": "repo-management",
+      "source": "./plugins/repo-management",
+      "description": "Release versioning, dependency analysis, and repository health"
     }
   ]
 }

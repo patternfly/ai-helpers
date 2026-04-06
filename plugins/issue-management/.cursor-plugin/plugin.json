@@ -1,0 +1,11 @@
+{
+  "name": "issue-management",
+  "description": "Issue creation, tracking, and cross-project coordination",
+  "version": "1.0.0",
+  "author": {
+    "name": "PatternFly Team",
+    "url": "https://www.patternfly.org"
+  },
+  "repository": "https://github.com/patternfly/ai-helpers",
+  "license": "MIT"
+}

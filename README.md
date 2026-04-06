@@ -13,7 +13,7 @@ Plugins work in both **Claude Code** and **Cursor**. The content is identical â€
 /plugin marketplace add patternfly/ai-helpers
 
 # Install the plugins you need
-/plugin install pf-react@ai-helpers
+/plugin install react@ai-helpers
 ```
 
 After installation, the plugin's agents and skills are available in any project.
@@ -27,11 +27,13 @@ Cursor can discover plugins from `.cursor-plugin/` directories. If you also have
 <!-- BEGIN PLUGIN TABLE -->
 | Plugin | Description |
 |--------|-------------|
-| **pf-a11y** | Accessibility auditing, reporting, and documentation for PatternFly applications |
-| **pf-figma** | Figma design review, diffing, and asset identification for PatternFly |
-| **pf-react** | PatternFly React coding standards and unit test generation agents |
-| **pf-styling** | CSS, SCSS, design tokens, and visual styling for PatternFly |
-| **pf-workflow** | Issue tracking, PR management, and cross-repo coordination for PatternFly projects |
+| **a11y** | Accessibility auditing, reporting, and documentation |
+| **design-tokens** | Design token reference, auditing, and migration |
+| **figma** | Figma design review, diffing, and asset identification |
+| **issue-management** | Issue creation, tracking, and cross-project coordination |
+| **pf-workflow** |  |
+| **react** | React component development â€” coding standards, testing, and structure |
+| **repo-management** | Release versioning, dependency analysis, and repository health |
 <!-- END PLUGIN TABLE -->
 
 See [PLUGINS.md](PLUGINS.md) for skills, agents, and usage details.
@@ -45,8 +47,8 @@ For the best experience, also install the [PatternFly MCP server](https://github
 ```mermaid
 graph TD
     A[AI Tool] -->|discovers| B[".<tool>-plugin/marketplace.json"]
-    B -->|references| C[plugins/pf-react]
-    B -->|references| D[plugins/pf-a11y]
+    B -->|references| C[plugins/react]
+    B -->|references| D[plugins/design-tokens]
     B -->|references| E[plugins/...]
     C --- F[skills/ + agents/]
     D --- G[skills/ + agents/]

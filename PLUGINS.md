@@ -4,66 +4,82 @@ Quick reference of all plugins and what they contain. This file is auto-generate
 
 ## Table of Contents
 
-- [pf-a11y](#pf-a11y) — Accessibility auditing, reporting, and documentation for PatternFly applications
-- [pf-figma](#pf-figma) — Figma design review, diffing, and asset identification for PatternFly
-- [pf-react](#pf-react) — PatternFly React coding standards and unit test generation agents
-- [pf-styling](#pf-styling) — CSS, SCSS, design tokens, and visual styling for PatternFly
-- [pf-workflow](#pf-workflow) — Issue tracking, PR management, and cross-repo coordination for PatternFly projects
+- [a11y](#a11y) — Accessibility auditing, reporting, and documentation
+- [design-tokens](#design-tokens) — Design token reference, auditing, and migration
+- [figma](#figma) — Figma design review, diffing, and asset identification
+- [issue-management](#issue-management) — Issue creation, tracking, and cross-project coordination
+- [pf-workflow](#pf-workflow) — 
+- [react](#react) — React component development — coding standards, testing, and structure
+- [repo-management](#repo-management) — Release versioning, dependency analysis, and repository health
 
 ---
 
-### pf-a11y
+### a11y
 
-Accessibility auditing, reporting, and documentation for PatternFly applications
+Accessibility auditing, reporting, and documentation
 
 No skills or agents yet — contributions welcome!
 
-### pf-figma
+### design-tokens
 
-Figma design review, diffing, and asset identification for PatternFly
-
-**Skills:**
-- `/pf-figma:figma-changes` — Identify Figma design changes and generate code update checklists. Use when the user asks to "check Figma updates", "track design changes", "what changed in Figma", "create changelog from Figma", or "what code needs updating based on Figma".
-
-### pf-react
-
-PatternFly React coding standards and unit test generation agents
+Design token reference, auditing, and migration
 
 **Skills:**
-- `/pf-react:icon-finder` — Find icons from the Red Hat Design System (@rhds/icons) by use case. Searches the Red Hat Icons demo site by keyword, returns matching icon names with a visual HTML preview for comparison. Use when the user asks to find an icon, search for an icon by purpose, pick an icon for a UI, or get icon options for a use case.
-- `/pf-react:patternfly-component-structure` — Guide for PatternFly React component structure — audits, correct nesting, and layout debugging. Use when building with @patternfly/react-core or @patternfly/react-table, scanning code for hierarchy violations, or fixing spacing and alignment issues.
-- `/pf-react:pf-bug-triage` — Performs preliminary triage of opened issues marked as bugs. Suggests what needs to be updated to fix reported bugs, provides context for assignees, and tags the most appropriate maintainer when the issue contains questions. Use when triaging bug issues, reviewing new bug reports, or preparing issues for assignment.
-- `/pf-react:pf-class-migration-scanner` — Scans for legacy PatternFly class usage and recommends PF6-safe replacements. Use when modernizing older PatternFly codebases.
-- `/pf-react:pf-import-checker` — Audits and fixes PatternFly import paths, with emphasis on charts, chatbot, and component-groups. Use when imports fail or PatternFly modules are unresolved.
-- `/pf-react:pf-library-test-writer` — Write unit tests for contributors to PatternFly libraries (patternfly-react, patternfly-chatbot, etc.), not for consumers of PatternFly components. Use `unit-test-generator` for consumer application tests instead.
-- `/pf-react:pf-project-scaffolder` — Scaffolds PatternFly React projects with PF6-safe dependencies, imports, and starter layout. Use when creating a new PatternFly app or bootstrapping a migration sandbox.
-- `/pf-react:pf-unit-test-generator` — Generate a comprehensive unit test file for a given React component
+- `/design-tokens:css-var-analyzer` — Analyze CSS custom property usage, redefinitions, and naming patterns in PatternFly SCSS components. Use when auditing --pf- variables, debugging missing definitions, tracing SCSS variable cascades, or finding unused CSS custom properties.
+- `/design-tokens:pf-analyze-modifiers` — Find, list, and summarize PatternFly component modifiers (pf-m- classes) across the codebase. Use when analyzing component styling patterns, documenting modifier usage, or auditing CSS consistency.
+- `/design-tokens:pf-raw-colors-scan` — "Analyze the provided code to find any raw color values assigned to styling properties. Flag these values as technical debt and suggest their replacement with design tokens."
+- `/design-tokens:pf-token-auditor` — Validate and bridge Figma design styles to PatternFly 6 design tokens. Use when auditing Figma designs against PatternFly tokens, validating token naming, translating Figma styles to composite tokens, or when the user mentions "token validation", "token audit", "design tokens", "Figma audit", "Figma variables", "token bridge", or "PF tokens".
+- `/design-tokens:pf-tokens` — Build CSS design tokens for PatternFly core and copy them to the PatternFly repository.
+
+### figma
+
+Figma design review, diffing, and asset identification
+
+**Skills:**
+- `/figma:figma-changes` — Identify Figma design changes and generate code update checklists. Use when the user asks to "check Figma updates", "track design changes", "what changed in Figma", "create changelog from Figma", or "what code needs updating based on Figma".
+
+### issue-management
+
+Issue creation, tracking, and cross-project coordination
+
+**Skills:**
+- `/issue-management:duplicate-epic` — Duplicates an Atlassian Jira epic into the PatternFly (PF) project space, adds an "is duplicated by" link referencing the original, and assigns it as a child of a given feature. This allows the PatternFly team to trace Jira work items up a hierarchy in the product Jira project. Use when asked to "duplicate epic X for feature Y", clone a COST epic to PatternFly, or replicate a Jira epic under a PF feature.
+- `/issue-management:pf-create-issue` — Create GitHub issues for PatternFly repositories with smart templates, followup tracking, and duplicate detection.
+- `/issue-management:quarterly-initiative-report` — Generate comprehensive quarterly Jira status reports with progress tracking, RAG assessment, blocker identification, cross-project duplicate link analysis, and Q+1 recommendations. Use when generating quarterly reports, tracking initiative progress, or analyzing epic completion metrics across Jira projects with labels.
+
+### pf-workflow
+
+
+
+**Skills:**
+- `/pf-workflow:quarterly-initiative-report` — Generate comprehensive quarterly Jira status reports with progress tracking, RAG assessment, blocker identification, cross-project duplicate link analysis, and Q+1 recommendations. Use when generating quarterly reports, tracking initiative progress, or analyzing epic completion metrics across Jira projects with labels.
+
+### react
+
+React component development — coding standards, testing, and structure
+
+**Skills:**
+- `/react:icon-finder` — Find icons from the Red Hat Design System (@rhds/icons) by use case. Searches the Red Hat Icons demo site by keyword, returns matching icon names with a visual HTML preview for comparison. Use when the user asks to find an icon, search for an icon by purpose, pick an icon for a UI, or get icon options for a use case.
+- `/react:patternfly-component-structure` — Guide for PatternFly React component structure — audits, correct nesting, and layout debugging. Use when building with @patternfly/react-core or @patternfly/react-table, scanning code for hierarchy violations, or fixing spacing and alignment issues.
+- `/react:pf-bug-triage` — Performs preliminary triage of opened issues marked as bugs. Suggests what needs to be updated to fix reported bugs, provides context for assignees, and tags the most appropriate maintainer when the issue contains questions. Use when triaging bug issues, reviewing new bug reports, or preparing issues for assignment.
+- `/react:pf-class-migration-scanner` — Scans for legacy PatternFly class usage and recommends PF6-safe replacements. Use when modernizing older PatternFly codebases.
+- `/react:pf-import-checker` — Audits and fixes PatternFly import paths, with emphasis on charts, chatbot, and component-groups. Use when imports fail or PatternFly modules are unresolved.
+- `/react:pf-library-test-writer` — Write unit tests for contributors to PatternFly libraries (patternfly-react, patternfly-chatbot, etc.), not for consumers of PatternFly components. Use `unit-test-generator` for consumer application tests instead.
+- `/react:pf-project-scaffolder` — Scaffolds PatternFly React projects with PF6-safe dependencies, imports, and starter layout. Use when creating a new PatternFly app or bootstrapping a migration sandbox.
+- `/react:pf-unit-test-generator` — Generate a comprehensive unit test file for a given React component
+- `/react:write-example-description` — >-
 
 **Agents:**
 - `component-structure-audit` — PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns. Use when writing, reviewing, or refactoring PatternFly UI so layouts rely on correct trees, not custom CSS.
 - `pf-coding-standards` — PatternFly React development standards. Use when writing, reviewing, or refactoring PatternFly React components, layouts, or styles.
 - `pf-unit-test-standards` — PatternFly React unit testing standards. Use when writing, reviewing, or modifying unit tests for PatternFly React components.
 
-### pf-styling
+### repo-management
 
-CSS, SCSS, design tokens, and visual styling for PatternFly
-
-**Skills:**
-- `/pf-styling:css-var-analyzer` — Analyze CSS custom property usage, redefinitions, and naming patterns in PatternFly SCSS components. Use when auditing --pf- variables, debugging missing definitions, tracing SCSS variable cascades, or finding unused CSS custom properties.
-- `/pf-styling:pf-analyze-modifiers` — Find, list, and summarize PatternFly component modifiers (pf-m- classes) across the codebase. Use when analyzing component styling patterns, documenting modifier usage, or auditing CSS consistency.
-- `/pf-styling:pf-raw-colors-scan` — "Analyze the provided code to find any raw color values assigned to styling properties. Flag these values as technical debt and suggest their replacement with design tokens."
-- `/pf-styling:pf-token-auditor` — Validate and bridge Figma design styles to PatternFly 6 design tokens. Use when auditing Figma designs against PatternFly tokens, validating token naming, translating Figma styles to composite tokens, or when the user mentions "token validation", "token audit", "design tokens", "Figma audit", "Figma variables", "token bridge", or "PF tokens".
-- `/pf-styling:pf-tokens` — Build CSS design tokens for PatternFly core and copy them to the PatternFly repository.
-
-### pf-workflow
-
-Issue tracking, PR management, and cross-repo coordination for PatternFly projects
+Release versioning, dependency analysis, and repository health
 
 **Skills:**
-- `/pf-workflow:analytics-repo-pruning` — Flags archived or inactive Git repositories listed in PatternFly Analytics repos.json so entries can be pruned. Use when reviewing repos.json, auditing tracked codebases, or removing stale or archived repos from analytics.
-- `/pf-workflow:dependency-recommender` — Analyzes the project's manifests and code patterns, then recommends NPM or other dependencies that would reduce complexity, increase stability, and improve reusability—with a short rationale per recommendation.
-- `/pf-workflow:duplicate-epic` — Duplicates an Atlassian Jira epic into the PatternFly (PF) project space, adds an "is duplicated by" link referencing the original, and assigns it as a child of a given feature. This allows the PatternFly team to trace Jira work items up a hierarchy in the product Jira project. Use when asked to "duplicate epic X for feature Y", clone a COST epic to PatternFly, or replicate a Jira epic under a PF feature.
-- `/pf-workflow:pf-create-issue` — Create GitHub issues for PatternFly repositories with smart templates, followup tracking, and duplicate detection.
-- `/pf-workflow:pf-org-version-update` — Updates the patternfly-org repo for a new PatternFly release or release candidate. Fetches or applies specified versions, updates package.json files and versions.json, and then provides the user with steps to run the build and regenerate screenshots locally. Use when preparing a PatternFly release, updating PF versions in this repo, or when the user asks to update patternfly-org for a new release.
-- `/pf-workflow:quarterly-initiative-report` — Generate comprehensive quarterly Jira status reports with progress tracking, RAG assessment, blocker identification, cross-project duplicate link analysis, and Q+1 recommendations. Use when generating quarterly reports, tracking initiative progress, or analyzing epic completion metrics across Jira projects with labels.
+- `/repo-management:analytics-repo-pruning` — Flags archived or inactive Git repositories listed in PatternFly Analytics repos.json so entries can be pruned. Use when reviewing repos.json, auditing tracked codebases, or removing stale or archived repos from analytics.
+- `/repo-management:dependency-recommender` — Analyzes the project's manifests and code patterns, then recommends NPM or other dependencies that would reduce complexity, increase stability, and improve reusability—with a short rationale per recommendation.
+- `/repo-management:pf-org-version-update` — Updates the patternfly-org repo for a new PatternFly release or release candidate. Fetches or applies specified versions, updates package.json files and versions.json, and then provides the user with steps to run the build and regenerate screenshots locally. Use when preparing a PatternFly release, updating PF versions in this repo, or when the user asks to update patternfly-org for a new release.
 

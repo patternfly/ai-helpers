@@ -1,0 +1,11 @@
+{
+  "name": "react",
+  "description": "React component development — coding standards, testing, and structure",
+  "version": "1.0.0",
+  "author": {
+    "name": "PatternFly Team",
+    "url": "https://www.patternfly.org"
+  },
+  "repository": "https://github.com/patternfly/ai-helpers",
+  "license": "MIT"
+}
