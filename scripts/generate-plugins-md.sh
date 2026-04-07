@@ -8,9 +8,19 @@ cd "$(git rev-parse --show-toplevel)"
 OUTPUT="PLUGINS.md"
 
 # Extract "description" from YAML frontmatter (between --- delimiters)
+# Handles both inline (description: text) and multiline (description: >-) YAML values
 get_frontmatter_desc() {
   local file="$1"
-  sed -n '/^---$/,/^---$/p' "$file" | grep '^description:' | sed 's/^description: *//'
+  local frontmatter desc_line desc
+  frontmatter=$(sed -n '/^---$/,/^---$/p' "$file")
+  desc_line=$(echo "$frontmatter" | grep '^description:')
+  [ -z "$desc_line" ] && return
+  desc=$(echo "$desc_line" | sed 's/^description: *//')
+  # If value is a YAML block scalar indicator, read the continuation lines
+  if [ "$desc" = ">-" ] || [ "$desc" = ">" ] || [ "$desc" = "|" ] || [ "$desc" = "|-" ]; then
+    desc=$(echo "$frontmatter" | sed -n '/^description:/,/^[a-zA-Z_-]*:\|^---$/{ /^description:/d; /^[a-zA-Z_-]*:/d; /^---$/d; p; }' | sed 's/^  *//' | tr '\n' ' ' | sed 's/ *$//')
+  fi
+  echo "$desc"
 }
 
 # Fallback: first non-empty line after frontmatter (or first line if no frontmatter)

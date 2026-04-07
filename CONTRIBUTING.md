@@ -25,14 +25,30 @@ Your skill becomes available as `/<plugin-name>:your-skill` once merged.
 
 ## Creating a New Plugin
 
-Create a new plugin when your contribution doesn't fit into an existing one — for example, a new domain like charts, chatbot patterns, or migration tooling.
+Create a new plugin when your contribution represents a distinct domain that doesn't fit into an existing plugin.
+
+### Plugin naming standard
+
+Plugin names must tell a user exactly what the plugin helps them do. Someone browsing the marketplace should understand what they're installing without clicking through.
+
+Ask: *"If someone sees this name in a list, do they know what they're installing?"*
+
+| Good | Why | Bad | Why |
+|------|-----|-----|-----|
+| `design-tokens` | Specific — you know it's about tokens | `styling` | Vague — styling what? |
+| `issue-management` | Clear action — manages issues | `workflow` | Could mean anything |
+| `react` | Universal tech domain | `frontend` | Too broad |
+
+It's fine to create a plugin with only 1-2 skills if it represents a distinct domain. The taxonomy should reflect where the project is going, not just where it is today. Coordinate via an issue before creating a new plugin.
+
+### Steps
 
 1. Create a new directory under `plugins/your-plugin-name/`
 2. Add a `plugin.json` to both `.claude-plugin/` and `.cursor-plugin/` (identical content):
    ```json
    {
      "name": "your-plugin-name",
-     "description": "What your plugin does",
+     "description": "What your plugin helps users do",
      "version": "1.0.0",
      "author": {
        "name": "Your Name"
