@@ -59,7 +59,7 @@ React component development — coding standards, testing, and structure
 - `/react:pf-library-test-writer` — Write unit tests for contributors to PatternFly libraries (patternfly-react, patternfly-chatbot, etc.), not for consumers of PatternFly components. Use `unit-test-generator` for consumer application tests instead.
 - `/react:pf-project-scaffolder` — Scaffolds PatternFly React projects with PF6-safe dependencies, imports, and starter layout. Use when creating a new PatternFly app or bootstrapping a migration sandbox.
 - `/react:pf-unit-test-generator` — Generate a comprehensive unit test file for a given React component
-- `/react:write-example-description` — >-
+- `/react:write-example-description` — Helps PatternFly developers write and refine example descriptions and demo descriptions for PatternFly.org. Covers (1) component example MD files: prose under each ### heading before the ts block in packages/react-core/src/components/*/examples/*.md; (2) demo MD files: prose under ## Demos / ### Demo name in packages/react-core/src/demos. Uses PatternFly MCP for UX writing and content guidelines, suggests cross-links, and asks the user to accept or request changes. Run only when the user asks.
 
 **Agents:**
 - `component-structure-audit` — PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns. Use when writing, reviewing, or refactoring PatternFly UI so layouts rely on correct trees, not custom CSS.
