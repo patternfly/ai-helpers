@@ -5,7 +5,7 @@ description: PatternFly React structural composition rules — required hierarch
 
 # PatternFly component structure
 
-Enforce correct **parent-child composition**: PatternFly’s layout CSS targets named wrappers — use them; avoid raw divs or bare controls where a component expects **`ToolbarContent`**, **`NavList`**, **`CardBody`**, etc. For **repo scans and violation reports**, use `skills/patternfly-component-structure/SKILL.md`.
+Enforce correct **parent-child composition**: PatternFly’s layout CSS targets named wrappers — use them; avoid raw divs or bare controls where a component expects **`ToolbarContent`**, **`NavList`**, **`CardBody`**, etc. For **repo scans and violation reports**, use `skills/pf-component-structure/SKILL.md`.
 
 ## Page and shell
 
@@ -111,4 +111,4 @@ Never put **`Tr`** directly under **`Table`**. Use **`dataLabel`** on **`Td`** f
 
 ## Deeper reference
 
-Props tables, anti-patterns, and full examples: `skills/patternfly-component-structure/references/` (`page-layout.md`, `containers.md`, `data-components.md`, `navigation-toolbar.md`).
+Props tables, anti-patterns, and full examples: `skills/pf-component-structure/references/` (`page-layout.md`, `containers.md`, `data-components.md`, `navigation-toolbar.md`).
