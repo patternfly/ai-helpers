@@ -1,0 +1,243 @@
+---
+name: summarize-issues
+description: "Summarize Jira sprint issues and contributions for the current user. Use when the user asks to: (1) See what's left in the sprint, (2) Summarize their assigned work, (3) Prioritize sprint tasks, (4) See issues they're contributing to, or (5) Understand what to work on next. Focuses on active sprint work first, then shows contributor roles and backlog."
+---
+
+# Summarize My Jira Issues
+
+Fetch sprint issues assigned to or contributed by the current user, summarize the workload, and provide prioritization recommendations.
+
+## Workflow
+
+1. **Get user identity** - Identify the current user's Jira account
+2. **Fetch sprint issues** - Query active sprint items (assigned + contributing)
+3. **Fetch contributor issues** - Query issues where user is listed as contributor
+4. **Analyze workload** - Categorize by sprint commitment vs contributions
+5. **Generate summary** - Present sprint-focused overview with recommendations
+
+## Step 1: Get User Identity and Cloud ID
+
+First, get the user's Atlassian account info and accessible resources.
+
+```
+atlassianUserInfo()
+getAccessibleAtlassianResources()
+```
+
+Store the `accountId` from user info and `cloudId` from resources for subsequent queries.
+
+## Step 2: Fetch Sprint Issues
+
+Query issues in open sprints - these are the primary focus.
+
+**Primary query - Sprint issues assigned to user:**
+```
+searchJiraIssuesUsingJql(
+    cloudId="[cloudId]",
+    jql='assignee = currentUser() AND sprint in openSprints() AND status NOT IN (Done, Closed, Resolved) ORDER BY priority DESC, status ASC',
+    maxResults=50,
+    fields=["summary", "status", "priority", "issuetype", "duedate", "created", "updated", "project", "labels", "sprint"],
+    responseContentFormat="markdown"
+)
+```
+
+**Sprint issues completed this sprint:**
+```
+searchJiraIssuesUsingJql(
+    cloudId="[cloudId]",
+    jql='assignee = currentUser() AND sprint in openSprints() AND status IN (Done, Closed, Resolved) ORDER BY resolved DESC',
+    maxResults=20,
+    fields=["summary", "status", "priority", "resolved", "project"],
+    responseContentFormat="markdown"
+)
+```
+
+## Step 3: Fetch Contributor Issues
+
+Query issues where the user is listed as a contributor (using the "Contributor" or "Contributors" custom field). Run these in parallel with sprint queries.
+
+**Issues where user is a contributor (not assignee):**
+```
+searchJiraIssuesUsingJql(
+    cloudId="[cloudId]",
+    jql='"Contributor[User Picker (multiple users)]" = currentUser() AND assignee != currentUser() AND status NOT IN (Done, Closed, Resolved) ORDER BY priority DESC, updated DESC',
+    maxResults=30,
+    fields=["summary", "status", "priority", "issuetype", "assignee", "updated", "project", "labels"],
+    responseContentFormat="markdown"
+)
+```
+
+**Note:** The contributor field name varies by Jira instance. Common names:
+- `"Contributor[User Picker (multiple users)]"`
+- `"Contributors"`
+- `cf[XXXXX]` (custom field ID)
+
+If the first query fails, try alternate field names or ask the user for their Jira's contributor field name.
+
+## Step 4: Fetch Backlog (Brief)
+
+Only fetch a brief backlog summary - sprint work takes priority.
+
+**Non-sprint assigned issues (brief overview):**
+```
+searchJiraIssuesUsingJql(
+    cloudId="[cloudId]",
+    jql='assignee = currentUser() AND (sprint is EMPTY OR sprint not in openSprints()) AND status NOT IN (Done, Closed, Resolved) ORDER BY priority DESC, updated DESC',
+    maxResults=10,
+    fields=["summary", "status", "priority", "issuetype", "updated", "project"],
+    responseContentFormat="markdown"
+)
+```
+
+## Step 5: Analyze Workload
+
+### Sprint Focus
+
+The primary analysis should be on sprint items:
+
+| Category | Criteria | Action |
+|----------|----------|--------|
+| 🔴 **Sprint - In Progress** | Active sprint items being worked on | Complete these first |
+| 🟡 **Sprint - To Do** | Sprint items not yet started | Start after in-progress items |
+| 🟢 **Sprint - Done** | Completed this sprint | Track velocity |
+
+### Contributor Analysis
+
+For issues where user is a contributor:
+
+| Category | Criteria | Action |
+|----------|----------|--------|
+| 👥 **Active Contributions** | In Progress items you're helping with | May need your input |
+| 📋 **Pending Contributions** | To Do items you'll contribute to | Be aware of upcoming work |
+
+### Backlog (Brief)
+
+Only highlight backlog items that are:
+- High priority and may need sprint inclusion
+- Blocked or stale and need attention
+- Quick wins that could be done if sprint work completes early
+
+## Step 6: Generate Summary
+
+Present findings using this sprint-focused structure.
+
+### Summary Output Template
+
+```markdown
+# Sprint Summary
+
+## Sprint Status
+- **Sprint Items Remaining:** [count]
+- **In Progress:** [count] | **To Do:** [count]
+- **Completed This Sprint:** [count]
+
+---
+
+## 🎯 Your Sprint Commitment
+
+### In Progress
+[List sprint items currently being worked on]
+
+| Issue | Summary | Status | Updated |
+|-------|---------|--------|---------|
+| PROJ-123 | [summary] | In Progress | Today |
+
+### To Do
+[List sprint items not yet started]
+
+| Issue | Summary | Priority |
+|-------|---------|----------|
+| PROJ-456 | [summary] | High |
+
+### ✅ Completed This Sprint
+[Brief list of completed sprint work]
+
+- PROJ-111: [summary]
+- PROJ-222: [summary]
+
+---
+
+## 👥 Contributing To
+
+Issues where you're listed as a contributor (owned by others):
+
+| Issue | Summary | Owner | Status | Updated |
+|-------|---------|-------|--------|---------|
+| PROJ-789 | [summary] | @owner | In Progress | Yesterday |
+
+**Action needed:** [Note any contributor items that may need your input soon]
+
+---
+
+## 📋 Backlog Highlights
+
+[Only show if relevant - keep brief]
+
+**[count] items in backlog** (not in current sprint)
+
+Notable items:
+- [Any high priority items that might need sprint inclusion]
+- [Any blocked items needing attention]
+
+---
+
+## Recommended Focus Order
+
+1. **Now:** [Most urgent sprint item]
+2. **Next:** [Second priority]
+3. **Watch:** [Contributor items that may need input]
+```
+
+## Tips for Quality Summaries
+
+**Sprint first:**
+- Always lead with sprint commitment
+- Sprint items are the primary deliverables
+- Backlog is secondary context only
+
+**Contributor awareness:**
+- Highlight contributor items that are "In Progress" - you may be needed
+- Note who owns each contributor issue
+- Flag if contributor items are blocked waiting on you
+
+**Keep backlog brief:**
+- Only show top 5-10 backlog items
+- Focus on items that might need sprint inclusion
+- Don't overwhelm with full backlog listing
+
+**Adapt to sprint state:**
+- Early sprint: Focus on planning and getting started
+- Mid sprint: Focus on progress and blockers
+- Late sprint: Focus on completion and carryover risk
+
+## Example Queries
+
+**All sprint issues (any status):**
+```jql
+assignee = currentUser() AND sprint in openSprints()
+```
+
+**Sprint items at risk (not started, sprint half over):**
+```jql
+assignee = currentUser() AND sprint in openSprints() AND status = "To Do"
+```
+
+**Contributor issues in progress:**
+```jql
+"Contributor[User Picker (multiple users)]" = currentUser() AND status = "In Progress"
+```
+
+**Contributor issues updated recently:**
+```jql
+"Contributor[User Picker (multiple users)]" = currentUser() AND updated >= -3d
+```
+
+**High priority backlog (not in sprint):**
+```jql
+assignee = currentUser() AND sprint is EMPTY AND priority IN (Highest, High) AND status NOT IN (Done, Closed, Resolved)
+```
+
+**Backlog items not updated in 30 days:**
+```jql
+assignee = currentUser() AND sprint is EMPTY AND updated < -30d AND status NOT IN (Done, Closed, Resolved)
+```
