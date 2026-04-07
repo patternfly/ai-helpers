@@ -1,5 +1,5 @@
 ---
-name: patternfly-component-structure
+name: pf-component-structure
 description: Guide for PatternFly React component structure — audits, correct nesting, and layout debugging. Use when building with @patternfly/react-core or @patternfly/react-table, scanning code for hierarchy violations, or fixing spacing and alignment issues.
 ---
 
