@@ -31,7 +31,6 @@ Cursor can discover plugins from `.cursor-plugin/` directories. If you also have
 | **design-tokens** | Design token reference, auditing, and migration |
 | **figma** | Figma design review, diffing, and asset identification |
 | **issue-management** | Issue creation, tracking, and cross-project coordination |
-| **pf-workflow** |  |
 | **react** | React component development — coding standards, testing, and structure |
 | **repo-management** | Release versioning, dependency analysis, and repository health |
 <!-- END PLUGIN TABLE -->
