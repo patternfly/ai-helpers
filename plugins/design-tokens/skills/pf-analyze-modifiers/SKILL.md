@@ -46,22 +46,22 @@ Write a Markdown file with:
 
 ### Analyze all modifiers
 ```text
-User: /pf-styling:pf-analyze-modifiers
+User: /design-tokens:pf-analyze-modifiers
 ```
 
 ### Analyze specific component
 ```text
-User: /pf-styling:pf-analyze-modifiers for the Button component
+User: /design-tokens:pf-analyze-modifiers for the Button component
 ```
 
 ### Find modifier usage
 ```text
-User: /pf-styling:pf-analyze-modifiers find where pf-m-disabled is used
+User: /design-tokens:pf-analyze-modifiers find where pf-m-disabled is used
 ```
 
 ### Compare modifiers
 ```text
-User: /pf-styling:pf-analyze-modifiers compare pf-m-expanded and pf-m-collapsed
+User: /design-tokens:pf-analyze-modifiers compare pf-m-expanded and pf-m-collapsed
 ```
 
 ## Modifier Categories Reference

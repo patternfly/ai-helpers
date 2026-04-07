@@ -6,7 +6,7 @@
 # Requirements: jq, and either gh or curl (both typically pre-installed).
 #
 # Usage (from the project that contains repos.json, default file ./repos.json):
-#   bash plugins/pf-workflow/skills/analytics-repo-pruning/scripts/analytics-repo-pruning.sh repos.json
+#   bash plugins/repo-management/skills/analytics-repo-pruning/scripts/analytics-repo-pruning.sh repos.json
 #   bash .../analytics-repo-pruning.sh --days 730 repos.json
 #   bash .../analytics-repo-pruning.sh --json repos.json
 
