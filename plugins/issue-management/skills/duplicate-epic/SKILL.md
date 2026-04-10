@@ -1,6 +1,6 @@
 ---
 name: duplicate-epic
-description: Duplicates an Atlassian Jira epic into the PatternFly (PF) project space, adds an "is duplicated by" link referencing the original, and assigns it as a child of a given feature. This allows the PatternFly team to trace Jira work items up a hierarchy in the product Jira project. Use when asked to "duplicate epic X for feature Y", clone a COST epic to PatternFly, or replicate a Jira epic under a PF feature.
+description: Use when `/duplicate-epic <issue> <feature>` should clone a Jira Epic, Story, or Bug into the PF project, resolve non-epic inputs to their parent epic, link back to the source, and attach the new epic to a PF feature.
 disable-model-invocation: true
 ---
 
@@ -19,14 +19,23 @@ The script checks for both tools at startup and exits with a helpful message if 
 
 ## Input Parsing
 
-Accept issue identifiers as either bare keys or full URLs:
+The command takes exactly two positional arguments:
+
+| Position | Name | Description |
+|---|---|---|
+| `$1` | `issue` | Any Jira issue key or full URL — Epic, Story, Bug, etc. |
+| `$2` | `feature` | The PF feature key or full URL to assign the new epic to |
+
+Both bare keys and full URLs are accepted:
 
 | Input | Parsed key |
 |---|---|
-| `COST-7170` | `COST-7170` |
-| `https://redhat.atlassian.net/browse/COST-7170` | `COST-7170` |
-| `PF-3406` | `PF-3406` |
-| `https://redhat.atlassian.net/browse/PF-3406` | `PF-3406` |
+| `COST-7355` | `COST-7355` |
+| `https://redhat.atlassian.net/browse/COST-7355` | `COST-7355` |
+| `PF-3868` | `PF-3868` |
+| `https://redhat.atlassian.net/browse/PF-3868` | `PF-3868` |
+
+Pass `$1` and `$2` directly to the script — no further parsing required.
 
 ## Prerequisites
 
@@ -45,14 +54,16 @@ Run the script from the skill directory:
 
 ```bash
 cd $CLAUDE_SKILL_DIR
-bash scripts/duplicate_epic.sh <epic> <feature>
+bash scripts/duplicate_epic.sh <issue> <feature>
 ```
+
+The first argument (`issue`) may be an Epic, Story, Bug, or any other issue type. If it is not an Epic, the script automatically resolves its parent epic before cloning.
 
 **Examples:**
 
 ```bash
-bash scripts/duplicate_epic.sh COST-7170 PF-3406
-bash scripts/duplicate_epic.sh https://redhat.atlassian.net/browse/COST-7170 https://redhat.atlassian.net/browse/PF-3406
+bash scripts/duplicate_epic.sh COST-7355 PF-3868
+bash scripts/duplicate_epic.sh COST-7309 PF-3868   # story/bug — script walks up to parent epic automatically
 ```
 
 With inline credentials:
@@ -64,11 +75,13 @@ JIRA_USER_EMAIL="you@example.com" JIRA_API_TOKEN="your-token" \
 
 ## What the Script Does
 
-1. **Find existing clone** — checks the original epic's `Duplicate` issue links for any `PF-` issue; skips creation if found.
-2. **Clone** — if no clone exists, creates a new Epic in the `PF` project copying the summary, description, and labels.
-3. **Ensure "is duplicated by" link** — adds a `Duplicate` link so the new epic displays "is duplicated by {ORIGINAL}" in its linked work items; skips if already present.
-4. **Set parent and assignee** — assigns the new epic as a child of the given feature and assigns it to the current user (resolved automatically via the API token).
-5. **Display results** — prints clickable URLs for the feature, new epic, and original epic.
+1. **Resolve current user** — looks up the account ID for the authenticated user (used for the assignee field).
+2. **Resolve to an epic** — fetches the given issue. If it is not an `Epic` (e.g., it is a Story or Bug), the script walks up to its parent epic using `fields.parent` (next-gen projects) or `fields.customfield_10014` (classic epic link). Exits with an error if no parent epic can be found.
+3. **Find existing clone** — checks the resolved epic's `Duplicate` issue links for any `PF-` issue; skips creation if found.
+4. **Clone** — if no clone exists, creates a new Epic in the `PF` project copying the summary and labels. The description is sanitized before cloning: `mediaSingle` and `media` nodes (embedded attachments) are stripped, so embedded images and file attachments will not appear in the PF copy.
+5. **Ensure "is duplicated by" link** — adds a `Duplicate` link so the new epic displays "is duplicated by {ORIGINAL EPIC}" in its linked work items; skips if already present.
+6. **Set parent and assignee** — assigns the new epic as a child of the given feature and assigns it to the current user (resolved automatically via the API token).
+7. **Display results** — prints clickable URLs for the feature, new epic, and original epic.
 
 ## Output
 
@@ -78,4 +91,5 @@ After a successful run, display these URLs to the user:
 Feature:       https://redhat.atlassian.net/browse/PF-3406
 New Epic:      https://redhat.atlassian.net/browse/PF-XXXX
 Original Epic: https://redhat.atlassian.net/browse/COST-7170
+Input Issue:   https://redhat.atlassian.net/browse/COST-7309   ← only shown when input was not itself an epic
 ```

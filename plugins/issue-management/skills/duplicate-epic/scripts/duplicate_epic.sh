@@ -106,10 +106,50 @@ echo "Resolving current user..."
 ACCOUNT_ID=$(api_request GET "myself" | jq -r '.accountId')
 echo "Assignee account ID: $ACCOUNT_ID"
 
-# Step 2 — find or create PF clone
-echo "Checking for existing PF clone of $ORIGINAL_KEY..."
+# Step 2 — resolve to an epic (walk up the hierarchy until an Epic is found)
+echo "Fetching $ORIGINAL_KEY..."
 ORIGINAL_ISSUE=$(api_request GET "issue/$ORIGINAL_KEY")
 
+ISSUE_TYPE=$(echo "$ORIGINAL_ISSUE" | jq -r '.fields.issuetype.name')
+INPUT_KEY="$ORIGINAL_KEY"
+DEPTH=0
+MAX_DEPTH=10
+
+while [[ "$ISSUE_TYPE" != "Epic" ]]; do
+  DEPTH=$((DEPTH + 1))
+  if [[ "$DEPTH" -gt "$MAX_DEPTH" ]]; then
+    echo "ERROR: Exceeded $MAX_DEPTH levels walking up the hierarchy from $INPUT_KEY — possible cycle or unexpectedly deep tree." >&2
+    exit 1
+  fi
+
+  echo "$ORIGINAL_KEY is a $ISSUE_TYPE — walking up to parent..."
+
+  # Try fields.parent (next-gen projects) then fields.customfield_10014 (classic epic link)
+  PARENT_KEY=$(echo "$ORIGINAL_ISSUE" | jq -r '
+    (.fields.parent.key // empty),
+    (.fields.customfield_10014 // empty)
+    | select(. != null and . != "")
+  ' | head -1)
+
+  if [[ -z "$PARENT_KEY" ]]; then
+    echo "ERROR: Reached the top of the hierarchy without finding an Epic (last checked: $ORIGINAL_KEY)" >&2
+    exit 1
+  fi
+
+  echo "Fetching $PARENT_KEY..."
+  ORIGINAL_ISSUE=$(api_request GET "issue/$PARENT_KEY")
+  ISSUE_TYPE=$(echo "$ORIGINAL_ISSUE" | jq -r '.fields.issuetype.name')
+  ORIGINAL_KEY="$PARENT_KEY"
+done
+
+if [[ "$ORIGINAL_KEY" != "$INPUT_KEY" ]]; then
+  echo "Resolved: using epic $ORIGINAL_KEY (original input was $INPUT_KEY)"
+fi
+
+# Step 4 — find or create PF clone
+echo "Checking for existing PF clone of $ORIGINAL_KEY..."
+
+CREATED_NEW_CLONE=0
 NEW_KEY=$(echo "$ORIGINAL_ISSUE" | jq -r --arg proj "${PF_PROJECT}-" \
   '[(.fields.issuelinks // [])[] | select(.type.name == "Duplicate") | .inwardIssue.key // empty | select(startswith($proj))] | first // empty')
 
@@ -129,16 +169,19 @@ else
           issuetype:   {name: "Epic"},
           assignee:    {accountId: $account_id}
         }
-        + (if .fields.description != null then {description: .fields.description} else {} end)
+        + (if .fields.description != null then {
+           description: (.fields.description | walk(if type == "object" and .content? then .content = [.content[] | select(.type != "mediaSingle" and .type != "media")] else . end))
+         } else {} end)
         + (if (.fields.labels | length) > 0  then {labels: .fields.labels}            else {} end)
       )
     }')
 
   NEW_KEY=$(api_request POST "issue" "$PAYLOAD" | jq -r '.key')
   echo "Created: $NEW_KEY"
+  CREATED_NEW_CLONE=1
 fi
 
-# Step 3 — ensure "is duplicated by" link
+# Step 5 — ensure "is duplicated by" link
 echo "Checking for 'is duplicated by' link on $NEW_KEY..."
 NEW_ISSUE=$(api_request GET "issue/$NEW_KEY")
 
@@ -153,11 +196,17 @@ else
     --arg new_key "$NEW_KEY" \
     --arg orig "$ORIGINAL_KEY" \
     '{type: {name: "Duplicate"}, inwardIssue: {key: $new_key}, outwardIssue: {key: $orig}}')
-  api_request POST "issueLink" "$LINK_PAYLOAD" >/dev/null
-  echo "Link added"
+  if api_request POST "issueLink" "$LINK_PAYLOAD" >/dev/null 2>&1; then
+    echo "Link added"
+  elif [[ "$CREATED_NEW_CLONE" -eq 0 ]]; then
+    echo "WARNING: Could not add 'is duplicated by' link (likely missing link-issue permission in the source project). Continuing..." >&2
+  else
+    echo "ERROR: Created $NEW_KEY but could not add the duplicate link; aborting to avoid future duplicate clones." >&2
+    exit 1
+  fi
 fi
 
-# Step 4 — set parent and assignee
+# Step 6 — set parent and assignee
 echo "Assigning $NEW_KEY to current user and setting parent to $FEATURE_KEY..."
 UPDATE_PAYLOAD=$(jq -n \
   --arg feature "$FEATURE_KEY" \
@@ -166,9 +215,10 @@ UPDATE_PAYLOAD=$(jq -n \
 api_request PUT "issue/$NEW_KEY" "$UPDATE_PAYLOAD" >/dev/null
 echo "Updated"
 
-# Step 5 — display results
+# Step 7 — display results
 echo ""
 echo "Done!"
 echo "  Feature:       $JIRA_BASE_URL/browse/$FEATURE_KEY"
 echo "  New Epic:      $JIRA_BASE_URL/browse/$NEW_KEY"
 echo "  Original Epic: $JIRA_BASE_URL/browse/$ORIGINAL_KEY"
+[[ "$INPUT_KEY" != "$ORIGINAL_KEY" ]] && echo "  Input Issue:   $JIRA_BASE_URL/browse/$INPUT_KEY"
