@@ -1,6 +1,6 @@
 ---
 name: duplicate-epic
-description: Duplicates an Atlassian Jira epic into the PatternFly (PF) project space, adds an "is duplicated by" link referencing the original, and assigns it as a child of a given feature. This allows the PatternFly team to trace Jira work items up a hierarchy in the product Jira project. Use when the command is "/duplicate-epic <issue> <feature>" where the first argument is any Jira issue key (Epic, Story, or Bug — the script resolves the parent epic automatically) and the second argument is the PF feature to assign the new epic to.
+description: Use when `/duplicate-epic <issue> <feature>` should clone a Jira Epic, Story, or Bug into the PF project, resolve non-epic inputs to their parent epic, link back to the source, and attach the new epic to a PF feature.
 disable-model-invocation: true
 ---
 
@@ -78,7 +78,7 @@ JIRA_USER_EMAIL="you@example.com" JIRA_API_TOKEN="your-token" \
 1. **Resolve current user** — looks up the account ID for the authenticated user (used for the assignee field).
 2. **Resolve to an epic** — fetches the given issue. If it is not an `Epic` (e.g., it is a Story or Bug), the script walks up to its parent epic using `fields.parent` (next-gen projects) or `fields.customfield_10014` (classic epic link). Exits with an error if no parent epic can be found.
 3. **Find existing clone** — checks the resolved epic's `Duplicate` issue links for any `PF-` issue; skips creation if found.
-4. **Clone** — if no clone exists, creates a new Epic in the `PF` project copying the summary, description, and labels.
+4. **Clone** — if no clone exists, creates a new Epic in the `PF` project copying the summary and labels. The description is sanitized before cloning: `mediaSingle` and `media` nodes (embedded attachments) are stripped, so embedded images and file attachments will not appear in the PF copy.
 5. **Ensure "is duplicated by" link** — adds a `Duplicate` link so the new epic displays "is duplicated by {ORIGINAL EPIC}" in its linked work items; skips if already present.
 6. **Set parent and assignee** — assigns the new epic as a child of the given feature and assigns it to the current user (resolved automatically via the API token).
 7. **Display results** — prints clickable URLs for the feature, new epic, and original epic.

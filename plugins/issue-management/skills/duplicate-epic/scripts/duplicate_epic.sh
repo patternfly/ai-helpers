@@ -141,6 +141,7 @@ fi
 # Step 4 — find or create PF clone
 echo "Checking for existing PF clone of $ORIGINAL_KEY..."
 
+CREATED_NEW_CLONE=0
 NEW_KEY=$(echo "$ORIGINAL_ISSUE" | jq -r --arg proj "${PF_PROJECT}-" \
   '[(.fields.issuelinks // [])[] | select(.type.name == "Duplicate") | .inwardIssue.key // empty | select(startswith($proj))] | first // empty')
 
@@ -169,6 +170,7 @@ else
 
   NEW_KEY=$(api_request POST "issue" "$PAYLOAD" | jq -r '.key')
   echo "Created: $NEW_KEY"
+  CREATED_NEW_CLONE=1
 fi
 
 # Step 5 — ensure "is duplicated by" link
@@ -186,11 +188,13 @@ else
     --arg new_key "$NEW_KEY" \
     --arg orig "$ORIGINAL_KEY" \
     '{type: {name: "Duplicate"}, inwardIssue: {key: $new_key}, outwardIssue: {key: $orig}}')
-  # Run in a subshell so a permission error here does not abort the rest of the script
-  if (api_request POST "issueLink" "$LINK_PAYLOAD" >/dev/null 2>&1); then
+  if api_request POST "issueLink" "$LINK_PAYLOAD" >/dev/null 2>&1; then
     echo "Link added"
-  else
+  elif [[ "$CREATED_NEW_CLONE" -eq 0 ]]; then
     echo "WARNING: Could not add 'is duplicated by' link (likely missing link-issue permission in the source project). Continuing..." >&2
+  else
+    echo "ERROR: Created $NEW_KEY but could not add the duplicate link; aborting to avoid future duplicate clones." >&2
+    exit 1
   fi
 fi
 
