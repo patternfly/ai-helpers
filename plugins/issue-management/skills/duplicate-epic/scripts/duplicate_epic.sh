@@ -112,8 +112,16 @@ ORIGINAL_ISSUE=$(api_request GET "issue/$ORIGINAL_KEY")
 
 ISSUE_TYPE=$(echo "$ORIGINAL_ISSUE" | jq -r '.fields.issuetype.name')
 INPUT_KEY="$ORIGINAL_KEY"
+DEPTH=0
+MAX_DEPTH=10
 
 while [[ "$ISSUE_TYPE" != "Epic" ]]; do
+  DEPTH=$((DEPTH + 1))
+  if [[ "$DEPTH" -gt "$MAX_DEPTH" ]]; then
+    echo "ERROR: Exceeded $MAX_DEPTH levels walking up the hierarchy from $INPUT_KEY — possible cycle or unexpectedly deep tree." >&2
+    exit 1
+  fi
+
   echo "$ORIGINAL_KEY is a $ISSUE_TYPE — walking up to parent..."
 
   # Try fields.parent (next-gen projects) then fields.customfield_10014 (classic epic link)
@@ -162,7 +170,7 @@ else
           assignee:    {accountId: $account_id}
         }
         + (if .fields.description != null then {
-           description: (.fields.description | .content = [.content[] | select(.type != "mediaSingle" and .type != "media")])
+           description: (.fields.description | walk(if type == "object" and .content? then .content = [.content[] | select(.type != "mediaSingle" and .type != "media")] else . end))
          } else {} end)
         + (if (.fields.labels | length) > 0  then {labels: .fields.labels}            else {} end)
       )
