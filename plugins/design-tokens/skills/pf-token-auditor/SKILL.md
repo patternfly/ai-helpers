@@ -115,6 +115,100 @@ End with a table of all passing tokens:
 |----------|---------------|-----------|---------|
 | {property} | `{figma var}` | `{css token}` | PASS |
 
+## Step 7: Apply Recommendations in Figma
+
+After presenting findings, offer to apply actionable recommendations directly in the Figma file using the `figma-use` skill. Only findings with a concrete fix are actionable:
+
+| Actionable Status | Figma Action |
+|-------------------|--------------|
+| FIGMA FIX NEEDED | Bind the hardcoded property to the recommended Figma variable |
+| CONTEXT MISMATCH | Rebind the property to the correct context variable |
+| COMPOSITE FOUND | Replace individual properties with the composite variable binding |
+| SYNC REQUIRED | Update the Figma variable value to match the CSS token value |
+
+Non-actionable statuses (VALIDATED, IMPLEMENTATION DRIFT, ESCALATION RECOMMENDED) are skipped — they require code changes or upstream proposals, not Figma edits.
+
+### Confirmation Prompt
+
+Present actionable findings as a numbered list and prompt the user to choose how to proceed. Always confirm before writing to the file.
+
+```
+I found {N} actionable recommendations that can be applied directly in Figma:
+
+  1. [FIGMA FIX NEEDED] Node "Card Header" — bind `background-color` (#ffffff) → `background/color/primary/default`
+  2. [CONTEXT MISMATCH] Node "Alert Icon" — rebind `fill` from `icon/color/on-brand/default` → `icon/color/on-brand/accent/default`
+  3. [COMPOSITE FOUND] Node "Modal" — replace individual shadow properties → `box-shadow/md`
+  ...
+
+How would you like to proceed?
+  • Update all — apply all {N} fixes in one batch
+  • Update individually — I'll walk through each fix one at a time for your approval
+  • Skip — leave the Figma file unchanged
+```
+
+If the user selects **Update individually**, present each finding and wait for explicit approval before applying:
+
+```
+[1/{N}] FIGMA FIX NEEDED — Node "Card Header" (node-id: 123:456)
+  Property: background-color
+  Current:  #ffffff (hardcoded)
+  Fix:      Bind to variable `background/color/primary/default`
+
+  • Update — apply this fix
+  • Skip — leave unchanged
+  • Update remaining — apply this and all remaining fixes
+```
+
+"Update remaining" converts to batch mode for all unapproved findings from that point forward.
+
+### Execution via figma-use
+
+Before executing any fixes, load the `figma-use` skill. All `use_figma` calls must follow its critical rules — including the pre-flight checklist and incremental workflow pattern.
+
+#### Grouping strategy
+
+Group approved fixes into `use_figma` calls by operation type to minimize round-trips while keeping scripts small and recoverable:
+
+1. **Variable binding fixes** (FIGMA FIX NEEDED, CONTEXT MISMATCH) — group by parent node when possible
+2. **Composite replacements** (COMPOSITE FOUND) — one call per node (composites touch multiple properties)
+3. **Value sync fixes** (SYNC REQUIRED) — group by variable collection
+
+Each `use_figma` call must:
+- Target nodes by their `node-id` from the audit findings
+- Return all mutated node IDs: `return { mutatedNodeIds: [...] }`
+- Be validated after execution — call `get_metadata` or `get_screenshot` on the affected node to confirm the fix applied correctly
+
+#### Variable binding pattern
+
+To bind a node property to an existing Figma variable:
+
+```js
+const node = await figma.getNodeByIdAsync("TARGET_NODE_ID");
+const variables = await figma.variables.getLocalVariablesAsync();
+const targetVar = variables.find(v => v.name === "VARIABLE_NAME");
+
+const fills = [...node.fills];
+fills[0] = figma.variables.setBoundVariableForPaint(fills[0], "color", targetVar);
+node.fills = fills;
+
+return { mutatedNodeIds: [node.id] };
+```
+
+Adapt for strokes, effects, or other properties as needed. For value syncs, update the variable value in the appropriate mode rather than rebinding nodes.
+
+### Post-Application Summary
+
+After all approved fixes are applied, present a summary:
+
+```
+Applied {M} of {N} fixes:
+  ✓ [1] Node "Card Header" — bound background-color to variable
+  ✓ [2] Node "Alert Icon" — rebound fill to correct context
+  ✗ [3] Node "Modal" — skipped by user
+```
+
+If any fix failed during execution, report the error and suggest manual remediation.
+
 ## Escalation
 
 If no matching token exists:
