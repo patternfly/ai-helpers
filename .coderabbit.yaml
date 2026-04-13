@@ -4,7 +4,7 @@ tone_instructions: >
   grammar nits, and naming conventions — maintainers check those.
 
 reviews:
-  profile: "chill"
+  profile: "assertive"
   high_level_summary: true
   poem: false
   sequence_diagrams: false
