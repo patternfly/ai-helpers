@@ -42,7 +42,7 @@ Figma design review, diffing, and asset identification
 Issue creation, tracking, and cross-project coordination
 
 **Skills:**
-- `/issue-management:duplicate-epic` — Duplicates an Atlassian Jira epic into the PatternFly (PF) project space, adds an "is duplicated by" link referencing the original, and assigns it as a child of a given feature. This allows the PatternFly team to trace Jira work items up a hierarchy in the product Jira project. Use when asked to "duplicate epic X for feature Y", clone a COST epic to PatternFly, or replicate a Jira epic under a PF feature.
+- `/issue-management:duplicate-epic` — Use when `/duplicate-epic <issue> <feature>` should clone a Jira Epic, Story, or Bug into the PF project, resolve non-epic inputs to their parent epic, link back to the source, and attach the new epic to a PF feature.
 - `/issue-management:pf-create-issue` — Create GitHub issues for PatternFly repositories with smart templates, followup tracking, and duplicate detection.
 - `/issue-management:quarterly-initiative-report` — Generate comprehensive quarterly Jira status reports with progress tracking, RAG assessment, blocker identification, cross-project duplicate link analysis, and Q+1 recommendations. Use when generating quarterly reports, tracking initiative progress, or analyzing epic completion metrics across Jira projects with labels.
 
