@@ -1,15 +1,17 @@
 # Figma Design Change Tracker Skill
 
-Track Figma design updates and maintain alignment between design and code.
+Track layer-level Figma design updates and generate detailed changelogs with smart filtering.
 
 ## What This Skill Does
 
 This skill helps you:
-- 📊 Track changes in Figma design files
-- 📝 Generate comprehensive changelogs with timestamps and authors
-- 🔍 Compare Figma design tokens with your codebase
-- ✅ Create actionable checklists for code updates
-- 🎨 Identify token discrepancies between design and implementation
+- 📊 Track layer-level changes within Figma components
+- 📝 Generate detailed changelogs showing exactly what changed
+- 🔍 Cross-reference design updates with GitHub issues
+- ✅ Categorize changes (Added, Removed, Fixed, Modified)
+- 🎨 See before/after values for every property change
+- 🎯 Smart filtering to focus on visual changes (filters out metadata noise)
+- ✨ **Highlight new variants added to existing components** (dedicated section)
 
 ## When to Use
 
@@ -19,6 +21,25 @@ The skill automatically triggers when you:
 - Need to "audit design tokens"
 - Mention "design system updates"
 - Discuss "sync design and code"
+
+## Smart Filtering
+
+The skill automatically filters changes to focus on visual impact:
+
+**✅ Includes:**
+- Semantic color/dimension token changes
+- Layer additions or removals
+- Typography, spacing, and layout changes
+- Text content updates
+- Component structure changes
+
+**❌ Filters Out:**
+- Description or documentation updates
+- Scope or organizational changes
+- Layer name changes (without visual impact)
+- Tags, labels, or category updates
+
+Result: Clean, focused changelogs without metadata noise!
 
 ## Quick Start
 
@@ -44,61 +65,83 @@ The skill automatically triggers when you:
 What changed in our Figma design system in the last week?
 ```
 
-### Compare Specific Component
+### Check Specific Time Period
 ```
-Compare the Button component in Figma with our code implementation
-```
-
-### Audit Design Tokens
-```
-Audit all color tokens - are they in sync with Figma?
+Show me all Figma updates from last week
 ```
 
-### Generate Update Checklist
+### Track Multiple Files
 ```
-What code changes do we need to match the latest Figma designs?
+Check for updates across all PatternFly Figma files
+```
+
+### Generate Release Notes
+```
+Create release notes for the March design updates
 ```
 
 ## Output Format
 
-The skill generates:
+The skill generates three reports:
 
-1. **Executive Summary**: Overview of changes
-2. **Detailed Changelog**: Component-by-component breakdown
-3. **Token Comparison Table**: Figma vs Code values
-4. **Action Items Checklist**: Prioritized updates with file paths
-5. **Next Steps**: Recommendations
+1. **FIGMA_CHANGELOG.md**
+   - Executive summary of changes
+   - Categorized tables (Added, Removed, Fixed, Modified)
+   - Layer-level detail sections for each component
+   - Before/after values for all property changes
+   - Designer attribution and dates
+   - GitHub issue references
+   - Example: "🔄 Modified Alert icon: Size `16px → 20px`, Color `#0066CC → #004080`"
+
+2. **RELEASE_NOTES.md**
+   - Consumer-facing high-level summary
+   - What's new, what's removed, and what's fixed
+   - Action items for teams
+
+3. **CHANGELOG_EXPORT.md** 🆕
+   - Clean, copy-paste ready format
+   - Optimized for Slack, Jira, and GitHub
+   - Simple bullet lists (no tables)
+   - All links clickable
+   - Mobile-friendly
 
 ## Files in This Skill
 
 - `SKILL.md` - Main skill instructions
-- `references/` - Report templates and API guides
+- `references/figma-api-guide.md` - Figma API reference
 - `scripts/extract-figma-file-key.sh` - Extract file key from URL
-- `scripts/compare-tokens.sh` - Automated token comparison (with Node.js validation)
-- `scripts/compare-tokens.js` - Token comparison implementation
+- `scripts/compare-tokens.js` - Automated token comparison
 
 ## Configuration
 
-### Token Directory
-Default: `src/patternfly/base/tokens`
+### Time Range
+Default: Last 30 days
 
-If your tokens are elsewhere, just mention it:
+Customize the time range:
 ```
-My tokens are in src/styles/tokens
+Check updates from the last 7 days
+Check updates since March 1st
 ```
 
-### Token Formats Supported
-- SCSS variables (`$color-primary`)
-- CSS custom properties (`--pf-global--color`)
-- JSON token files
-- JavaScript/TypeScript exports
+### Figma Files
+The skill can track multiple Figma files in one run. Just provide the URLs when asked.
 
 ## Tips
 
-- Run checks weekly to catch changes early
+### Running Checks
+- Run checks weekly to catch design changes early
 - Keep a mapping between Figma frames and code components
-- Tag code releases with corresponding Figma version
-- Share reports with both design and dev teams
+- Tag code releases with corresponding Figma version dates
+
+### Sharing Updates (Using CHANGELOG_EXPORT.md)
+- **Slack**: Copy-paste into #design-updates channel
+  ```bash
+  cat CHANGELOG_EXPORT.md | pbcopy  # macOS
+  cat CHANGELOG_EXPORT.md | clip     # Windows
+  ```
+- **Jira**: Add to sprint planning tickets or release notes
+- **GitHub**: Include in PR descriptions or release discussions
+- **Email**: Forward to stakeholders - it's already formatted!
 
 ## Troubleshooting
 
@@ -107,84 +150,14 @@ My tokens are in src/styles/tokens
 - Check file URL is correct
 - Ensure you have view permissions
 
-**"Token files not found"**
-- Specify correct token directory path
-- Check if tokens are in node_modules (PatternFly packages)
-
 **"No recent changes detected"**
-- Verify date range
+- Verify the date range you're checking
 - Check if you're looking at the right file
 - Figma version history requires authentication
-
-## FAQ
-
-### General Questions
-
-**Q: Should designers run this or developers?**
-A: Both! Designers can verify their changes landed correctly in code, and developers can check what needs updating. The skill is designed to bridge the design-development gap.
-
-**Q: How often should we sync?**
-A: Weekly for active projects with frequent design changes, bi-weekly for stable projects. Consider running it before each sprint planning session.
-
-**Q: What if the token names don't match between Figma and code?**
-A: Create a token mapping file (see `examples/token-mappings.json`) to define relationships between Figma names and code token names. This enables fuzzy matching.
-
-**Q: Does this work with Figma Variables or just Styles?**
-A: Currently optimized for Styles. Figma Variables support can be added - check the Figma API endpoint `/files/{key}/variables/local`.
-
-**Q: Can this work with other design systems besides PatternFly?**
-A: Yes! Just update the token directory paths and naming conventions. The core workflow is design-system agnostic.
-
-### Workflow Questions
-
-**Q: Who should approve the generated reports?**
-A: Ideally, a cross-functional review: design lead validates design accuracy, tech lead validates code feasibility, product manager prioritizes updates.
-
-**Q: Should we commit the generated reports to git?**
-A: Yes for FIGMA_CHANGELOG.md and RELEASE_NOTES.md (team documentation). The detailed update checklist (figma-updates-*.md) can be gitignored if it's task-specific.
-
-**Q: What if we use a monorepo?**
-A: Run the sync from your package directory or specify full paths to token directories. See [troubleshooting.md](references/troubleshooting.md) for monorepo examples.
-
-**Q: Can we automate this in CI/CD?**
-A: Yes! You can create a GitHub Action that runs weekly and creates a PR with the sync results. Example workflow coming soon.
-
-### Technical Questions
-
-**Q: What Node.js version is required?**
-A: Node.js 14+ is recommended. The scripts use standard ES6+ features without exotic dependencies.
-
-**Q: Does this modify our code automatically?**
-A: No. This is a reporting tool only. It generates checklists and recommendations but never modifies code files automatically.
-
-**Q: How do we handle responsive values (mobile/tablet/desktop)?**
-A: Figma may store these as variants or separate frames. Document the mapping in your token-mappings.json, or process each breakpoint separately.
-
-**Q: What about dark mode / theme variations?**
-A: If Figma uses Variables with modes (themes), you can fetch them via the variables endpoint. Otherwise, treat each theme as a separate component variant.
-
-**Q: Can we ignore certain Figma changes?**
-A: Yes. Use the ignoreList in token-mappings.json to exclude internal/debug tokens, or filter by component in your sync command.
-
-### Troubleshooting
-
-**Q: I'm getting "401 Unauthorized" errors**
-A: Your Figma access token is missing or invalid. Generate a new personal access token at https://www.figma.com/developers/api#access-tokens and set it: `export FIGMA_ACCESS_TOKEN="your-token"`
-
-**Q: "No tokens found in code" error**
-A: Verify your tokens directory path is correct and contains .scss/.css files. For PatternFly, try `./src/patternfly/base/tokens/` or `./node_modules/@patternfly/patternfly/base/`.
-
-**Q: The script finds tokens but they're all mismatches**
-A: This usually means naming conventions differ. Create a token-mappings.json file to map Figma names to code names. See examples/ directory.
-
-**Q: Version history is empty**
-A: You may need editor access (not just viewer) to see version history. Ask the file owner to grant you edit permissions or use OAuth for broader access.
-
-For more troubleshooting help, see [troubleshooting.md](references/troubleshooting.md).
+- Try expanding the time range
 
 ## Learn More
 
 - [Figma API Documentation](https://www.figma.com/developers/api)
 - [PatternFly Design Tokens](https://www.patternfly.org/tokens/)
 - [Design-Code Sync Best Practices](references/figma-api-guide.md)
-- [Troubleshooting Guide](references/troubleshooting.md)
