@@ -2,6 +2,10 @@ language: "en-US"
 tone_instructions: >
   Prioritize bugs, logic errors, and security issues. Skip markdownlint rules,
   grammar nits, and naming conventions — maintainers check those.
+  Only post critical issues (bugs, security vulnerabilities, data loss risks,
+  broken functionality) as actionable comments. All other findings — minor
+  improvements, style suggestions, best practices — must be posted as nitpick
+  comments.
 
 reviews:
   request_changes_workflow: true
