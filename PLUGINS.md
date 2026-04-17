@@ -27,7 +27,7 @@ Design token reference, auditing, and migration
 - `/design-tokens:css-var-analyzer` — Analyze CSS custom property usage, redefinitions, and naming patterns in PatternFly SCSS components. Use when auditing --pf- variables, debugging missing definitions, tracing SCSS variable cascades, or finding unused CSS custom properties.
 - `/design-tokens:pf-analyze-modifiers` — Find, list, and summarize PatternFly component modifiers (pf-m- classes) across the codebase. Use when analyzing component styling patterns, documenting modifier usage, or auditing CSS consistency.
 - `/design-tokens:pf-raw-colors-scan` — "Analyze the provided code to find any raw color values assigned to styling properties. Flag these values as technical debt and suggest their replacement with design tokens."
-- `/design-tokens:pf-token-auditor` — Validate and bridge Figma design styles to PatternFly 6 design tokens. Use when auditing Figma designs against PatternFly tokens, validating token naming, translating Figma styles to composite tokens, or when the user mentions "token validation", "token audit", "design tokens", "Figma audit", "Figma variables", "token bridge", or "PF tokens".
+- `/design-tokens:pf-token-auditor` — # PatternFly Design Token Auditor & Bridge
 - `/design-tokens:pf-tokens` — Build CSS design tokens for PatternFly core and copy them to the PatternFly repository.
 
 ### figma
