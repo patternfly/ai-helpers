@@ -1,6 +1,6 @@
 ---
 name: pf-token-auditor
-description: Validate and bridge Figma design styles to PatternFly 6 design tokens. In Cursor, MUST use the AskQuestion tool for batch and per-fix apply choices (never static “How would you like to proceed?” bullets as the only UI). Use when auditing Figma designs against PatternFly tokens, validating token naming, translating Figma styles to composite tokens, or when the user mentions "token validation", "token audit", "design tokens", "Figma audit", "Figma variables", "token bridge", or "PF tokens".
+description: Validate and bridge Figma design styles to PatternFly 6 design tokens. Use when auditing Figma designs against PatternFly tokens, validating token naming, translating Figma styles to composite tokens, or when the user mentions "token validation", "token audit", "design tokens", "Figma audit", "Figma variables", "token bridge", or "PF tokens".
 ---
 
 # PatternFly Design Token Auditor & Bridge
@@ -9,27 +9,29 @@ Audit designs (from Figma or raw CSS) against the PatternFly token architecture.
 
 For token categories, unit mappings, theme files, and pairing tables, see [token-reference.md](token-reference.md).
 
-## Workflow
+This skill specifies **what** a good audit delivers; it does not prescribe **how** to fetch Figma data, call APIs, or order tool use—use whatever your environment already exposes for Figma, docs, and code search.
 
-### Step 1: Gather Input
+## What a successful audit delivers
 
-**Figma URL provided?** Extract variables and design context using the Figma MCP (`get_variable_defs`, `get_design_context`). Track `data-node-id` attributes for elements that may need screenshots in findings. **Retain `fileKey`** (and branch key if the URL is `/design/.../branch/.../`) from that URL — you need it to build [**Open in Figma** deep links](#figma-deep-links) for each finding.
+1. **Correct theme lens** — Judgments match the right PatternFly theme (default vs Red Hat, etc.); see Theme File Map in [token-reference.md](token-reference.md#theme-file-map).
+2. **Defensible findings** — Each issue or pass ties to token semantics, cites descriptions where it matters, and names both Figma-side and CSS-side tokens when relevant.
+3. **Navigable context** — For Figma-sourced work, the reader can **open the exact layer(s)** from the report (deep links; multi-node findings link every node).
+4. **Honest gaps** — Unknowns and missing tokens are labeled as such, with escalation paths when there is no definition to apply.
+5. **Optional Figma edits** — If the user opts in, the file afterward reflects **only** what they agreed to apply ([Applying changes in Figma](#applying-changes-in-figma-figma-use)).
 
-Identify the active theme and mode from resolved brand accent colors:
-- Red (`#ee0000`) → **RedHat theme**
-- Blue (`#0066cc`) → **default (upstream) theme**
+## Inputs you must satisfy (outcomes)
 
-Always validate against the correct theme file (see Theme File Map in [token-reference.md](token-reference.md)).
+**Theme:** Infer default vs Red Hat from brand accent when present: `#ee0000` → Red Hat; `#0066cc` → default upstream.
 
-**Manual CSS / token values provided?** Parse directly. Ask which theme/mode if not specified.
+**Figma audits:** You can name layers, variables, and **stable node ids** for anything you cite; you can build correct file URLs (including branch files). Retain `fileKey` / branch key from the user’s link for deep links.
 
-### Step 2: Gather Token Descriptions
+**CSS-only audits:** Interpret the values given; confirm theme/mode if ambiguous.
 
-Look up each token's official usage description from [patternfly.org/tokens](https://www.patternfly.org/tokens/all-patternfly-tokens) or via the PatternFly MCP (`searchPatternFlyDocs`). Cite descriptions as evidence in every finding — when validating, flagging, or suggesting alternatives.
+## Descriptions, classification, and naming
 
-### Step 3: Classify Each Token
+**Evidence:** Findings that recommend or reject a token should quote or paraphrase **official usage** from [PatternFly tokens](https://www.patternfly.org/tokens/all-patternfly-tokens) or project docs when that strengthens the verdict.
 
-Classify every design property against the PatternFly token hierarchy:
+**Hierarchy:** Classify each property:
 
 | Layer | Prefix Pattern | Verdict |
 |-------|---------------|---------|
@@ -39,11 +41,9 @@ Classify every design property against the PatternFly token hierarchy:
 | Component | `--pf-v6-c-{component}--{Property}` | PASS |
 | Raw hex/rgb | `#abc123`, `rgb(...)` | REJECT |
 
-### Step 4: Validate Naming
+**Naming shape:** Tokens are concept-based, never element-based (`font--size--heading--h1`, not `h1--font--size`). Full shape: `--pf-t--global--{concept}--{property}--{modifier}--{state}`.
 
-Token names follow: `--pf-t--global--{concept}--{property}--{modifier}--{state}`. Tokens are concept-based, never element-based (`font--size--heading--h1`, not `h1--font--size`).
-
-### Step 5: Apply Validation Rules
+## Judgment criteria (Rules 0–9)
 
 #### Rule 0 — Prefer Purpose-Specific Semantic Tokens
 Always cross-reference purpose-specific semantic tokens (see [token-reference.md](token-reference.md#purpose-specific-spacer-tokens)) before falling back to generic scale tokens. Purpose-specific tokens encode design intent and can be overridden independently.
@@ -63,8 +63,8 @@ Figma outputs `px`; PatternFly CSS uses `rem` (font/icon/spacer/breakpoint) and 
 #### Rule 4 — Composite Token Bridge
 When Figma outputs individual shadow or glass properties, recommend the single composite token (`--box-shadow--sm/md/lg`, `--background--color--glass--primary--default`). See composites in [token-reference.md](token-reference.md#box-shadow-composites-in-tokens-localscss).
 
-#### Rule 5 — Theme & Collection Awareness
-Validate against the correct theme. Determine theme from the Figma variable collection and mode. Compare values against the active theme file, not just `tokens-default.scss`. See the Theme File Map in [token-reference.md](token-reference.md#theme-file-map).
+#### Rule 5 — Theme & collection awareness
+**Outcome:** Judgments use the theme the design is actually using (collections, modes, brand accents)—not the wrong theme file. See Theme File Map in [token-reference.md](token-reference.md#theme-file-map).
 
 #### Rule 6 — Contextual Token Pairing
 Sibling properties (background, border, text, icon) on the same element should share the same context. If a context-specific token does not yet exist in CSS, flag as ESCALATION RECOMMENDED. See pairing table in [token-reference.md](token-reference.md#contextual-token-pairing).
@@ -78,25 +78,23 @@ Hardcoded values not backed by a Figma variable need fixing in the Figma file. O
 #### Rule 9 — Component Implementation Cross-Check
 When the design represents a known PatternFly component, compare the Figma token usage against the component's SCSS implementation. Flag differences as **IMPLEMENTATION DRIFT** — distinguish between likely errors and intentional design proposals. Include the component file path and selector for reference.
 
-### Step 6: Search Local Definitions
+## Before escalating
 
-Before escalating, search `src/patternfly/base/tokens/` (local, default, palette) and component SCSS for matching tokens. Use the PatternFly MCP for documentation lookups.
+**Outcome:** “No matching token” only after you have checked PatternFly token sources (e.g. `src/patternfly/base/tokens/` and component SCSS when available, plus docs)—so the gap is real, not a search miss.
 
-## Handoff Format
+## Report the user receives
 
-Each finding must include:
+**Outcome:** Someone reading the audit can **understand each verdict**, **trust the evidence**, **open the right Figma layers** (when applicable), and **act** on fixes without re-deriving context.
 
-- **Status label:** VALIDATED, COMPOSITE FOUND, CONTEXT MISMATCH, IMPLEMENTATION DRIFT, SYNC REQUIRED, FIGMA FIX NEEDED, or ESCALATION RECOMMENDED
-- **Figma deep link:** For every finding tied to a **specific layer or component instance**, include a markdown link **Open in Figma** that jumps straight to that node (see [Figma deep links](#figma-deep-links)). Use the **innermost node** where the property lives (not only the page frame), when known from `data-node-id` or inspection.
-- **Affected nodes (multi-node findings):** If the report lists several layers in one finding (e.g. `Affected nodes: 1259:780 (Primary Default text), 1259:782 (Primary Hover text)`), **every node id must be clickable** — each id gets its own deep link using the same `fileKey` / slug as the audit file (see [Affected nodes line format](#affected-nodes-line-format)). Do **not** leave bare `1259:780` ids without links.
-- **Element screenshot:** Call `get_screenshot` via the Figma MCP for the finding's element node. Present findings one at a time — call the screenshot, then immediately write the finding below it. Do NOT batch screenshots. Skip screenshots for validated tokens.
-- **Both token names:** Every table must include the Figma variable name AND the CSS token equivalent
-- **Token description:** Cited from patternfly.org or Figma, quoted inline
-- **Explanation:** Why the token is correct, incorrect, or being suggested — referencing the description
+**Each finding should make clear:**
 
-### Finding table format
+- **Status** — One of: VALIDATED, COMPOSITE FOUND, CONTEXT MISMATCH, IMPLEMENTATION DRIFT, SYNC REQUIRED, FIGMA FIX NEEDED, ESCALATION RECOMMENDED.
+- **Where** — Layer name, node id(s), and an **Open in Figma** deep link to the **innermost** relevant node when the source is Figma ([link format](#figma-deep-links)).
+- **What & why** — Property, current vs recommended mapping, short reason, and quoted or cited token **descriptions** when they carry the argument.
+- **Visual grounding (issues)** — For non-passing Figma findings, include something that shows the problem (e.g. a crop or screenshot of that node)—enough that the issue is recognizable without opening the file.
+- **Both names** — Figma variable path (or raw value) and CSS token where both exist.
 
-Use tables for each finding type:
+### Finding table (expected shape)
 
 | Detail | Value |
 |--------|-------|
@@ -108,311 +106,75 @@ Use tables for each finding type:
 | — description | *"{description of recommended token}"* |
 | Reason | `{brief explanation}` |
 
-For FIGMA FIX NEEDED findings, include: Node ID, **Open in Figma** link, Property, Current (hardcoded value), Bind to (Figma variable name), and How (brief Figma instructions).
+For **FIGMA FIX NEEDED**, the reader should also see what to bind, from what, and how to do it in plain language (Figma-variable slash path, not Plugin API).
 
-### Affected nodes line format
+### Multi-node (“Affected nodes”) findings
 
-When a single finding touches **more than one** layer, add an **Affected nodes** summary. Each entry must include a **Figma deep link** (same [URL rules](#figma-deep-links): `node-id` uses hyphens).
-
-**Bad (bare ids — user must hunt in Figma):**
-
-```text
-Affected nodes: 1259:780 (Primary Default text), 1259:782 (Primary Hover text)
-```
-
-**Good — option A (link on node id, compact):**
-
-```markdown
-**Affected nodes:** [`1259:780`](https://www.figma.com/design/{fileKey}/{fileSlug}?node-id=1259-780) (Primary Default text), [`1259:782`](https://www.figma.com/design/{fileKey}/{fileSlug}?node-id=1259-782) (Primary Hover text)
-```
-
-**Good — option B (`Open in Figma` per node, easier to scan):**
-
-```markdown
-**Affected nodes:**
-- `1259:780` — [Open in Figma](https://www.figma.com/design/{fileKey}/{fileSlug}?node-id=1259-780) (Primary Default text)
-- `1259:782` — [Open in Figma](https://www.figma.com/design/{fileKey}/{fileSlug}?node-id=1259-782) (Primary Hover text)
-```
-
-You may also add a **Layer** row in the finding table listing the same links; keep **Affected nodes** in sync with that list.
+**Outcome:** If several layers share one finding, **every** listed node is one click from the report—no bare `1259:780` lists. Example: [`1259:780`](https://www.figma.com/design/{fileKey}/{fileSlug}?node-id=1259-780) (Primary Default text), [`1259:782`](https://www.figma.com/design/{fileKey}/{fileSlug}?node-id=1259-782) (Primary Hover text)—or one **Open in Figma** link per bullet line.
 
 ### Figma deep links
 
-Build a URL so the user can open the exact node in the browser (and in the desktop app when logged in):
+**Outcome:** Links open the **correct file and node** (including branch files).
 
-1. **`fileKey`** — From `https://www.figma.com/design/{fileKey}/...` use `{fileKey}`. If the URL is `.../design/{fileKey}/branch/{branchKey}/...`, use **`branchKey`** as `fileKey` (Figma’s rule for branched files).
-2. **`node-id` query** — Use the node id from the file (e.g. `12:345` from MCP or `data-node-id`). In the query string, **replace `:` with `-`**: `node-id=12-345`.
-3. **Path segment after `fileKey`** — Reuse the file name slug from the user’s URL (e.g. `My-File-Name`) or a short title; Figma resolves the file from `fileKey` even if the slug is imperfect.
-
-**Template:**
-
-```text
-https://www.figma.com/design/{fileKey}/{fileSlug}?node-id={idWithHyphens}
-```
-
-**Example:** Node `41:7106` in file `hIHHno4fZBKmTifVjuNqiz`:
-
-```text
-https://www.figma.com/design/hIHHno4fZBKmTifVjuNqiz/Login-Screen---PatternFly?node-id=41-7106
-```
-
-In markdown: `[Open in Figma](https://www.figma.com/design/hIHHno4fZBKmTifVjuNqiz/Login-Screen---PatternFly?node-id=41-7106)` (node `41:7106`).
-
-If the audit used a URL but **no** stable node id exists (e.g. file-level variable only), link to the file root with `?node-id=0-1` only when appropriate, or omit the link and say why.
+Use `https://www.figma.com/design/{fileKey}/{fileSlug}?node-id={idWithHyphens}` where **`node-id` uses hyphens** (`41:7106` → `node-id=41-7106`). For `/design/.../branch/{branchKey}/...`, **`branchKey` is the `fileKey`**. Reuse the file slug from the user’s URL when you have it. Example: `[Open in Figma](https://www.figma.com/design/hIHHno4fZBKmTifVjuNqiz/Login-Screen---PatternFly?node-id=41-7106)` for node `41:7106`. If no stable node exists, omit the link and say why.
 
 ### Validated tokens summary
 
-End with a table of all passing tokens:
+**Outcome:** Passes are listed in a compact table (property, Figma variable, CSS token, PASS). Add **Open in Figma** per row when a pass maps to a single identifiable node; skip the column when the pass is file-wide or aggregated.
 
-| Property | Figma Variable | CSS Token | Verdict |
-|----------|---------------|-----------|---------|
-| {property} | `{figma var}` | `{css token}` | PASS |
+## Optional: apply fixes in Figma
 
-When a PASS row maps to a **single identifiable node**, add an **Open in Figma** link in that row or an adjacent column; omit if the pass is file-wide or aggregated.
+**Scope:** Only statuses with a direct Figma edit path—see mapping:
 
-## Step 7: Apply Recommendations in Figma
+| Actionable Status | Intended result in the file |
+|-------------------|------------------------------|
+| FIGMA FIX NEEDED | Hardcoded value → recommended variable binding |
+| CONTEXT MISMATCH | Property rebound to the correct semantic context |
+| COMPOSITE FOUND | Primitives replaced by the composite token / variable |
+| SYNC REQUIRED | Variable value aligned with the agreed source of truth |
 
-After presenting findings, offer to apply actionable recommendations directly in the Figma file using the `figma-use` skill. Only findings with a concrete fix are actionable:
+VALIDATED, IMPLEMENTATION DRIFT, and ESCALATION RECOMMENDED are **out of scope** for file writes unless the user explicitly asks otherwise.
 
-| Actionable Status | Figma Action |
-|-------------------|--------------|
-| FIGMA FIX NEEDED | Bind the hardcoded property to the recommended Figma variable |
-| CONTEXT MISMATCH | Rebind the property to the correct context variable |
-| COMPOSITE FOUND | Replace individual properties with the composite variable binding |
-| SYNC REQUIRED | Update the Figma variable value to match the CSS token value |
+### User choice (outcomes)
 
-Non-actionable statuses (VALIDATED, IMPLEMENTATION DRIFT, ESCALATION RECOMMENDED) are skipped — they require code changes or upstream proposals, not Figma edits.
+**Outcome:** The user always has an **unambiguous** way to say: apply everything, walk item-by-item, skip, per-item apply / skip / apply-rest, or propose a **custom** fix for one item—without inferring intent from vague chat.
 
-### CRITICAL — Cursor: `AskQuestion` is mandatory (not markdown bullets)
+**Contract — stable ids** (map host pickers or numbered replies to behavior):
 
-When there is **at least one** actionable fix (`{N} > 0`), the assistant turn that lists those fixes **MUST include a real `AskQuestion` tool invocation** so the user gets **clickable options**. A markdown-only list is **not** a substitute.
+| Id (batch) | Meaning |
+|------------|---------|
+| `update_all` | Apply every actionable finding |
+| `update_individually` | Confirm each finding before it runs |
+| `skip` | Change nothing in Figma |
 
-**FORBIDDEN — do not ship this as the only “picker” UI:**
+| Id (per item) | Meaning |
+|----------------|---------|
+| `apply` | Apply the skill’s recommendation for this item |
+| `provide_own` | User supplies an alternative; you confirm, then apply only that |
+| `skip` | Leave this item unchanged |
+| `apply_remaining` | Apply this item and all later items without further prompts |
 
-```markdown
-How would you like to proceed?
+**Outcome:** Prefer the host’s **structured choice** when it exists; otherwise offer **numbered replies** (`1`/`2`/`3` etc.) with the id mapping printed beside the numbers. Do not end with only informal bullets and no explicit mapping.
 
-- Update all — apply all …
-- Update individually — …
-- Skip — …
-```
+**Custom path (`provide_own`) outcome:** The user’s alternative is captured in chat, **restated as a one-line plan**, **explicitly confirmed**, then applied (or clarified if unsafe/ambiguous). The final summary marks those as **user-specified**.
 
-(or the same wording with `•` bullets). That forces the user to **type** in chat and **does not** render as clickable choices.
+### Applying changes in Figma (figma-use)
 
-**REQUIRED in Cursor:** In the **same turn** as the numbered findings (right after the list), call the **`AskQuestion`** tool. The user then clicks an option; you **branch on the returned option `id`**, not on typed keywords.
+**Outcome:** The Figma file matches what the user **actually chose**—all, some, none, or a **confirmed** custom alternative. Skipped findings stay untouched.
 
-If your environment **does not** expose `AskQuestion`, say so once, then use a **numbered reply** fallback (`Reply 1, 2, or 3:`) — never imply that informal text like “update all” is preferred.
+**Delegation:** Performing edits belongs in the **`figma-use`** skill (how to drive the file, validate edits, and recover from errors). This auditor only supplies a **complete brief**: resolved apply-path ids, scope of findings to run now, and per-finding node ids, names, statuses, properties, and target bindings or values (including user-approved custom text for `provide_own`).
 
-#### `AskQuestion` invocation shape (copy and adapt)
+**After edits:** The user can see what landed, what did not, and what was never attempted—without this file duplicating Plugin API or script guidance.
 
-Use the tool exactly as your host defines it; structurally it matches:
+### Post-application
 
-```json
-{
-  "title": "Apply Figma fixes",
-  "questions": [
-    {
-      "id": "pf-token-auditor-batch-mode",
-      "prompt": "How should these {N} fixes be applied in Figma?",
-      "options": [
-        { "id": "update_all", "label": "Update all — apply every fix in one batch" },
-        { "id": "update_individually", "label": "Update individually — approve each fix" },
-        { "id": "skip", "label": "Skip — leave Figma unchanged" }
-      ]
-    }
-  ]
-}
-```
-
-Replace `{N}` in `prompt` with the real count. **Do not** duplicate those three choices as a markdown list beneath the tool call unless you also show the tool call — the **tool call** is what creates the click UI.
-
-Per-item mode (same turn as the `[i/N]` detail block):
-
-```json
-{
-  "title": "Fix {i} of {N}",
-  "questions": [
-    {
-      "id": "pf-token-auditor-fix-{i}",
-      "prompt": "What should we do for finding {i}/{N}?",
-      "options": [
-        { "id": "apply", "label": "Update — apply this fix (skill recommendation)" },
-        { "id": "provide_own", "label": "Provide my own solution — I'll describe a different fix" },
-        { "id": "skip", "label": "Skip — leave unchanged" },
-        { "id": "apply_remaining", "label": "Update remaining — apply this and all following fixes" }
-      ]
-    }
-  ]
-}
-```
-
-Map field names to whatever your Cursor **`AskQuestion`** tool schema expects (`questions`, `prompt`, `options`, etc.).
-
-### Confirmation Prompt
-
-1. Present actionable findings as a **numbered list** in the message. **Each line must include** the node id, an **[Open in Figma](...)** markdown link (built per [Figma deep links](#figma-deep-links)), and the short fix summary.
-2. **In the same assistant turn**, call **`AskQuestion`** with exactly one question:
-
-| When | `AskQuestion` setup |
-|------|---------------------|
-| `{N} > 0` actionable items | **Question id:** `pf-token-auditor-batch-mode` — **Prompt:** e.g. `How should these {N} fixes be applied in Figma?` — **Options:** `update_all` = "Update all — apply every fix in one batch"; `update_individually` = "Update individually — approve each fix"; `skip` = "Skip — leave Figma unchanged" |
-| `{N} === 0` | Do **not** call `AskQuestion`. State that there are no actionable Figma edits. |
-
-3. **Branch on the returned option id** (not on free text):
-   - **`update_all`** → run grouped `use_figma` fixes for every actionable finding, then post-application summary.
-   - **`skip`** → do not write to Figma; optionally restate what was skipped.
-   - **`update_individually`** → for each finding in order, show the detail block in the message, then **call `AskQuestion` again in that same turn** (never only markdown bullets for the four choices). **Question id:** `pf-token-auditor-fix-{index}` — **Options:** `apply` = "Update — apply this fix (skill recommendation)"; `provide_own` = "Provide my own solution — I'll describe a different fix for this node"; `skip` = "Skip — leave unchanged"; `apply_remaining` = "Update remaining — apply this and all following fixes". On **`apply_remaining`**, apply the current fix then switch to batch mode for the rest. On **`skip`**, move to the next finding. On **`provide_own`**, follow **Custom solution** below, then continue to the next finding.
-
-Example copy to show **above** the picker (still include this in the assistant message):
-
-```
-I found {N} actionable recommendations that can be applied directly in Figma:
-
-  1. [FIGMA FIX NEEDED] Node "Card Header" (`123:456`) — [Open in Figma](https://www.figma.com/design/{fileKey}/{fileSlug}?node-id=123-456) — bind `background-color` (#ffffff) → `background/color/primary/default`
-  2. [CONTEXT MISMATCH] Node "Alert Icon" (`789:012`) — [Open in Figma](https://www.figma.com/design/{fileKey}/{fileSlug}?node-id=789-012) — rebind `fill` …
-  3. [COMPOSITE FOUND] Node "Modal" (`44:99`) — [Open in Figma](https://www.figma.com/design/{fileKey}/{fileSlug}?node-id=44-99) — replace shadow primitives → `box-shadow/md`
-  ...
-```
-
-Per-item detail when **`update_individually`** (show in message, then show picker):
-
-```
-[1/{N}] FIGMA FIX NEEDED — Node "Card Header" (node-id: 123:456) — [Open in Figma](https://www.figma.com/design/{fileKey}/{fileSlug}?node-id=123-456)
-  Property: background-color
-  Current:  #ffffff (hardcoded)
-  Fix:      Bind to variable `background/color/primary/default`
-```
-
-#### Custom solution (`provide_own`)
-
-`AskQuestion` cannot capture free text. When the user selects **Provide my own solution**:
-
-1. **Stop** and ask **one short chat prompt** for their alternative, referencing the same **node-id** and finding index, e.g.: *"Describe your fix for [1/{N}] (node `123:456`): which property, which Figma variable name (slash path), or raw value? Anything to avoid?"*
-2. **Play back** a one-line execution plan (what will change in Figma) and wait for a clear **yes** (or a revised description) before calling `use_figma`.
-3. Implement only what they specified via `figma-use` / `use_figma`; if their request is unsafe or ambiguous, ask a clarifying question instead of guessing.
-4. Record the outcome in the post-application summary as **user-specified** (not the default skill recommendation).
-
-**Other clients:** If `AskQuestion` is not available, say so once and use a numbered reply ("Reply **1**, **2**, **3**, or **4**:") that maps 1→`apply`, 2→`provide_own`, 3→`skip`, 4→`apply_remaining` — still avoid open-ended phrasing for the first three.
-
-#### Example: how this presents in chat (Cursor)
-
-Below, `┌─ AskQuestion ─────────────────┐` means Cursor’s **clickable choice card** (not plain text the user must type).
-
-**After the audit — batch mode**
-
-```
-Assistant:
-Here are 3 actionable recommendations that can be applied in Figma:
-
-  1. [FIGMA FIX NEEDED] Node "Card Header" (`12:345`) — [Open in Figma](https://www.figma.com/design/AbCdEfGh/My-App?node-id=12-345) — bind background (#ffffff) → `background/color/primary/default`
-  2. [CONTEXT MISMATCH] Node "Alert Icon" (`98:701`) — [Open in Figma](https://www.figma.com/design/AbCdEfGh/My-App?node-id=98-701) — rebind fill → `icon/color/on-brand/accent/default`
-  3. [COMPOSITE FOUND] Node "Modal" (`44:2001`) — [Open in Figma](https://www.figma.com/design/AbCdEfGh/My-App?node-id=44-2001) — use composite `box-shadow/md`
-
-┌─ AskQuestion ─────────────────────────────────────────────┐
-│ How should these 3 fixes be applied in Figma?              │
-│ ○ Update all — apply every fix in one batch               │
-│ ○ Update individually — approve each fix                  │
-│ ○ Skip — leave Figma unchanged                            │
-└─────────────────────────────────────────────────────────────┘
-
-User: (clicks) Update individually
-```
-
-**Item 1 of 3 — per-item picker (includes “own solution”)**
-
-```
-Assistant:
-[1/3] FIGMA FIX NEEDED — Node "Card Header" (node-id: 12:345) — Open in Figma: https://www.figma.com/design/AbCdEfGh/My-App?node-id=12-345
-  Property: background-color
-  Current:  #ffffff (hardcoded)
-  Fix:      Bind to variable `background/color/primary/default`
-
-┌─ AskQuestion ─────────────────────────────────────────────┐
-│ What should we do for fix 1/3?                            │
-│ ○ Update — apply this fix (skill recommendation)           │
-│ ○ Provide my own solution — I'll describe a different fix  │
-│ ○ Skip — leave unchanged                                   │
-│ ○ Update remaining — apply this and all following fixes    │
-└─────────────────────────────────────────────────────────────┘
-
-User: (clicks) Provide my own solution
-```
-
-**After “Provide my own solution” — chat captures the alternative**
-
-```
-Assistant:
-Describe your fix for [1/3] (node `12:345`): which property, which Figma variable name (slash path), or raw value? Anything to avoid?
-
-User:
-Use `background/color/secondary/default` instead — design wants a subtle gray header, not primary white.
-
-Assistant:
-Plan: On node `12:345`, bind fill/background to variable `background/color/secondary/default` (replacing the skill’s primary default). Reply **yes** to run this in Figma, or tell me what to change.
-
-User: yes
-
-Assistant: (runs use_figma … then continues to [2/3] with another AskQuestion)
-```
-
-### Execution via figma-use
-
-Before executing any fixes, load the `figma-use` skill. All `use_figma` calls must follow its critical rules — including the pre-flight checklist and incremental workflow pattern.
-
-#### Grouping strategy
-
-Group approved fixes into `use_figma` calls by operation type to minimize round-trips while keeping scripts small and recoverable:
-
-1. **Variable binding fixes** (FIGMA FIX NEEDED, CONTEXT MISMATCH) — group by parent node when possible
-2. **Composite replacements** (COMPOSITE FOUND) — one call per node (composites touch multiple properties)
-3. **Value sync fixes** (SYNC REQUIRED) — group by variable collection
-
-Each `use_figma` call must:
-- Target nodes by their `node-id` from the audit findings
-- Return all mutated node IDs: `return { mutatedNodeIds: [...] }`
-- Be validated after execution — call `get_metadata` or `get_screenshot` on the affected node to confirm the fix applied correctly
-
-#### Variable binding pattern
-
-To bind a node property to an existing Figma variable:
-
-```js
-const node = await figma.getNodeByIdAsync("TARGET_NODE_ID");
-const variables = await figma.variables.getLocalVariablesAsync();
-const targetVar = variables.find(v => v.name === "VARIABLE_NAME");
-
-const fills = [...node.fills];
-fills[0] = figma.variables.setBoundVariableForPaint(fills[0], "color", targetVar);
-node.fills = fills;
-
-return { mutatedNodeIds: [node.id] };
-```
-
-Adapt for strokes, effects, or other properties as needed. For value syncs, update the variable value in the appropriate mode rather than rebinding nodes.
-
-### Post-Application Summary
-
-After all approved fixes are applied, present a summary:
-
-```
-Applied {M} of {N} fixes:
-  ✓ [1] Node "Card Header" — bound background-color to variable
-  ✓ [2] Node "Alert Icon" — rebound fill to correct context
-  ✗ [3] Node "Modal" — skipped by user
-```
-
-If any fix failed during execution, report the error and suggest manual remediation.
+**Outcome:** A short inventory—applied, skipped, failed (with enough to retry or fix manually)—so the session does not end ambiguously.
 
 ## Escalation
 
-If no matching token exists:
+**Outcome:** If no PatternFly token fits, say so plainly and point to **community** ([PatternFly Slack](https://join.slack.com/t/patternfly/shared_invite/zt-3spaxzss2-w1PPDTgvqENVqNvhPDQP~w)) and **formal proposals** ([GitHub Token Proposal](https://github.com/patternfly/design-tokens/issues/new)) instead of inventing names in the audit.
 
-1. State: "No direct match exists in the current token definitions."
-2. Provide:
-   - [PatternFly Slack](https://join.slack.com/t/patternfly/shared_invite/zt-3spaxzss2-w1PPDTgvqENVqNvhPDQP~w)
-   - [GitHub Token Proposal](https://github.com/patternfly/design-tokens/issues/new)
-
-## Source Files
+## Where token definitions live (reference)
 
 Token definitions live in `src/patternfly/base/tokens/`:
 - `tokens-palette.scss` — raw color palette
