@@ -32,7 +32,7 @@ npm install --global npm-name-cli
 npm-name <package-name>
 ```
 
-**Fix:** Update `package.json` if name is taken, or use an [npm scope](https://docs.npmjs.com/misc/scope). Check [npm registry authentication](https://github.com/semantic-release/npm#npm-registry-authentication) and user [publish permissions](https://docs.npmjs.com/cli/team).
+**Fix:** Update `package.json` if name is taken, or use an [npm scope](https://docs.npmjs.com/cli/v11/using-npm/scope/). Check [npm registry authentication](https://github.com/semantic-release/npm#npm-registry-authentication) and user [publish permissions](https://docs.npmjs.com/cli/v8/commands/npm-team/).
 
 ## 3. Squashed Commits
 
@@ -69,7 +69,7 @@ git push origin :refs/tags/<tag name>
 
 1. **Delete the orphaned tags** (remote then local):
    ```bash
-   git push origin -d :<TAG NAME>   # e.g. git push origin -d :v2.0.0-beta.1
+   git push origin -d <TAG NAME>    # e.g. git push origin -d v2.0.0-beta.1
    git tag -d <TAG NAME>
    ```
 
