@@ -4,6 +4,7 @@ tone_instructions: >
   grammar nits, and naming conventions — maintainers check those.
 
 reviews:
+  request_changes_workflow: true
   profile: "assertive"
   high_level_summary: true
   poem: false
