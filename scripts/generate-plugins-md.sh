@@ -89,6 +89,10 @@ HEADER
 
     if [ "$first_plugin" = true ]; then
       first_plugin=false
+    else
+      echo ""
+      echo "<br>"
+      echo ""
     fi
 
     echo "### ${plugin}"
