@@ -1,5 +1,9 @@
 # PatternFly AI Helpers
 
+[![License](https://img.shields.io/github/license/patternfly/ai-helpers)](./LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
+[![Plugins](https://img.shields.io/badge/plugins-6-blueviolet)](./PLUGINS.md)
+
 AI coding helpers for [PatternFly](https://www.patternfly.org/) development. This repository provides plugins and documentation to help AI tools generate accurate, best-practice PatternFly applications.
 
 Plugins work in both **Claude Code** and **Cursor**. The content is identical — only the install path differs.
