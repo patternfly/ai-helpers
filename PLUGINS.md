@@ -19,7 +19,6 @@ Accessibility auditing, reporting, and documentation
 
 No skills or agents yet — contributions welcome!
 
----
 
 ### design-foundations
 
@@ -35,7 +34,6 @@ Design foundation reference and auditing — tokens, icons, colors, spacing
 | `pf-token-auditor` | Validate and bridge Figma design styles to PatternFly 6 design tokens. |
 | `pf-tokens` | Build CSS design tokens for PatternFly core and copy them to the PatternFly repository. |
 
----
 
 ### figma
 
@@ -47,7 +45,6 @@ Figma design review, diffing, and asset identification
 | `figma-icon-finder` | Identifies PatternFly icons used in Figma mockups and provides the correct import statements for React components. |
 | `pf-compliance-checker` | Check Figma designs against PatternFly v6 design system standards. |
 
----
 
 ### issue-management
 
@@ -61,7 +58,6 @@ Issue creation, tracking, and cross-project coordination
 | `quarterly-initiative-report` | Generate comprehensive quarterly Jira status reports with progress tracking, RAG assessment, blocker identification, cross-project duplicate link analysis, and Q+1 recommendations. |
 | `summarize-jira-issues` | Summarize Jira sprint issues and contributions for the current user. |
 
----
 
 ### react
 
@@ -83,7 +79,6 @@ React component development — coding standards, testing, and structure
 | `pf-coding-standards` | PatternFly React development standards. |
 | `pf-unit-test-standards` | PatternFly React unit testing standards. |
 
----
 
 ### repo-management
 
