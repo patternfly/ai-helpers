@@ -43,6 +43,14 @@ get_description() {
   echo "$desc"
 }
 
+# First sentence only for table display
+get_desc_first_sentence() {
+  local desc="$1"
+  desc="${desc#\"}"
+  desc="${desc%\"}"
+  echo "$desc" | sed 's/\([.]\) .*/\1/'
+}
+
 # Read plugin description from plugin.json
 get_plugin_desc() {
   local plugin_dir="$1"
@@ -91,12 +99,14 @@ HEADER
         skill_file="${skill_dir}SKILL.md"
         [ -f "$skill_file" ] || continue
         if [ "$has_skills" = false ]; then
-          echo "**Skills:**"
+          echo "| Skill | Description |"
+          echo "|-------|-------------|"
           has_skills=true
         fi
         skill_name=$(basename "$skill_dir")
         skill_desc=$(get_description "$skill_file")
-        echo "- \`/${plugin}:${skill_name}\` — ${skill_desc}"
+        short_desc=$(get_desc_first_sentence "$skill_desc")
+        echo "| \`${skill_name}\` | ${short_desc} |"
       done
     fi
 
@@ -107,12 +117,14 @@ HEADER
         [ -f "$agent_file" ] || continue
         if [ "$has_agents" = false ]; then
           if [ "$has_skills" = true ]; then echo ""; fi
-          echo "**Agents:**"
+          echo "| Agent | Description |"
+          echo "|-------|-------------|"
           has_agents=true
         fi
         agent_name=$(basename "$agent_file" .md)
         agent_desc=$(get_description "$agent_file")
-        echo "- \`${agent_name}\` — ${agent_desc}"
+        short_desc=$(get_desc_first_sentence "$agent_desc")
+        echo "| \`${agent_name}\` | ${short_desc} |"
       done
     fi
 
