@@ -63,7 +63,7 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 | Plugin | What it helps you do | Decision test | Example skills |
 |--------|---------------------|---------------|----------------|
 | **react** | Develop and test React components | Does this help me write or test a React component? | `pf-unit-test-generator`, `pf-bug-triage` |
-| **design-tokens** | Reference, audit, and migrate design tokens | Does this involve design tokens, CSS variables, or color values? | `pf-tokens`, `pf-token-auditor`, `pf-raw-colors-scan` |
+| **design-foundations** | Reference and audit design foundations — tokens, icons, colors, spacing | Does this involve a design foundation like tokens, icons, or colors? | `pf-tokens`, `pf-token-auditor`, `icon-finder` |
 | **a11y** | Audit and document accessibility | Does this help me make something accessible? | *(accepting contributions)* |
 | **figma** | Review and extract from Figma designs | Does this require Figma as input or output? | `figma-changes` |
 | **issue-management** | Create and track issues across tools | Does this help me create, link, or manage issues? | `pf-create-issue`, `duplicate-epic` |
@@ -79,7 +79,7 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 Plugin names must tell a user exactly what the plugin helps them do. A user browsing the marketplace should understand what they're installing without clicking through.
 
 **Good names** describe the capability:
-- `design-tokens` — you know it's about design tokens
+- `design-foundations` — you know it's about design system foundations (tokens, icons, colors)
 - `issue-management` — you know it manages issues
 - `react` — universally understood technology domain
 

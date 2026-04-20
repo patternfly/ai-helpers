@@ -35,7 +35,7 @@ Ask: *"If someone sees this name in a list, do they know what they're installing
 
 | Good | Why | Bad | Why |
 |------|-----|-----|-----|
-| `design-tokens` | Specific — you know it's about tokens | `styling` | Vague — styling what? |
+| `design-foundations` | Specific — tokens, icons, colors, spacing | `styling` | Vague — styling what? |
 | `issue-management` | Clear action — manages issues | `workflow` | Could mean anything |
 | `react` | Universal tech domain | `frontend` | Too broad |
 

@@ -10,9 +10,9 @@
       "description": "React component development — coding standards, testing, and structure"
     },
     {
-      "name": "design-tokens",
-      "source": "./plugins/design-tokens",
-      "description": "Design token reference, auditing, and migration"
+      "name": "design-foundations",
+      "source": "./plugins/design-foundations",
+      "description": "Design foundation reference and auditing — tokens, icons, colors, spacing"
     },
     {
       "name": "a11y",

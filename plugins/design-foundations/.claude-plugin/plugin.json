@@ -1,6 +1,6 @@
 {
-  "name": "design-tokens",
-  "description": "Design token reference, auditing, and migration",
+  "name": "design-foundations",
+  "description": "Design foundation reference and auditing — tokens, icons, colors, spacing",
   "version": "1.0.0",
   "author": {
     "name": "PatternFly Team",
