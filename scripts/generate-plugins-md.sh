@@ -91,7 +91,6 @@ HEADER
       first_plugin=false
     else
       echo "<br>"
-      echo ""
     fi
 
     echo "### ${plugin}"
