@@ -82,9 +82,17 @@ HEADER
   echo ""
 
   # Build per-plugin sections
+  first_plugin=true
   for plugin_dir in plugins/*/; do
     plugin=$(basename "$plugin_dir")
     desc=$(get_plugin_desc "$plugin_dir")
+
+    if [ "$first_plugin" = true ]; then
+      first_plugin=false
+    else
+      echo "---"
+      echo ""
+    fi
 
     echo "### ${plugin}"
     echo ""
