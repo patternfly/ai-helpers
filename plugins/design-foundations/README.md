@@ -1,6 +1,6 @@
-# Design Tokens Plugin
+# Design Foundations Plugin
 
-Design token reference, auditing, and migration for PatternFly applications. Works in both **Claude Code** and **Cursor**.
+Design foundation reference and auditing — tokens, icons, colors, spacing — for PatternFly applications. Works in both **Claude Code** and **Cursor**.
 
 ## Installation
 
@@ -11,7 +11,7 @@ Design token reference, auditing, and migration for PatternFly applications. Wor
 /plugin marketplace add patternfly/ai-helpers
 
 # Install the plugin
-/plugin install design-tokens@ai-helpers
+/plugin install design-foundations@ai-helpers
 ```
 
 For enhanced results, also install the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp).
@@ -22,18 +22,19 @@ See the [root README](../../README.md) for Cursor installation options.
 
 ## What's Included
 
-Skills for PatternFly design token workflows:
+Skills for working with design system foundations:
 
 - Scanning for raw color values missing a design token mapping
 - Auditing design token usage and CSS variable patterns
 - Building and copying design tokens for PatternFly core
+- Finding icons from the Red Hat Design System
 
-Browse `skills/` for available skills (invoked as `/design-tokens:<skill-name>`).
+Browse `skills/` for available skills (invoked as `/design-foundations:<skill-name>`).
 
 ## Sources
 
 - [PatternFly.org](https://www.patternfly.org/)
-- [PatternFly Design Tokens](https://www.patternfly.org/design-foundations/tokens)
+- [PatternFly Design Foundations](https://www.patternfly.org/design-foundations)
 
 ## License
 
