@@ -38,6 +38,7 @@ Figma design review, diffing, and asset identification
 **Skills:**
 - `/figma:figma-changes` — Identify Figma design changes and generate code update checklists. Use when the user asks to "check Figma updates", "track design changes", "what changed in Figma", "create changelog from Figma", or "what code needs updating based on Figma".
 - `/figma:figma-icon-finder` — Identifies PatternFly icons used in Figma mockups and provides the correct import statements for React components. Use when given a Figma screenshot or URL and the user needs to know which PatternFly icons to import.
+- `/figma:pf-compliance-checker` — Check Figma designs against PatternFly v6 design system standards. Use when a user provides a Figma URL and wants to validate compliance with PatternFly colors, typography, spacing, components, and UX patterns.
 
 ### issue-management
 
