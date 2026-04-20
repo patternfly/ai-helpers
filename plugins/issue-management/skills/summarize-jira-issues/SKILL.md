@@ -194,7 +194,7 @@ assignee = currentUser() AND sprint in openSprints() AND status = "To Do"
 "Contributor[User Picker (multiple users)]" = currentUser() AND updated >= -3d
 ```
 
-**High priority backlog (not in sprint):**
+**High-priority backlog (not in sprint):**
 ```jql
 assignee = currentUser() AND sprint is EMPTY AND priority IN (Highest, High) AND status NOT IN (Done, Closed, Resolved)
 ```

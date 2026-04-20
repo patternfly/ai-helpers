@@ -114,7 +114,7 @@ As you implement the feature:
 - Make deliberate choices based on the guidelines
 - Prioritize user experience and polish
 - Consider edge cases the patterns address
-- If reference images exist in the `references/` folder, read and display the relevant ones to the user
+- If reference images exist in the `references/` folder, show the relevant ones to the user
 
 ### Step 3: Document what you applied
 
@@ -131,7 +131,7 @@ These follow the guidelines from [reference the specific images you used]."
 
 ## Reference Materials (Optional)
 
-The `references/` folder can contain visual examples of do's and don'ts for AI UX patterns. If populated, read and display relevant images when applying patterns. See `references/README.md` for the naming convention.
+The `references/` folder can contain visual examples of do's and don'ts for AI UX patterns. If populated, use relevant images when applying patterns. See `references/README.md` for the naming convention.
 
 ## Tips for great AI experiences
 
