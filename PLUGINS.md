@@ -13,17 +13,17 @@ Quick reference of all plugins and what they contain. This file is auto-generate
 
 ---
 
-## a11y
+### a11y
 
 Accessibility auditing, reporting, and documentation
 
 No skills or agents yet — contributions welcome!
 
-## design-foundations
+### design-foundations
 
 Design foundation reference and auditing — tokens, icons, colors, spacing
 
-| Skill <img width=250/> | Description |
+| Skill | Description |
 |-------|-------------|
 | `css-var-analyzer` | Analyze CSS custom property usage, redefinitions, and naming patterns in PatternFly SCSS components. |
 | `icon-finder` | Find icons from the Red Hat Design System (@rhds/icons) by use case. |
@@ -33,21 +33,21 @@ Design foundation reference and auditing — tokens, icons, colors, spacing
 | `pf-token-auditor` | Validate and bridge Figma design styles to PatternFly 6 design tokens. |
 | `pf-tokens` | Build CSS design tokens for PatternFly core and copy them to the PatternFly repository. |
 
-## figma
+### figma
 
 Figma design review, diffing, and asset identification
 
-| Skill <img width=250/> | Description |
+| Skill | Description |
 |-------|-------------|
 | `figma-changes` | Identify Figma design changes and generate code update checklists. |
 | `figma-icon-finder` | Identifies PatternFly icons used in Figma mockups and provides the correct import statements for React components. |
 | `pf-compliance-checker` | Check Figma designs against PatternFly v6 design system standards. |
 
-## issue-management
+### issue-management
 
 Issue creation, tracking, and cross-project coordination
 
-| Skill <img width=250/> | Description |
+| Skill | Description |
 |-------|-------------|
 | `duplicate-epic` | Use when `/duplicate-epic <issue> <feature>` should clone a Jira Epic, Story, or Bug into the PF project, resolve non-epic inputs to their parent epic, link back to the source, and attach the new epic to a PF feature. |
 | `pf-bug-triage` | Performs preliminary triage of opened issues marked as bugs. |
@@ -55,11 +55,11 @@ Issue creation, tracking, and cross-project coordination
 | `quarterly-initiative-report` | Generate comprehensive quarterly Jira status reports with progress tracking, RAG assessment, blocker identification, cross-project duplicate link analysis, and Q+1 recommendations. |
 | `summarize-jira-issues` | Summarize Jira sprint issues and contributions for the current user. |
 
-## react
+### react
 
 React component development — coding standards, testing, and structure
 
-| Skill <img width=250/> | Description |
+| Skill | Description |
 |-------|-------------|
 | `ai-experience-patterns` | Apply established UI/UX design patterns when building AI-powered product demos and experiences. |
 | `pf-component-structure` | Guide for PatternFly React component structure — audits, correct nesting, and layout debugging. |
@@ -69,17 +69,17 @@ React component development — coding standards, testing, and structure
 | `pf-unit-test-generator` | Generate a comprehensive unit test file for a given React component |
 | `write-example-description` | Helps PatternFly developers write and refine example descriptions and demo descriptions for PatternFly.org. |
 
-| Agent <img width=250/> | Description |
+| Agent | Description |
 |-------|-------------|
 | `component-structure-audit` | PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns. |
 | `pf-coding-standards` | PatternFly React development standards. |
 | `pf-unit-test-standards` | PatternFly React unit testing standards. |
 
-## repo-management
+### repo-management
 
 Release versioning, dependency analysis, and repository health
 
-| Skill <img width=250/> | Description |
+| Skill | Description |
 |-------|-------------|
 | `analytics-repo-pruning` | Flags archived or inactive Git repositories listed in PatternFly Analytics repos.json so entries can be pruned. |
 | `dependency-recommender` | Analyzes the project's manifests and code patterns, then recommends NPM or other dependencies that would reduce complexity, increase stability, and improve reusability—with a short rationale per recommendation. |

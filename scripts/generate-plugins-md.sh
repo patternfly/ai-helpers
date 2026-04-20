@@ -91,7 +91,7 @@ HEADER
       first_plugin=false
     fi
 
-    echo "## ${plugin}"
+    echo "### ${plugin}"
     echo ""
     echo "${desc}"
     echo ""
@@ -104,7 +104,7 @@ HEADER
         skill_file="${skill_dir}SKILL.md"
         [ -f "$skill_file" ] || continue
         if [ "$has_skills" = false ]; then
-          echo "| Skill <img width=250/> | Description |"
+          echo "| Skill | Description |"
           echo "|-------|-------------|"
           has_skills=true
         fi
@@ -122,7 +122,7 @@ HEADER
         [ -f "$agent_file" ] || continue
         if [ "$has_agents" = false ]; then
           if [ "$has_skills" = true ]; then echo ""; fi
-          echo "| Agent <img width=250/> | Description |"
+          echo "| Agent | Description |"
           echo "|-------|-------------|"
           has_agents=true
         fi
