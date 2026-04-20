@@ -1,5 +1,5 @@
 ---
-name: summarize-issues
+name: summarize-jira-issues
 description: "Summarize Jira sprint issues and contributions for the current user. Use when the user asks to: (1) See what's left in the sprint, (2) Summarize their assigned work, (3) Prioritize sprint tasks, (4) See issues they're contributing to, or (5) Understand what to work on next. Focuses on active sprint work first, then shows contributor roles and backlog."
 ---
 
@@ -15,78 +15,40 @@ Fetch sprint issues assigned to or contributed by the current user, summarize th
 4. **Analyze workload** - Categorize by sprint commitment vs contributions
 5. **Generate summary** - Present sprint-focused overview with recommendations
 
-## Step 1: Get User Identity and Cloud ID
+## Step 1: Get User Identity
 
-First, get the user's Atlassian account info and accessible resources.
-
-```
-atlassianUserInfo()
-getAccessibleAtlassianResources()
-```
-
-Store the `accountId` from user info and `cloudId` from resources for subsequent queries.
+Identify the current user's Atlassian account and accessible Jira resources (account ID and cloud ID).
 
 ## Step 2: Fetch Sprint Issues
 
-Query issues in open sprints - these are the primary focus.
+Run these queries in parallel via the Atlassian MCP:
 
-**Primary query - Sprint issues assigned to user:**
-```
-searchJiraIssuesUsingJql(
-    cloudId="[cloudId]",
-    jql='assignee = currentUser() AND sprint in openSprints() AND status NOT IN (Done, Closed, Resolved) ORDER BY priority DESC, status ASC',
-    maxResults=50,
-    fields=["summary", "status", "priority", "issuetype", "duedate", "created", "updated", "project", "labels", "sprint"],
-    responseContentFormat="markdown"
-)
+**Active sprint issues assigned to user** (open statuses, ordered by priority then status):
+```jql
+assignee = currentUser() AND sprint in openSprints() AND status NOT IN (Done, Closed, Resolved) ORDER BY priority DESC, status ASC
 ```
 
-**Sprint issues completed this sprint:**
-```
-searchJiraIssuesUsingJql(
-    cloudId="[cloudId]",
-    jql='assignee = currentUser() AND sprint in openSprints() AND status IN (Done, Closed, Resolved) ORDER BY resolved DESC',
-    maxResults=20,
-    fields=["summary", "status", "priority", "resolved", "project"],
-    responseContentFormat="markdown"
-)
+**Sprint issues completed this sprint** (most recently resolved first):
+```jql
+assignee = currentUser() AND sprint in openSprints() AND status IN (Done, Closed, Resolved) ORDER BY resolved DESC
 ```
 
 ## Step 3: Fetch Contributor Issues
 
-Query issues where the user is listed as a contributor (using the "Contributor" or "Contributors" custom field). Run these in parallel with sprint queries.
+Query issues where the user is a contributor but not the assignee. Run in parallel with sprint queries.
 
-**Issues where user is a contributor (not assignee):**
-```
-searchJiraIssuesUsingJql(
-    cloudId="[cloudId]",
-    jql='"Contributor[User Picker (multiple users)]" = currentUser() AND assignee != currentUser() AND status NOT IN (Done, Closed, Resolved) ORDER BY priority DESC, updated DESC',
-    maxResults=30,
-    fields=["summary", "status", "priority", "issuetype", "assignee", "updated", "project", "labels"],
-    responseContentFormat="markdown"
-)
+```jql
+"Contributor[User Picker (multiple users)]" = currentUser() AND assignee != currentUser() AND status NOT IN (Done, Closed, Resolved) ORDER BY priority DESC, updated DESC
 ```
 
-**Note:** The contributor field name varies by Jira instance. Common names:
-- `"Contributor[User Picker (multiple users)]"`
-- `"Contributors"`
-- `cf[XXXXX]` (custom field ID)
-
-If the first query fails, try alternate field names or ask the user for their Jira's contributor field name.
+**Note:** The contributor field name varies by Jira instance. Common alternatives: `"Contributors"`, `cf[XXXXX]`. If the query fails, try alternate field names or ask the user.
 
 ## Step 4: Fetch Backlog (Brief)
 
-Only fetch a brief backlog summary - sprint work takes priority.
+Fetch a brief backlog summary — sprint work takes priority. Limit to ~10 results.
 
-**Non-sprint assigned issues (brief overview):**
-```
-searchJiraIssuesUsingJql(
-    cloudId="[cloudId]",
-    jql='assignee = currentUser() AND (sprint is EMPTY OR sprint not in openSprints()) AND status NOT IN (Done, Closed, Resolved) ORDER BY priority DESC, updated DESC',
-    maxResults=10,
-    fields=["summary", "status", "priority", "issuetype", "updated", "project"],
-    responseContentFormat="markdown"
-)
+```jql
+assignee = currentUser() AND (sprint is EMPTY OR sprint not in openSprints()) AND status NOT IN (Done, Closed, Resolved) ORDER BY priority DESC, updated DESC
 ```
 
 ## Step 5: Analyze Workload

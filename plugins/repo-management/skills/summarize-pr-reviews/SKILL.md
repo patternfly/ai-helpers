@@ -17,47 +17,20 @@ Fetch all GitHub pull requests where the current user is requested as a reviewer
 
 ## Step 1: Get User Identity
 
-Get the authenticated GitHub user's information via `get_me`. Store the `login` (username) for subsequent queries.
+Identify the authenticated GitHub user's login.
 
 ## Step 2: Search for PRs Requesting Review
 
-Use `search_pull_requests` to find open PRs where the user is requested as a reviewer.
+Search for open PRs where the user is requested as a reviewer, sorted by most recently updated. Run both queries in parallel:
 
-**Primary query — PRs awaiting your review:**
-```
-is:open review-requested:[username]
-```
-Sort by `updated`, order `desc`, with `perPage: 50`.
+- **Primary:** Open PRs awaiting your review
+- **Secondary:** Open PRs you've already reviewed but haven't approved (may have new changes)
 
-**Optional — PRs you've already reviewed but have new changes:**
-```
-is:open reviewed-by:[username] -review:approved
-```
-Sort by `updated`, order `desc`, with `perPage: 20`.
-
-Run both queries in parallel.
-
-**Scoped variants** (use when user asks about a specific org or repo):
-
-| Scope | Query addition |
-|-------|---------------|
-| Specific org | `org:patternfly` |
-| Specific repo | `repo:owner/repo-name` |
-| Specific label | `label:priority` |
-| Drafts only | `draft:true` |
+If the user asks about a specific org or repo, scope the search accordingly.
 
 ## Step 3: Fetch PR Details
 
-For each PR found, fetch details in parallel using `pull_request_read`:
-
-| Data needed | Method | Why |
-|-------------|--------|-----|
-| PR metadata | `get` | Title, author, description, labels, created date |
-| Files changed | `get_files` | File count, lines added/deleted, key paths |
-| Existing reviews | `get_reviews` | Who reviewed, approval status |
-| CI status | `get_status` | Passing, failing, or pending checks |
-
-Batch all PRs together — fetch files, reviews, and status for every PR in one parallel call.
+For each PR found, fetch in parallel: metadata (title, author, labels, created date), files changed (count, lines added/deleted, key paths), existing reviews and their states, and CI/check status.
 
 Extract from each PR:
 - Title and description

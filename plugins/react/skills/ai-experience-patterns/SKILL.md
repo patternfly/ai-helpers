@@ -20,8 +20,8 @@ Apply this skill when the user is building:
 ## How this skill works
 
 1. **Identify applicable patterns** - Determine which AI UX patterns are relevant to what the user is building
-2. **Show reference materials** - Display relevant do's and don'ts images from the references folder
-3. **Apply patterns while building** - Incorporate the design guidelines into the implementation
+2. **Apply patterns while building** - Incorporate the design guidelines into the implementation
+3. **Show reference materials** - If reference images exist in the `references/` folder, display relevant do's and don'ts to the user
 4. **Document what you applied** - Tell the user which patterns you followed and why
 
 ## Common AI UX Patterns
@@ -107,28 +107,16 @@ Before you start building, analyze the user's request and determine which patter
 - Creating an AI code generator → Loading states, Output display, Error handling
 - Building a demo → Multiple patterns, emphasis on polish
 
-### Step 2: Show relevant references
-
-Read the appropriate reference images from the `references/` folder and display them to the user. Say something like:
-
-"I'll build this AI experience following our established design patterns. Here are the key patterns I'll apply:
-
-**[Pattern Name]**
-![Description of do's and don'ts]
-
-Let me show you the relevant guidelines..."
-
-Then use the Read tool to display the reference images that match the patterns you identified.
-
-### Step 3: Build following the patterns
+### Step 2: Build following the patterns
 
 As you implement the feature:
-- Apply the guidelines from the reference materials
-- Make deliberate choices based on the patterns
+- Apply the patterns described above
+- Make deliberate choices based on the guidelines
 - Prioritize user experience and polish
 - Consider edge cases the patterns address
+- If reference images exist in the `references/` folder, read and display the relevant ones to the user
 
-### Step 4: Document what you applied
+### Step 3: Document what you applied
 
 When you present the finished work, explain which patterns you used and why. For example:
 
@@ -141,19 +129,9 @@ When you present the finished work, explain which patterns you used and why. For
 
 These follow the guidelines from [reference the specific images you used]."
 
-## Reference Materials
+## Reference Materials (Optional)
 
-The `references/` folder contains visual examples of do's and don'ts for AI UX patterns. When you identify which patterns apply, read and display the relevant images to the user.
-
-**Expected reference structure:**
-- `loading-states-*.png` - How to show AI processing
-- `input-patterns-*.png` - How to design AI input interfaces
-- `output-display-*.png` - How to present AI-generated content
-- `error-handling-*.png` - How to handle AI failures
-- `transparency-*.png` - How to show AI involvement and controls
-- `streaming-*.png` - How to handle progressive generation
-
-(The user will populate this folder with images from their design deck)
+The `references/` folder can contain visual examples of do's and don'ts for AI UX patterns. If populated, read and display relevant images when applying patterns. See `references/README.md` for the naming convention.
 
 ## Tips for great AI experiences
 
@@ -171,5 +149,5 @@ The `references/` folder contains visual examples of do's and don'ts for AI UX p
 
 - These patterns are guidelines, not rigid rules. Apply them thoughtfully based on context.
 - When in doubt, prioritize clarity and user control over cleverness.
-- The reference images are your source of truth - follow their specific guidance.
+- If reference images are available, use them as additional guidance.
 - If the user's request conflicts with the patterns, ask for clarification rather than silently deviating.
