@@ -144,6 +144,19 @@ In addition to the skill-creator guidance, skills in this repo must follow these
   command -v node >/dev/null 2>&1 || { echo "Error: This skill requires Node.js." >&2; exit 1; }
   ```
 - Use `$CLAUDE_SKILL_DIR` to reference scripts relative to the skill directory — it resolves to the directory containing SKILL.md regardless of where the repo is cloned
+- **Evals are optional** but recommended for skills with structured output or external system interactions — see the [skill-creator eval guide](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) for setup
+
+### Security rules
+
+Skills are instructions that an AI tool follows on behalf of a user. Contributors must not include instructions that:
+
+- Hardcode secrets, tokens, or credentials
+- Tell the AI to disable permission prompts or skip verification (`--no-verify`, `--force`) in skill instructions or bundled scripts
+- Send data to external services without explicit user confirmation
+- Use `eval`, `exec`, or `curl | bash` patterns in bundled scripts
+- Access files outside the target project without stating why
+
+Bundled scripts (`.sh`, `.js`, `.py`, `.ts`) are reviewed for these patterns automatically by CodeRabbit. See [GOVERNANCE.md](GOVERNANCE.md) for the full review process.
 
 ## Skill ideas to get you started
 
