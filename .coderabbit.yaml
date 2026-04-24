@@ -54,9 +54,10 @@ reviews:
         error handling at system boundaries, and incorrect data transformations.
         Security checklist: flag hardcoded secrets or tokens, curl piped to
         shell (curl | bash), use of --no-verify or --force flags, unquoted
-        variables in shell commands, eval or exec on user input, and any
-        network requests to URLs not provided by the user. Do not flag style
-        or formatting.
+        variables in shell commands, eval or exec on user input, access to
+        files or resources outside the target project without explicit
+        justification, and any network requests to URLs not provided by the
+        user. Do not flag style or formatting.
     - path: "scripts/**"
       instructions: >
         Repo-level automation scripts. Review for bugs, correctness, and
