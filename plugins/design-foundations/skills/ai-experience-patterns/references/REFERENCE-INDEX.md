@@ -222,6 +222,18 @@ Three more things NOT to do:
 2. ❌ Don't use robot variations for state changes/alerts
 3. ❌ Don't change robot color based on emotion
 
+## Chat Message Styling
+
+### `chat-messages-do-control-token.png`
+**Do this: Use control tokens for chat message backgrounds**
+
+✅ Correct example: Chat message boxes using standard PatternFly control tokens for background colors.
+
+### `chat-message-dont-gradients.png`
+**Don't use gradients on chat message boxes**
+
+❌ Incorrect: Gradients cannot be used on the message box. Do not use gradients to indicate "thinking" or progress states. The chat conversation area has its own dedicated animation for those interactions.
+
 ---
 
 ## How to Use These References
