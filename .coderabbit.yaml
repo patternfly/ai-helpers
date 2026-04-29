@@ -62,6 +62,12 @@ reviews:
       instructions: >
         Repo-level automation scripts. Review for bugs, correctness, and
         broken behavior. These generate docs and maintain repo consistency.
+        Security checklist: flag hardcoded secrets, tokens, or credentials,
+        curl piped to shell (curl | bash), use of --no-verify or --force
+        flags, unquoted variables in shell commands, use of eval or exec,
+        access to files or resources outside the target project without
+        explicit justification, and any network requests to URLs not provided
+        by the user. Do not flag style or formatting.
     - path: "CONTRIBUTING*.md"
       instructions: >
         These are the source-of-truth guidelines that CodeRabbit and human

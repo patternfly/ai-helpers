@@ -15,7 +15,7 @@ This repository distributes AI coding plugins (skills and agents) as Markdown an
 
 - Skills that instruct the AI to disable permissions or skip verification
 - Bundled scripts with injection risks or unsafe command patterns
-- Exposure of secrets or tokens in skill definitions
+- Exposure of secrets, tokens, or credentials in skill definitions
 
 ## How Contributions Are Reviewed
 
