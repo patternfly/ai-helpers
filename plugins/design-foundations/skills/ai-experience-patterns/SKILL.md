@@ -2,7 +2,7 @@
 
 ## name: ai-experience-patterns
 
-description: Apply Red Hat's official AI-enabled features design language when building AI-powered product demos and experiences. Use this skill whenever the user mentions "AI experience", "AI powered", "AI supported", "product demo", or when building prototypes that involve AI features. Triggers on mentions of chatbots, virtual assistants, AI generation, or AI-assisted workflows. Make sure to use this skill proactively even when users don't explicitly ask for design guidance.
+description: Apply Red Hat's AI design language for AI-powered demos and features. Use when user mentions AI experience, chatbots, virtual assistants, AI generation, or product prototypes. Proactively applies even without explicit request.
 
 # Red Hat AI Experience Design Patterns
 
