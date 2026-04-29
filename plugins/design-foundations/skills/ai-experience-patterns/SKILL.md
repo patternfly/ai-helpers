@@ -16,7 +16,7 @@ This skill applies Red Hat's official design language for AI-enabled features (l
 - `references/` - 21 extracted visual examples from key pages
 - `references/REFERENCE-INDEX.md` - Detailed description of each reference image
 
-**When using this skill:** Show users the relevant reference images from the `references/` folder using the Read tool so they can see the official design patterns that apply to their design.
+**When using this skill:** Show users the relevant reference images from the `references/` folder so they can see the official design patterns that apply to their design.
 
 ## Core Principles
 
@@ -336,7 +336,7 @@ When presenting your analysis, **show the relevant reference image for each fail
 | [Check item] | ❌ Missing/Failed |
 
 
-**For each ❌ item in the table**, immediately show the reference image that demonstrates the correct pattern using the Read tool. This helps users understand exactly what needs to change.
+**For each ❌ item in the table**, immediately show the reference image that demonstrates the correct pattern. This helps users understand exactly what needs to change.
 
 **Example output:**
 
@@ -354,7 +354,7 @@ When presenting your analysis, **show the relevant reference image for each fail
 
 **Robot avatar for chatbot** ❌
 
-[Show `references/chatbot-avatar-robot.png` using Read tool]
+[Show `references/chatbot-avatar-robot.png`]
 
 The chatbot is missing the required robot avatar. Per the guidelines above, all chatbots must use Red Hat's robot icon as their avatar to create a cohesive experience.
 
