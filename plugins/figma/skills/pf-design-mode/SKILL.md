@@ -8,19 +8,23 @@ disable-model-invocation: true
 
 Use this skill for write-focused design tasks in Figma.
 
-## Required prerequisite
+## Required prerequisites
 
-Before any `use_figma` call, load and follow the `figma-use` skill.
+This skill depends on two skills from the **official Figma plugin** (`claude-plugins-official/figma`). See the [plugin README](../../README.md) for install instructions.
+
+The two required skills are:
+
+- `figma-use` — mandatory before every `use_figma` call; never skip it
+- `figma-generate-design` — required when the task involves creating a full page or screen from code
+
+Rules:
 
 - Never call `use_figma` directly without first loading `figma-use`.
 - If the task includes broad screen creation from code, pair `figma-use` with `figma-generate-design`.
 
 ## Approved component sources (strict)
 
-Use components and patterns only from these two Figma files:
-
-- https://www.figma.com/design/VMEX8Xg2nzhBX8rfBx53jp/PatternFly-6--Components?m=auto
-- https://www.figma.com/design/MSr6kVEOuAxmPOkjg7x8PO/PatternFly-6--Patterns---Extensions?m=auto
+Use components and patterns only from the files listed in `references/approved-sources.md`.
 
 Rules:
 
@@ -63,7 +67,7 @@ Use this skill when a request includes one or more of the following:
    - Invoke the `figma-use` skill instructions first.
 
 3. Resolve approved assets with pattern-first priority
-   - Search and import from the two approved PatternFly files only.
+   - Search and import from the approved PatternFly files only (see `references/approved-sources.md`).
    - Prefer matching `🧰` patterns first, then fall back to smaller components if needed.
    - Verify each chosen component/pattern comes from an approved source.
 
