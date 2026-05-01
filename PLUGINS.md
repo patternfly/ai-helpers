@@ -78,6 +78,7 @@ React component development — coding standards, testing, and structure
 | `pf-import-checker` | Audits and fixes PatternFly import paths, with emphasis on charts, chatbot, and component-groups. |
 | `pf-library-test-writer` | Write unit tests for contributors to PatternFly libraries (patternfly-react, patternfly-chatbot, etc.), not for consumers of PatternFly components. |
 | `pf-project-scaffolder` | Scaffolds PatternFly React projects with PF6-safe dependencies, imports, and starter layout. |
+| `pf-prototype-mode` | Enable prototype mode for React apps (grayscale + banner) |
 | `pf-unit-test-generator` | Generate a comprehensive unit test file for a given React component |
 | `write-example-description` | Helps PatternFly developers write and refine example descriptions and demo descriptions for PatternFly.org. |
 
