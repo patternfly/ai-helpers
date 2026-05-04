@@ -48,6 +48,7 @@ Figma design review, diffing, and asset identification
 | `figma-changes` | Identify Figma design changes and generate code update checklists. |
 | `figma-icon-finder` | Identifies PatternFly icons used in Figma mockups and provides the correct import statements for React components. |
 | `pf-compliance-checker` | Check Figma designs against PatternFly v6 design system standards. |
+| `pf-design-mode` | Create and edit Figma design files using the Figma MCP workflow with PatternFly-approved libraries only. |
 
 
 <br>
