@@ -4,15 +4,13 @@ description: Create and edit Figma design files using the Figma MCP workflow wit
 disable-model-invocation: true
 ---
 
-# Design Mode
+# PatternFly Design Mode
 
 Use this skill for write-focused design tasks in Figma.
 
 ## Required prerequisites
 
-This skill depends on two skills from the **official Figma plugin** (`claude-plugins-official/figma`). See the [plugin README](../../README.md) for install instructions.
-
-The two required skills are:
+This skill requires two skills from the **official Figma plugin** — see the [plugin README](../../README.md) for install instructions.
 
 - `figma-use` — mandatory before every `use_figma` call; never skip it
 - `figma-generate-design` — required when the task involves creating a full page or screen from code
@@ -29,6 +27,7 @@ Use components and patterns only from the files listed in `references/approved-s
 Rules:
 
 - Do not use components from any other library or file.
+- Only use semantic design tokens and spacers from the approved files.
 - Do not create ad-hoc replacement components when an approved component/pattern exists.
 - If a needed component/pattern is missing in these sources, stop and ask the user before proceeding.
 
