@@ -4,25 +4,9 @@ This folder contains reference materials for building AI-powered experiences tha
 
 ## Contents
 
-### Design language_ AI-enabled features.pdf
+### Reference images
 
-**Official Red Hat design guidelines (February 2026)** for AI-enabled features.
-
-**Key sections:**
-- **Team Conclusions** (pages 2-3): Core principles - be transparent, personable but not human, stay within Red Hat brand
-- **Transparency Notices** (pages 4-10): Requirements for indicating AI usage
-- **Iconography** (pages 11-20): AI sparkle icon system, usage guidelines
-- **Color** (pages 21-24): Why not to use special colors for AI
-- **Chatbot Avatars** (pages 25-32): Robot icon standards, variations, launch buttons
-- **Animation** (pages 33-35): Sparkle animations (work in progress)
-
-**Most important pages for quick reference:**
-- Page 5: "It should always be clear when and how AI is being used"
-- Page 6: Transparency components examples
-- Page 8: Virtual assistant transparency notices
-- Pages 13-17: AI icon system and usage
-- Page 22: Don't use color or gradients for AI
-- Pages 26-30: Chatbot avatar standards
+21 extracted visuals from the official Red Hat "Design language: AI-enabled features" deck (February 2026). See `REFERENCE-INDEX.md` for descriptions of each image.
 
 ## Future additions
 

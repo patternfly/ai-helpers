@@ -10,6 +10,8 @@ Figma design review, diffing, and asset identification for PatternFly. Works in 
 # Add the PatternFly marketplace
 /plugin marketplace add patternfly/ai-helpers
 
+# Install the plugin
+/plugin install figma@ai-helpers
 ```
 
 The `pf-design-mode` skill requires the official Figma plugin. Install it before using that skill:
@@ -26,7 +28,7 @@ Install this plugin from the Cursor marketplace or see the [root README](../../R
 
 The `pf-design-mode` skill requires the official Figma plugin. Run the following in the Cursor agent chat before using that skill:
 
-```
+```bash
 /add-plugin figma
 ```
 
