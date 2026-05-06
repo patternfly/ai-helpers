@@ -15,7 +15,7 @@ Copy the template files from this skill's `scripts/` directory to the user's pro
 
 1. **Read** `scripts/prototype.css` from this skill directory
 2. **Write** to `src/prototype.css` in the user's project
-3. **Read** `scripts/protoBanner.tsx` from this skill directory  
+3. **Read** `scripts/ProtoBanner.tsx` from this skill directory  
 4. **Write** to `src/components/ProtoBanner.tsx` in the user's project (create `src/components/` if needed)
 
 If a custom message was provided, replace the default message in `ProtoBanner.tsx` before writing it.
@@ -62,12 +62,12 @@ Confirm with the user:
 - ✅ CSS import added to entry point
 - ✅ ProtoBanner component added to App
 
-Tell the user that prototype mode is enabled and all UI will render in grayscale with a banner.
+Tell the user that prototype mode is enabled. The banner includes a "Grayscale Mode" toggle switch to turn the grayscale filter on/off for prototyping.
 
 ## Notes
 
 - Always use Read tool before Edit tool
 - Use Edit tool (not Write) for modifying existing files
 - Check for existing imports/components to avoid duplicates
-- The grayscale filter applies to the entire HTML document via CSS
-- The ProtoBanner uses PatternFly's Banner component with `isSticky` prop
+- The grayscale filter applies when the `prototype-grayscale` class is on the `<html>` element (toggled via Switch in ProtoBanner)
+- The ProtoBanner uses PatternFly's Banner component with `isSticky` prop and includes a Switch to toggle grayscale mode
