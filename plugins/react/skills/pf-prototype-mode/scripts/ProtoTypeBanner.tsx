@@ -4,7 +4,7 @@ import { Banner, Bullseye, Flex, FlexItem, Switch } from "@patternfly/react-core
 export interface ProtoProps {
   message?: string;
 }
-const ProtoBanner: React.FC<ProtoProps> = ({ message = "This application is a design prototype"}) => {
+const ProtoTypeBanner: React.FC<ProtoProps> = ({ message = "This application is a design prototype"}) => {
   const [isGrayscaleEnabled, setIsGrayscaleEnabled] = React.useState(true);
 
   React.useEffect(() => {
@@ -12,6 +12,7 @@ const ProtoBanner: React.FC<ProtoProps> = ({ message = "This application is a de
     document.documentElement.classList.add('prototype-grayscale');
   }, []);
 
+  // Handles changes to grey scale.
   const handleToggle = (_event: React.FormEvent<HTMLInputElement>, checked: boolean) => {
     setIsGrayscaleEnabled(checked);
     if (checked) {
@@ -43,4 +44,4 @@ const ProtoBanner: React.FC<ProtoProps> = ({ message = "This application is a de
   );
 };
 
-export { ProtoBanner };
+export { ProtoTypeBanner };
