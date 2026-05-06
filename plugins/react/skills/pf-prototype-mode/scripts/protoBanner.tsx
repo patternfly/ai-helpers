@@ -31,7 +31,7 @@ const ProtoBanner: React.FC<ProtoProps> = ({ message = "This application is a de
           <FlexItem>
             <Switch
               id="grayscale-toggle"
-              label="Grayscale"
+              label="Grayscale Mode"
               isChecked={isGrayscaleEnabled}
               onChange={handleToggle}
               isReversed
