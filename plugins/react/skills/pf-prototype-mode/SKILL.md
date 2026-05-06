@@ -28,9 +28,13 @@ If a custom message was provided, replace the default message in `ProtoBanner.ts
    
 2. **Read** the entry point file
 
-3. **Check** if `import './prototype.css';` already exists
+3. **Determine the correct import path** based on file location:
+   - If file is under `src/`: use `./prototype.css`
+   - If file is at root level: use `./src/prototype.css`
+
+4. **Check** if prototype CSS import already exists
    - If it exists: skip this step
-   - If not: **Edit** to add `import './prototype.css';` after existing imports
+   - If not: **Edit** to add the import (with correct path) after existing imports
 
 ## Step 4: Find and Update App Component
 
@@ -40,10 +44,14 @@ If a custom message was provided, replace the default message in `ProtoBanner.ts
 
 2. **Read** the App component file
 
-3. **Check** if ProtoBanner import already exists
-   - If not: **Edit** to add `import { ProtoBanner } from './components/ProtoBanner';` after existing imports
+3. **Determine the correct import path** based on file location:
+   - If file is under `src/`: use `./components/ProtoBanner`
+   - If file is at root level: use `./src/components/ProtoBanner`
 
-4. **Check** if `<ProtoBanner` already exists in the JSX
+4. **Check** if ProtoBanner import already exists
+   - If not: **Edit** to add the import (with correct path) after existing imports
+
+5. **Check** if `<ProtoBanner` already exists in the JSX
    - If not: **Edit** to insert `<ProtoBanner />` or `<ProtoBanner message="custom message" />` at the start of the return statement
 
 ## Step 5: Verify Changes
