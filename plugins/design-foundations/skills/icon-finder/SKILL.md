@@ -1,6 +1,6 @@
 ---
 name: icon-finder
-description: Find icons from the Red Hat Design System (@rhds/icons) by use case. Searches the Red Hat Icons demo site by keyword, returns matching icon names with a visual HTML preview for comparison. Use when the user asks to find an icon, search for an icon by purpose, pick an icon for a UI, or get icon options for a use case.
+description: Find Red Hat Design System icons (@rhds/icons) by keyword or use case with visual previews. Use when choosing an icon for a UI element or looking up available icons.
 ---
 
 # Icon Finder (Red Hat Icons)

@@ -1,6 +1,6 @@
 ---
 name: css-var-analyzer
-description: Analyze CSS custom property usage, redefinitions, and naming patterns in PatternFly SCSS components. Use when auditing --pf- variables, debugging missing definitions, tracing SCSS variable cascades, or finding unused CSS custom properties.
+description: Analyze --pf- CSS custom property usage and naming patterns in PatternFly SCSS. Use when auditing variable definitions, debugging missing tokens, or finding unused custom properties.
 ---
 
 # CSS Variable Analyzer

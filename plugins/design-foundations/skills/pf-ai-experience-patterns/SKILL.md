@@ -1,6 +1,6 @@
 ---
 name: pf-ai-experience-patterns
-description: Apply Red Hat's AI design language for AI-powered demos and features. Use when user mentions AI experience, chatbots, virtual assistants, AI generation, or product prototypes. Proactively applies even without explicit request.
+description: Apply Red Hat's AI design language to AI-powered features — chatbots, assistants, generation UIs. Use when building AI experiences that should follow Red Hat brand and UX patterns.
 ---
 
 # Red Hat AI Experience Design Patterns

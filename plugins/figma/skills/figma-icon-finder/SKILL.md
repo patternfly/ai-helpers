@@ -1,6 +1,6 @@
 ---
 name: figma-icon-finder
-description: Identifies PatternFly icons used in Figma mockups and provides the correct import statements for React components. Use when given a Figma screenshot or URL and the user needs to know which PatternFly icons to import.
+description: Identify PatternFly icons in Figma mockups and provide the correct React import statements. Use when implementing a design from Figma, verifying icon usage in a prototype, or finding the correct icon imports for React components. Requires Figma MCP.
 argument-hint: "[path/to/figma-screenshot.png] or [figma-url] or use @file for autocomplete"
 ---
 

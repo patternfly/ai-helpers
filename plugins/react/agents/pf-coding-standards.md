@@ -1,6 +1,6 @@
 ---
 name: pf-coding-standards
-description: PatternFly React development standards. Use when writing, reviewing, or refactoring PatternFly React components, layouts, or styles.
+description: Define PatternFly React coding standards — import patterns, component composition, token usage, and style conventions. Use when writing, reviewing, or refactoring PF React code.
 ---
 
 # PatternFly React Development Standards

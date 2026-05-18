@@ -1,6 +1,6 @@
 ---
 name: analytics-repo-pruning
-description: Flags archived or inactive Git repositories listed in PatternFly Analytics repos.json so entries can be pruned. Use when reviewing repos.json, auditing tracked codebases, or removing stale or archived repos from analytics.
+description: Flag archived or inactive repos in PatternFly Analytics repos.json for removal. Use when auditing tracked codebases or pruning stale entries from analytics.
 ---
 
 # Analytics repo pruning

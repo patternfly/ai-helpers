@@ -1,6 +1,6 @@
 ---
 name: pf-library-test-writer
-description: Write unit tests for contributors to PatternFly libraries (patternfly-react, patternfly-chatbot, etc.), not for consumers of PatternFly components. Use `unit-test-generator` for consumer application tests instead.
+description: Write unit tests for PatternFly library internals using mock-based isolation. Use when contributing tests to patternfly-react, patternfly-chatbot, or other PF library repos — not for consumer app tests.
 ---
 
 Write unit tests for components and features within PatternFly ecosystem libraries (patternfly-react, patternfly-chatbot, patternfly-virtual-assistant, and other JS/TS-based PatternFly libraries). Unlike `unit-test-generator` which tests at the network boundary, this skill **mocks child components** for unit isolation of individual library components.

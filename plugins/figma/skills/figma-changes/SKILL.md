@@ -1,6 +1,6 @@
 ---
 name: figma-changes
-description: Identify Figma design changes and generate code update checklists. Use when the user asks to "check Figma updates", "track design changes", "what changed in Figma", "create changelog from Figma", or "what code needs updating based on Figma".
+description: Diff Figma designs to identify what changed and generate code update checklists. Use when syncing code with updated designs or reviewing what changed between iterations. Requires Figma MCP.
 version: 3.1.0
 ---
 
