@@ -32,11 +32,11 @@ Cursor can discover plugins from `.cursor-plugin/` directories. If you also have
 | Plugin | Description |
 |--------|-------------|
 | **a11y** | Accessibility auditing, reporting, and documentation |
-| **design-foundations** | Design foundation reference and auditing — tokens, icons, colors, spacing |
-| **figma** | Figma design review, diffing, and asset identification |
-| **issue-management** | Issue creation, tracking, and cross-project coordination |
+| **code-review** | Code review and quality — PR summaries, adversarial review, security patterns |
+| **design-to-code** | Design-to-code translation — Figma review, token auditing, icon identification, design compliance |
+| **migration** | PF version migration — breaking change detection, class scanning, upgrade planning |
+| **pf-workshop** | PatternFly team tools and skill incubation — issue triage, release management, codebase auditing, new skill development |
 | **react** | React component development — coding standards, testing, and structure |
-| **repo-management** | Release versioning, dependency analysis, and repository health |
 <!-- END PLUGIN TABLE -->
 
 See [PLUGINS.md](PLUGINS.md) for skills, agents, and usage details.
@@ -51,7 +51,7 @@ For the best experience, also install the [PatternFly MCP server](https://github
 graph TD
     A[AI Tool] -->|discovers| B[".<tool>-plugin/marketplace.json"]
     B -->|references| C[plugins/react]
-    B -->|references| D[plugins/design-foundations]
+    B -->|references| D[plugins/design-to-code]
     B -->|references| E[plugins/...]
     C --- F[skills/ + agents/]
     D --- G[skills/ + agents/]

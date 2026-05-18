@@ -10,9 +10,14 @@
       "description": "React component development — coding standards, testing, and structure"
     },
     {
-      "name": "design-foundations",
-      "source": "./plugins/design-foundations",
-      "description": "Design foundation reference and auditing — tokens, icons, colors, spacing"
+      "name": "migration",
+      "source": "./plugins/migration",
+      "description": "PF version migration — breaking change detection, class scanning, upgrade planning"
+    },
+    {
+      "name": "design-to-code",
+      "source": "./plugins/design-to-code",
+      "description": "Design-to-code translation — Figma review, token auditing, icon identification, design compliance"
     },
     {
       "name": "a11y",
@@ -20,19 +25,15 @@
       "description": "Accessibility auditing, reporting, and documentation"
     },
     {
-      "name": "figma",
-      "source": "./plugins/figma",
-      "description": "Figma design review, diffing, and asset identification"
+      "name": "code-review",
+      "source": "./plugins/code-review",
+      "description": "Code review and quality — PR summaries, adversarial review, security patterns"
     },
     {
-      "name": "issue-management",
-      "source": "./plugins/issue-management",
-      "description": "Issue creation, tracking, and cross-project coordination"
-    },
-    {
-      "name": "repo-management",
-      "source": "./plugins/repo-management",
-      "description": "Release versioning, dependency analysis, and repository health"
+      "name": "pf-workshop",
+      "source": "./plugins/pf-workshop",
+      "description": "PatternFly team tools and skill incubation — issue triage, release management, codebase auditing, new skill development",
+      "category": "workshop"
     }
   ]
 }

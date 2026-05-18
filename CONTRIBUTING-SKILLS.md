@@ -62,12 +62,12 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 
 | Plugin | What it helps you do | Decision test | Example skills |
 |--------|---------------------|---------------|----------------|
-| **react** | Develop and test React components | Does this help me write or test a React component? | `pf-unit-test-generator`, `pf-bug-triage` |
-| **design-foundations** | Reference and audit design foundations — tokens, icons, colors, spacing | Does this involve a design foundation like tokens, icons, or colors? | `pf-tokens`, `pf-token-auditor`, `icon-finder` |
-| **a11y** | Audit and document accessibility | Does this help me make something accessible? | *(accepting contributions)* |
-| **figma** | Review and extract from Figma designs | Does this require Figma as input or output? | `figma-changes` |
-| **issue-management** | Create and track issues across tools | Does this help me create, link, or manage issues? | `pf-create-issue`, `duplicate-epic` |
-| **repo-management** | Manage releases, dependencies, and repo health | Does this help me maintain a repository? | `pf-org-version-update`, `dependency-recommender`, `analytics-repo-pruning` |
+| **react** | Develop and test React components | Does this help me write or test a React component? | `pf-unit-test-generator`, `pf-component-structure` |
+| **migration** | Upgrade PatternFly versions | Does this help me upgrade PF versions? | `pf-class-migration-scanner` |
+| **design-to-code** | Go from a design to PF code | Does this help me go from a design to PF code? | `pf-token-auditor`, `icon-finder`, `figma-changes` |
+| **a11y** | Audit and document accessibility | Does this help me make my UI accessible? | *(accepting contributions)* |
+| **code-review** | Review code for quality | Does this help me review code for quality? | `summarize-pr-reviews` |
+| **pf-workshop** | Team tools and skill incubation | Is this a team workflow tool, or a new skill that isn't ready for a consumer plugin yet? | `pf-create-issue`, `pf-bug-triage`, `analytics-repo-pruning` |
 
 **How to decide:**
 - Use the **decision test** column. If you can answer "yes" to a plugin's question, that's where your skill goes.
@@ -79,8 +79,8 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 Plugin names must tell a user exactly what the plugin helps them do. A user browsing the marketplace should understand what they're installing without clicking through.
 
 **Good names** describe the capability:
-- `design-foundations` — you know it's about design system foundations (tokens, icons, colors)
-- `issue-management` — you know it manages issues
+- `design-to-code` — you know it bridges designs to PF code
+- `migration` — you know it helps with version upgrades
 - `react` — universally understood technology domain
 
 **Bad names** are vague categories:
@@ -106,7 +106,7 @@ Use the `pf-` prefix on skill and agent names that are **PatternFly-specific**. 
 | Type | PatternFly-specific? | Name |
 |------|---------------------|------|
 | Skill | Yes — generates PF component tests | `pf-unit-test-generator` |
-| Skill | No — recommends deps for any project | `dependency-recommender` |
+| Skill | No — summarizes PR review threads | `summarize-pr-reviews` |
 | Agent | Yes — PF React coding standards | `pf-coding-standards` |
 
 **Why this matters:** In Cursor, slash commands appear in a flat list without plugin context — `/unit-test-generator` is indistinguishable from skills in other plugins. In Claude Code, skills show the plugin namespace (`/react:pf-unit-test-generator`), but the `pf-` prefix on the skill name ensures discoverability across both tools.

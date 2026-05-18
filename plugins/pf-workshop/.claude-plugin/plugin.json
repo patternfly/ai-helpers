@@ -1,0 +1,12 @@
+{
+  "name": "pf-workshop",
+  "description": "PatternFly team tools and skill incubation — issue triage, release management, codebase auditing, new skill development",
+  "version": "1.0.0",
+  "category": "workshop",
+  "author": {
+    "name": "PatternFly Team",
+    "url": "https://www.patternfly.org"
+  },
+  "repository": "https://github.com/patternfly/ai-helpers",
+  "license": "MIT"
+}
