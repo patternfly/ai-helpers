@@ -35,8 +35,8 @@ Ask: *"If someone sees this name in a list, do they know what they're installing
 
 | Good | Why | Bad | Why |
 |------|-----|-----|-----|
-| `design-foundations` | Specific — tokens, icons, colors, spacing | `styling` | Vague — styling what? |
-| `issue-management` | Clear action — manages issues | `workflow` | Could mean anything |
+| `design-to-code` | Specific — bridges designs to PF code | `styling` | Vague — styling what? |
+| `migration` | Clear action — upgrades PF versions | `workflow` | Could mean anything |
 | `react` | Universal tech domain | `frontend` | Too broad |
 
 It's fine to create a plugin with only 1-2 skills if it represents a distinct domain. The taxonomy should reflect where the project is going, not just where it is today. Coordinate via an issue before creating a new plugin.
