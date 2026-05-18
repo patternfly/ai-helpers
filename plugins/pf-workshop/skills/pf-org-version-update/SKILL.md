@@ -1,6 +1,7 @@
 ---
 name: pf-org-version-update
-description: Updates the patternfly-org repo for a new PatternFly release or release candidate. Fetches or applies specified versions, updates package.json files and versions.json, and then provides the user with steps to run the build and regenerate screenshots locally. Use when preparing a PatternFly release, updating PF versions in this repo, or when the user asks to update patternfly-org for a new release.
+description: Update patternfly-org for a new PatternFly release — resolve versions, update package.json and versions.json, and provide build steps. Use when cutting a PF release or release candidate.
+disable-model-invocation: true
 ---
 
 # PatternFly Org Version Update

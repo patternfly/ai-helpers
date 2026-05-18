@@ -1,6 +1,6 @@
 ---
 name: pf-compliance-checker
-description: Check Figma designs against PatternFly v6 design system standards. Use when a user provides a Figma URL and wants to validate compliance with PatternFly colors, typography, spacing, components, and UX patterns.
+description: Check Figma designs against PatternFly v6 standards for colors, typography, spacing, and component usage. Use when validating a design before handoff, auditing existing mockups for compliance, or reviewing design token usage. Requires Figma MCP.
 ---
 
 # PatternFly Compliance Checker

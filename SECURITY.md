@@ -7,7 +7,6 @@ If you discover a security vulnerability in this repository, please report it re
 **Do not open a public issue for security vulnerabilities.**
 
 - **GitHub:** Use [private vulnerability reporting](https://github.com/patternfly/ai-helpers/security/advisories/new)
-- **GitLab:** Open a confidential issue
 
 ## Scope
 

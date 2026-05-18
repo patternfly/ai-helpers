@@ -115,6 +115,68 @@ Use the `pf-` prefix on skill and agent names that are **PatternFly-specific**. 
 - Skill directory: `skills/pf-unit-test-generator/SKILL.md` with `name: pf-unit-test-generator`
 - Agent file: `agents/pf-coding-standards.md` with `name: pf-coding-standards`
 
+## Writing descriptions
+
+Every skill and agent needs a `description` in its frontmatter. This description is how the AI decides whether to load the skill — it's the single most important line in your SKILL.md.
+
+### Formula
+
+**[Action verb] [what it does]. [Use when + trigger contexts.]**
+
+### Rules
+
+1. **Start with an action verb** — Audit, Generate, Scan, Create, Validate, Find, Recommend. Not "Guide for," "Performs," "Enables," "A tool that."
+2. **One sentence for what it does** — the capability, not the implementation.
+3. **One sentence for when to use it** — "Use when" followed by 2-3 trigger scenarios separated by commas or "or."
+4. **No keyword lists** — the AI handles semantic matching. Don't pad with synonyms.
+5. **Front-load the key use case** — descriptions longer than 250 characters are truncated in the skill listing.
+
+### Examples
+
+**Good:**
+
+```yaml
+description: Audit focus traps, restoration, and screen reader announcements. Use when building modals, dialogs, or wizards that manage focus programmatically.
+```
+
+**Good:**
+
+```yaml
+description: Generate unit tests for React components. Use when creating new components, adding test coverage, or refactoring existing tests.
+```
+
+**Bad — starts with a weak verb:**
+
+```yaml
+description: A comprehensive guide for PatternFly component structure auditing and debugging.
+```
+
+**Bad — keyword stuffing:**
+
+```yaml
+description: Tool for testing, unit testing, component testing, React testing, PatternFly testing, jest testing.
+```
+
+### Agent descriptions
+
+Agents are domain knowledge, not tasks — their descriptions follow a different pattern.
+
+**[Domain noun] [what it covers]. [Active when + context.]**
+
+No action-verb lead-in. Use "Active when" instead of "Use when" — agents aren't invoked, they're contextually loaded.
+
+**Good:**
+
+```yaml
+description: PatternFly React coding standards — import patterns, component composition, token usage, and style conventions. Active when writing, reviewing, or refactoring PF React code.
+```
+
+**Bad — uses skill formula on an agent:**
+
+```yaml
+description: Define PatternFly React coding standards. Use when writing or reviewing PF React code.
+```
+
 ## Step 6: Contribute it
 
 Once you're happy with the skill:
@@ -135,7 +197,7 @@ For guidance on writing effective skills — structure, descriptions, examples, 
 
 In addition to the skill-creator guidance, skills in this repo must follow these rules:
 
-- **Frontmatter is required** with `name` and `description`. The `name` must match the directory name. The `description` should include trigger contexts (e.g., "Use when...") since the AI decides whether to load the skill based on the description alone. Front-load the key use case — descriptions longer than 250 characters are truncated in the skill listing.
+- **Frontmatter is required** with `name` and `description`. The `name` must match the directory name. See [Writing descriptions](#writing-descriptions) for the description formula.
 - Add `disable-model-invocation: true` if your skill has side effects (creates issues, posts comments, deploys)
 - **Describe outcomes, not implementation** — tell the AI what to accomplish, not how to do it. The AI already knows how to use `git`, `gh`, `grep`, etc.
 - **Skills must be tool-agnostic** — they run in both Claude Code and Cursor. Avoid referencing a specific tool (e.g., use "Assistant:" instead of "Claude:" in examples).

@@ -29,17 +29,7 @@ Create a new plugin when your contribution represents a distinct domain that doe
 
 ### Plugin naming standard
 
-Plugin names must tell a user exactly what the plugin helps them do. Someone browsing the marketplace should understand what they're installing without clicking through.
-
-Ask: *"If someone sees this name in a list, do they know what they're installing?"*
-
-| Good | Why | Bad | Why |
-|------|-----|-----|-----|
-| `design-to-code` | Specific — bridges designs to PF code | `styling` | Vague — styling what? |
-| `migration` | Clear action — upgrades PF versions | `workflow` | Could mean anything |
-| `react` | Universal tech domain | `frontend` | Too broad |
-
-It's fine to create a plugin with only 1-2 skills if it represents a distinct domain. The taxonomy should reflect where the project is going, not just where it is today. Coordinate via an issue before creating a new plugin.
+Plugin names must tell a user what the plugin helps them do. See [CONTRIBUTING-SKILLS.md](CONTRIBUTING-SKILLS.md#plugin-naming-standard) for naming guidelines and examples. Coordinate via an issue before creating a new plugin.
 
 ### Steps
 
@@ -61,8 +51,10 @@ It's fine to create a plugin with only 1-2 skills if it represents a distinct do
 
 ### Skills vs Agents
 
-- **Skills** (`skills/your-skill/SKILL.md`) — tasks that produce a result. Use this for most contributions.
-- **Agents** (`agents/your-agent.md`) — domain knowledge the AI follows. Use for standards and guidelines.
+- **Skills** (`skills/your-skill/SKILL.md`) — tasks that produce a result. Most contributions are skills.
+- **Agents** (`agents/your-agent.md`) — domain knowledge the AI follows automatically.
+
+See [CONTRIBUTING-SKILLS.md](CONTRIBUTING-SKILLS.md#skill-vs-agent) for guidance on which to use.
 
 ## Adding Documentation
 

@@ -1,6 +1,6 @@
 ---
 name: summarize-pr-reviews
-description: "Summarize GitHub pull requests awaiting review from the current user. Use when the user asks to: (1) See their pending PR reviews, (2) Summarize PRs they need to review, (3) Get an overview of review requests, (4) Prioritize their code review queue, or (5) Understand what PRs are waiting for their review."
+description: Summarize GitHub pull requests awaiting your review with status, age, and priority. Use when triaging your review queue, prioritizing code reviews, or checking what PRs need attention.
 ---
 
 # Summarize My PR Review Queue

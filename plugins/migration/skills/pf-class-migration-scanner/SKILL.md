@@ -1,6 +1,6 @@
 ---
 name: pf-class-migration-scanner
-description: Scans for legacy PatternFly class usage and recommends PF6-safe replacements. Use when modernizing older PatternFly codebases.
+description: Scan code for legacy PatternFly CSS classes and recommend PF6-safe replacements. Use when upgrading from PF4/PF5 or auditing a codebase for deprecated class names.
 ---
 
 # PF Class Migration Scanner

@@ -1,6 +1,7 @@
 ---
 name: pf-tokens
-description: Build CSS design tokens for PatternFly core and copy them to the PatternFly repository.
+description: Build CSS design tokens for PatternFly core and copy them to the PatternFly repository. Use when regenerating tokens after design changes or during release preparation.
+disable-model-invocation: true
 ---
 
 Build CSS design tokens for PatternFly core and move them to the PatternFly repository.

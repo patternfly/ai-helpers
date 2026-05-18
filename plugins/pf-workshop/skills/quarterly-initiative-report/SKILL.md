@@ -1,6 +1,6 @@
 ---
 name: quarterly-initiative-report
-description: Generate comprehensive quarterly Jira status reports with progress tracking, RAG assessment, blocker identification, cross-project duplicate link analysis, and Q+1 recommendations. Use when generating quarterly reports, tracking initiative progress, or analyzing epic completion metrics across Jira projects with labels.
+description: Generate quarterly Jira status reports with RAG assessment, blocker tracking, and next-quarter recommendations. Use when preparing quarterly initiative reviews or tracking epic progress.
 disable-model-invocation: false
 ---
 

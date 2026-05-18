@@ -35,8 +35,10 @@ reviews:
         Review against CONTRIBUTING-SKILLS.md. Agents provide domain knowledge
         the AI follows across all interactions in the plugin's area — they are
         not tasks that produce results (those are skills). Must be tool-agnostic.
-        Agent descriptions do NOT follow the skill description formula — do not
-        require action-verb lead-ins or "Use when" trigger contexts on agents.
+        Agent descriptions follow a different pattern than skills: [Domain noun]
+        [what it covers]. [Active when + context.] — no action-verb lead-in,
+        "Active when" instead of "Use when". Flag agents that use the skill
+        formula (action-verb lead-ins like "Define", "Standardize", "Generate").
     - path: "**/.claude-plugin/**"
       instructions: >
         Manifests must be identical in .claude-plugin/ and .cursor-plugin/.

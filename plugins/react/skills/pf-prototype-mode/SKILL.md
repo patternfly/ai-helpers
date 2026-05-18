@@ -1,6 +1,6 @@
 ---
 name: pf-prototype-mode
-description: Enable prototype mode for React apps (grayscale + banner)
+description: Enable prototype mode for React apps with grayscale styling and a banner overlay. Use when demoing early concepts, presenting wireframes, or preventing stakeholders from fixating on visual polish.
 ---
 
 Enables prototype mode by adding a grayscale filter and prototype banner to a React application.

@@ -1,6 +1,6 @@
 ---
 name: summarize-jira-issues
-description: "Summarize Jira sprint issues and contributions for the current user. Use when the user asks to: (1) See what's left in the sprint, (2) Summarize their assigned work, (3) Prioritize sprint tasks, (4) See issues they're contributing to, or (5) Understand what to work on next. Focuses on active sprint work first, then shows contributor roles and backlog."
+description: Summarize your current sprint workload from Jira — assigned issues, contributor roles, and priorities. Use when checking what's left in the sprint or deciding what to work on next.
 ---
 
 # Summarize My Jira Issues

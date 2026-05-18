@@ -1,6 +1,6 @@
 ---
 name: pf-unit-test-standards
-description: PatternFly React unit testing standards. Use when writing, reviewing, or modifying unit tests for PatternFly React components.
+description: PatternFly React unit testing standards — RTL patterns, mock boundaries, coverage expectations, and assertion style. Active when writing or reviewing unit tests for PF components.
 ---
 
 # PatternFly React Unit Test Standards
