@@ -1,13 +1,6 @@
 ---
 name: write-example-description
-description: >-
-  Helps PatternFly developers write and refine example descriptions and demo
-  descriptions for PatternFly.org. Covers (1) component example MD files: prose
-  under each ### heading before the ts block in
-  packages/react-core/src/components/*/examples/*.md; (2) demo MD files: prose
-  under ## Demos / ### Demo name in packages/react-core/src/demos. Uses
-  PatternFly MCP for UX writing and content guidelines, suggests cross-links,
-  and asks the user to accept or request changes. Run only when the user asks.
+description: Write and refine example descriptions for PatternFly.org component and demo pages. Use when authoring or updating the prose in PatternFly example markdown files.
 ---
 
 # PatternFly example and demo descriptions

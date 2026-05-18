@@ -1,6 +1,6 @@
 ---
 name: duplicate-epic
-description: Use when `/duplicate-epic <issue> <feature>` should clone a Jira Epic, Story, or Bug into the PF project, resolve non-epic inputs to their parent epic, link back to the source, and attach the new epic to a PF feature.
+description: Clone a Jira epic from another project into the PF Jira space with back-links and feature attachment. Use when duplicating COST or cross-project epics into PF for tracking.
 disable-model-invocation: true
 ---
 

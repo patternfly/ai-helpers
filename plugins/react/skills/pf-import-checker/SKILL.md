@@ -1,6 +1,6 @@
 ---
 name: pf-import-checker
-description: Audits and fixes PatternFly import paths, with emphasis on charts, chatbot, and component-groups. Use when imports fail or PatternFly modules are unresolved.
+description: Audit and fix invalid PatternFly import paths across packages. Use when imports fail, modules are unresolved, or after upgrading PatternFly versions.
 ---
 
 # PF Import Checker

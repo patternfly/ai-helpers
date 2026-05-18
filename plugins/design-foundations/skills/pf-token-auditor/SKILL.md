@@ -1,6 +1,6 @@
 ---
 name: pf-token-auditor
-description: Validate and bridge Figma design styles to PatternFly 6 design tokens. Use when auditing Figma designs against PatternFly tokens, validating token naming, translating Figma styles to composite tokens, or when the user mentions "token validation", "token audit", "design tokens", "Figma audit", "Figma variables", "token bridge", or "PF tokens".
+description: Audit designs against the PatternFly 6 token architecture and bridge Figma styles to PF semantic tokens. Use when validating token usage, mapping Figma variables to PF tokens, or checking designs for token compliance.
 disable-model-invocation: true
 ---
 

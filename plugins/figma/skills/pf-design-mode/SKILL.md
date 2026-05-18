@@ -1,6 +1,6 @@
 ---
 name: pf-design-mode
-description: Create and edit Figma design files using the Figma MCP workflow with PatternFly-approved libraries only. Use when the user asks to build, update, restyle, or restructure Figma frames/components and wants write operations.
+description: Create and edit Figma design files using PatternFly-approved component libraries. Use when building, updating, or restructuring Figma frames and components. Requires Figma MCP.
 disable-model-invocation: true
 ---
 

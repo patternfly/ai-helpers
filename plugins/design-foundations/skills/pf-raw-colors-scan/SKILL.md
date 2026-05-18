@@ -1,6 +1,6 @@
 ---
 name: pf-raw-colors-scan
-description: "Analyze the provided code to find any raw color values assigned to styling properties. Flag these values as technical debt and suggest their replacement with design tokens."
+description: Find raw color values (hex, rgb, hsl) in code and suggest PatternFly design token replacements. Use when auditing stylesheets for hardcoded colors or enforcing token compliance.
 ---
 
 ### Role

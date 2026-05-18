@@ -1,6 +1,6 @@
 ---
 name: pf-analyze-modifiers
-description: Find, list, and summarize PatternFly component modifiers (pf-m- classes) across the codebase. Use when analyzing component styling patterns, documenting modifier usage, or auditing CSS consistency.
+description: Analyze PatternFly modifier class (pf-m-*) usage across SCSS files and generate usage reports. Use when documenting modifier patterns, auditing CSS consistency, or planning refactors.
 ---
 
 # Analyze Modifiers

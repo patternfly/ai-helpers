@@ -1,6 +1,6 @@
 ---
 name: pf-create-issue
-description: Create GitHub issues for PatternFly repositories with smart templates, followup tracking, and duplicate detection.
+description: Create well-structured GitHub issues for PatternFly repositories with templates, follow-up tracking, and duplicate detection. Use when filing bugs, feature requests, or cross-repo follow-ups.
 ---
 
 # PatternFly Issue Creator

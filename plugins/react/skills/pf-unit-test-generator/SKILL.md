@@ -1,6 +1,6 @@
 ---
 name: pf-unit-test-generator
-description: Generate a comprehensive unit test file for a given React component
+description: Generate a unit test file for a React component using Testing Library. Use when adding test coverage to new or existing components.
 ---
 
 Generate a comprehensive unit test file for the given React component.
