@@ -1,0 +1,11 @@
+{
+  "name": "code-review",
+  "description": "Code review and quality — PR summaries, adversarial review, security patterns",
+  "version": "1.0.0",
+  "author": {
+    "name": "PatternFly Team",
+    "url": "https://www.patternfly.org"
+  },
+  "repository": "https://github.com/patternfly/ai-helpers",
+  "license": "MIT"
+}

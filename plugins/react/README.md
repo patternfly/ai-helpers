@@ -32,18 +32,15 @@ Skills and agents for PatternFly React development:
 
 Skills are tasks that produce a result.
 
-**PF Unit Test Generator** (`/react:pf-unit-test-generator`) — Generates a complete unit test file for a given React component, following Testing Library best practices.
+**PF Unit Test Generator** (`/react:pf-unit-test-generator`) — Generates a complete unit test file for a given React component. Works for both consumer applications and component library contributions, following Testing Library best practices.
 
-**PF Bug Triage** (`/react:pf-bug-triage`) — Performs preliminary triage of opened bug issues. Suggests what needs to be updated to fix the bug, provides context for assignees, and recommends the most appropriate maintainer to tag when the issue contains questions.
+**PF Component Structure** (`/react:pf-component-structure`) — Analyzes and validates PatternFly component composition and structure.
 
-**PF Library Test Writer** (`/react:pf-library-test-writer`) — Writes unit tests for components and features across the PatternFly ecosystem (patternfly-react, patternfly-chatbot, etc.), strictly following the [official testing guidelines](https://github.com/patternfly/patternfly-react/wiki/React-Testing-Library-Basics,-Best-Practices,-and-Guidelines):
+**PF Import Checker** (`/react:pf-import-checker`) — Checks PatternFly imports for correctness and best practices.
 
-- Separate test files per exported component
-- `test()` outside `describe()`, `it()` inside
-- `screen` for queries, `asFragment` for snapshots only
-- Snapshots for structure, `toHaveClass` for CSS classes
-- Mock child components for unit isolation
-- Default to inline setup (no premature abstraction)
+**PF Project Scaffolder** (`/react:pf-project-scaffolder`) — Scaffolds a new PatternFly React project with recommended structure.
+
+**PF Prototype Mode** (`/react:pf-prototype-mode`) — Rapid prototyping mode for quickly building PatternFly UI layouts.
 
 ### Agents
 
@@ -65,25 +62,26 @@ Agents are domain knowledge the AI follows.
 - Accessibility testing
 - PatternFly-specific patterns
 
+**Component Structure Audit** — PatternFly React structural composition rules for layouts and component hierarchies.
+
 ## File Structure
 
-```
+```text
 react/
 ├── .claude-plugin/
 │   └── plugin.json
 ├── .cursor-plugin/
 │   └── plugin.json
 ├── agents/
+│   ├── component-structure-audit.md
 │   ├── pf-coding-standards.md
 │   └── pf-unit-test-standards.md
 ├── skills/
-│   ├── pf-bug-triage/
-│   │   ├── SKILL.md
-│   │   └── reference.md
-│   ├── pf-library-test-writer/
-│   │   └── SKILL.md
+│   ├── pf-component-structure/
+│   ├── pf-import-checker/
+│   ├── pf-project-scaffolder/
+│   ├── pf-prototype-mode/
 │   └── pf-unit-test-generator/
-│       └── SKILL.md
 └── README.md
 ```
 
