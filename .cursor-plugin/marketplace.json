@@ -35,6 +35,11 @@
       "description": "Accessibility auditing, reporting, and documentation"
     },
     {
+      "name": "content",
+      "source": "./plugins/content",
+      "description": "PatternFly content design — voice and tone standards, content review, and UX writing guidance"
+    },
+    {
       "name": "code-review",
       "source": "./plugins/code-review",
       "description": "Code review and quality — adversarial review, security patterns"

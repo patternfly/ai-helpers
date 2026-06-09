@@ -6,6 +6,7 @@ Quick reference of all plugins and what they contain. This file is auto-generate
 
 - [a11y](#a11y) — Accessibility auditing, reporting, and documentation
 - [code-review](#code-review) — Code review and quality — PR summaries, adversarial review, security patterns
+- [content](#content) — PatternFly content design — voice and tone standards, content review, and UX writing guidance
 - [design-to-code](#design-to-code) — Design-to-code translation — Figma review, token auditing, icon identification, design compliance
 - [migration](#migration) — PF version migration — breaking change detection, class scanning, upgrade planning
 - [pf-workshop](#pf-workshop) — PatternFly team tools and skill incubation — issue triage, release management, codebase auditing, new skill development
@@ -29,6 +30,21 @@ Code review and quality — PR summaries, adversarial review, security patterns
 | Skill | Description |
 |-------|-------------|
 | `summarize-pr-reviews` | Summarize GitHub pull requests awaiting your review with status, age, and priority. |
+
+
+<br>
+
+### content
+
+PatternFly content design — voice and tone standards, content review, and UX writing guidance
+
+| Skill | Description |
+|-------|-------------|
+| `pf-content-review` | Audit and rewrite content to match PatternFly voice and tone. |
+
+| Agent | Description |
+|-------|-------------|
+| `pf-voice-and-tone` | PatternFly voice and tone standards — friendly, approachable, collaborative, inventive. |
 
 
 <br>
