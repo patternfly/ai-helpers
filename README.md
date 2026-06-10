@@ -22,9 +22,30 @@ Plugins work in both **Claude Code** and **Cursor**. The content is identical �
 
 After installation, the plugin's agents and skills are available in any project.
 
+![Installing the PatternFly AI Helpers marketplace and using a skill in Claude Code](assets/claudecode-install-demo.gif)
+
 ### Cursor
 
-Cursor can discover plugins from `.cursor-plugin/` directories. If you also have Claude Code installed, Cursor may pick up installed plugins automatically via its third-party plugin settings.
+#### Third-Party Plugin Import
+
+If you've already installed plugins via Claude Code, Cursor can discover them automatically:
+
+1. Open **Cursor Settings** → **Rules, Skills, Subagents**
+2. Enable **"Include third-party Plugins, Skills, and other configs"**
+
+Plugins installed via Claude Code appear immediately — no cloning or manual setup required.
+
+![Importing third-party plugins in Cursor and using a skill](assets/cursor-plugin-import-demo.gif)
+
+#### Team Marketplace (Red Hat)
+
+Red Hat Cursor Enterprise users have access to the PatternFly AI Helpers team marketplace:
+
+1. Open **Cursor Settings** → **Plugins** → **Browse Marketplace**
+2. Select **PatternFly AI Helpers**
+3. Click **Get** on the plugins you need
+
+![Installing the react plugin from the PatternFly AI Helpers team marketplace in Cursor](assets/cursor-marketplace-install-demo.gif)
 
 ## Available Plugins
 
