@@ -27,7 +27,7 @@
     {
       "name": "code-review",
       "source": "./plugins/code-review",
-      "description": "Code review and quality — PR summaries, adversarial review, security patterns"
+      "description": "Code review and quality — adversarial review, security patterns"
     },
     {
       "name": "pf-workshop",

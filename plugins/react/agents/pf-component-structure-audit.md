@@ -1,6 +1,6 @@
 ---
-name: component-structure-audit
-description: PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns. Use when writing, reviewing, or refactoring PatternFly UI so layouts rely on correct trees, not custom CSS.
+name: pf-component-structure-audit
+description: PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns. Active when writing, reviewing, or refactoring PatternFly UI so layouts rely on correct trees, not custom CSS.
 ---
 
 # PatternFly component structure

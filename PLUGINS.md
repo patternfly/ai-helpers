@@ -5,7 +5,7 @@ Quick reference of all plugins and what they contain. This file is auto-generate
 ## Table of Contents
 
 - [a11y](#a11y) — Accessibility auditing, reporting, and documentation
-- [code-review](#code-review) — Code review and quality — PR summaries, adversarial review, security patterns
+- [code-review](#code-review) — Code review and quality — adversarial review, security patterns
 - [design-to-code](#design-to-code) — Design-to-code translation — Figma review, token auditing, icon identification, design compliance
 - [migration](#migration) — PF version migration — breaking change detection, class scanning, upgrade planning
 - [pf-workshop](#pf-workshop) — PatternFly team tools and skill incubation — issue triage, release management, codebase auditing, new skill development
@@ -24,7 +24,7 @@ No skills or agents yet.
 
 ### code-review
 
-Code review and quality — PR summaries, adversarial review, security patterns
+Code review and quality — adversarial review, security patterns
 
 No skills or agents yet.
 
@@ -97,7 +97,7 @@ React component development — coding standards, testing, and structure
 
 | Agent | Description |
 |-------|-------------|
-| `component-structure-audit` | PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns. |
 | `pf-coding-standards` | PatternFly React coding standards — import patterns, component composition, token usage, and style conventions. |
+| `pf-component-structure-audit` | PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns. |
 | `pf-unit-test-standards` | PatternFly React unit testing standards — RTL patterns, mock boundaries, coverage expectations, and assertion style. |
 

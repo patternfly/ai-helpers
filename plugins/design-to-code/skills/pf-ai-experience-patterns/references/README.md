@@ -8,9 +8,9 @@ This folder contains reference materials for building AI-powered experiences tha
 
 21 extracted visuals from the official Red Hat "Design language: AI-enabled features" deck (February 2026). See `REFERENCE-INDEX.md` for descriptions of each image.
 
-## Future additions
+## Adding references
 
-You can add visual do's/don'ts examples here by:
+You can add visual do's/don'ts examples by:
 1. Exporting slides from design presentations as images
 2. Naming them descriptively (e.g., `transparency-notice-do.png`, `chatbot-avatar-dont.png`)
 3. The skill will reference them when applicable

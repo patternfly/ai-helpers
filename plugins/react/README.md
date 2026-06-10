@@ -60,7 +60,7 @@ Agents are domain knowledge the AI follows.
 - Accessibility testing
 - PatternFly-specific patterns
 
-**Component Structure Audit** — PatternFly React structural composition rules for layouts and component hierarchies.
+**PF Component Structure Audit** — PatternFly React structural composition rules for layouts and component hierarchies.
 
 ## File Structure
 
@@ -71,7 +71,7 @@ react/
 ├── .cursor-plugin/
 │   └── plugin.json
 ├── agents/
-│   ├── component-structure-audit.md
+│   ├── pf-component-structure-audit.md
 │   ├── pf-coding-standards.md
 │   └── pf-unit-test-standards.md
 ├── skills/

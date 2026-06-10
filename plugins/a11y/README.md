@@ -20,6 +20,18 @@ For enhanced results, also install the [PatternFly MCP server](https://github.co
 
 See the [root README](../../README.md) for Cursor installation options.
 
+## File Structure
+
+```text
+a11y/
+├── .claude-plugin/
+│   └── plugin.json
+├── .cursor-plugin/
+│   └── plugin.json
+├── skills/
+└── README.md
+```
+
 ## Sources
 
 - [PatternFly.org](https://www.patternfly.org/)

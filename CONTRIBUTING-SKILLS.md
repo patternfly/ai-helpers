@@ -112,6 +112,8 @@ Skills in consumer plugins use the `pf-` prefix and are PatternFly-specific. Gen
 
 **Why this matters:** Consumer plugins are polished offerings for PF consumers. Keeping generic tools separate preserves that signal. In Cursor, slash commands appear in a flat list without plugin context — the `pf-` prefix ensures discoverability. In Claude Code, skills show the plugin namespace (`/react:pf-unit-test-generator`), but the prefix is still valuable for cross-tool consistency.
 
+PF-specific skills that serve internal team workflows also use the `pf-` prefix but live in `pf-workshop` because they aren't consumer-facing (e.g., `pf-bug-triage`, `pf-create-issue`).
+
 **The directory name, file name, and frontmatter `name` must all match.** A mismatch causes confusing behavior when invoking the skill.
 - Skill directory: `skills/pf-unit-test-generator/SKILL.md` with `name: pf-unit-test-generator`
 - Agent file: `agents/pf-coding-standards.md` with `name: pf-coding-standards`
@@ -178,6 +180,23 @@ description: PatternFly React coding standards — import patterns, component co
 description: Define PatternFly React coding standards. Use when writing or reviewing PF React code.
 ```
 
+## How the repo is structured
+
+```
+ai-helpers/
+├── .claude-plugin/       # Claude Code marketplace config
+├── .cursor-plugin/       # Cursor marketplace config
+├── plugins/
+│   └── <plugin-name>/
+│       ├── .claude-plugin/
+│       ├── .cursor-plugin/
+│       ├── skills/
+│       └── agents/
+└── docs/                 # AI-friendly PatternFly documentation
+```
+
+Each AI tool looks for its own directory (`.claude-plugin/`, `.cursor-plugin/`) to find `marketplace.json`, which lists plugins with relative paths to `plugins/<name>/`. Each plugin has identical manifests in both directories. Adding support for a new tool means copying the manifest into a new `.<tool>-plugin/` directory.
+
 ## Step 6: Contribute it
 
 Once you're happy with the skill:
@@ -233,4 +252,3 @@ Bundled scripts (`.sh`, `.js`, `.py`, `.ts`) are reviewed for these patterns aut
 | `api-mock` | Generate mock data from a TypeScript interface |
 | `rename` | Suggest better names for variables and functions |
 | `pr-description` | Generate a clear PR description from a diff |
-| `pf-bug-triage` | Preliminary triage of bug issues with fix suggestions and maintainer tagging |
