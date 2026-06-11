@@ -278,12 +278,13 @@ if [ -f "$README" ]; then
     fi
   done
 
-  # Update badge counts
-  sed -i '' "s|plugins-[0-9]*-blueviolet|plugins-${plugin_count}-blueviolet|" "$README"
+  # Update badge counts (portable sed -i for macOS + Linux)
+  sed_i() { if [[ "$OSTYPE" == darwin* ]]; then sed -i '' "$@"; else sed -i "$@"; fi; }
+  sed_i "s|plugins-[0-9]*-blueviolet|plugins-${plugin_count}-blueviolet|" "$README"
   if grep -q "skills-[0-9]*-blue" "$README"; then
-    sed -i '' "s|skills-[0-9]*-blue|skills-${skill_count}-blue|" "$README"
+    sed_i "s|skills-[0-9]*-blue|skills-${skill_count}-blue|" "$README"
   else
-    sed -i '' "s|\(.*plugins-.*blueviolet.*\)|\1\n[![Skills](https://img.shields.io/badge/skills-${skill_count}-blue)](./PLUGINS.md)|" "$README"
+    sed_i "s|\(.*plugins-.*blueviolet.*\)|\1\n[![Skills](https://img.shields.io/badge/skills-${skill_count}-blue)](./PLUGINS.md)|" "$README"
   fi
   echo "Updated badges in $README (${plugin_count} plugins, ${skill_count} skills)"
 
