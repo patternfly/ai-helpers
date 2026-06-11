@@ -1,6 +1,7 @@
 ---
 name: content-review
 description: Audit and rewrite content to match PatternFly and Red Hat voice and tone standards. Use when contributing to patternfly.org, writing UI copy for Red Hat products, reviewing design guidelines, or editing externally sourced or AI-generated content.
+disable-model-invocation: true
 ---
 
 # PatternFly Content Review
