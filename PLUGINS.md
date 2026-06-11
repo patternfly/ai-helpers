@@ -6,6 +6,7 @@ Quick reference of all plugins and what they contain. This file is auto-generate
 
 - [a11y](#a11y) — Accessibility auditing, reporting, and documentation
 - [code-review](#code-review) — Code review and quality — adversarial review, security patterns
+- [content](#content) — PatternFly content design — voice and tone standards, content review, and UX writing guidance
 - [design-audit](#design-audit) — Design audit — validate existing code and designs against PatternFly standards
 - [design-guide](#design-guide) — Design guide — component selection, interaction patterns, AI experience patterns, Figma design creation
 - [migration](#migration) — PF version migration — breaking change detection, class scanning, upgrade planning
@@ -28,6 +29,21 @@ No skills or agents yet.
 Code review and quality — adversarial review, security patterns
 
 No skills or agents yet.
+
+
+<br>
+
+### content
+
+PatternFly content design — voice and tone standards, content review, and UX writing guidance
+
+| Skill | Description |
+|-------|-------------|
+| `content-review` | Audit and rewrite content to match PatternFly and Red Hat voice and tone standards. |
+
+| Agent | Description |
+|-------|-------------|
+| `voice-and-tone` | PatternFly and Red Hat voice and tone standards — friendly, approachable, collaborative, inventive. |
 
 
 <br>

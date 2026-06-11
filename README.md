@@ -55,6 +55,7 @@ Red Hat Cursor Enterprise users have access to the PatternFly AI Helpers team ma
 |--------|-------------|
 | **a11y** | Accessibility auditing, reporting, and documentation |
 | **code&#8209;review** | Code review and quality — adversarial review, security patterns |
+| **content** | PatternFly content design — voice and tone standards, content review, and UX writing guidance |
 | **design&#8209;audit** | Design audit — validate existing code and designs against PatternFly standards |
 | **design&#8209;guide** | Design guide — component selection, interaction patterns, AI experience patterns, Figma design creation |
 | **migration** | PF version migration — breaking change detection, class scanning, upgrade planning |

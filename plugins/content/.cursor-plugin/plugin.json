@@ -1,0 +1,11 @@
+{
+  "name": "content",
+  "description": "PatternFly content design — voice and tone standards, content review, and UX writing guidance",
+  "version": "1.0.0",
+  "author": {
+    "name": "PatternFly Team",
+    "url": "https://www.patternfly.org"
+  },
+  "repository": "https://github.com/patternfly/ai-helpers",
+  "license": "MIT"
+}
