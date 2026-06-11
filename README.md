@@ -2,7 +2,8 @@
 
 [![License](https://img.shields.io/github/license/patternfly/ai-helpers)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
-[![Plugins](https://img.shields.io/badge/plugins-6-blueviolet)](./PLUGINS.md)
+[![Plugins](https://img.shields.io/badge/plugins-7-blueviolet)](./PLUGINS.md)
+[![Skills](https://img.shields.io/badge/skills-27-blue)](./PLUGINS.md)
 
 AI coding helpers for [PatternFly](https://www.patternfly.org/) development. This repository provides plugins and documentation to help AI tools generate accurate, best-practice PatternFly applications.
 

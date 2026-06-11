@@ -265,6 +265,29 @@ echo "Generated $OUTPUT"
 
 README="README.md"
 if [ -f "$README" ]; then
+  # Count plugins and skills
+  plugin_count=0
+  skill_count=0
+  for plugin_dir in plugins/*/; do
+    [ -f "${plugin_dir}.claude-plugin/plugin.json" ] || continue
+    plugin_count=$((plugin_count + 1))
+    if [ -d "${plugin_dir}skills" ]; then
+      for skill_dir in "${plugin_dir}skills"/*/; do
+        [ -d "$skill_dir" ] && [ -f "${skill_dir}SKILL.md" ] && skill_count=$((skill_count + 1))
+      done
+    fi
+  done
+
+  # Update badge counts
+  sed -i '' "s|plugins-[0-9]*-blueviolet|plugins-${plugin_count}-blueviolet|" "$README"
+  if grep -q "skills-[0-9]*-blue" "$README"; then
+    sed -i '' "s|skills-[0-9]*-blue|skills-${skill_count}-blue|" "$README"
+  else
+    sed -i '' "s|\(.*plugins-.*blueviolet.*\)|\1\n[![Skills](https://img.shields.io/badge/skills-${skill_count}-blue)](./PLUGINS.md)|" "$README"
+  fi
+  echo "Updated badges in $README (${plugin_count} plugins, ${skill_count} skills)"
+
+  # Update plugin table
   table_content=""
   table_content+="| Plugin | Description |"$'\n'
   table_content+="|--------|-------------|"
