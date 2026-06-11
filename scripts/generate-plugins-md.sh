@@ -295,7 +295,8 @@ if [ -f "$README" ]; then
     [ -f "${plugin_dir}.claude-plugin/plugin.json" ] || continue
     plugin=$(basename "$plugin_dir")
     desc=$(get_plugin_desc "$plugin_dir")
-    table_content+=$'\n'"| **${plugin}** | ${desc} |"
+    nowrap_plugin="${plugin//-/&#8209;}"
+    table_content+=$'\n'"| **${nowrap_plugin}** | ${desc} |"
   done
   update_between_markers "$README" "PLUGIN TABLE" "$table_content"
   echo "Updated plugin table in $README"
