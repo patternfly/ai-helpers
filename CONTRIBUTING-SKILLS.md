@@ -60,14 +60,17 @@ Open the file and read it. It's just markdown. Ask yourself:
 
 Every skill or agent must live in a plugin. Pick the one that matches your skill's domain:
 
+<!-- BEGIN PLUGIN TABLE -->
 | Plugin | What it helps you do | Decision test | Example skills |
 |--------|---------------------|---------------|----------------|
-| **react** | Develop and test React components | Does this help me write or test a React component? | `pf-unit-test-generator`, `pf-component-structure` |
+| **a11y** | Audit and document accessibility | Does this help me make my UI accessible? |  |
+| **code-review** | Review code for quality | Does this help me review code for quality? |  |
+| **design-audit** | Validate existing code/designs against PF standards | Does this check whether existing code or designs follow PF standards? | `pf-compliance-checker`, `pf-figma-icon-finder`, `pf-raw-colors-scan` |
+| **design-guide** | Choose the right PF components and patterns when building | Does this help me choose the right PF components and patterns when building? | `pf-ai-experience-patterns`, `pf-design-mode` |
 | **migration** | Upgrade PatternFly versions | Does this help me upgrade PF versions? | `pf-class-migration-scanner` |
-| **design-to-code** | Go from a design to PF code | Does this help me go from a design to PF code? | `pf-token-auditor`, `icon-finder`, `figma-changes` |
-| **a11y** | Audit and document accessibility | Does this help me make my UI accessible? | *(accepting contributions)* |
-| **code-review** | Review code for quality | Does this help me review code for quality? | `summarize-pr-reviews` |
-| **pf-workshop** | Team tools and skill incubation | Is this a team workflow tool, or a new skill that isn't ready for a consumer plugin yet? | `pf-create-issue`, `pf-bug-triage`, `analytics-repo-pruning` |
+| **pf-workshop** | Team tools and skill incubation | Is this a team workflow tool, or a new skill that isn't ready for a consumer plugin yet? | `analytics-repo-pruning`, `css-var-analyzer`, `duplicate-epic` |
+| **react** | Develop and test React components | Does this help me write or test a React component? | `pf-component-structure`, `pf-import-checker`, `pf-project-scaffolder` |
+<!-- END PLUGIN TABLE -->
 
 **How to decide:**
 - Use the **decision test** column. If you can answer "yes" to a plugin's question, that's where your skill goes.
@@ -78,10 +81,15 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 
 Plugin names must tell a user exactly what the plugin helps them do. A user browsing the marketplace should understand what they're installing without clicking through.
 
+<!-- BEGIN GOOD NAMES -->
 **Good names** describe the capability:
-- `design-to-code` — you know it bridges designs to PF code
-- `migration` — you know it helps with version upgrades
-- `react` — universally understood technology domain
+- `a11y` — accessibility auditing, reporting, and documentation
+- `code-review` — code review and quality — adversarial review, security patterns
+- `design-audit` — design audit — validate existing code and designs against PatternFly standards
+- `design-guide` — design guide — component selection, interaction patterns, AI experience patterns, Figma design creation
+- `migration` — pF version migration — breaking change detection, class scanning, upgrade planning
+- `react` — react component development — coding standards, testing, and structure
+<!-- END GOOD NAMES -->
 
 **Bad names** are vague categories:
 - `workflow` — what workflow?
@@ -101,15 +109,18 @@ When proposing a new plugin, ask: *"If someone sees this name in a list, do they
 
 ## Naming convention
 
-Use the `pf-` prefix on skill and agent names that are **PatternFly-specific**. Do not prefix generic skills that could apply to any project.
+Skills in consumer plugins use the `pf-` prefix and are PatternFly-specific. Generic skills that aren't PF-specific belong in `pf-workshop`.
 
-| Type | PatternFly-specific? | Name |
-|------|---------------------|------|
-| Skill | Yes — generates PF component tests | `pf-unit-test-generator` |
-| Skill | No — summarizes PR review threads | `summarize-pr-reviews` |
-| Agent | Yes — PF React coding standards | `pf-coding-standards` |
+| Type | PatternFly-specific? | Plugin | Name |
+|------|---------------------|--------|------|
+| Skill | Yes — generates PF component tests | `react` | `pf-unit-test-generator` |
+| Skill | Yes — PF design token auditing | `design-audit` | `pf-token-auditor` |
+| Skill | No — summarizes PR review threads | `pf-workshop` | `summarize-pr-reviews` |
+| Agent | Yes — PF React coding standards | `react` | `pf-coding-standards` |
 
-**Why this matters:** In Cursor, slash commands appear in a flat list without plugin context — `/unit-test-generator` is indistinguishable from skills in other plugins. In Claude Code, skills show the plugin namespace (`/react:pf-unit-test-generator`), but the `pf-` prefix on the skill name ensures discoverability across both tools.
+**Why this matters:** Consumer plugins are polished offerings for PF consumers. Keeping generic tools separate preserves that signal. In Cursor, slash commands appear in a flat list without plugin context — the `pf-` prefix ensures discoverability. In Claude Code, skills show the plugin namespace (`/react:pf-unit-test-generator`), but the prefix is still valuable for cross-tool consistency.
+
+PF-specific skills that serve internal team workflows also use the `pf-` prefix but live in `pf-workshop` because they aren't consumer-facing (e.g., `pf-bug-triage`, `pf-create-issue`).
 
 **The directory name, file name, and frontmatter `name` must all match.** A mismatch causes confusing behavior when invoking the skill.
 - Skill directory: `skills/pf-unit-test-generator/SKILL.md` with `name: pf-unit-test-generator`
@@ -177,6 +188,23 @@ description: PatternFly React coding standards — import patterns, component co
 description: Define PatternFly React coding standards. Use when writing or reviewing PF React code.
 ```
 
+## How the repo is structured
+
+```
+ai-helpers/
+├── .claude-plugin/       # Claude Code marketplace config
+├── .cursor-plugin/       # Cursor marketplace config
+├── plugins/
+│   └── <plugin-name>/
+│       ├── .claude-plugin/
+│       ├── .cursor-plugin/
+│       ├── skills/
+│       └── agents/
+└── docs/                 # AI-friendly PatternFly documentation
+```
+
+Each AI tool looks for its own directory (`.claude-plugin/`, `.cursor-plugin/`) to find `marketplace.json`, which lists plugins with relative paths to `plugins/<name>/`. Each plugin has identical manifests in both directories. Adding support for a new tool means copying the manifest into a new `.<tool>-plugin/` directory.
+
 ## Step 6: Contribute it
 
 Once you're happy with the skill:
@@ -232,4 +260,3 @@ Bundled scripts (`.sh`, `.js`, `.py`, `.ts`) are reviewed for these patterns aut
 | `api-mock` | Generate mock data from a TypeScript interface |
 | `rename` | Suggest better names for variables and functions |
 | `pr-description` | Generate a clear PR description from a diff |
-| `pf-bug-triage` | Preliminary triage of bug issues with fix suggestions and maintainer tagging |

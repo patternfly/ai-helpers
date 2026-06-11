@@ -1,6 +1,12 @@
 {
   "name": "pf-workshop",
   "description": "PatternFly team tools and skill incubation — issue triage, release management, codebase auditing, new skill development",
+  "intent": "Team tools and skill incubation",
+  "decisionTest": "Is this a team workflow tool, or a new skill that isn't ready for a consumer plugin yet?",
+  "sources": [
+    { "name": "PatternFly.org", "url": "https://www.patternfly.org/" },
+    { "name": "PatternFly React GitHub", "url": "https://github.com/patternfly/patternfly-react" }
+  ],
   "version": "1.0.0",
   "category": "workshop",
   "author": {

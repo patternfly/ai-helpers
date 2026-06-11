@@ -1,0 +1,19 @@
+{
+  "name": "design-audit",
+  "description": "Design audit — validate existing code and designs against PatternFly standards",
+  "intent": "Validate existing code/designs against PF standards",
+  "decisionTest": "Does this check whether existing code or designs follow PF standards?",
+  "crossRef": "Use this plugin when you're **checking** whether existing code or designs follow PF standards. For help **choosing** the right PF components and patterns when building, see [design-guide](../design-guide/).",
+  "sources": [
+    { "name": "PatternFly.org", "url": "https://www.patternfly.org/" },
+    { "name": "PatternFly Design Tokens", "url": "https://www.patternfly.org/tokens/all-patternfly-tokens" },
+    { "name": "Figma", "url": "https://www.figma.com/" }
+  ],
+  "version": "1.0.0",
+  "author": {
+    "name": "PatternFly Team",
+    "url": "https://www.patternfly.org"
+  },
+  "repository": "https://github.com/patternfly/ai-helpers",
+  "license": "MIT"
+}

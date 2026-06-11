@@ -1,6 +1,13 @@
 {
   "name": "a11y",
   "description": "Accessibility auditing, reporting, and documentation",
+  "intent": "Audit and document accessibility",
+  "decisionTest": "Does this help me make my UI accessible?",
+  "sources": [
+    { "name": "PatternFly.org", "url": "https://www.patternfly.org/" },
+    { "name": "PatternFly Accessibility Guide", "url": "https://www.patternfly.org/accessibility/accessibility-fundamentals" },
+    { "name": "WCAG 2.1", "url": "https://www.w3.org/WAI/WCAG21/quickref/" }
+  ],
   "version": "1.0.0",
   "author": {
     "name": "PatternFly Team",

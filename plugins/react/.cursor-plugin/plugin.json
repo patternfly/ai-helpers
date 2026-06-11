@@ -1,6 +1,13 @@
 {
   "name": "react",
   "description": "React component development — coding standards, testing, and structure",
+  "intent": "Develop and test React components",
+  "decisionTest": "Does this help me write or test a React component?",
+  "sources": [
+    { "name": "PatternFly.org", "url": "https://www.patternfly.org/" },
+    { "name": "PatternFly React GitHub", "url": "https://github.com/patternfly/patternfly-react" },
+    { "name": "React Testing Library", "url": "https://testing-library.com/docs/react-testing-library/intro" }
+  ],
   "version": "1.0.0",
   "author": {
     "name": "PatternFly Team",

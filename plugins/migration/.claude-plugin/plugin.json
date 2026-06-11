@@ -1,6 +1,12 @@
 {
   "name": "migration",
   "description": "PF version migration — breaking change detection, class scanning, upgrade planning",
+  "intent": "Upgrade PatternFly versions",
+  "decisionTest": "Does this help me upgrade PF versions?",
+  "sources": [
+    { "name": "PatternFly.org", "url": "https://www.patternfly.org/" },
+    { "name": "PatternFly Migration Guide", "url": "https://www.patternfly.org/get-started/upgrade" }
+  ],
   "version": "1.0.0",
   "author": {
     "name": "PatternFly Team",

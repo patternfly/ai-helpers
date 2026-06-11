@@ -11,7 +11,7 @@ Enforce coding standards for **PatternFly React** applications based on official
 
 ### Supported Versions
 
-- **React**: 17, 18 (React 19 coming soon)
+- **React**: 17, 18, 19
 - **PatternFly**: v6 only
 - **TypeScript**: Recommended
 - **Package Manager**: npm or Yarn

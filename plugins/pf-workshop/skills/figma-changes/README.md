@@ -147,7 +147,7 @@ A: Yes for FIGMA_CHANGELOG.md and RELEASE_NOTES.md (team documentation). The det
 A: Run the sync from your package directory or specify full paths to token directories. See [troubleshooting.md](references/troubleshooting.md) for monorepo examples.
 
 **Q: Can we automate this in CI/CD?**
-A: Yes! You can create a GitHub Action that runs weekly and creates a PR with the sync results. Example workflow coming soon.
+A: Yes! You can create a GitHub Action that runs weekly and creates a PR with the sync results.
 
 ### Technical Questions
 

@@ -6,7 +6,7 @@ AI coding helpers for PatternFly development — plugins, skills, agents, and do
 
 - Plugin manifests must be identical in `.claude-plugin/` and `.cursor-plugin/` — always update both
 - After adding or renaming skills/agents, run `bash scripts/generate-plugins-md.sh` to regenerate PLUGINS.md and the README plugin table
-- Skills/agents that are PatternFly-specific use the `pf-` prefix (e.g., `pf-unit-test-generator`). Generic skills do not.
+- Skills in consumer plugins use the `pf-` prefix and are PatternFly-specific. Generic or non-PF skills belong in `pf-workshop`.
 - Do not add `mcpServers` to plugin.json files — the PatternFly MCP is a separate user install documented in each plugin's README
 
 ## Key paths

@@ -3,7 +3,7 @@ name: pf-component-structure
 description: Audit PatternFly React component nesting, wrapper hierarchies, and layout structure. Use when scanning for hierarchy violations or debugging spacing caused by missing wrapper components.
 ---
 
-Use this skill when you need a **structural audit** of PatternFly usage, or when fixing layouts caused by skipped wrappers. For day-to-day composition rules while writing UI, use the **component-structure-audit** agent (react plugin) or your client’s equivalent subagent for PatternFly structure.
+Use this skill when you need a **structural audit** of PatternFly usage, or when fixing layouts caused by skipped wrappers. For day-to-day composition rules while writing UI, use the **pf-component-structure-audit** agent (react plugin) or your client’s equivalent subagent for PatternFly structure.
 
 ## PatternFly MCP
 
@@ -38,7 +38,7 @@ Read the relevant file before suggesting structure for that family.
 
 ### Violations to detect
 
-Use the same structural rules as the **component-structure-audit** agent; during a scan, flag the issues below. **Anti-pattern examples** live in the reference files for each family.
+Use the same structural rules as the **pf-component-structure-audit** agent; during a scan, flag the issues below. **Anti-pattern examples** live in the reference files for each family.
 
 | Area | Flag |
 |------|------|

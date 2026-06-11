@@ -1,0 +1,19 @@
+{
+  "name": "design-guide",
+  "description": "Design guide — component selection, interaction patterns, AI experience patterns, Figma design creation",
+  "intent": "Choose the right PF components and patterns when building",
+  "decisionTest": "Does this help me choose the right PF components and patterns when building?",
+  "crossRef": "Use this plugin when you're **building** something and need help choosing the right PatternFly components, patterns, or design language. For **validating** existing code or designs against PF standards, see [design-audit](../design-audit/).",
+  "sources": [
+    { "name": "PatternFly.org", "url": "https://www.patternfly.org/" },
+    { "name": "PatternFly Design Tokens", "url": "https://www.patternfly.org/tokens/all-patternfly-tokens" },
+    { "name": "Figma", "url": "https://www.figma.com/" }
+  ],
+  "version": "1.0.0",
+  "author": {
+    "name": "PatternFly Team",
+    "url": "https://www.patternfly.org"
+  },
+  "repository": "https://github.com/patternfly/ai-helpers",
+  "license": "MIT"
+}
