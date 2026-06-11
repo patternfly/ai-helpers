@@ -1,18 +1,18 @@
 ---
-name: pf-content-review
-description: Audit and rewrite content to match PatternFly voice and tone. Use when contributing documentation, reviewing design guidelines, writing UI copy, or editing AI-generated content for patternfly.org.
+name: content-review
+description: Audit and rewrite content to match PatternFly and Red Hat voice and tone standards. Use when contributing to patternfly.org, writing UI copy for Red Hat products, reviewing design guidelines, or editing externally sourced or AI-generated content.
 ---
 
 # PatternFly Content Review
 
-Audit or rewrite markdown content to match PatternFly's voice and tone standards — friendly, approachable, collaborative, and inventive.
+Audit or rewrite markdown content to match PatternFly and Red Hat voice and tone standards — friendly, approachable, collaborative, and inventive.
 
 ## When to use
 
 - Contributing new documentation or design guidelines to patternfly.org
-- Reviewing externally sourced or AI-generated content before publishing to patternfly.org
-- Editing existing docs that don't match PatternFly's voice
 - Writing UI copy (alerts, tooltips, buttons, error messages) for PatternFly components or Red Hat products
+- Reviewing externally sourced or AI-generated content before publishing
+- Editing existing docs that don't match the voice and tone standards
 
 ## Workflow
 
@@ -30,7 +30,7 @@ Then ask which output mode they want:
 
 ### Step 2: Review against voice and tone rules
 
-If the `pf-voice-and-tone` agent is active, use its embedded rules. Otherwise, apply the following rules directly.
+If the `voice-and-tone` agent is active, use its embedded rules. Otherwise, apply the following rules directly.
 
 #### Voice and tone
 - [ ] Reads as friendly, approachable, collaborative, and inventive — not formal, arrogant, or jargon-heavy
@@ -53,22 +53,32 @@ If the `pf-voice-and-tone` agent is active, use its embedded rules. Otherwise, a
 - [ ] No "modify" or "change" — use "edit"
 - [ ] No "new" or "add" for creating — use "create"
 - [ ] No "e.g.," "i.e.," or "etc." — write them out
-- [ ] No "click here" — descriptive link text instead
+- [ ] No "click here," "learn more," or "read more" — descriptive link text instead
 - [ ] No jargon, colloquialisms, idioms, or culture-specific references
+- [ ] No superlatives without a source ("best," "leading," "only," "fastest") — use specific, verifiable claims instead
+- [ ] Acronyms spelled out on first use: "command-line interface (CLI)"
+- [ ] No AI language: delve, enduring, harness, indelible, intricate, pivotal, profound, significant, unwavering, "seamlessly", "revolutionize", "ever-changing landscape", "In today's fast-paced digital world", "unlock your potential"
+- [ ] Specific and grounded — no vague transformation language ("streamline your workflow", "unlock your potential"); claims are verifiable
 
 #### Structure and clarity
 - [ ] Instructions lead with the benefit: "To [goal], [action]" — not "[action] to [goal]"
 - [ ] Language is positive and action-oriented
-- [ ] Short sentences and short paragraphs — no filler
+- [ ] One sentence, one idea — if a sentence runs long, break it up; series → bulleted list
 - [ ] Lists use parallel structure (same part of speech to start each item)
 - [ ] Descriptive hyperlinks with relative URLs for patternfly.org pages
+- [ ] First word of UI labels is meaningful — not "a," "the," or "for"
+- [ ] Button labels: 1–3 words, verb-first, no articles ("Add source" not "Add a source"), no punctuation
+- [ ] Icon tooltips: 1–2 words; standard icons use standard labels (Settings, Edit, Delete, Copy, Download, More options, Export)
+- [ ] Alt text: meaningful images describe context; decorative use alt=""; functional describe the action not the image
+- [ ] Heading levels not skipped (h2 → h3, not h2 → h4)
 
 #### Punctuation
 - [ ] No end punctuation on headings or button labels
 - [ ] Oxford comma used in lists
-- [ ] No ampersands (&) — write "and"
+- [ ] Ampersands: write "and" in UI microcopy (buttons, alerts, tooltips); & is acceptable in headings, navigation, and space-constrained contexts
 - [ ] Exclamation marks only for genuine excitement, and only after a few words
 - [ ] UI element references are bold, not quoted: **Submit** not "Submit"
+- [ ] Emphasis used correctly: bold sparingly, underlines = links only, no all-caps for emphasis
 
 #### Tense
 - [ ] Present tense throughout

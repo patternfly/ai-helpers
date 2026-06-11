@@ -40,11 +40,11 @@ PatternFly content design — voice and tone standards, content review, and UX w
 
 | Skill | Description |
 |-------|-------------|
-| `pf-content-review` | Audit and rewrite content to match PatternFly voice and tone. |
+| `content-review` | Audit and rewrite content to match PatternFly and Red Hat voice and tone standards. |
 
 | Agent | Description |
 |-------|-------------|
-| `pf-voice-and-tone` | PatternFly voice and tone standards — friendly, approachable, collaborative, inventive. |
+| `voice-and-tone` | PatternFly and Red Hat voice and tone standards — friendly, approachable, collaborative, inventive. |
 
 
 <br>
