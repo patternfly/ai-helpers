@@ -10,6 +10,22 @@ PF version migration — breaking change detection, class scanning, upgrade plan
 
 - **PF Class Migration Scanner** (`/migration:pf-class-migration-scanner`) — Scan code for legacy PatternFly CSS classes and recommend PF6-safe replacements.
 
+**PF React Breaking Changes** (`/migration:pf-react-breaking-changes`) — Scans for `@patternfly/react-*` API breaking changes (removed props, renamed components, import path changes) and generates a markdown report.
+
+## File Structure
+
+```text
+migration/
+├── .claude-plugin/
+│   └── plugin.json
+├── .cursor-plugin/
+│   └── plugin.json
+├── skills/
+│   ├── pf-class-migration-scanner/
+│   └── pf-react-breaking-changes/
+└── README.md
+```
+
 ## Sources
 
 - [PatternFly.org](https://www.patternfly.org/)
