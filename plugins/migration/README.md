@@ -26,6 +26,8 @@ See the [root README](../../README.md) for Cursor installation options.
 
 **PF Class Migration Scanner** (`/migration:pf-class-migration-scanner`) — Scans a codebase for deprecated PatternFly CSS classes and suggests replacements for version upgrades.
 
+**PF React Breaking Changes** (`/migration:pf-react-breaking-changes`) — Scans for `@patternfly/react-*` API breaking changes (removed props, renamed components, import path changes) and generates a markdown report.
+
 ## File Structure
 
 ```text
@@ -35,7 +37,8 @@ migration/
 ├── .cursor-plugin/
 │   └── plugin.json
 ├── skills/
-│   └── pf-class-migration-scanner/
+│   ├── pf-class-migration-scanner/
+│   └── pf-react-breaking-changes/
 └── README.md
 ```
 

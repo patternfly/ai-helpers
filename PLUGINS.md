@@ -58,6 +58,7 @@ PF version migration — breaking change detection, class scanning, upgrade plan
 | Skill | Description |
 |-------|-------------|
 | `pf-class-migration-scanner` | Scan code for legacy PatternFly CSS classes and recommend PF6-safe replacements. |
+| `pf-react-breaking-changes` | Scan code for @patternfly/react-* API breaking changes and produce a markdown report. |
 
 
 <br>
