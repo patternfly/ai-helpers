@@ -42,6 +42,8 @@ Skills are tasks that produce a result.
 
 **PF Prototype Mode** (`/react:pf-prototype-mode`) — Rapid prototyping mode for quickly building PatternFly UI layouts.
 
+**PF GitHub Pages Deploy** (`/react:pf-github-pages-deploy`) — Builds and deploys a PatternFly React app to GitHub Pages with `pfcli deploy`.
+
 ### Agents
 
 Agents are domain knowledge the AI follows.
@@ -78,6 +80,7 @@ react/
 │   └── pf-unit-test-standards.md
 ├── skills/
 │   ├── pf-component-structure/
+│   ├── pf-github-pages-deploy/
 │   ├── pf-import-checker/
 │   ├── pf-project-scaffolder/
 │   ├── pf-prototype-mode/

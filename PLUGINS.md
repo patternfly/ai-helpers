@@ -91,6 +91,7 @@ React component development — coding standards, testing, and structure
 | Skill | Description |
 |-------|-------------|
 | `pf-component-structure` | Audit PatternFly React component nesting, wrapper hierarchies, and layout structure. |
+| `pf-github-pages-deploy` | Deploy a PatternFly React project to GitHub Pages using pfcli deploy. |
 | `pf-import-checker` | Audit and fix invalid PatternFly import paths across packages. |
 | `pf-project-scaffolder` | Scaffolds PatternFly React projects with PF6-safe dependencies, imports, and starter layout. |
 | `pf-prototype-mode` | Enable prototype mode for React apps with grayscale styling and a banner overlay. |
