@@ -102,6 +102,7 @@ React component development — coding standards, testing, and structure
 | Skill | Description |
 |-------|-------------|
 | `pf-component-structure` | Audit PatternFly React component nesting, wrapper hierarchies, and layout structure. |
+| `pf-design-comments` | Integrate @patternfly/design-comments into React apps for on-page design feedback, pinned comment threads, GitHub Issues sync, and Jira linking. |
 | `pf-import-checker` | Audit and fix invalid PatternFly import paths across packages. |
 | `pf-project-scaffolder` | Scaffolds PatternFly React projects with PF6-safe dependencies, imports, and starter layout. |
 | `pf-unit-test-generator` | Generate a unit test file for a React component using Testing Library. |
