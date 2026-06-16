@@ -1,0 +1,2 @@
+prompt: "Generate tests for this consumer application component that uses custom child components."
+fixture: ServiceCard.tsx

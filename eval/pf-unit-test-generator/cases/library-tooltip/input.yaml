@@ -1,0 +1,2 @@
+prompt: "Generate tests for this component which lives inside the patternfly-react component library at packages/react-core/src/components/Tooltip/Tooltip.tsx."
+fixture: Tooltip.tsx

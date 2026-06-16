@@ -1,0 +1,2 @@
+prompt: "Generate tests for this component which lives inside the patternfly-react component library at packages/react-core/src/components/Wizard/Wizard.tsx. Note: the parent-child interaction between Wizard and its children (WizardNav, WizardStep, WizardFooter) IS the behavior being tested — the Wizard orchestrates navigation across steps."
+fixture: Wizard.tsx

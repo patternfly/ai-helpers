@@ -13,5 +13,8 @@ prototypes/
 # Temporary files
 tmp/
 
+# Eval run output
+eval/runs/
+
 # Local Claude Code settings (user-specific)
 .claude/settings.local.json

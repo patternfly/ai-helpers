@@ -1,0 +1,106 @@
+name: pf-unit-test-generator-eval
+description: Evaluate pf-unit-test-generator's consumer vs library context detection
+
+skill: react:pf-unit-test-generator
+
+execution:
+  mode: case
+  arguments: "{prompt}"
+
+runner:
+  type: claude-code
+
+models:
+  skill: claude-sonnet-4-6
+  judge: claude-sonnet-4-6
+
+permissions:
+  allow: []
+  deny:
+    - "mcp__*"
+
+dataset:
+  path: cases
+  schema: |
+    Each case directory contains:
+    - input.yaml: prompt field with a realistic user request
+    - annotations.yaml: context (consumer/library) and rule for conditional judges
+    - A .tsx fixture file the prompt references
+
+outputs:
+  - path: artifacts
+    schema: |
+      The skill generates a .test.tsx file. Judges check both
+      conversation text and collected file artifacts.
+
+traces:
+  stdout: true
+  stderr: true
+  events: true
+  metrics: true
+
+judges:
+  - name: has_test_content
+    description: Sanity check — output contains render() and expect() calls
+    check: |
+      text = outputs.get("conversation", "")
+      for path, content in outputs.get("files", {}).items():
+          text += "\n" + content
+      if "render(" not in text or "expect(" not in text:
+          return False, "Output doesn't look like a test file"
+      return True, "Contains render and expect calls"
+
+  - name: consumer_no_child_mocking
+    description: Consumer components should NOT mock child components
+    if: "annotations.get('context') == 'consumer'"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      for path, content in outputs.get("files", {}).items():
+          text += "\n" + content
+      mock_pattern = re.compile(
+          r'(jest\.mock|vi\.mock|jest\.spyOn)\s*\([^)]*?(StatusIcon|LastUpdated)'
+      )
+      if mock_pattern.search(text):
+          return False, "Consumer children should not be mocked"
+      return True, "No child mocking — correct consumer behavior"
+
+  - name: library_mocks_children
+    description: Library components should mock sibling modules for unit isolation
+    if: "annotations.get('context') == 'library' and annotations.get('rule') == 'default'"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      for path, content in outputs.get("files", {}).items():
+          text += "\n" + content
+      mock_pattern = re.compile(
+          r"(jest\.mock|vi\.mock)\s*\(\s*['\"]\.\.?/"
+      )
+      if not mock_pattern.search(text):
+          return False, "Library should mock sibling modules for unit isolation"
+      return True, "Relative-path mocks present — correct library behavior"
+
+  - name: orchestration_no_child_mocking
+    description: Library orchestration components should NOT mock children
+    if: "annotations.get('rule') == 'orchestration-exception'"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      for path, content in outputs.get("files", {}).items():
+          text += "\n" + content
+      mock_pattern = re.compile(
+          r'(jest\.mock|vi\.mock|jest\.spyOn)\s*\([^)]*?(WizardNav|WizardStep|WizardFooter)'
+      )
+      if mock_pattern.search(text):
+          return False, "Orchestration children should not be mocked"
+      return True, "No orchestration mocking — correct exception behavior"
+
+thresholds:
+  has_test_content:
+    min_pass_rate: 1.0
+  consumer_no_child_mocking:
+    min_pass_rate: 1.0
+  library_mocks_children:
+    min_pass_rate: 1.0
+  orchestration_no_child_mocking:
+    min_pass_rate: 1.0
