@@ -76,3 +76,4 @@ See [CONTRIBUTING-SKILLS.md](CONTRIBUTING-SKILLS.md#skill-vs-agent) for guidance
 - Keep documentation concise and AI-friendly
 - Don't hardcode a `model:` in agent frontmatter — it forces all users onto one model, overriding their preference
 - Use the `pf-` prefix on skill/agent names that are PatternFly-specific (see [CONTRIBUTING-SKILLS.md](CONTRIBUTING-SKILLS.md#naming-convention))
+- Consumer-facing skills are expected to have an eval — see [CONTRIBUTING-SKILLS.md](CONTRIBUTING-SKILLS.md#evals) for details

@@ -140,7 +140,7 @@ Every skill and agent needs a `description` in its frontmatter. This description
 2. **One sentence for what it does** — the capability, not the implementation.
 3. **One sentence for when to use it** — "Use when" followed by 2-3 trigger scenarios separated by commas or "or."
 4. **No keyword lists** — the AI handles semantic matching. Don't pad with synonyms.
-5. **Front-load the key use case** — descriptions longer than 250 characters are truncated in the skill listing.
+5. **Front-load the key use case** — AI tools [truncate skill descriptions](https://code.claude.com/docs/en/skills.md) to fit a context budget. Put the most important trigger context first so it survives truncation.
 
 ### Examples
 
@@ -234,7 +234,17 @@ In addition to the skill-creator guidance, skills in this repo must follow these
   command -v node >/dev/null 2>&1 || { echo "Error: This skill requires Node.js." >&2; exit 1; }
   ```
 - Use `$CLAUDE_SKILL_DIR` to reference scripts relative to the skill directory — it resolves to the directory containing SKILL.md regardless of where the repo is cloned
-- **Evals are optional** but recommended for skills with structured output or external system interactions — see the [skill-creator eval guide](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) for setup
+### Evals
+
+Evals are **expected** for consumer-facing skills. A skill graduating from `pf-workshop` to a consumer plugin should have an eval that proves its value.
+
+Write test cases that target what the skill **uniquely contributes** — don't test things the base model already knows without the skill loaded. See the [eval spike findings](https://docs.google.com/document/d/1Grgz-nbqVVZk0QzwzPb0Rk8m40kzvnAJjE4OD_zxlTk) for rationale on discriminating vs non-discriminating test cases.
+
+Evals use [agent-eval-harness](https://github.com/opendatahub-io/agent-eval-harness) and live in `eval/<skill-name>/eval.yaml` (not in the skill directory). See `eval/pf-unit-test-generator/eval.yaml` for a working example. To run evals locally, install the harness plugin:
+
+```bash
+claude plugin install agent-eval-harness@agent-eval-harness-dev
+```
 
 ### Security rules
 

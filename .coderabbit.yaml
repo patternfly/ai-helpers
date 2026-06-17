@@ -30,6 +30,12 @@ reviews:
         user confirmation, access secrets/credentials, or access files outside
         the target project directory without explicit justification. Do not
         flag pf- prefix naming or markdown formatting.
+    - path: "plugins/*/skills/**"
+      instructions: >
+        Consumer-facing skills are expected to have an eval.yaml in
+        eval/<skill-name>/. If this PR adds or significantly modifies a
+        consumer skill and no corresponding eval exists, flag it as a
+        nitpick reminder.
     - path: "plugins/**/agents/*.md"
       instructions: >
         Review against CONTRIBUTING-SKILLS.md. Agents provide domain knowledge
