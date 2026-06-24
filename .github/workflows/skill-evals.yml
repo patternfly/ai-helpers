@@ -1,0 +1,149 @@
+name: Skill Evals
+
+on:
+  pull_request:
+    types: [opened, reopened, labeled]
+    paths:
+      - "plugins/*/skills/**"
+      - "eval/**"
+      - "!eval/runs/**"
+  workflow_dispatch:
+    inputs:
+      skill_name:
+        description: "Specific skill to evaluate (leave empty for auto-detect)"
+        required: false
+        type: string
+
+jobs:
+  detect-changes:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.action == 'opened' ||
+      github.event.action == 'reopened' ||
+      (github.event.action == 'labeled' && github.event.label.name == 'run-evals')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      skills: ${{ steps.detect.outputs.skills }}
+      has_evals: ${{ steps.detect.outputs.has_evals }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Detect changed skills with evals
+        id: detect
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          SKILL_INPUT: ${{ inputs.skill_name }}
+        run: |
+          if [[ -n "$SKILL_INPUT" ]]; then
+            RESULT=$(bash scripts/detect-changed-skills.sh --skill "$SKILL_INPUT")
+          else
+            RESULT=$(bash scripts/detect-changed-skills.sh --base origin/main)
+          fi
+          while IFS='=' read -r key value; do
+            echo "${key}=${value}" >> "$GITHUB_OUTPUT"
+          done <<< "$RESULT"
+          echo "$RESULT"
+
+  run-evals:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has_evals == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 45
+    strategy:
+      matrix:
+        skill: ${{ fromJson(needs.detect-changes.outputs.skills) }}
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "20"
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code@2.1.190
+
+      - name: Install eval harness plugin
+        # Branch ref — plugin install does not support SHA pinning
+        run: claude plugin install agent-eval-harness@agent-eval-harness-dev
+
+      - name: Run eval for ${{ matrix.skill }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SKILL_NAME: ${{ matrix.skill }}
+        # dontAsk is safe — ephemeral CI runner, no persistent state
+        run: |
+          claude -p "/agent-eval-harness:eval-run --config eval/${SKILL_NAME}/eval.yaml --no-llm-judges" \
+            --allowedTools "Bash,Read,Write,Edit,Skill" \
+            --permission-mode dontAsk \
+            --max-turns 200
+
+      - name: Upload eval results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: eval-${{ matrix.skill }}
+          path: |
+            eval/runs/*/*/summary.yaml
+            eval/runs/*/*/run_result.json
+          if-no-files-found: warn
+
+  post-results:
+    needs: [detect-changes, run-evals]
+    if: always() && needs.detect-changes.outputs.has_evals == 'true' && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+
+      - name: Download all eval artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          path: eval-artifacts
+          pattern: eval-*
+
+      - name: Install Python dependencies
+        run: pip install --quiet pyyaml
+
+      - name: Generate PR comment
+        run: |
+          mapfile -t DIRS < <(find eval-artifacts -name summary.yaml -exec dirname {} \;)
+          if [[ ${#DIRS[@]} -eq 0 ]]; then
+            echo "## Skill Eval Results" > /tmp/eval-comment.md
+            echo "" >> /tmp/eval-comment.md
+            echo "No eval results found. Check the workflow logs for errors." >> /tmp/eval-comment.md
+          else
+            bash scripts/parse-eval-results.sh "${DIRS[@]}" > /tmp/eval-comment.md
+          fi
+
+      - name: Post or update PR comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          EXISTING=$(gh pr view "$PR_NUMBER" --comments --json comments \
+            --jq '.comments[] | select(.body | startswith("## Skill Eval Results")) | .url' \
+            | tail -1)
+          if [[ -n "$EXISTING" ]]; then
+            COMMENT_ID=$(echo "$EXISTING" | grep -oE '[0-9]+$')
+            gh api "repos/${REPO}/issues/comments/${COMMENT_ID}" \
+              -X PATCH -F body=@/tmp/eval-comment.md
+          else
+            gh pr comment "$PR_NUMBER" --body-file /tmp/eval-comment.md
+          fi

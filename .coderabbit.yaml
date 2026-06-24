@@ -66,6 +66,15 @@ reviews:
         files or resources outside the target project without explicit
         justification, and any network requests to URLs not provided by the
         user. Do not flag style or formatting.
+    - path: ".github/workflows/**"
+      instructions: >
+        GitHub Actions workflow files. Security checklist: actions must be
+        pinned to commit SHAs (not mutable tags like @v4), permissions must
+        be scoped to individual jobs (not workflow level), checkout steps
+        must set persist-credentials: false, secrets must not be exposed to
+        jobs that don't need them, and ${{ }} expressions must not appear
+        in run: blocks with user-controlled input (use env: instead). Flag
+        npm install or plugin install commands that use floating versions.
     - path: "scripts/**"
       instructions: >
         Repo-level automation scripts. Review for bugs, correctness, and
