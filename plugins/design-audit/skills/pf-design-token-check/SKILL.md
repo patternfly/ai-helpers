@@ -1,6 +1,6 @@
 ---
 name: pf-design-token-check
-description: Detect hardcoded color, spacing, typography, and shadow values that have PF token equivalents and suggest the correct design token replacements. Works on CSS, SCSS, CSS-in-JS, and inline styles. Use when auditing stylesheets for hardcoded values, enforcing design token compliance, or refactoring styles to use PatternFly tokens.
+description: Detect hardcoded color, spacing, typography, border radius and shadow values that have PF token equivalents and suggest the correct design token replacements. Works on CSS, SCSS, CSS-in-JS, and inline styles. Use when auditing stylesheets for hardcoded values, enforcing design token compliance, or refactoring styles to use PatternFly tokens.
 ---
 
 ### Objective
