@@ -1,10 +1,7 @@
 ---
 name: pf-design-token-check
-description: Detect hardcoded color, spacing, typography, and shadow values that have PF token equivalents and suggest the correct design token replacements. Works on CSS, SCSS, CSS-in-JS, and inline styles.
+description: Detect hardcoded color, spacing, typography, and shadow values that have PF token equivalents and suggest the correct design token replacements. Works on CSS, SCSS, CSS-in-JS, and inline styles. Use when auditing stylesheets for hardcoded values, enforcing design token compliance, or refactoring styles to use PatternFly tokens.
 ---
-
-### Role
-You are a Senior Design Systems Engineer specializing in CSS refactoring and Design Token implementation for PatternFly.
 
 ### Objective
 Analyze the provided code to find any raw values (colors, spacing, typography, shadows, etc.) assigned to styling properties. Flag these values as technical debt and suggest their replacement with PatternFly design tokens, following the token hierarchy: Raw value → Palette token → Base Token → Semantic Token. **Always recommend semantic tokens when they exist.**
@@ -20,9 +17,7 @@ When suggesting token replacements, follow this priority order:
 
 #### 1. Color Detection
 **Regex Pattern Match:** Identify values matching:
-- HEX: `/#([A-Fa-f0-9]{3}){1,2}\b/`
-- RGB/A: `/rgba?\((\d+,\s*){2,3}\d+(,\s*0?\.\d+)?\)/`
-- HSL/A: `/hsla?\(\d+,\s*([\d.]+%,\s*){1,2}[\d.]+(%|,\s*0?\.\d+)?\)/`
+- HEX values, RGBA or RGB values, HSLA or HSL values
 
 **Named Colors (X11 List):**
 - Flag all 148 CSS standard named colors (e.g., 'aliceblue' through 'yellowgreen')
@@ -32,13 +27,8 @@ When suggesting token replacements, follow this priority order:
 - `color`, `background-color`, `background`, `border-color`, `border`, `border-top-color`, `border-right-color`, `border-bottom-color`, `border-left-color`, `outline-color`, `box-shadow`, `text-shadow`, `fill`, `stroke`
 
 #### 2. Spacing Detection
-**Pattern Match:** Identify pixel, rem, em values for spacing properties:
-- Pixels: `/\d+px\b/`
-- Rems: `/\d*\.?\d+rem\b/`
-- Ems: `/\d*\.?\d+em\b/`
-- Zero values: `/\b0\b/` (can often use `--pf-t--global--spacer--0`)
-- Viewport width: `/\d+vw\b/` in `font-size`
-- Viewport height: `/\d+vh\b/` in `font-size`
+**Pattern Match:** Identify values for spacing properties:
+- `px`, `rem`, `em`, `pt`, `vw`, `dvw`, `vh`, `dvh`
 
 **Property Filter:** Only flag these values if assigned to spacing properties:
 - `margin`, `margin-top`, `margin-right`, `margin-bottom`, `margin-left`, `margin-inline`, `margin-inline-start`, `margin-inline-end`, `margin-block`, `margin-block-start`, `margin-block-end`
@@ -49,19 +39,14 @@ When suggesting token replacements, follow this priority order:
 
 #### 3. Typography Detection
 **Font Size Pattern Match:**
-- Pixels: `/\d+px\b/` in `font-size`
-- Rems: `/\d*\.?\d+rem\b/` in `font-size`
-- Ems: `/\d*\.?\d+em\b/` in `font-size`
-- Points: `/\d+pt\b/` in `font-size`
-- Viewport width: `/\d+vw\b/` in `font-size`
-- Viewport height: `/\d+vh\b/` in `font-size`
+- `px`, `rem`, `em`, `pt`, `vw`, `dvw`, `vh`, `dvh`, `ch` in `font-size`
 
 **Font Weight Pattern Match:**
-- Numeric: `/\b(100|200|300|400|500|600|700|800|900)\b/` in `font-weight`
-- Named: `/(normal|bold|bolder|lighter)/` in `font-weight`
+- Numeric: `100`, `200`,  `300`, `400`, `500`, `600`, `700`, `800`, `900` in `font-weight`
+- Named: `normal`, `bold`, `bolder`, `lighter` in `font-weight`
 
 **Line Height Pattern Match:**
-- Unitless numbers: `/\b\d*\.?\d+\b/` in `line-height`
+- Unitless numbers in `line-height`
 - Pixels/rems: same as font-size patterns in `line-height`
 
 **Font Family Pattern Match:**
@@ -72,7 +57,6 @@ When suggesting token replacements, follow this priority order:
 
 #### 4. Shadow Detection
 **Box Shadow Pattern Match:**
-- `/\d+px\s+\d+px\s+\d+px\s+(rgba?\(.*?\)|#[A-Fa-f0-9]{3,6})/`
 - Multiple shadow values separated by commas
 
 **Text Shadow Pattern Match:**
@@ -83,8 +67,7 @@ When suggesting token replacements, follow this priority order:
 
 #### 5. Border Radius Detection
 **Pattern Match:**
-- Pixels: `/\d+px\b/`
-- Percentages: `/\d+%\b/`
+- `px`, `%`, `rem`, `em`
 
 **Property Filter:**
 - `border-radius`, `border-top-left-radius`, `border-top-right-radius`, `border-bottom-left-radius`, `border-bottom-right-radius`
@@ -111,11 +94,9 @@ When suggesting token replacements, follow this priority order:
 ### Exception Handling
 **Do NOT flag:**
 1. Values already using design tokens (e.g., `var(--pf-v6-...)`)
-2. Values already using design tokens with fallbacks (e.g., `var(--pf-v6-..., 0)`) (but flag the raw value within the fallback)
-3. CSS custom property definitions within PatternFly token files (e.g., files in `patternfly/base/tokens/`)
-4. Calc expressions that use tokens: `calc(var(--pf-...) + 8px)` (but flag the raw value within calc)
-5. Values in comments
-6. Values in test files or mock data (unless explicitly requested)
+2. CSS custom property definitions within PatternFly token files (e.g., files in `patternfly/base/tokens/`)
+3. Values in comments
+4. Values in test files or mock data (unless explicitly requested)
 
 ### Token Matching Process
 
@@ -136,7 +117,6 @@ Look in `patternfly/base/tokens/` directory, in the node_modules/@patternfly/pat
 - `tokens-glass-dark.scss` - Glass Dark theme tokens
 - `tokens-highcontrast-dark.scss` - High Contrast Dark theme tokens
 - `tokens-highcontrast.scss` - High Contrast theme tokens
-- `tokens-.scss` - Dark theme tokens
 - Component-specific token files
 
 #### Step 2.5: Token Category Mapping
