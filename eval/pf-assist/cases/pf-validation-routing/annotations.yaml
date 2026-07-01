@@ -1,0 +1,5 @@
+expected_routing:
+  - pf-raw-colors-scan
+  - pf-compliance-checker
+  - pf-import-checker
+  - pf-token-auditor

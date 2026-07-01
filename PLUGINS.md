@@ -27,7 +27,9 @@ No skills or agents yet.
 
 Code review and quality — adversarial review, security patterns
 
-No skills or agents yet.
+| Agent | Description |
+|-------|-------------|
+| `pf-assist` | PatternFly development routing — maps code changes, test gaps, scaffolding needs, and design work to the right PF sub-skills. |
 
 
 <br>

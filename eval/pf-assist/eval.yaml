@@ -1,0 +1,108 @@
+name: pf-assist-eval
+description: Evaluate pf-assist agent's routing influence — does it surface specific PF sub-skills contextually?
+
+skill: ""
+
+execution:
+  mode: case
+  arguments: "{prompt}"
+
+runner:
+  type: claude-code
+  plugin_dirs:
+    - ./plugins/code-review
+
+models:
+  skill: claude-sonnet-4-6
+  judge: claude-sonnet-4-6
+
+permissions:
+  allow: []
+  deny:
+    - "mcp__*"
+
+dataset:
+  path: cases
+  schema: |
+    Each case directory IS the workspace (cwd for claude --print).
+    Fixture files (package.json, .tsx components) go directly in the case dir.
+    - input.yaml: prompt field with a realistic post-workflow question
+    - annotations.yaml: expected_routing (list of sub-skill names) or gate-skip
+    Only the code-review plugin is loaded (plugin_dirs above). The agent routes
+    to skills across multiple plugins (react, design-audit, etc.), but judges
+    test routing influence (does the agent mention skill names), not execution.
+
+traces:
+  stdout: true
+  stderr: true
+  events: true
+  metrics: true
+
+judges:
+  - name: routes_to_subskills
+    description: Output references specific /pf-* sub-skill names from the agent's routing table
+    if: "annotations.get('expected_routing', []) and annotations.get('expected_routing') != 'none'"
+    check: |
+      text = outputs.get("conversation", "")
+      for path, content in outputs.get("files", {}).items():
+          text += "\n" + content
+      text_lower = text.lower()
+      expected = annotations.get("expected_routing", [])
+      found = []
+      missing = []
+      for skill_name in expected:
+          normalized = skill_name.lower().replace("/", "")
+          if normalized in text_lower or skill_name.lower() in text_lower:
+              found.append(skill_name)
+          else:
+              missing.append(skill_name)
+      if not found:
+          return False, f"No expected sub-skills referenced. Expected: {expected}"
+      if missing:
+          return True, f"Found {found}, missing {missing} (partial match acceptable)"
+      return True, f"All expected sub-skills referenced: {found}"
+
+  - name: gate_skip_non_pf
+    description: Non-PF project gets no PF-specific routing — generic advice only
+    if: "annotations.get('expected_routing') == 'none'"
+    check: |
+      text = outputs.get("conversation", "")
+      for path, content in outputs.get("files", {}).items():
+          text += "\n" + content
+      text_lower = text.lower()
+      pf_subskills = [
+          "pf-compliance-checker", "pf-raw-colors-scan", "pf-import-checker",
+          "pf-component-structure", "pf-unit-test-generator", "pf-token-auditor",
+          "pf-class-migration-scanner", "pf-project-scaffolder", "pf-figma-icon-finder",
+          "pf-design-mode", "pf-design-comments", "pf-ai-experience-patterns"
+      ]
+      found_pf = [s for s in pf_subskills if s in text_lower]
+      if found_pf:
+          return False, f"Non-PF project got PF-specific routing: {found_pf}"
+      return True, "No PF sub-skill routing for non-PF project — gate check working"
+
+  - name: actionable_next_step
+    description: Output includes a concrete next action (run a skill, apply a fix), not just a description
+    if: "annotations.get('expected_routing', []) and annotations.get('expected_routing') != 'none'"
+    check: |
+      text = outputs.get("conversation", "")
+      for path, content in outputs.get("files", {}).items():
+          text += "\n" + content
+      text_lower = text.lower()
+      action_signals = [
+          "run ", "want me to", "should i", "let me run",
+          "i can run", "try running", "execute", "invoke",
+          "recommended", "start with", "first,", "next step"
+      ]
+      has_action = any(s in text_lower for s in action_signals)
+      if not has_action:
+          return False, "Output describes issues but doesn't offer actionable next steps"
+      return True, "Output includes actionable next steps"
+
+thresholds:
+  routes_to_subskills:
+    min_pass_rate: 1.0
+  gate_skip_non_pf:
+    min_pass_rate: 1.0
+  actionable_next_step:
+    min_pass_rate: 0.67

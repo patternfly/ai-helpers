@@ -9,44 +9,17 @@ React component development — coding standards, testing, and structure.
 ### Skills
 
 - **PF Component Structure** (`/react:pf-component-structure`) — Audit PatternFly React component nesting, wrapper hierarchies, and layout structure.
+- **PF Design Comments** (`/react:pf-design-comments`) — Integrate @patternfly/design-comments into React apps for on-page design feedback, pinned comment threads, GitHub Issues sync, and Jira linking.
 - **PF Import Checker** (`/react:pf-import-checker`) — Audit and fix invalid PatternFly import paths across packages.
 - **PF Project Scaffolder** (`/react:pf-project-scaffolder`) — Scaffolds PatternFly React projects with PF6-safe dependencies, imports, and starter layout.
 - **PF Unit Test Generator** (`/react:pf-unit-test-generator`) — Generate a unit test file for a React component using Testing Library.
 
-**PF Unit Test Generator** (`/react:pf-unit-test-generator`) — Generates a complete unit test file for a given React component. Works for both consumer applications and component library contributions, following Testing Library best practices.
-**PF Component Structure** (`/react:pf-component-structure`) — Audit PatternFly React component nesting, wrapper hierarchies, and layout structure.
-
-**PF Import Checker** (`/react:pf-import-checker`) — Audit and fix invalid PatternFly import paths across packages.
-
-**PF Project Scaffolder** (`/react:pf-project-scaffolder`) — Scaffolds PatternFly React projects with PF6-safe dependencies, imports, and starter layout.
-
-**PF Design Comments** (`/react:pf-design-comments`) — Integrates `@patternfly/design-comments` for on-page design feedback with optional GitHub and Jira sync.
 ### Agents
 
 - **PF Coding Standards** (`pf-coding-standards`) — PatternFly React coding standards — import patterns, component composition, token usage, and style conventions.
 - **PF Component Structure Audit** (`pf-component-structure-audit`) — PatternFly React structural composition rules — required hierarchies, wrapper components, and props-vs-children patterns.
 - **PF Unit Test Standards** (`pf-unit-test-standards`) — PatternFly React unit testing standards — RTL patterns, mock boundaries, coverage expectations, and assertion style.
 
-## File Structure
-```text
-react/
-├── .claude-plugin/
-│   └── plugin.json
-├── .cursor-plugin/
-│   └── plugin.json
-├── agents/
-│   ├── component-structure-audit.md
-│   ├── pf-coding-standards.md
-│   └── pf-unit-test-standards.md
-├── skills/
-│   ├── pf-component-structure/
-│   ├── pf-import-checker/
-│   ├── pf-project-scaffolder/
-│   ├── pf-design-comments/
-│   ├── pf-prototype-mode/
-│   └── pf-unit-test-generator/
-└── README.md
-```
 ## Sources
 
 - [PatternFly.org](https://www.patternfly.org/)
