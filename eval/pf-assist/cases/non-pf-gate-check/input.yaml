@@ -1,0 +1,1 @@
+prompt: "I just finished a code review of this project covering functionality, security, and quality. Are there any framework-specific checks I should also run? Look at the actual source files."
