@@ -3,3 +3,4 @@ expected_routing:
   - pf-compliance-checker
   - pf-import-checker
   - pf-token-auditor
+  - pf-component-structure

@@ -92,7 +92,8 @@ judges:
       action_signals = [
           "run ", "want me to", "should i", "let me run",
           "i can run", "try running", "execute", "invoke",
-          "recommended", "start with", "first,", "next step"
+          "recommended", "start with", "first,", "next step",
+          "suggest", "i'd start with", "you could", "i would"
       ]
       has_action = any(s in text_lower for s in action_signals)
       if not has_action:

@@ -52,4 +52,4 @@ Determine which contexts apply based on observable signals:
 - **Scaffolding**: empty or new project directory, `package.json` just created, user asked to scaffold
 - **Design**: Figma URLs in conversation, design-related user requests, `.figma` references
 
-When multiple contexts apply, run all relevant sub-skills and group findings by context. Only include context sections that were activated. Attribute findings to the specific sub-skill that produced them.
+When multiple contexts apply, surface all relevant sub-skills and group findings by context. Only include context sections that were activated. Attribute findings to the specific sub-skill that produced them.
