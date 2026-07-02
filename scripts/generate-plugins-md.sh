@@ -25,6 +25,8 @@ to_display_name() {
       if ($i == "A11y") $i = "Accessibility"
       if ($i == "Ai") $i = "AI"
       if ($i == "Ui") $i = "UI"
+      if ($i == "Mcp") $i = "MCP"
+      if ($i == "Patternfly") $i = "PatternFly"
     }
     print
   }'
@@ -250,7 +252,12 @@ HEADER
     fi
 
     if [ "$has_skills" = false ] && [ "$has_agents" = false ]; then
-      echo "No skills or agents yet."
+      has_mcp=$(python3 -c "import json; d=json.load(open('${plugin_dir}.claude-plugin/plugin.json')); print('yes' if d.get('mcpServers') else 'no')" 2>/dev/null)
+      if [ "$has_mcp" = "yes" ]; then
+        echo "This plugin provides an MCP server only — no skills or agents. Other plugins declare it as a dependency so the MCP server is installed automatically."
+      else
+        echo "No skills or agents yet."
+      fi
     fi
 
     echo ""
@@ -415,8 +422,13 @@ for plugin_dir in plugins/*/; do
         printf "%s" "$agent_content"
       fi
     else
+      has_mcp=$(python3 -c "import json; d=json.load(open('${plugin_dir}.claude-plugin/plugin.json')); print('yes' if d.get('mcpServers') else 'no')" 2>/dev/null)
       echo ""
-      echo "No skills or agents yet."
+      if [ "$has_mcp" = "yes" ]; then
+        echo "This plugin provides an MCP server only — no skills or agents. Other plugins declare it as a dependency so the MCP server is installed automatically."
+      else
+        echo "No skills or agents yet."
+      fi
     fi
 
     # Sources
