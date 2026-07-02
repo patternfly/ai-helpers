@@ -9,6 +9,7 @@ Quick reference of all plugins and what they contain. This file is auto-generate
 - [design-audit](#design-audit) — Design audit — validate existing code and designs against PatternFly standards
 - [design-guide](#design-guide) — Design guide — component selection, interaction patterns, AI experience patterns, Figma design creation
 - [migration](#migration) — PF version migration — breaking change detection, class scanning, upgrade planning
+- [patternfly-mcp](#patternfly-mcp) — PatternFly MCP server — provides component documentation, design token lookup, and accessibility guidance via the Model Context Protocol
 - [pf-workshop](#pf-workshop) — PatternFly team tools and skill incubation — issue triage, release management, codebase auditing, new skill development
 - [react](#react) — React component development — coding standards, testing, and structure
 
@@ -67,6 +68,15 @@ PF version migration — breaking change detection, class scanning, upgrade plan
 | Skill | Description |
 |-------|-------------|
 | `pf-class-migration-scanner` | Scan code for legacy PatternFly CSS classes and recommend PF6-safe replacements. |
+
+
+<br>
+
+### patternfly-mcp
+
+PatternFly MCP server — provides component documentation, design token lookup, and accessibility guidance via the Model Context Protocol
+
+No skills or agents yet.
 
 
 <br>

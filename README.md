@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/github/license/patternfly/ai-helpers)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
-[![Plugins](https://img.shields.io/badge/plugins-7-blueviolet)](./PLUGINS.md)
+[![Plugins](https://img.shields.io/badge/plugins-8-blueviolet)](./PLUGINS.md)
 [![Skills](https://img.shields.io/badge/skills-28-blue)](./PLUGINS.md)
 
 AI coding helpers for [PatternFly](https://www.patternfly.org/) development. This repository provides plugins and documentation to help AI tools generate accurate, best-practice PatternFly applications.
@@ -73,6 +73,7 @@ Red Hat Cursor Enterprise users have access to the PatternFly AI Helpers team ma
 | **design&#8209;audit** | Design audit — validate existing code and designs against PatternFly standards |
 | **design&#8209;guide** | Design guide — component selection, interaction patterns, AI experience patterns, Figma design creation |
 | **migration** | PF version migration — breaking change detection, class scanning, upgrade planning |
+| **patternfly&#8209;mcp** | PatternFly MCP server — provides component documentation, design token lookup, and accessibility guidance via the Model Context Protocol |
 | **pf&#8209;workshop** | PatternFly team tools and skill incubation — issue triage, release management, codebase auditing, new skill development |
 | **react** | React component development — coding standards, testing, and structure |
 <!-- END PLUGIN TABLE -->

@@ -68,6 +68,7 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 | **design-audit** | Validate existing code/designs against PF standards | Does this check whether existing code or designs follow PF standards? | `pf-compliance-checker`, `pf-figma-icon-finder`, `pf-raw-colors-scan` |
 | **design-guide** | Choose the right PF components and patterns when building | Does this help me choose the right PF components and patterns when building? | `pf-ai-experience-patterns`, `pf-design-mode` |
 | **migration** | Upgrade PatternFly versions | Does this help me upgrade PF versions? | `pf-class-migration-scanner` |
+| **patternfly-mcp** | Connect AI tools to PatternFly documentation and component data |  |  |
 | **pf-workshop** | Team tools and skill incubation | Is this a team workflow tool, or a new skill that isn't ready for a consumer plugin yet? | `analytics-repo-pruning`, `css-var-analyzer`, `duplicate-epic` |
 | **react** | Develop and test React components | Does this help me write or test a React component? | `pf-component-structure`, `pf-design-comments`, `pf-import-checker` |
 <!-- END PLUGIN TABLE -->
@@ -88,6 +89,7 @@ Plugin names must tell a user exactly what the plugin helps them do. A user brow
 - `design-audit` — design audit — validate existing code and designs against PatternFly standards
 - `design-guide` — design guide — component selection, interaction patterns, AI experience patterns, Figma design creation
 - `migration` — pF version migration — breaking change detection, class scanning, upgrade planning
+- `patternfly-mcp` — patternFly MCP server — provides component documentation, design token lookup, and accessibility guidance via the Model Context Protocol
 - `react` — react component development — coding standards, testing, and structure
 <!-- END GOOD NAMES -->
 
