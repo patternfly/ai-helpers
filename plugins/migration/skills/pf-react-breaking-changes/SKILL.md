@@ -4,6 +4,7 @@ description: >-
   Scan code for @patternfly/react-* API breaking changes and produce a markdown
   report. Use when upgrading PatternFly React versions, auditing component API
   usage, or checking for removed props, renamed components, or import path changes.
+disable-model-invocation: true
 ---
 
 # PF React Breaking Changes
@@ -82,6 +83,8 @@ Use the **PatternFly MCP server** before guessing:
    - Release notes for the target version range
    - Component docs/schemas for removed props or renamed exports
 
+If the PatternFly MCP server is unavailable, continue without stalling: reference the [pf-codemods README](https://github.com/patternfly/pf-codemods) rule list and the [PatternFly upgrade guide](https://www.patternfly.org/get-started/upgrade/) directly, and check GitHub release notes for the target version range.
+
 For **PF5 → PF6**, also reference the [pf-codemods README](https://github.com/patternfly/pf-codemods) rule list — each rule maps to a documented breaking change with PR links.
 
 For **minor/patch upgrades**, check the target release notes and GitHub PRs for `@patternfly/react-core` and related packages.
@@ -124,7 +127,9 @@ Present the report to the user and summarize the highest-severity items.
 
 ## Detection patterns
 
-When MCP/docs identify a breaking change, search the codebase with targeted patterns:
+When MCP/docs identify a breaking change, search the codebase with targeted patterns.
+
+The examples below use **PF5 → PF6** component and prop names (`Chip`, `KebabToggle`, `Tile`). For minor/patch upgrades (for example `6.2.0` → `6.3.0`), derive search patterns from the breaking changes documented in release notes — do not blindly search for these PF5→PF6 names.
 
 ```bash
 # Removed or deprecated components
