@@ -1,6 +1,7 @@
 ---
 name: pf-github-pages-deploy
 description: Deploy a PatternFly React project to GitHub Pages using pfcli deploy. Use when publishing a prototype, sharing a demo URL, deploying to GitHub Pages, or when the user mentions pfcli deploy.
+disable-model-invocation: true
 ---
 
 # Deploy to GitHub Pages with pfcli
