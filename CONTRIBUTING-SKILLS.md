@@ -67,7 +67,7 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 | **code-review** | Review code for quality | Does this help me review code for quality? |  |
 | **design-audit** | Validate existing code/designs against PF standards | Does this check whether existing code or designs follow PF standards? | `pf-code-token-check`, `pf-color-scan`, `pf-figma-check` |
 | **design-guide** | Choose the right PF components and patterns when building | Does this help me choose the right PF components and patterns when building? | `pf-ai-guide`, `pf-figma-design-mode` |
-| **migration** | Upgrade PatternFly versions | Does this help me upgrade PF versions? | `pf-css-migration-scan`, `pf-react-migration-scan` |
+| **migration** | Upgrade PatternFly versions | Does this help me upgrade PF versions? | `pf-css-migration-scan`, `pf-react-migration-scan`, `pf-release-candidate-update` |
 | **patternfly-mcp** | Connect AI tools to PatternFly documentation and component data |  |  |
 | **pf-workshop** | Team tools and skill incubation | Is this a team workflow tool, or a new skill that isn't ready for a consumer plugin yet? | `analytics-repo-pruning`, `duplicate-epic`, `figma-diff` |
 | **react** | Develop and test React components | Does this help me write or test a React component? | `pf-component-check`, `pf-deploy`, `pf-design-comments-setup` |
