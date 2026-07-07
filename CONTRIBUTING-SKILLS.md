@@ -65,12 +65,12 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 |--------|---------------------|---------------|----------------|
 | **a11y** | Audit and document accessibility | Does this help me make my UI accessible? |  |
 | **code-review** | Review code for quality | Does this help me review code for quality? |  |
-| **design-audit** | Validate existing code/designs against PF standards | Does this check whether existing code or designs follow PF standards? | `pf-compliance-checker`, `pf-figma-icon-finder`, `pf-raw-colors-scan` |
+| **design-audit** | Validate existing code/designs against PF standards | Does this check whether existing code or designs follow PF standards? | `pf-compliance-checker`, `pf-design-token-check`, `pf-figma-icon-finder` |
 | **design-guide** | Choose the right PF components and patterns when building | Does this help me choose the right PF components and patterns when building? | `pf-ai-experience-patterns`, `pf-design-mode` |
 | **migration** | Upgrade PatternFly versions | Does this help me upgrade PF versions? | `pf-class-migration-scanner` |
 | **patternfly-mcp** | Connect AI tools to PatternFly documentation and component data |  |  |
 | **pf-workshop** | Team tools and skill incubation | Is this a team workflow tool, or a new skill that isn't ready for a consumer plugin yet? | `analytics-repo-pruning`, `css-var-analyzer`, `duplicate-epic` |
-| **react** | Develop and test React components | Does this help me write or test a React component? | `pf-component-structure`, `pf-design-comments`, `pf-import-checker` |
+| **react** | Develop and test React components | Does this help me write or test a React component? | `pf-component-structure`, `pf-design-comments`, `pf-github-pages-deploy` |
 <!-- END PLUGIN TABLE -->
 
 **How to decide:**

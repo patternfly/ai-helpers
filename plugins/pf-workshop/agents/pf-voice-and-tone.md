@@ -1,13 +1,11 @@
 ---
-name: voice-and-tone
-description: PatternFly and Red Hat voice and tone standards — friendly, approachable, collaborative, inventive. Active when writing, reviewing, or editing documentation, design guidelines, or UI copy for PatternFly or Red Hat brand.
+name: pf-voice-and-tone
+description: PatternFly and Red Hat voice and tone standards — friendly, approachable, collaborative, inventive. Active when writing, reviewing, or editing documentation, design guidelines, or web copy for patternfly.org.
 ---
 
 # PatternFly Voice and Tone Standards
 
-Apply these standards across two contexts — **UX microcopy** (buttons, alerts, tooltips, error messages, inline text) and **long-form content** (documentation, design guidelines, web copy) — for both PatternFly and Red Hat brand. Most rules are identical; exceptions are noted where they differ.
-
-Source: [PatternFly content design guidelines](https://www.patternfly.org/content-design/overview)
+Apply these standards when writing or reviewing **long-form content** for patternfly.org — documentation, design guidelines, and web copy.
 
 ---
 
@@ -40,11 +38,7 @@ Tone varies by context. Ask: What does the user need? What are they thinking? Ho
 
 - **Default: second person** — "you/your." Keeps focus on the user; sounds conversational.
 - **First person "I"** — only when the user is agreeing to something: "I agree to the terms."
-- **Third person** — avoid. Sounds formal and disconnected.
-
-| Before | After |
-|---|---|
-| Users can simplify their designs with PatternFly. | Simplify your designs with PatternFly. |
+- **Third person** — avoid. Sounds formal and disconnected. ("Users can simplify their designs" → "Simplify your designs.")
 
 ---
 
@@ -52,16 +46,11 @@ Tone varies by context. Ask: What does the user need? What are they thinking? Ho
 
 - **Active voice by default** — subject performs the action. Shorter, clearer.
 - **Passive voice** — only to avoid blaming the user (error messages) or to emphasize an action.
+- **Present tense** in documentation and design guidelines.
 
 | Before | After |
 |---|---|
 | You entered the wrong password. | The password is incorrect. |
-
----
-
-## Tense
-
-Use **present tense** in documentation and design guidelines.
 
 ---
 
@@ -87,12 +76,7 @@ Use **present tense** in documentation and design guidelines.
   - Italics for subtle emphasis only — harder to read for users with dyslexia; use rarely
   - Underlines = links only, never for emphasis
   - All caps = acronyms only, never for emphasis
-
----
-
-## Numbers
-
-Use numerals in UI (not written-out numbers): "3 business days" not "three business days."
+- **Numerals** in UI, not written-out numbers: "3 business days" not "three business days."
 
 ---
 
@@ -142,15 +126,9 @@ When reviewing content, flag these as candidates for replacement — not because
 |---|---|
 | Your user settings do not allow you to access this file. | To access this file, adjust your user settings. |
 
-**Fragments are fine** in toasts, tooltips, and alerts when space is limited: "Message sent" beats "Your message has been sent."
-
-**Error message formula**: Description (what happened) → Reason (why) → Resolution (what to do next). Never blame the user.
-
 **Parallel structure in lists**: Every item starts with the same part of speech. End with a period if items are full sentences.
 
 **Descriptive hyperlinks**: Use text that describes the destination. Use relative URLs on patternfly.org. Never use "click here," "learn more," or "read more" as link text — these are vague and inaccessible. Same destination = same link text; different destinations = different link text.
-
-**Make the first word meaningful.** In UI labels, buttons, and headings, don't lead with "a," "the," or "for." Front-load the word that carries the most meaning.
 
 **Heading hierarchy**: Never skip heading levels — don't jump from h2 to h4. Each page should have one h1 reflecting its main topic.
 
@@ -162,47 +140,6 @@ When reviewing content, flag these as candidates for replacement — not because
 |---|---|
 | "Tested against WCAG 2.2 Level AA" | "Fully accessible out of the box" |
 | "Reduces setup time by removing manual token mapping" | "Streamline your workflow" |
-
----
-
-## Component-specific microcopy
-
-### Buttons
-
-- **1–3 words** — keep labels short to avoid wrapping.
-- **No articles** — write "Add source" not "Add a source"; "Create user" not "Create a user."
-- **No punctuation** on button labels.
-- **Verb-first** — use a simple verb or verb phrase that describes the action.
-- Labels must make sense out of context — screen readers announce buttons independently.
-
-### Tooltips
-
-- **Icon tooltips: 1–2 words only.** Identify the icon clearly and concisely.
-- **Fragments get no period.** Full sentences do.
-- **Don't place tooltips on question-circle icons** — use a popover instead for non-trivial information.
-- Standard icons always use the same tooltip label:
-
-| Icon | Tooltip |
-|---|---|
-| Notifications (fa-bell) | Notifications |
-| Settings (fa-cog) | Settings |
-| Copy (fa-copy) | Copy |
-| Download (fa-download) | Download |
-| More options (fa-ellipsis-v) | More options |
-| Edit (fa-pencil-alt) | Edit |
-| Search (fa-search) | Search |
-| Sync (fa-sync-alt) | Sync, Refresh, or Running — choose the best fit |
-| Delete (fa-trash) | Delete |
-| Export (pficon-export) | Export |
-| Upgrade (fa-arrow-circle-up) | Upgrade |
-| Tasks (pficon-task) | Tasks |
-
-### Alt text
-
-- **Meaningful images**: Describe the contextual meaning, not the literal content. An image of a dashboard showing an error should say what the error is, not "screenshot of a dashboard."
-- **Decorative images**: Use `alt=""` so screen readers skip them.
-- **Functional images** (used as links or buttons): Describe the action, not the image — "Go to homepage" not "Red Hat logo."
-- **Grouped images**: Use a single container label (e.g., `aria-label`) rather than labelling each image individually.
 
 ---
 
@@ -229,9 +166,6 @@ Within each section:
 - [ ] Component names lowercase in prose
 - [ ] No "please," "utilize," "successfully," "modify," or "change"
 - [ ] No "click here," "learn more," or "read more" — descriptive link text only
-- [ ] Button labels: 1–3 words, verb-first, no articles ("Add source" not "Add a source"), no punctuation
-- [ ] Icon tooltips: 1–2 words, standard icons use standard labels (Settings, Edit, Delete, etc.)
-- [ ] Alt text: meaningful images describe context not appearance; decorative images use alt=""; functional images describe the action
 - [ ] First word of UI labels is meaningful — not "a," "the," or "for"
 - [ ] Heading levels not skipped (h2 → h3, not h2 → h4)
 - [ ] Emphasis used correctly: bold sparingly, underlines = links only, no all-caps for emphasis
@@ -251,14 +185,12 @@ Within each section:
 
 ## Sources
 
+- [Content design overview](https://www.patternfly.org/content-design/overview)
 - [Brand voice and tone](https://www.patternfly.org/content-design/brand-voice-and-tone)
 - [Best practices](https://www.patternfly.org/content-design/best-practices)
 - [PatternFly design guidelines writing guide](https://www.patternfly.org/content-design/writing-guides/patternfly-design-guidelines)
 - [Grammar: capitalization](https://www.patternfly.org/content-design/grammar/capitalization)
 - [Grammar: sentence structure](https://www.patternfly.org/content-design/grammar/sentence-structure)
 - [Grammar: terminology](https://www.patternfly.org/content-design/grammar/terminology)
-- [Error messages](https://www.patternfly.org/content-design/writing-guides/error-messages)
 - [Accessibility and localization](https://www.patternfly.org/content-design/accessibility-and-localization)
 - [Red Hat Design System: content accessibility](https://ux.redhat.com/accessibility/content/)
-- Red Hat corporate style guide
-- Writing for Red Hat: Takeaway guide

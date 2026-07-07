@@ -2,7 +2,8 @@
 
 [![License](https://img.shields.io/github/license/patternfly/ai-helpers)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
-[![Plugins](https://img.shields.io/badge/plugins-6-blueviolet)](./PLUGINS.md)
+[![Plugins](https://img.shields.io/badge/plugins-8-blueviolet)](./PLUGINS.md)
+[![Skills](https://img.shields.io/badge/skills-31-blue)](./PLUGINS.md)
 
 AI coding helpers for [PatternFly](https://www.patternfly.org/) development. This repository provides plugins and documentation to help AI tools generate accurate, best-practice PatternFly applications.
 
@@ -32,11 +33,12 @@ Cursor can discover plugins from `.cursor-plugin/` directories. If you also have
 | Plugin | Description |
 |--------|-------------|
 | **a11y** | Accessibility auditing, reporting, and documentation |
-| **code-review** | Code review and quality — PR summaries, adversarial review, security patterns |
-| **content** | PatternFly content design — voice and tone standards, content review, and UX writing guidance |
-| **design-to-code** | Design-to-code translation — Figma review, token auditing, icon identification, design compliance |
+| **code&#8209;review** | Code review and quality — adversarial review, security patterns |
+| **design&#8209;audit** | Design audit — validate existing code and designs against PatternFly standards |
+| **design&#8209;guide** | Design guide — component selection, interaction patterns, AI experience patterns, Figma design creation |
 | **migration** | PF version migration — breaking change detection, class scanning, upgrade planning |
-| **pf-workshop** | PatternFly team tools and skill incubation — issue triage, release management, codebase auditing, new skill development |
+| **patternfly&#8209;mcp** | PatternFly MCP server — provides component documentation, design token lookup, and accessibility guidance via the Model Context Protocol |
+| **pf&#8209;workshop** | PatternFly team tools and skill incubation — issue triage, release management, codebase auditing, new skill development |
 | **react** | React component development — coding standards, testing, and structure |
 <!-- END PLUGIN TABLE -->
 

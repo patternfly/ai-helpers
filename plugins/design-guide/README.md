@@ -13,6 +13,10 @@ Use this plugin when you're **building** something and need help choosing the ri
 - **PF AI Experience Patterns** (`/design-guide:pf-ai-experience-patterns`) — Apply Red Hat's AI design language to AI-powered features — chatbots, assistants, generation UIs.
 - **PF Design Mode** (`/design-guide:pf-design-mode`) — Create and edit Figma design files using PatternFly-approved component libraries.
 
+### Agents
+
+- **PF Microcopy** (`pf-microcopy`) — PatternFly component microcopy standards — button labels, tooltips, alt text, and error messages.
+
 ## Sources
 
 - [PatternFly.org](https://www.patternfly.org/)
