@@ -1,0 +1,110 @@
+name: pf-raw-colors-scan-eval
+description: Evaluate pf-raw-colors-scan's ability to detect raw colors and suggest PF token replacements
+
+skill: design-audit:pf-raw-colors-scan
+
+execution:
+  mode: case
+  arguments: "{prompt}"
+
+runner:
+  type: claude-code
+
+models:
+  skill: claude-sonnet-4-6
+  judge: claude-sonnet-4-6
+
+permissions:
+  allow: []
+  deny:
+    - "mcp__*"
+
+dataset:
+  path: cases
+  schema: |
+    Each case directory contains:
+    - input.yaml: prompt field with a realistic user request
+    - annotations.yaml: expect_violations (true/false) for conditional judges
+    - An SCSS or CSS fixture file the prompt references
+
+outputs:
+  - path: artifacts
+    schema: |
+      The skill produces a text report listing violations with
+      file name, line number, property, raw value, and recommendation.
+
+traces:
+  stdout: true
+  stderr: true
+  events: true
+  metrics: true
+
+judges:
+  - name: finds_raw_colors
+    description: Detects raw hex/rgb/hsl values in the fixture
+    if: "annotations.get('expect_violations') == True"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      hex_pattern = re.compile(r'#[A-Fa-f0-9]{3,8}\b')
+      rgb_pattern = re.compile(r'rgba?\(')
+      has_hex = hex_pattern.search(text)
+      has_rgb = rgb_pattern.search(text)
+      if not has_hex and not has_rgb:
+          return False, "Output doesn't reference any raw color values from the fixture"
+      return True, "Output references raw color values found in fixture"
+
+  - name: suggests_pf_tokens
+    description: Recommends PF design tokens, not generic CSS variables
+    if: "annotations.get('expect_violations') == True"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      pf_token = re.compile(r'--pf-t--')
+      generic_var = re.compile(r'var\(--(?!pf)')
+      if not pf_token.search(text):
+          return False, "No PF design token recommendations (--pf-t--) found"
+      return True, "Suggests PF design token replacements"
+
+  - name: skips_token_declarations
+    description: Does not flag colors inside token variable declarations
+    if: "annotations.get('expect_violations') == False and annotations.get('case_type') == 'token-declaration'"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      fixture_colors = ["#0066cc", "#c9190b", "#151515", "#f0f0f0", "#ffffff"]
+      flagged = []
+      for color in fixture_colors:
+          pattern = re.compile(
+              r'(violation|flag|issue|problem|replace|hardcoded).*' + re.escape(color),
+              re.IGNORECASE
+          )
+          if pattern.search(text):
+              flagged.append(color)
+      if flagged:
+          return False, f"Incorrectly flagged token declaration values: {flagged}"
+      return True, "Did not flag any token declaration values as violations"
+
+  - name: clean_report
+    description: Reports no violations for already-tokenized code
+    if: "annotations.get('expect_violations') == False and annotations.get('case_type') == 'already-tokenized'"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      false_positive = re.compile(
+          r'(violation|replace|hardcoded|raw color).*#[A-Fa-f0-9]{3,8}',
+          re.IGNORECASE
+      )
+      if false_positive.search(text):
+          return False, "False positive — flagged tokenized code as having raw color violations"
+      return True, "No false positives for already-tokenized code"
+
+thresholds:
+  finds_raw_colors:
+    min_pass_rate: 1.0
+  suggests_pf_tokens:
+    min_pass_rate: 1.0
+  skips_token_declarations:
+    min_pass_rate: 1.0
+  clean_report:
+    min_pass_rate: 1.0

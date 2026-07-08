@@ -1,0 +1,2 @@
+prompt: "Check the import paths in this React component for PF6 compliance."
+fixture: ChartsDashboard.tsx

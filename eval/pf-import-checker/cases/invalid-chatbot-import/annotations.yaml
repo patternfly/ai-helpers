@@ -1,0 +1,4 @@
+expect_violations: true
+violation_type: chatbot-root-import
+invalid_import: "@patternfly/chatbot"
+correct_import: "@patternfly/chatbot/dist/dynamic"

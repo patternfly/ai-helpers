@@ -1,0 +1,5 @@
+expect_violations: true
+violation_type: legacy-tokens
+legacy_patterns:
+  - "--pf-global--"
+  - "--pf-v6--"

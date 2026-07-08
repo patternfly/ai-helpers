@@ -1,0 +1,2 @@
+prompt: "Check this SCSS file for raw color values that need to be replaced with design tokens."
+fixture: _token-definitions.scss

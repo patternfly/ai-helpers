@@ -1,0 +1,4 @@
+expect_violations: true
+violation_type: charts-root-import
+invalid_import: "@patternfly/react-charts"
+correct_import: "@patternfly/react-charts/victory"

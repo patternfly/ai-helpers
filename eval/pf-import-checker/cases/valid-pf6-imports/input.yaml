@@ -1,0 +1,2 @@
+prompt: "Verify the import paths in this component follow PF6 conventions."
+fixture: SettingsPage.tsx

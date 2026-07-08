@@ -1,0 +1,2 @@
+prompt: "Scan this SCSS file for any raw color values and suggest PatternFly design token replacements."
+fixture: _card-styles.scss

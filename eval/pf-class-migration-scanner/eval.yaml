@@ -1,0 +1,129 @@
+name: pf-class-migration-scanner-eval
+description: Evaluate pf-class-migration-scanner's detection of legacy PF classes and token patterns
+
+skill: migration:pf-class-migration-scanner
+
+execution:
+  mode: case
+  arguments: "{prompt}"
+
+runner:
+  type: claude-code
+
+models:
+  skill: claude-sonnet-4-6
+  judge: claude-sonnet-4-6
+
+permissions:
+  allow: []
+  deny:
+    - "mcp__*"
+
+dataset:
+  path: cases
+  schema: |
+    Each case directory contains:
+    - input.yaml: prompt field with a realistic user request
+    - annotations.yaml: expect_violations (true/false) and legacy_patterns for conditional judges
+    - A .tsx or .scss fixture file the prompt references
+
+outputs:
+  - path: artifacts
+    schema: |
+      The skill produces a text report listing legacy classes/tokens
+      with file path, current class, recommended replacement, and confidence.
+
+traces:
+  stdout: true
+  stderr: true
+  events: true
+  metrics: true
+
+judges:
+  - name: flags_legacy_classes
+    description: Detects legacy versioned and unversioned PF class prefixes
+    if: "annotations.get('expect_violations') == True and annotations.get('violation_type') == 'legacy-classes'"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      patterns = annotations.get("legacy_patterns", [])
+      if not patterns:
+          return False, "Test case missing legacy_patterns annotation"
+      found = 0
+      for pattern in patterns:
+          if pattern in text:
+              found += 1
+      if found == 0:
+          return False, f"Did not flag any legacy classes: {patterns}"
+      if found < len(patterns):
+          return False, f"Only found {found}/{len(patterns)} legacy patterns"
+      return True, f"Correctly flagged all {len(patterns)} legacy class patterns"
+
+  - name: flags_legacy_tokens
+    description: Detects legacy token patterns that should use semantic tokens
+    if: "annotations.get('expect_violations') == True and annotations.get('violation_type') == 'legacy-tokens'"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      patterns = annotations.get("legacy_patterns", [])
+      if not patterns:
+          return False, "Test case missing legacy_patterns annotation"
+      found = 0
+      for pattern in patterns:
+          if pattern in text:
+              found += 1
+      if found == 0:
+          return False, f"Did not flag any legacy tokens: {patterns}"
+      return True, f"Flagged {found}/{len(patterns)} legacy token patterns"
+
+  - name: suggests_pf6_replacement
+    description: Recommends PF6-appropriate replacements (pf-v6-u-* or --pf-t--*)
+    if: "annotations.get('expect_violations') == True"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      pf6_class = re.compile(r'pf-v6-')
+      pf6_token = re.compile(r'--pf-t--')
+      if not pf6_class.search(text) and not pf6_token.search(text):
+          return False, "No PF6 replacement suggestions (pf-v6-* or --pf-t--*) found"
+      return True, "Suggests PF6-appropriate replacements"
+
+  - name: includes_confidence
+    description: Output includes confidence levels for findings
+    if: "annotations.get('expect_violations') == True"
+    check: |
+      import re
+      text = outputs.get("conversation", "").lower()
+      confidence = re.compile(r'\b(high|medium|low)\b.*confidence|\bconfidence\b.*\b(high|medium|low)\b')
+      if not confidence.search(text):
+          return False, "Missing confidence levels in findings"
+      return True, "Includes confidence levels"
+
+  - name: no_false_positives
+    description: Does not flag valid PF6 code as legacy
+    if: "annotations.get('expect_violations') == False"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      pf6_classes = ["pf-v6-u-ml-sm"]
+      for cls in pf6_classes:
+          pattern = re.compile(
+              r'(legacy|deprecated|migrate|violation|replace|remove).*'
+              + re.escape(cls),
+              re.IGNORECASE
+          )
+          if pattern.search(text):
+              return False, f"False positive — flagged valid PF6 class as legacy: {cls}"
+      return True, "No false positives for valid PF6 code"
+
+thresholds:
+  flags_legacy_classes:
+    min_pass_rate: 1.0
+  flags_legacy_tokens:
+    min_pass_rate: 1.0
+  suggests_pf6_replacement:
+    min_pass_rate: 1.0
+  includes_confidence:
+    min_pass_rate: 1.0
+  no_false_positives:
+    min_pass_rate: 1.0

@@ -1,0 +1,19 @@
+.app-dashboard {
+  background-color: var(--pf-t--global--background--color--primary--default);
+  color: var(--pf-t--global--text--color--regular);
+
+  &__sidebar {
+    background-color: var(--pf-t--global--background--color--secondary--default);
+    border-right: 1px solid var(--pf-t--global--border--color--default);
+  }
+
+  &__header {
+    color: var(--pf-t--global--text--color--brand--default);
+    padding: var(--pf-t--global--spacer--md);
+  }
+
+  &__alert {
+    background-color: var(--pf-t--global--background--color--danger--default);
+    color: var(--pf-t--global--text--color--on-danger--default);
+  }
+}

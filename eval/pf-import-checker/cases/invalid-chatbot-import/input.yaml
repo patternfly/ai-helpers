@@ -1,0 +1,2 @@
+prompt: "Audit the imports in this file for correct PF6 import paths."
+fixture: AssistantPanel.tsx

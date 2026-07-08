@@ -1,0 +1,2 @@
+expect_violations: false
+case_type: already-tokenized

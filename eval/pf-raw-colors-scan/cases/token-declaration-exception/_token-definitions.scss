@@ -1,0 +1,12 @@
+// Design token variable declarations — these define tokens, not consume raw colors
+$pf-color-blue-500: #0066cc;
+$pf-color-red-100: #c9190b;
+$pf-color-black-900: #151515;
+$pf-color-black-200: #f0f0f0;
+$pf-color-white: #ffffff;
+
+:root {
+  --custom-brand-primary: #{$pf-color-blue-500};
+  --custom-brand-danger: #{$pf-color-red-100};
+  --custom-text-primary: #{$pf-color-black-900};
+}

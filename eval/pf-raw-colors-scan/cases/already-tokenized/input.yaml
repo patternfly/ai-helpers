@@ -1,0 +1,2 @@
+prompt: "Audit this SCSS file for hardcoded color values that should use PatternFly design tokens."
+fixture: _dashboard.scss

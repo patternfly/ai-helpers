@@ -1,0 +1,25 @@
+.app-card {
+  background-color: #ffffff;
+  color: #151515;
+  border: 1px solid #d2d2d2;
+
+  &__header {
+    background-color: rgba(0, 102, 204, 0.1);
+    border-bottom: 1px solid #d2d2d2;
+  }
+
+  &__title {
+    color: #0066cc;
+    font-size: var(--pf-t--global--font--size--lg);
+  }
+
+  &__body {
+    padding: var(--pf-t--global--spacer--md);
+    color: #6a6e73;
+  }
+
+  &--danger {
+    border-color: #c9190b;
+    background-color: hsl(4, 90%, 58%, 0.05);
+  }
+}

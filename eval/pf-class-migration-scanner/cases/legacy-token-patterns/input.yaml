@@ -1,0 +1,2 @@
+prompt: "Check this SCSS file for deprecated PatternFly token patterns that need to migrate to semantic tokens."
+fixture: _legacy-overrides.scss

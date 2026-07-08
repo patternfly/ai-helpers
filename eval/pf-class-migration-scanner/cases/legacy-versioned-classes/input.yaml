@@ -1,0 +1,2 @@
+prompt: "Scan this React component for legacy PatternFly CSS classes that need to be migrated to PF6."
+fixture: LegacyNavbar.tsx

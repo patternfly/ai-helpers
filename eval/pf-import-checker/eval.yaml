@@ -1,0 +1,97 @@
+name: pf-import-checker-eval
+description: Evaluate pf-import-checker's detection of incorrect PF6 import paths
+
+skill: react:pf-import-checker
+
+execution:
+  mode: case
+  arguments: "{prompt}"
+
+runner:
+  type: claude-code
+
+models:
+  skill: claude-sonnet-4-6
+  judge: claude-sonnet-4-6
+
+permissions:
+  allow: []
+  deny:
+    - "mcp__*"
+
+dataset:
+  path: cases
+  schema: |
+    Each case directory contains:
+    - input.yaml: prompt field with a realistic user request
+    - annotations.yaml: expect_violations (true/false) and violation_type for conditional judges
+    - A .tsx fixture file the prompt references
+
+outputs:
+  - path: artifacts
+    schema: |
+      The skill produces a text report identifying incorrect import
+      paths and suggesting the correct PF6 subpath.
+
+traces:
+  stdout: true
+  stderr: true
+  events: true
+  metrics: true
+
+judges:
+  - name: flags_invalid_import
+    description: Identifies the incorrect import path in the fixture
+    if: "annotations.get('expect_violations') == True"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      invalid_path = annotations.get("invalid_import", "")
+      if not invalid_path:
+          return False, "Test case missing invalid_import annotation"
+      if invalid_path not in text:
+          return False, f"Did not flag the invalid import: {invalid_path}"
+      return True, f"Correctly flagged invalid import: {invalid_path}"
+
+  - name: suggests_correct_path
+    description: Recommends the correct PF6 import subpath
+    if: "annotations.get('expect_violations') == True"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      correct_path = annotations.get("correct_import", "")
+      if not correct_path:
+          return False, "Test case missing correct_import annotation"
+      if correct_path not in text:
+          return False, f"Did not suggest correct import path: {correct_path}"
+      return True, f"Correctly suggests: {correct_path}"
+
+  - name: no_false_positives
+    description: Does not flag valid PF6 imports as violations
+    if: "annotations.get('expect_violations') == False"
+    check: |
+      import re
+      text = outputs.get("conversation", "")
+      valid_imports = [
+          "@patternfly/react-charts/victory",
+          "@patternfly/chatbot/dist/dynamic",
+          "@patternfly/react-component-groups/dist/dynamic",
+          "@patternfly/react-core",
+      ]
+      for imp in valid_imports:
+          pattern = re.compile(
+              r'(incorrect|invalid|wrong|deprecated|violation|replace|fix).*'
+              + re.escape(imp),
+              re.IGNORECASE
+          )
+          if pattern.search(text):
+              return False, f"False positive — flagged valid import as violation: {imp}"
+      return True, "No false positives for valid PF6 imports"
+
+thresholds:
+  flags_invalid_import:
+    min_pass_rate: 1.0
+  suggests_correct_path:
+    min_pass_rate: 1.0
+  no_false_positives:
+    min_pass_rate: 1.0

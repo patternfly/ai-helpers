@@ -1,0 +1,16 @@
+.app-sidebar {
+  background-color: var(--pf-global--BackgroundColor--dark-300);
+  color: var(--pf-global--Color--light-100);
+  border-right: 1px solid var(--pf-global--BorderColor--100);
+}
+
+.app-header {
+  font-size: var(--pf-v6--global--FontSize--xl);
+  color: var(--pf-v6--global--Color--brand--default);
+  padding: var(--pf-v6--global--spacer--md);
+}
+
+.app-alert {
+  background-color: var(--pf-global--danger-color--100);
+  color: var(--pf-global--Color--light-100);
+}

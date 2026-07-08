@@ -1,0 +1,2 @@
+prompt: "Scan this component for any legacy PatternFly classes or deprecated token usage."
+fixture: ModernCard.tsx

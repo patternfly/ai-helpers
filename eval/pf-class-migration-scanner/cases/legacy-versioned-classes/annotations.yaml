@@ -1,0 +1,7 @@
+expect_violations: true
+violation_type: legacy-classes
+legacy_patterns:
+  - "pf-v5-c-button"
+  - "pf-v5-c-nav"
+  - "pf-c-page"
+  - "pf-u-mt-md"

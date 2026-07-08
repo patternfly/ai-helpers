@@ -1,0 +1,2 @@
+expect_violations: true
+case_type: raw-colors
