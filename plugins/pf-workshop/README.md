@@ -15,7 +15,7 @@ PatternFly team tools and skill incubation — issue triage, release management,
 - **Icon Finder** (`/pf-workshop:icon-finder`) — Find Red Hat Design System icons (@rhds/icons) by keyword or use case with visual previews.
 - **PF Analyze Modifiers** (`/pf-workshop:pf-analyze-modifiers`) — Analyze PatternFly modifier class (pf-m-*) usage across SCSS files and generate usage reports.
 - **PF Bug Triage** (`/pf-workshop:pf-bug-triage`) — Triage PatternFly bug reports — assess completeness, suggest fixes, identify affected components, and recommend assignees.
-- **PF Content Review** (`/pf-workshop:pf-content-review`) — Audit and rewrite content to match PatternFly and Red Hat voice and tone standards.
+- **PF Content Review** (`/pf-workshop:pf-content-review`) — Review content against PatternFly and Red Hat voice and tone standards.
 - **PF Create Issue** (`/pf-workshop:pf-create-issue`) — Create well-structured GitHub issues for PatternFly repositories with templates, follow-up tracking, and duplicate detection.
 - **PF Org Version Update** (`/pf-workshop:pf-org-version-update`) — Update patternfly-org for a new PatternFly release — resolve versions, update package.json and versions.json, and provide build steps.
 - **PF Tokens** (`/pf-workshop:pf-tokens`) — Build CSS design tokens for PatternFly core and copy them to the PatternFly repository.
