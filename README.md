@@ -17,11 +17,11 @@ Plugins work in both **Claude Code** and **Cursor**. The content is identical â€
 # Add the marketplace
 /plugin marketplace add patternfly/ai-helpers
 
-# Install the plugins you need
+# Install a plugin to get its skills and agents
 /plugin install react@ai-helpers
 ```
 
-After installation, the plugin's agents and skills are available in any project.
+After installation, the plugin's skills and agents are available in any project. Each plugin also configures the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) automatically.
 
 ### Cursor
 
@@ -44,9 +44,9 @@ Cursor can discover plugins from `.cursor-plugin/` directories. If you also have
 
 See [PLUGINS.md](PLUGINS.md) for skills, agents, and usage details.
 
-## PatternFly MCP Server (Recommended)
+## PatternFly MCP Server
 
-For the best experience, also install the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp) which gives AI tools access to component documentation, prop schemas, and design guidelines. Skills and agents work without it but provide enhanced results when it's available.
+Every plugin in this marketplace depends on the [PatternFly MCP server](https://github.com/patternfly/patternfly-mcp), which gives AI tools access to component documentation, prop schemas, and design guidelines. It is installed automatically when you install any plugin â€” no extra setup required.
 
 ## Architecture
 
