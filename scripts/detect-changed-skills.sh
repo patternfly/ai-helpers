@@ -49,12 +49,17 @@ declare -A SKILLS_SEEN
 while IFS= read -r file; do
   [[ -z "$file" ]] && continue
 
-  if [[ "$file" =~ ^plugins/[^/]+/skills/([^/]+)/ ]]; then
-    SKILLS_SEEN["${BASH_REMATCH[1]}"]=1
+  if [[ "$file" =~ ^plugins/([^/]+)/skills/([^/]+)/ ]]; then
+    plugin="${BASH_REMATCH[1]}"
+    skill="${BASH_REMATCH[2]}"
+    # Workshop plugins have no eval expectation — skip them
+    [[ "$plugin" != *-workshop ]] && SKILLS_SEEN["$skill"]=1
   fi
 
-  if [[ "$file" =~ ^eval/([^/]+)/ && ! "$file" =~ ^eval/runs/ ]]; then
-    SKILLS_SEEN["${BASH_REMATCH[1]}"]=1
+  if [[ "$file" =~ ^eval/([^/]+)/ ]]; then
+    eval_skill="${BASH_REMATCH[1]}"
+    # Exclude eval run artifacts
+    [[ ! "$file" =~ ^eval/runs/ ]] && SKILLS_SEEN["$eval_skill"]=1
   fi
 done <<< "$CHANGED_FILES"
 
