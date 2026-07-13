@@ -1,10 +1,8 @@
 ---
 name: pf-release-candidate-update
 description: >-
-  Update a project's PatternFly npm dependencies to the latest release candidate
-  versions, install, build, test, and fix failures. Use when upgrading to PF release
-  candidates, testing the next PatternFly release, or when the user asks to bump
-  @patternfly/* packages to release candidates.
+  Update @patternfly/* npm dependencies to the latest release candidate versions.
+  Use when testing the next PF release or bumping to RC packages.
 disable-model-invocation: true
 ---
 
@@ -12,11 +10,19 @@ disable-model-invocation: true
 
 Update a consumer project's `package.json` to the latest PatternFly release candidates on npm, install dependencies, verify the project builds and tests pass, and fix any failures introduced by the upgrade.
 
+## Requirements
+
+**Node.js** is required to run the bundled script (for JSON parsing and `package.json` updates).
+
+```bash
+command -v node >/dev/null 2>&1 || { echo "Error: This skill requires Node.js." >&2; exit 1; }
+```
+
 ## Prerequisites
 
 - Run from the **target project root** (the repo with `package.json`), not from `ai-helpers`.
 - Network access for `npm view` and package install.
-- The skill script lives at `plugins/migration/skills/pf-release-candidate-update/scripts/latest-release-candidates.sh` in ai-helpers. Copy it into the target project or invoke it by absolute path.
+- Invoke the skill script via `$CLAUDE_SKILL_DIR/scripts/latest-release-candidates.sh`.
 
 ## Workflow checklist
 
@@ -35,7 +41,7 @@ Update a consumer project's `package.json` to the latest PatternFly release cand
 Run the script to fetch the latest release candidate for each canonical PatternFly package:
 
 ```bash
-bash /path/to/ai-helpers/plugins/migration/skills/pf-release-candidate-update/scripts/latest-release-candidates.sh --json
+bash "$CLAUDE_SKILL_DIR/scripts/latest-release-candidates.sh" --json
 ```
 
 The script queries npm's `prerelease` dist-tag (PatternFly's release candidate channel), then falls back to the highest published candidate version (any version containing `-`). Packages covered:
@@ -64,7 +70,7 @@ For each `@patternfly/*` entry that appears in the canonical list above, set the
 **Automated update** (root `package.json` only):
 
 ```bash
-bash latest-release-candidates.sh --update package.json
+bash "$CLAUDE_SKILL_DIR/scripts/latest-release-candidates.sh" --update package.json
 ```
 
 For monorepos, run `--update` on each workspace `package.json` that contains PatternFly deps, or update them manually using the `--json` output.
@@ -113,10 +119,10 @@ When build or tests fail after the upgrade, fix the project code — do not pin 
 ### Diagnosis order
 
 1. **Read the error output** — note the first failing file and whether it is a type error, import error, or runtime/test failure.
-2. **Import paths** — load `pf-import-checker` and fix invalid `@patternfly/*` imports (charts, chatbot, component-groups dynamic paths, missing CSS).
+2. **Import paths** — scan for invalid `@patternfly/*` import paths (charts, chatbot, component-groups dynamic paths, missing CSS).
 3. **Deprecated APIs** — query the PatternFly MCP server for current component APIs and migration guidance.
-4. **CSS classes / tokens** — load `pf-class-migration-scanner` for legacy `pf-c-*`, `pf-v5-*`, or hardcoded values.
-5. **Component structure** — load `pf-component-structure` for layout and nesting issues exposed by stricter types or DOM changes.
+4. **CSS classes / tokens** — scan for legacy `pf-c-*`, `pf-v5-*`, or hardcoded values.
+5. **Component structure** — audit component nesting and layout for hierarchy violations exposed by stricter types or DOM changes.
 6. **Snapshot / visual tests** — update snapshots only when the visual change is intentional from the PF upgrade.
 
 ### Fix loop
@@ -147,7 +153,7 @@ Report to the user:
 
 | Symptom | Likely fix |
 |---------|------------|
-| `Module not found: @patternfly/...` | Wrong import path; see `pf-import-checker` |
+| `Module not found: @patternfly/...` | Wrong import path; scan for invalid `@patternfly/*` import paths |
 | Peer dependency warnings on install | Align all `@patternfly/*` packages to the same release candidate set |
 | Type errors on removed props | Check PatternFly MCP for replacement props/APIs |
 | CSS/layout regressions | Verify `base.css` and feature CSS imports; scan for legacy classes |
