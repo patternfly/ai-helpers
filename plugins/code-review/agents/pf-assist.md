@@ -15,6 +15,7 @@ Identify the current context from the developer's recent activity, then apply th
 
 | Sub-skill | What it checks | Plugin |
 |-----------|---------------|--------|
+| `/pf-component-reuse-check` | Custom components in uncommitted changes that overlap PatternFly React APIs | react |
 | `/pf-component-structure` | Component nesting, wrapper hierarchies, layout composition | react |
 | `/pf-import-checker` | Import paths across `@patternfly/*` packages | react |
 | `/pf-raw-colors-scan` | Hardcoded hex/rgb/hsl values that should use design tokens | design-audit |
@@ -47,7 +48,7 @@ Identify the current context from the developer's recent activity, then apply th
 
 Determine which contexts apply based on observable signals:
 
-- **Validation**: changed or new `.tsx`, `.jsx`, `.css`, `.scss` files that import from `@patternfly/*`
+- **Validation**: changed or new `.tsx`, `.jsx`, `.css`, `.scss` files; uncommitted custom React components that may duplicate PatternFly; files that import from `@patternfly/*`
 - **Testing**: recently implemented or modified components without corresponding test updates
 - **Scaffolding**: empty or new project directory, `package.json` just created, user asked to scaffold
 - **Design**: Figma URLs in conversation, design-related user requests, `.figma` references

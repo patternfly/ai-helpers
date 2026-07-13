@@ -99,7 +99,7 @@ PatternFly team tools and skill incubation — issue triage, release management,
 | `icon-finder` | Find Red Hat Design System icons (@rhds/icons) by keyword or use case with visual previews. |
 | `pf-analyze-modifiers` | Analyze PatternFly modifier class (pf-m-*) usage across SCSS files and generate usage reports. |
 | `pf-bug-triage` | Triage PatternFly bug reports — assess completeness, suggest fixes, identify affected components, and recommend assignees. |
-| `pf-content-review` | Audit and rewrite content to match PatternFly and Red Hat voice and tone standards. |
+| `pf-content-review` | Review content against PatternFly and Red Hat voice and tone standards. |
 | `pf-create-issue` | Create well-structured GitHub issues for PatternFly repositories with templates, follow-up tracking, and duplicate detection. |
 | `pf-org-version-update` | Update patternfly-org for a new PatternFly release — resolve versions, update package.json and versions.json, and provide build steps. |
 | `pf-tokens` | Build CSS design tokens for PatternFly core and copy them to the PatternFly repository. |
@@ -123,6 +123,7 @@ React component development — coding standards, testing, and structure
 
 | Skill | Description |
 |-------|-------------|
+| `pf-component-reuse-check` | Detects custom React components in newly created or modified (uncommitted) code that overlap with PatternFly React components, suggests the PatternFly equivalent, and can replace the custom component then build to verify. |
 | `pf-component-structure` | Audit PatternFly React component nesting, wrapper hierarchies, and layout structure. |
 | `pf-design-comments` | Integrate @patternfly/design-comments into React apps for on-page design feedback, pinned comment threads, GitHub Issues sync, and Jira linking. |
 | `pf-github-pages-deploy` | Deploy a PatternFly React project to GitHub Pages using pfcli deploy. |

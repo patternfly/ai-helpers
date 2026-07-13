@@ -70,7 +70,7 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 | **migration** | Upgrade PatternFly versions | Does this help me upgrade PF versions? | `pf-class-migration-scanner` |
 | **patternfly-mcp** | Connect AI tools to PatternFly documentation and component data |  |  |
 | **pf-workshop** | Team tools and skill incubation | Is this a team workflow tool, or a new skill that isn't ready for a consumer plugin yet? | `analytics-repo-pruning`, `css-var-analyzer`, `duplicate-epic` |
-| **react** | Develop and test React components | Does this help me write or test a React component? | `pf-component-structure`, `pf-design-comments`, `pf-github-pages-deploy` |
+| **react** | Develop and test React components | Does this help me write or test a React component? | `pf-component-reuse-check`, `pf-component-structure`, `pf-design-comments` |
 <!-- END PLUGIN TABLE -->
 
 **How to decide:**

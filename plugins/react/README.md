@@ -8,6 +8,7 @@ React component development — coding standards, testing, and structure.
 
 ### Skills
 
+- **PF Component Reuse Check** (`/react:pf-component-reuse-check`) — Detects custom React components in newly created or modified (uncommitted) code that overlap with PatternFly React components, suggests the PatternFly equivalent, and can replace the custom component then build to verify.
 - **PF Component Structure** (`/react:pf-component-structure`) — Audit PatternFly React component nesting, wrapper hierarchies, and layout structure.
 - **PF Design Comments** (`/react:pf-design-comments`) — Integrate @patternfly/design-comments into React apps for on-page design feedback, pinned comment threads, GitHub Issues sync, and Jira linking.
 - **PF Github Pages Deploy** (`/react:pf-github-pages-deploy`) — Deploy a PatternFly React project to GitHub Pages using pfcli deploy.
