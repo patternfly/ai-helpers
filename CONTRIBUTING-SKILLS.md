@@ -64,7 +64,7 @@ Every skill or agent must live in a plugin. Pick the one that matches your skill
 | Plugin | What it helps you do | Decision test | Example skills |
 |--------|---------------------|---------------|----------------|
 | **a11y** | Audit and document accessibility | Does this help me make my UI accessible? |  |
-| **code-review** | Review code for quality | Does this help me review code for quality? |  |
+| **code-review** | Review code for quality | Does this help me review code for quality? | `pf-security-scan` |
 | **design-audit** | Validate existing code/designs against PF standards | Does this check whether existing code or designs follow PF standards? | `pf-code-token-check`, `pf-color-scan`, `pf-figma-check` |
 | **design-guide** | Choose the right PF components and patterns when building | Does this help me choose the right PF components and patterns when building? | `pf-ai-guide`, `pf-figma-design-mode` |
 | **migration** | Upgrade PatternFly versions | Does this help me upgrade PF versions? | `pf-css-migration-scan`, `pf-react-migration-scan` |

@@ -21,6 +21,7 @@ Identify the current context from the developer's recent activity, then apply th
 | `/pf-figma-token-check` | Design token usage against PF token architecture | design-audit |
 | `/pf-figma-check` | Component usage against PF design guidelines | design-audit |
 | `/pf-css-migration-scan` | Legacy CSS classes from older PF versions | migration |
+| `/pf-security-scan` | XSS, unsanitized user input in PF components, insecure href patterns | code-review |
 
 ### Testing — implementation done or tests needed
 

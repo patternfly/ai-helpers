@@ -6,6 +6,10 @@ Code review and quality — adversarial review, security patterns.
 
 ## What's Included
 
+### Skills
+
+- **PF Security Scan** (`/code-review:pf-security-scan`) — Scan PatternFly React code for security anti-patterns — XSS via dangerouslySetInnerHTML, unsanitized user input in tooltips/labels, and insecure href patterns.
+
 ### Agents
 
 - **PF Assist** (`pf-assist`) — PatternFly development routing — maps code changes, test gaps, scaffolding needs, and design work to the right PF sub-skills.
