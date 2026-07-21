@@ -5,20 +5,28 @@ description: Apply Red Hat's AI design language to AI-powered features — chatb
 
 # Red Hat AI Experience Design Patterns
 
-This skill applies Red Hat's official design language for AI-enabled features (last updated February 2026). When building AI features, proactively apply these patterns to create transparent, polished, brand-compliant experiences.
+This skill applies Red Hat's official design language for AI-enabled features (last updated June 2026). When building AI features, proactively apply these patterns to create transparent, polished, brand-compliant experiences.
 
-**Authoritative source:** [https://staging.patternfly.org/ai/design-language](https://staging.patternfly.org/ai/design-language)
+**Authoritative source:** [https://github.com/project-felt/ai-guidelines](https://github.com/project-felt/ai-guidelines)
 
-**Supporting files in this skill:**
+**Supporting documentation:**
 
-- `guidelines/design-rules.md` — Detailed iconography, chatbot, color, and animation rules
-- `guidelines/reference-mapping.md` — Reference image lookup tables for review findings
-- `references/` — 21 extracted visual examples from key pages
-- `references/REFERENCE-INDEX.md` — Descriptions of each reference image
+The skill references content from the project-felt/ai-guidelines repository:
+- **Content files:** `content/*.md` — Detailed guidelines organized by topic
+- **Images:** `assets/images/` — Reference images showing correct and incorrect patterns
+- **Source:** `source/ai-guidelines.txt` and `source/ai-guidelines.pdf` — Original design deck
+
+**Key guideline files:**
+- `content/ai-design-principles.md` — Core principles
+- `content/transparency-notices.md` — Transparency requirements and disclosure patterns
+- `content/iconography.md` — AI sparkle icons, usage guidelines, dos/don'ts
+- `content/color.md` — Color usage and gradient restrictions
+- `content/chatbot-avatars.md` — Chatbot robot avatar and launch button patterns
+- `content/animation.md` — Animation guidelines
 
 ## Core Principles
 
-Every AI experience must follow these three principles:
+Every AI experience must follow these three principles (from `content/ai-design-principles.md`):
 
 1. **Be transparent** — Users want to know when they are interacting with AI. Make it clear using labels and visual cues.
 2. **Make it personable, but not human** — AI should be polite and follow Red Hat voice and tone, but shouldn't act as though the user is interacting with a human.
@@ -26,30 +34,109 @@ Every AI experience must follow these three principles:
 
 ## Transparency Requirements
 
-**Critical**: It should ALWAYS be clear when and how AI is being used.
+**Critical**: It should ALWAYS be clear when and how AI is being used (from `content/transparency-notices.md`).
 
 - **Don't rely on just one indicator.** Use at minimum one visual AND one verbal indicator.
   - Visual: Icons with AI sparkles, animations
   - Verbal: "with AI", "AI-assisted", "AI-generated" in labels or button text
 - **High-risk interactions**: Consider additional indicators (consult with AIA Reviewers)
 
-**For AI-assisted features** (search, generation, editing): Place a transparency notice at the beginning of the experience. Minimum text: *"This feature uses AI technology. Do not include any personal information or other sensitive information in your input."* Include persistent notice: *"Always review AI-generated content prior to use."* Reference the Red Hat Privacy Statement.
+**For AI-assisted features** (search, generation, editing): Place a transparency notice at the beginning of the experience. Minimum text: *"This feature uses AI technology. Do not include any personal information or other sensitive information in your input."* Include persistent notice: *"Always review AI-generated content prior to use."*
 
 **For virtual assistants/chatbots**: Show notice before user interacts and before any content is generated. Include an info icon (ℹ️) with persistent "Always review AI-generated content prior to use." Use AI icon + "AI" tag as visual and verbal indicators.
 
-**For AI-generated content**: Must include a label AND icon indicating content was created using AI (e.g., Sparkle icon + "AI-assisted results" heading).
+**For AI-generated content**: Must include a label AND icon indicating content was created using AI.
+
+**Reference images:**
+- `assets/images/transparency-components.png` — Transparency component patterns
+- `assets/images/info-inline-alert-ai-related-features.png` — Inline alert info variant
+- `assets/images/warning-inline-alert-ai-related-features.png` — Inline alert warning variant
+- `assets/images/info-modal-alert-ai-related-features.png` — Toast alert info variant
+- `assets/images/warning-modal-alert-ai-related-features.png` — Toast alert warning variant
+- `assets/images/virtual-assistant-ai-icon-label.png` — Virtual assistant AI indicators
 
 ## Iconography Summary
 
-Red Hat uses **9 official `rh-ui-icon-ai-*` icons** based on sparkles. Always pair icons with text ("...with AI", "...by AI"). Never create custom AI icons — request via #help-brand. See `guidelines/design-rules.md` for the full icon list and rules.
+Red Hat uses **9 official `rh-ui-icon-ai-*` icons** based on sparkles (from `content/iconography.md`). Always pair icons with text ("...with AI", "...by AI"). Never create custom AI icons — request via #help-brand.
+
+**Information icons:**
+- `rh-ui-icon-ai-info` — Information presented was generated by AI
+- `rh-ui-icon-ai-error` — Problem identified by/with AI
+- `rh-ui-icon-ai-experience` — Generic AI experience (use when others don't fit)
+
+**Action icons:**
+- `rh-ui-icon-ai-edit` — Edit something with help from AI
+- `rh-ui-icon-ai-troubleshoot` — Receive AI help/suggestions for troubleshooting
+- `rh-ui-icon-ai-filter` — Filter data with AI help
+- `rh-ui-icon-ai-search` — Search with AI help
+- `rh-ui-icon-ai-create` — Create something new with AI
+- `rh-ui-icon-ai-enhance` — Enhance something with AI
+
+**Sparkle design rules:**
+- Sparkles are square with slightly round ends
+- Position: upper left corner of each icon
+- Sparkle breaks into icon outline with minimum 2px clear space
+- Stroke ends are rounded
+
+**Icon SVGs available in repository:**
+All 9 official AI icons are available as SVG files in `assets/images/rh-ui-icon-ai-*.svg`
+
+**Reference images:**
+- `assets/images/ui-icons-ai-foundation.svg` — How sparkles are added to base icons
+- `assets/images/sparkles-square-with-round-ends.svg` — Sparkle design details
+- `assets/images/added-sparkle-sits-in-upper-left-corner.svg` — Sparkle positioning
+- `assets/images/sparkle-breaks-outline-icon.svg` — 2px clearspace rule
+- `assets/images/icons-in-use-buttons-labels-tags.png` — Icons used in UI components
+- `assets/images/do-not-create-new-icons-with-sparkle.png` — Don't create custom icons
+- `assets/images/do-not-use-icons-with-sparkle-without-ai-disclosure.png` — Must include disclosure
+- `assets/images/do-not-add-sparkle-to-tech-icon.png` — Don't add sparkles to tech icons
+- `assets/images/do-not-use-ai-sparkle-icon-for-new.png` — Don't use for "new" indicators
 
 ## Chatbot Summary
 
-All chatbots must use **Red Hat's robot icon** as their avatar. Use PatternFly non-status color tokens for avatar colors. No gradients on launch buttons or chat message boxes. See `guidelines/design-rules.md` for full chatbot and chat message rules.
+All chatbots must use **Red Hat's robot icon** as their avatar (from `content/chatbot-avatars.md`). Use PatternFly non-status color tokens for avatar colors. No gradients on launch buttons or chat message boxes.
+
+**Avatar guidelines:**
+- Robot icon creates cohesive experience across Red Hat chatbots
+- Signals advanced AI capabilities (validated by user research)
+- Use PatternFly color tokens for avatar variations
+- Don't use robot variations to indicate state changes
+- Don't use other robot images or emoji as chatbot avatars
+- Don't use robot icons for non-AI experiences or to represent humans
+
+**Reference images:**
+- `assets/images/chatbot-avatar-robot.png` — Robot icon standard
+- `assets/images/patternfly-chatbot-ui-with-avatars.png` — PatternFly chatbot UI
+- `assets/images/avatar-color-variants-light-theme.png` — Light theme color variants
+- `assets/images/avatar-color-variants-dark-theme.png` — Dark theme color variants
+- `assets/images/chatbot-launch-buttons.png` — Launch button patterns
+- `assets/images/chatbot-launch-button-variants.png` — Launch button variants
+- `assets/images/do-not-use-other-robot-images-as-chatbot-avatars.png` — Don't use other robots
+- `assets/images/do-not-use-robot-variations-for-state-changes.png` — Don't vary by state
+- `assets/images/do-not-use-robot-icons-for-humans.png` — Don't use for human users
+- `assets/images/chatbot-donts-gradients.png` — Don't use gradients on chat UI
 
 ## Color & Animation Summary
 
-Don't use color coding or gradients to indicate AI. AI features use the same colors as other interface elements. Use premade sparkle animations only — triggered on hover/click, loop once. See `guidelines/design-rules.md` for full color table and animation rules.
+Don't use color coding or gradients to indicate AI (from `content/color.md` and `content/animation.md`). AI features use the same colors as other interface elements. Use premade sparkle animations only — triggered on hover/click, loop once.
+
+**Color guidelines:**
+- Use same colors for AI as rest of UI
+- Don't use gradients on AI labels/badges
+- Don't use gradients on chat buttons/launchers
+- Don't use gradients on chat message/composer boxes
+- Don't use gradients to indicate AI "thinking" or progress
+- Don't color-code AI or vary styling from rest of UI
+- Don't change colors based on chatbot emotion/state
+
+**Reference images:**
+- `assets/images/do-use-same-colors-for-ai-as-rest-of-ui.png` — Correct color usage
+- `assets/images/do-use-same-colors-for-ai-as-rest-of-ui-1.png` — More examples
+- `assets/images/do-not-use-gradients-for-ai.png` — Don't use gradients
+- `assets/images/do-not-color-code-ai-or-vary-from-rest-of-ui.png` — Don't vary styling
+- `assets/images/do-not-change-styling-or-use-gradients.png` — Don't change styling
+- `assets/images/do-not-change-color-based-on-emotion.png` — Don't use emotion colors
+- `assets/images/chat-message-dont-gradients.png` — Don't use gradients in chat
 
 ## Review Workflow
 
@@ -82,11 +169,11 @@ If any of the above uses gradient color, mark as ❌ failed.
 
 ### Step 3: Select reference images for failed items
 
-Read `guidelines/reference-mapping.md` to find the correct reference image for each failed check.
+Reference the appropriate image from `assets/images/` for each failed check. Use "do-not-*" images to show what NOT to do and corresponding "do-*" images to show correct patterns.
 
 ### Step 4: Summarize findings
 
-Present a results table, then show the reference image for each ❌ item with a brief explanation of what needs to change.
+Present a results table, then reference the correct image path for each ❌ item with a brief explanation of what needs to change.
 
 **Results table format:**
 
@@ -95,7 +182,8 @@ Present a results table, then show the reference image for each ❌ item with a 
 | [Check item] | ✅ Compliant      |
 | [Check item] | ❌ Missing/Failed |
 
-**For each ❌ item**, show the reference image and explain what needs to change. Always show reference images for failed items so users can visually compare the correct pattern against their current implementation.
+**For each ❌ item**, reference the image path from the repository and explain what needs to change. The images are available at:
+`https://github.com/project-felt/ai-guidelines/blob/main/assets/images/[filename]`
 
 ---
 
@@ -131,7 +219,8 @@ Present a results table, then show the reference image for each ❌ item with a 
 
 ## Additional Resources
 
-- **PatternFly AI Design Language** (authoritative source): [https://staging.patternfly.org/ai/design-language](https://staging.patternfly.org/ai/design-language)
+- **Project Felt AI Guidelines Repository**: [https://github.com/project-felt/ai-guidelines](https://github.com/project-felt/ai-guidelines)
+- PatternFly AI Design Language (staging): [https://staging.patternfly.org/ai/design-language](https://staging.patternfly.org/ai/design-language)
 - PatternFly ChatBot Extension: [https://staging.patternfly.org/extensions/chatbot/overview/design-guidelines](https://staging.patternfly.org/extensions/chatbot/overview/design-guidelines)
 - PatternFly Colors: [https://staging.patternfly.org/foundations-and-styles/color](https://staging.patternfly.org/foundations-and-styles/color)
 - Red Hat Design System: [https://ux.redhat.com/](https://ux.redhat.com/)
@@ -139,7 +228,7 @@ Present a results table, then show the reference image for each ❌ item with a 
 - `@patternfly/react-icons` package: [https://www.npmjs.com/package/@patternfly/react-icons](https://www.npmjs.com/package/@patternfly/react-icons)
 - Request new icons or animations: #help-brand on Slack
 
-> Guidelines updated February 2026. This skill does not replace AI Assessment, Privacy Impact Assessment, or other required reviews.
+> Guidelines updated June 2026. This skill does not replace AI Assessment, Privacy Impact Assessment, or other required reviews.
 
 ---
 
